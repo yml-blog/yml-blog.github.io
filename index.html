@@ -62,7 +62,7 @@
         }
         .blog-section-title {
             text-align: left;
-            color: #5d630b;
+            color: #f1780e;
             font-weight: bold;
             margin-bottom: 20px;
         }
@@ -88,12 +88,12 @@
             <div class="left-col-block blocks">
                 <header class="header">
                     <div class="content text-center">
-                        <h1>Hi, I'm Yangming Li!</h1>
+                        <h1>Welcome to Yangming Li's Hub of Knowledge</h1>
                         <p class="lead">
-                            <strong class="big-text">I am a Data & Product Enthusiast.<br>
-                            I am interested in AI/ML & product design & information visualization.<br>
-                            I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong> under the supervision of <a href="https://www.uvic.ca/science/math-statistics/people/home/faculty/cowen_laura.php/">Dr. Laura Cowen</a>.
-                            <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
+                            <strong class="big-text">Yangming Li is a Data & Product Enthusiast.<br>
+                            He is interested in AI/ML & product design & information visualization.<br>
+                            He got his Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong> under the supervision of <a href="https://www.uvic.ca/science/math-statistics/people/home/faculty/cowen_laura.php/">Dr. Laura Cowen</a>.
+                            <strong>He got his Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
                         </p>
                     </div>
                     <div class="profile-img"></div>
@@ -116,7 +116,7 @@
                             <div class="row" style="padding: 0; margin: 0;">
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
                                     <div class="section-title" style="padding: 0; margin: 0;">
-                                        <h1 style="padding: 0; margin: 0;">Profile</h1>
+                                        <h2 style="padding: 0; margin: 0;">Profile</h2>
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
@@ -135,7 +135,7 @@
                             <div class="row" style="padding: 0; margin: 0;">
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
                                     <div class="section-title" style="padding: 0; margin: 0;">
-                                        <h1 style="padding: 0; margin: 0;">Skills</h1>
+                                        <h2 style="padding: 0; margin: 0;">Skills</h2>
                                     </div>
                                 </div>
                             </div>
@@ -182,10 +182,6 @@
                                             <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
                                             <p>Introduction to trustworthy machine learning.</p>
                                         </li>
-                                        <li>
-                                            <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
-                                            <p>Introduction to trustworthy machine learning.</p>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -211,6 +207,14 @@
                 link.type = 'text/css';
                 link.href = 'css/blog_tab.css'; // Load the new CSS file
                 document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the Personal Achievements tab content
+                $('#achievements').removeClass('show active');
+            });
+
+            $('#myTab a[href="#achievements"]').on('shown.bs.tab', function () {
+                // Hide the Blog tab content
+                $('#blog').removeClass('show active');
             });
         });
     </script>

@@ -18,8 +18,8 @@
 
 /* Adjust the text alignment and font styles to match the personal achievements section */
 .blog-section-title h2 {
-    text-align: left;
-    color: #31521c;
+    text-align: center;
+    color: #d05d06;
     font-weight: bold;
     margin-bottom: 20px;
 }
