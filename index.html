@@ -14,6 +14,7 @@
         body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
         }
         body, td, th {
             font-family: Hind, sans-serif;
@@ -29,13 +30,61 @@
             font-weight: bold;
         }
         .tab-pane {
-            padding: 20px;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .section-wrapper {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .section-title {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .container-fluid {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .row {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .col-md-12 {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        h2, h3, p {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .header .content h1, .header .content p {
+            text-align: center;
+        }
+        .blog-section-title {
+            text-align: left;
+            color: #5d630b;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .blog-section-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .blog-section-content ul li {
+            margin-bottom: 20px;
+        }
+        .blog-section-content h3 a {
+            color: #FF8040;
+            font-weight: bold;
+        }
+        .blog-section-content p {
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar">
-    <div id="main-wrapper">
-        <div class="columns-block">
+    <div id="main-wrapper" style="padding: 0; margin: 0;">
+        <div class="columns-block" style="padding: 0; margin: 0;">
             <div class="left-col-block blocks">
                 <header class="header">
                     <div class="content text-center">
@@ -51,8 +100,8 @@
                 </header>
             </div>
         </div>
-        <div class="right-col-block blocks">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <div class="right-col-block blocks" style="padding: 0; margin: 0;">
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="padding: 0; margin: 0;">
                 <li class="nav-item">
                     <a class="nav-link active" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab" aria-controls="achievements" aria-selected="true">Personal Achievements</a>
                 </li>
@@ -60,79 +109,84 @@
                     <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
                 </li>
             </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
-                    <section class="intro section-wrapper">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="section-title">
-                                        <h2>Profile</h2>
+            <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
+                <div class="tab-pane fade show active" id="achievements" role="tabpanel" aria-labelledby="achievements-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title" style="padding: 0; margin: 0;">
+                                        <h1 style="padding: 0; margin: 0;">Profile</h1>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <p>Personal achievements.</p>
-                                    <ul>
-                                        <li>Machine Learning: Description and details...</li>
-                                        <li>Data Science: Description and details...</li>
-                                        <li>AI/ML Projects: Description and details...</li>
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <p style="padding: 0; margin: 0;">Personal achievements.</p>
+                                    <ul style="padding: 0; margin: 0;">
+                                        <li style="padding: 0; margin: 0;">Machine Learning: Description and details...</li>
+                                        <li style="padding: 0; margin: 0;">Data Science: Description and details...</li>
+                                        <li style="padding: 0; margin: 0;">AI/ML Projects: Description and details...</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <section class="expertise-wrapper section-wrapper gray-bg">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="section-title">
-                                        <h2>Skills</h2>
+                    <section class="expertise-wrapper section-wrapper gray-bg" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title" style="padding: 0; margin: 0;">
+                                        <h1 style="padding: 0; margin: 0;">Skills</h1>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="expertise-item">
-                                        <h3>Programming Skills</h3>
-                                        <p>Python, R, MySQL, Bash, Julia, CSS, Javascript</p>
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-6" style="padding: 0; margin: 0;">
+                                    <div class="expertise-item" style="padding: 0; margin: 0;">
+                                        <h3 style="padding: 0; margin: 0;">Programming Skills</h3>
+                                        <p style="padding: 0; margin: 0;">Python, R, MySQL, Bash, Julia, CSS, Javascript</p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="expertise-item">
-                                        <h3>Experienced Packages</h3>
+                                <div class="col-md-6" style="padding: 0; margin: 0;">
+                                    <div class="expertise-item" style="padding: 0; margin: 0;">
+                                        <h3 style="padding: 0; margin: 0;">Experienced Packages</h3>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="expertise-item">
-                                        <h3>Qualifications</h3>
-                                        <p><a href="https://www.cfainstitute.org">CFA Ⅰ</a>, <a href="https://www.garp.org/#!/frm">FRM Ⅰ</a>, <a href="https://www.prmia.org">PRMIA Accreditation</a></p>
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-6" style="padding: 0; margin: 0;">
+                                    <div class="expertise-item" style="padding: 0; margin: 0;">
+                                        <h3 style="padding: 0; margin: 0;">Qualifications</h3>
+                                        <p style="padding: 0; margin: 0;"><a href="https://www.cfainstitute.org">CFA Ⅰ</a>, <a href="https://www.garp.org/#!/frm">FRM Ⅰ</a>, <a href="https://www.prmia.org">PRMIA Accreditation</a></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
                 </div>
-                <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">
-                   
-                    <section class="intro section-wrapper">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="section-title">
-                                        <h2>Blog</h2>
+                <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's AI/ML Blog</h1>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="blog-post">
-                                        <h3><a href="blog-post-1.html">Welcome to My Blog!</a></h3>
-                                        <p>Welcome to my blog! This is where I will share my thoughts, insights, and experiences on various topics including data science, machine learning, and product design. Stay tuned for upcoming posts!</p>
-                                    </div>
-                                    <div class="blog-post">
-                                        <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
-                                        <p>Introduction to trustworthy machine learning.</p>
-                                    </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="blog-post-1.html">Welcome to My Blog!</a></h3>
+                                            <p>Welcome to my blog! This is where I will share my thoughts, insights, and experiences on various topics including data science, machine learning, and product design. Stay tuned for upcoming posts!</p>
+                                        </li>
+                                        <li>
+                                            <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
+                                            <p>Introduction to trustworthy machine learning.</p>
+                                        </li>
+                                        <li>
+                                            <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
+                                            <p>Introduction to trustworthy machine learning.</p>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -149,6 +203,15 @@
     <script>
         $(document).ready(function () {
             $('#myTab a[href="#achievements"]').tab('show'); // Show the Personal Achievements tab by default
+            
+            $('#myTab a[href="#blog"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the blog tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+            });
         });
     </script>
     <script src="js/scripts.js"></script>
