@@ -11,11 +11,12 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
         body, td, th {
             font-family: Hind, sans-serif;
-        }
-        body {
-            margin-left: 0px;
         }
         #page-top #main-wrapper .columns-block .left-col-block.blocks .header .content.text-center .lead a {
             color: #FF8040;
@@ -27,146 +28,129 @@
             font-size: 24px;
             font-weight: bold;
         }
+        .tab-pane {
+            padding: 20px;
+        }
     </style>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
-<body leftmargin="20" id="page-top" data-spy="scroll" data-target=".navbar">
-<div id="main-wrapper">
-<!-- Page Preloader -->
-<div id="preloader">
-    <div id="status">
-        <div class="status-mes"></div>
-    </div>
-</div>
-
-<div class="columns-block">
-    <div class="left-col-block blocks">
-        <header class="header">
-            <div class="content text-center">
-                <h1>Hi, I'm Yangming Li!</h1>
-                <p class="lead">
-                    <strong class="big-text">I am a Data & Product Enthusiast.<br>
-                    I am interested in AI/ML & product design & information visualization.<br>
-                    I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong> under the supervision of <a href="https://www.uvic.ca/science/math-statistics/people/home/faculty/cowen_laura.php/">Dr. Laura Cowen</a>.
-                    <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
-                </p>
+<body id="page-top" data-spy="scroll" data-target=".navbar">
+    <div id="main-wrapper">
+        <div class="columns-block">
+            <div class="left-col-block blocks">
+                <header class="header">
+                    <div class="content text-center">
+                        <h1>Hi, I'm Yangming Li!</h1>
+                        <p class="lead">
+                            <strong class="big-text">I am a Data & Product Enthusiast.<br>
+                            I am interested in AI/ML & product design & information visualization.<br>
+                            I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong> under the supervision of <a href="https://www.uvic.ca/science/math-statistics/people/home/faculty/cowen_laura.php/">Dr. Laura Cowen</a>.
+                            <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
+                        </p>
+                    </div>
+                    <div class="profile-img"></div>
+                </header>
             </div>
-            <div class="profile-img"></div>
-        </header>
-        <!-- .header-->
-    </div>
-</div>
-
-<div class="right-col-block blocks">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab" aria-controls="achievements" aria-selected="true">Personal Achievements</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
-            <section class="intro section-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-title">
-                                <h2>Profile</h2>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <p>Personal achievements.</p>
-                            <ul>
-                                <li>Machine Learning: Description and details...</li>
-                                <li>Data Science: Description and details...</li>
-                                <li>AI/ML Projects: Description and details...</li>
-                                <!-- Add more items as needed -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="expertise-wrapper section-wrapper gray-bg">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-title">
-                                <h2>Skills</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .row -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="expertise-item">
-                                <h3>Programming Skills</h3>
-                                <p>Python, R, MySQL, Bash, Julia, CSS, Javascript</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="expertise-item">
-                                <h3>Experienced Packages</h></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .row -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="expertise-item">
-                                <h3>Qualifications</h3>
-                                <p><a href="https://www.cfainstitute.org">CFA Ⅰ</a>, <a href="https://www.garp.org/#!/frm">FRM Ⅰ</a>, <a href="https://www.prmia.org">PRMIA Accreditation</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- .row -->
-                </div>
-                <!--.container-fluid-->
-            </section>
-            <!-- .expertise-wrapper -->
         </div>
-        <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">
-            <section class="intro section-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="section-title">
-                                <h2>Blog</h2>
+        <div class="right-col-block blocks">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab" aria-controls="achievements" aria-selected="true">Personal Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="achievements" role="tabpanel" aria-labelledby="achievements-tab">
+                    <section class="intro section-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="section-title">
+                                        <h2>Profile</h2>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>Personal achievements.</p>
+                                    <ul>
+                                        <li>Machine Learning: Description and details...</li>
+                                        <li>Data Science: Description and details...</li>
+                                        <li>AI/ML Projects: Description and details...</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="blog-post">
-                                <h3><a href="blog-post-1.html">Welcome to My Blog!</a></h3>
-                                <p>Welcome to my blog! This is where I will share my thoughts, insights, and experiences on various topics including data science, machine learning, and product design. Stay tuned for upcoming posts!</p>
+                    </section>
+                    <section class="expertise-wrapper section-wrapper gray-bg">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="section-title">
+                                        <h2>Skills</h2>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="blog-post">
-                                <h3><a href="trust-worth-machine-learning-1.html">introduction to the trust worth machine learning</a></h3>
-                                <p>introduction to the trust worth machine learning</p>
-                           
-                            <!-- Add more blog posts as needed -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="expertise-item">
+                                        <h3>Programming Skills</h3>
+                                        <p>Python, R, MySQL, Bash, Julia, CSS, Javascript</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="expertise-item">
+                                        <h3>Experienced Packages</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="expertise-item">
+                                        <h3>Qualifications</h3>
+                                        <p><a href="https://www.cfainstitute.org">CFA Ⅰ</a>, <a href="https://www.garp.org/#!/frm">FRM Ⅰ</a>, <a href="https://www.prmia.org">PRMIA Accreditation</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            </section>
+                <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab">
+                   
+                    <section class="intro section-wrapper">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="section-title">
+                                        <h2>Blog</h2>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="blog-post">
+                                        <h3><a href="blog-post-1.html">Welcome to My Blog!</a></h3>
+                                        <p>Welcome to my blog! This is where I will share my thoughts, insights, and experiences on various topics including data science, machine learning, and product design. Stay tuned for upcoming posts!</p>
+                                    </div>
+                                    <div class="blog-post">
+                                        <h3><a href="trust-worth-machine-learning-1.html">Introduction to Trustworthy Machine Learning</a></h3>
+                                        <p>Introduction to trustworthy machine learning.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- jquery -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#myTab a[href="#achievements"]').tab('show'); // Show the Personal Achievements tab by default
-    });
-</script>
-<script src="js/scripts.js"></script>
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTab a[href="#achievements"]').tab('show'); // Show the Personal Achievements tab by default
+        });
+    </script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>
