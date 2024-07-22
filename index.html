@@ -106,7 +106,13 @@
                     <a class="nav-link active" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab" aria-controls="achievements" aria-selected="true">Personal Achievements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="blog-tab" data-toggle="tab" href="#blog" role="tab" aria-controls="blog" aria-selected="false">Blog</a>
+                    <a class="nav-link" id="aiml-blog-tab" data-toggle="tab" href="#aiml-blog" role="tab" aria-controls="aiml-blog" aria-selected="false">AI/ML Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="product-blog-tab" data-toggle="tab" href="#product-blog" role="tab" aria-controls="product-blog" aria-selected="false">Product Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="engineering-bi-blog-tab" data-toggle="tab" href="#engineering-bi-blog" role="tab" aria-controls="engineering-bi-blog" aria-selected="false">Engineering and Business Intelligence Blog</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
@@ -163,7 +169,7 @@
                         </div>
                     </section>
                 </div>
-                <div class="tab-pane fade" id="blog" role="tabpanel" aria-labelledby="blog-tab" style="padding: 0; margin: 0;">
+                <div class="tab-pane fade" id="aiml-blog" role="tabpanel" aria-labelledby="aiml-blog-tab" style="padding: 0; margin: 0;">
                     <section class="intro section-wrapper" style="padding: 0; margin: 0;">
                         <div class="container-fluid" style="padding: 0; margin: 0;">
                             <div class="row" style="padding: 0; margin: 0;">
@@ -188,6 +194,60 @@
                         </div>
                     </section>
                 </div>
+                <div class="tab-pane fade" id="product-blog" role="tabpanel" aria-labelledby="product-blog-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Product Blog</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="product-blog-post-1.html">First Product Blog Post</a></h3>
+                                            <p>Welcome to the Product Blog! Here, I will share my experiences and insights on product design, management, and more.</p>
+                                        </li>
+                                        <li>
+                                            <h3><a href="product-design-principles.html">Key Principles of Product Design</a></h3>
+                                            <p>An overview of essential principles in product design and how to apply them effectively.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="engineering-bi-blog" role="tabpanel" aria-labelledby="engineering-bi-blog-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Engineering and Business Intelligence Blog</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="engineering-bi-blog-post-1.html">First Engineering and BI Blog Post</a></h3>
+                                            <p>Welcome to the Engineering and Business Intelligence Blog! This is where I will share my knowledge and experiences in software engineering, data engineering, business intelligence, and big data technologies.</p>
+                                        </li>
+                                        <li>
+                                            <h3><a href="software-design-patterns.html">Understanding Software Design Patterns</a></h3>
+                                            <p>An introduction to common software design patterns and their applications in real-world projects.</p>
+                                        </li>
+                                        <li>
+                                            <h3><a href="data-pipelines.html">Building Efficient Data Pipelines</a></h3>
+                                            <p>Insights and best practices for building efficient and scalable data pipelines.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -200,7 +260,31 @@
         $(document).ready(function () {
             $('#myTab a[href="#achievements"]').tab('show'); // Show the Personal Achievements tab by default
             
-            $('#myTab a[href="#blog"]').on('shown.bs.tab', function () {
+            $('#myTab a[href="#aiml-blog"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the blog tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the Personal Achievements tab content
+                $('#achievements').removeClass('show active');
+            });
+
+            $('#myTab a[href="#product-blog"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the blog tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the Personal Achievements tab content
+                $('#achievements').removeClass('show active');
+            });
+
+            $('#myTab a[href="#engineering-bi-blog"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the blog tab is shown
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
@@ -214,7 +298,7 @@
 
             $('#myTab a[href="#achievements"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
-                $('#blog').removeClass('show active');
+                $('#aiml-blog, #product-blog, #engineering-bi-blog').removeClass('show active');
             });
         });
     </script>
