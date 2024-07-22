@@ -1,0 +1,59 @@
+/* blog_tab.css */
+
+/* Ensure no margin or padding at the top of the blog section */
+.tab-pane {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.blog-section-title {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.blog-section-content {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Adjust the text alignment and font styles to match the personal achievements section */
+.blog-section-title h2 {
+    text-align: left;
+    color: #31521c;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.blog-section-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.blog-section-content ul li {
+    margin-bottom: 20px;
+}
+
+.blog-section-content h3 a {
+    color: #FF8040;
+    font-weight: bold;
+}
+
+.blog-section-content p {
+    font-size: 1.2em;
+}
+
+/* Ensure the entire blog section is aligned properly */
+.container-fluid {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.row {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.col-md-12 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
