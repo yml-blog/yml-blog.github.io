@@ -15,46 +15,37 @@
     <div class="container">
         <header class="header">
             <div class="content text-center">
-                <h1>Introduction to Trustworthy Machine Learning</h1>
+                <h1>Introduction to Ray</h1>
                 <p class="lead">By Yangming Li</p>
             </div>
         </header>
         
         <main>
             <section class="intro">
-                <h2>Introduction</h2>
-                <p>Machine learning (ML) has become a pivotal technology in various industries, driving innovation and efficiency. However, the trustworthiness of ML models is critical to their adoption and long-term success. In this article, we will explore the key aspects that make machine learning models trustworthy.</p>
+                <h2>What is Ray?</h2>
+                <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
+                <img src="img/ray.png" alt="Ray Logo" style="max-width:100%; height:auto;"> <!-- Added image -->
             </section>
             
             <section class="key-points">
-                <h2>Key Aspects of Trustworthy Machine Learning</h2>
-                <h3>1. Transparency</h3>
-                <p>Transparency in machine learning involves making the decision-making process of models understandable to users. This includes clear documentation and the use of interpretable models.</p>
+                <h2>Key Features of Ray</h2>
+                <h3>Data Preprocessing (Data Module):</h3>
+                <p>Ray helps you manage and preprocess large datasets efficiently. By breaking down the data processing tasks into smaller, parallel tasks, it speeds up the data preparation stage, which is crucial for machine learning.</p>
                 
-                <h3>2. Fairness</h3>
-                <p>Fairness ensures that ML models do not exhibit biases against any group. Techniques such as bias mitigation and fairness-aware algorithms help achieve this goal.</p>
+                <h3>Distributed Training (Train Module):</h3>
+                <p>Training machine learning models can be time-consuming, especially with large datasets. Ray's Train module allows you to distribute the training process across multiple machines, significantly reducing the time it takes to train a model.</p>
                 
-                <h3>3. Privacy</h3>
-                <p>Protecting the privacy of individuals is paramount in ML. This involves implementing techniques like differential privacy to ensure that personal data is not compromised.</p>
+                <h3>Hyperparameter Tuning (Tune Module):</h3>
+                <p>Finding the best hyperparameters for your ML model is essential for optimal performance. Ray's Tune module automates this process, running multiple experiments in parallel to find the best combination of hyperparameters efficiently.</p>
                 
-                <h3>4. Robustness</h3>
-                <p>Robustness refers to the resilience of ML models against adversarial attacks and data variability. Building robust models involves thorough testing and validation under various conditions.</p>
+                <h3>Model Serving (Serve Module):</h3>
+                <p>Once your model is trained, you need to deploy it so that it can be used to make predictions in real time. Ray's Serve module provides a scalable and efficient way to serve your models, handling large numbers of requests without compromising performance.</p>
                 
-                <h3>5. Accountability</h3>
-                <p>Accountability in ML means that the outcomes and impacts of models can be traced back to their sources. This requires proper version control and monitoring of models in production.</p>
+                <h3>Reinforcement Learning (RLib Module):</h3>
+                <p>Ray also supports reinforcement learning (RL), a type of machine learning where an agent learns to make decisions by interacting with its environment. The RLib module offers tools and libraries to develop and train RL algorithms in parallel, speeding up the learning process.</p>
             </section>
             
-            <section class="examples">
-                <h2>Examples of Trustworthy Machine Learning</h2>
-                <p>Many organizations are implementing trustworthy ML practices. For instance, tech companies are increasingly using explainable AI to provide insights into their models' decisions, while financial institutions employ fairness-aware algorithms to ensure unbiased credit scoring.</p>
-            </section>
             
-            <section class="conclusion">
-                <h2>Conclusion</h2>
-                <p>Trustworthy machine learning is essential for the widespread adoption and success of ML technologies. By focusing on transparency, fairness, privacy, robustness, and accountability, we can build models that are not only effective but also ethical and reliable.</p>
-            </section>
-        </main>
-        
         <footer class="footer text-center">
             <p>&copy; 2024 Yangming Li. All rights reserved.</p>
         </footer>
