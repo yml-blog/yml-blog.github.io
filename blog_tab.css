@@ -19,7 +19,7 @@
 /* Adjust the text alignment and font styles to match the personal achievements section */
 .blog-section-title h2 {
     text-align: center;
-    color: #d05d06;
+    color: #63605d;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -39,7 +39,17 @@
 }
 
 .blog-section-content p {
-    font-size: 1.2em;
+    font-size: 0.2em;
+}
+
+/* Styling for h4 elements */
+.blog-section-content h4 {
+    text-align: left;
+    color: #060dd0;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 44.5em;
 }
 
 /* Ensure the entire blog section is aligned properly */
