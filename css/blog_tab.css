@@ -1,0 +1,66 @@
+#achievements .section-content {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+#blog .section-content {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.tab-pane {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.blog-section-title {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.blog-section-content {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.blog-section-title h1 {
+    text-align: middle;
+    color: #aba9a9;
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.blog-section-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.blog-section-content ul li {
+    margin-bottom: 20px;
+}
+
+.blog-section-content h3 a {
+    color: #3754c6;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.blog-section-content p {
+    font-size: 15px;
+}
+
+.container-fluid {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.row {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.col-md-12 {
+    padding: 0 !important;
+    margin: 0 !important;
+}
