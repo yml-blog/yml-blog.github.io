@@ -131,7 +131,7 @@
         <div class="right-col-block blocks" style="padding: 0; margin: 0;">
             <ul class="nav nav-tabs" id="myTab" role="tablist" style="padding: 0; margin: 0;">
                 <li class="nav-item">
-                    <a class="nav-link active" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab" aria-controls="achievements" aria-selected="true">Personal Achievements</a>
+                    <a class="nav-link active" id="about-me-tab" data-toggle="tab" href="#about-me" role="tab" aria-controls="about-me" aria-selected="true">About me</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="aiml-blog-tab" data-toggle="tab" href="#aiml-blog" role="tab" aria-controls="aiml-blog" aria-selected="false">AI/ML Blog</a>
@@ -142,15 +142,18 @@
                 <li class="nav-item">
                     <a class="nav-link" id="engineering-bi-blog-tab" data-toggle="tab" href="#engineering-bi-blog" role="tab" aria-controls="engineering-bi-blog" aria-selected="false">Engineering and Business Intelligence Blog</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="thoughts-tab" data-toggle="tab" href="#thoughts" role="tab" aria-controls="thoughts" aria-selected="false">Thoughts</a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
-                <div class="tab-pane fade show active" id="achievements" role="tabpanel" aria-labelledby="achievements-tab" style="padding: 0; margin: 0;">
+                <div class="tab-pane fade show active" id="about-me" role="tabpanel" aria-labelledby="about-me-tab" style="padding: 0; margin: 0;">
                     <section class="intro section-wrapper" style="padding: 0; margin: 0;">
                         <div class="container-fluid" style="padding: 0; margin: 0;">
                             <div class="row" style="padding: 0; margin: 0;">
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
                                     <div class="section-title" style="padding: 0; margin: 0;">
-                                        <h2 style="padding: 0; margin: 0;">About me</h2>
+                                        <h2 style="padding: 0; margin: 0;">Personal achievement</h2>
                                     </div>
                                 </div>
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
@@ -280,6 +283,27 @@
                         </div>
                     </section>
                 </div>
+                <div class="tab-pane fade" id="thoughts" role="tabpanel" aria-labelledby="thoughts-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Thoughts</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="thoughts-post-1.html">First Thoughts Post</a></h3>
+                                            <p>Welcome to my Thoughts section! Here, I will share my personal reflections, ideas, and musings on various topics that interest me.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -290,7 +314,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#myTab a[href="#achievements"]').tab('show'); // Show the Personal Achievements tab by default
+            $('#myTab a[href="#about-me"]').tab('show'); // Show the About Me tab by default
             
             $('#myTab a[href="#aiml-blog"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the blog tab is shown
@@ -300,8 +324,8 @@
                 link.href = 'css/blog_tab.css'; // Load the new CSS file
                 document.getElementsByTagName('head')[0].appendChild(link);
                 
-                // Hide the Personal Achievements tab content
-                $('#achievements').removeClass('show active');
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
             });
 
             $('#myTab a[href="#product-blog"]').on('shown.bs.tab', function () {
@@ -312,8 +336,8 @@
                 link.href = 'css/blog_tab.css'; // Load the new CSS file
                 document.getElementsByTagName('head')[0].appendChild(link);
                 
-                // Hide the Personal Achievements tab content
-                $('#achievements').removeClass('show active');
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
             });
 
             $('#myTab a[href="#engineering-bi-blog"]').on('shown.bs.tab', function () {
@@ -324,13 +348,25 @@
                 link.href = 'css/blog_tab.css'; // Load the new CSS file
                 document.getElementsByTagName('head')[0].appendChild(link);
                 
-                // Hide the Personal Achievements tab content
-                $('#achievements').removeClass('show active');
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
             });
 
-            $('#myTab a[href="#achievements"]').on('shown.bs.tab', function () {
+            $('#myTab a[href="#thoughts"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the blog tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
+            });
+
+            $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
-                $('#aiml-blog, #product-blog, #engineering-bi-blog').removeClass('show active');
+                $('#aiml-blog, #product-blog, #engineering-bi-blog, #thoughts').removeClass('show active');
             });
 
             // Image Slider for profile images
