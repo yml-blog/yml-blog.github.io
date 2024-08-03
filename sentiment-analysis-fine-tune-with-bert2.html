@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explanation of Fine-tuning BERT with PEFT</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="content text-center">
+                <h1>Fine-tuning BERT with PEFT</h1>
+                <p class="lead">By ChatGPT</p>
+            </div>
+        </header>
+        
+        <main>
+            <section class="intro">
+                <h2>Introduction</h2>
+                <p>This document provides a detailed explanation of a Python script used to fine-tune a BERT model for sequence classification tasks, leveraging Parameter Efficient Fine-Tuning (PEFT) techniques. The code is specifically designed for sentiment analysis on a Chinese sentiment dataset.</p>
+            </section>
+            
+            <section class="imports">
+                <h2>Import Libraries</h2>
+                <p>First, we import the necessary libraries for handling data, models, and evaluation.</p>
+                <pre><code>import argparse
+import os</code></pre>
+                <p>The <code>argparse</code> and <code>os</code> modules are used for handling command-line arguments and file operations.</p>
+
+                <pre><code>import torch
+from torch.optim import AdamW
+from torch.utils.data import DataLoader</code></pre>
+                <p>These modules from PyTorch are used for model training, optimization, and data loading.</p>
+
+                <pre><code>from peft import (get_peft_config, get_peft_model, get_peft_model_state_dict,
+    set_peft_model_state_dict, PeftType, PrefixTuningConfig, PromptEncoderConfig, 
+    PromptTuningConfig, LoraConfig)</code></pre>
+                <p>PEFT is used to implement parameter-efficient fine-tuning techniques such as Prefix Tuning, Prompt Tuning, and LoRA (Low-Rank Adaptation).</p>
+
+                <pre><code>import evaluate
+from datasets import load_dataset
+from transformers import AutoModelForSequenceClassification, AutoTokenizer,
+    get_linear_schedule_with_warmup, set_seed
+from tqdm import tqdm</code></pre>
+                <p>The <code>evaluate</code> library is used for metrics, <code>datasets</code> for loading data, <code>transformers</code> for handling BERT models, and <code>tqdm</code> for progress bars.</p>
+            </section>
+
+            <section class="load-data">
+                <h2>Load and Prepare Dataset</h2>
+                <pre><code>#!wget https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/ChnSentiCorp_htl_all/ChnSentiCorp_htl_all.csv</code></pre>
+                <p>Use wget to download the dataset (commented out, assuming the file is downloaded separately).</p>
+
+                <pre><code>data_file = "./ChnSentiCorp_htl_all.csv"
+dataset = load_dataset("csv", data_files=data_file)</code></pre>
+                <p>The dataset is loaded from a CSV file using the <code>datasets</code> library.</p>
+
+                <pre><code>dataset = dataset.filter(lambda x: x["review"] is not None)
+datasets = dataset["train"].train_test_split(0.2, seed=123)</code></pre>
+                <p>Filter out entries without reviews and split the data into training and test sets (80/20 split).</p>
+            </section>
+
+            <section class="tokenizer">
+                <h2>Tokenizer Setup</h2>
+                <pre><code>model_name_or_path = "/data/pretrained_models/bert/bert-base-uncased"</code></pre>
+                <p>Specify the path to the pre-trained BERT model.</p>
+
+                <pre><code>if any(k in model_name_or_path for k in ("gpt", "opt", "bloom")):
+    padding_side = "left"
+else:
+    padding_side = "right"</code></pre>
+                <p>Determine the padding side based on the model type.</p>
+
+                <pre><code>tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, padding_side=padding_side)
+if getattr(tokenizer, "pad_token_id") is None:
+    tokenizer.pad_token_id = tokenizer.eos_token_id</code></pre>
+                <p>Load the tokenizer with the specified padding side and set the padding token ID if it is not already defined.</p>
+            </section>
+
+            <section class="tokenization">
+                <h2>Tokenization and Dataset Preparation</h2>
+                <pre><code>def process_function(examples):
+    tokenized_examples = tokenizer(examples["review"], truncation=True, max_length=max_length)
+    tokenized_examples["labels"] = examples["label"]
+    return tokenized_examples</code></pre>
+                <p>Define a function to tokenize the review text and map the labels.</p>
+
+                <pre><code>tokenized_datasets = datasets.map(process_function, batched=True, remove_columns=datasets["train"].column_names)</code></pre>
+                <p>Tokenize the dataset using the defined function and remove unnecessary columns.</p>
+            </section>
+
+            <section class="metrics">
+                <h2>Define Metrics</h2>
+                <pre><code>accuracy_metric = evaluate.load("accuracy")</code></pre>
+                <p>Load the accuracy metric from the <code>evaluate</code> library.</p>
+
+                <pre><code>def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    predictions = predictions.argmax(axis=-1)
+    return accuracy_metric.compute(predictions=predictions, references=labels)</code></pre>
+                <p>Define a function to compute accuracy using predictions and reference labels.</p>
+            </section>
+
+            <section class="dataloaders">
+                <h2>Dataloader Preparation</h2>
+                <pre><code>def collate_fn(examples):
+    return tokenizer.pad(examples, padding="longest", return_tensors="pt")</code></pre>
+                <p>Define a collation function to pad the tokenized inputs for batching.</p>
+
+                <pre><code>batch_size = 64
+train_dataloader = DataLoader(tokenized_datasets["train"], shuffle=True, collate_fn=collate_fn, batch_size=batch_size)
+eval_dataloader = DataLoader(tokenized_datasets["test"], shuffle=False, collate_fn=collate_fn, batch_size=batch_size)</code></pre>
+                <p>Create training and evaluation data loaders with the specified batch size.</p>
+            </section>
+
+            <section class="peft">
+                <h2>PEFT Configuration and Model Setup</h2>
+                <pre><code>p_type = "lora"</code></pre>
+                <p>Specify the PEFT type (LoRA in this case).</p>
+
+                <pre><code>if p_type == "prefix-tuning":
+    peft_type = PeftType.PREFIX_TUNING
+    peft_config = PrefixTuningConfig(task_type="SEQ_CLS", num_virtual_tokens=20)
+elif p_type == "prompt-tuning":
+    peft_type = PeftType.PROMPT_TUNING
+    peft_config = PromptTuningConfig(task_type="SEQ_CLS", num_virtual_tokens=20)
+elif p_type == "p-tuning":
+    peft_type = PeftType.P_TUNING
+    peft_config = PromptEncoderConfig(task_type="SEQ_CLS", num_virtual_tokens=20, encoder_hidden_size=128)
+elif p_type == "lora":
+    peft_type = PeftType.LORA
+    peft_config = LoraConfig(task_type="SEQ_CLS", inference_mode=False, r=8, lora_alpha=16, lora_dropout=0.1)</code></pre>
+                <p>Configure the PEFT type and parameters based on the chosen <code>p_type</code>.</p>
+
+                <pre><code>model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path, num_labels=2)</code></pre>
+                <p>Load the pre-trained BERT model for sequence classification with two labels.</p>
+            </section>
+
+            <section class="model-setup">
+                <h2>Model Setup and Parameter Printing</h2>
+                <pre><code>if p_type is not None:
+    model = get_peft_model(model, peft_config)
+    model.print_trainable_parameters()</code></pre>
+                <p>If PEFT is enabled, wrap the model with PEFT configuration and print trainable parameters.</p>
+
+                <pre><code>else:
+    def print_trainable_parameters(model):
+        trainable_params = 0
+        all_param = 0
+        for _, param in model.named_parameters():
+            num_params = param.numel()
+            if num_params == 0 and hasattr(param, "ds_numel"):
+                num_params = param.ds_numel
+            all_param += num_params
+            if param.requires_grad:
+                trainable_params += num_params
+        print(f"trainable params: {trainable_params} || all params: {all_param} || trainable%: {100 * trainable_params / all_param}")
+    print_trainable_parameters(model)</code></pre>
+                <p>Define a custom function to print the count of trainable parameters if PEFT is not used.</p>
+            </section>
+
+            <section class="optimization">
+                <h2>Optimizer and Scheduler Setup</h2>
+                <pre><code>lr = 3e-4
+num_epochs = 3
+optimizer = AdamW(params=model.parameters(), lr=lr)</code></pre>
+                <p>Instantiate an <code>AdamW</code> optimizer with the specified learning rate.</p>
+
+                <pre><code>lr_scheduler = get_linear_schedule_with_warmup(optimizer=optimizer, num_warmup_steps=0.06 * (len(train_dataloader) * num_epochs), num_training_steps=(len(train_dataloader) * num_epochs))</code></pre>
+                <p>Create a linear learning rate scheduler with warmup to adjust learning rates during training.</p>
+            </section>
+
+            <section class="training">
+                <h2>Training and Evaluation Loop</h2>
+                <pre><code>device = "cuda"
+model.to(device)
+metric = evaluate.load("accuracy")</code></pre>
+                <p>Move the model to the GPU for faster computation and load the accuracy metric.</p>
+
+                <pre><code>for epoch in range(num_epochs):
+    model.train()
+    for step, batch in enumerate(tqdm(train_dataloader)):
+        batch.to(device)
+        outputs = model(**batch)
+        loss = outputs.loss
+        loss.backward()
+        optimizer.step()
+        lr_scheduler.step()
+        optimizer.zero_grad()</code></pre>
+                <p>Perform forward and backward passes, optimizer steps, and scheduler updates for each epoch.</p>
+
+                <pre><code>    model.eval()
+    total_loss = 0.
+    for step, batch in enumerate(tqdm(eval_dataloader)):
+        batch.to(device)
+        with torch.no_grad():
+            outputs = model(**batch)
+            loss = outputs.loss
+            total_loss += loss
+        predictions = outputs.logits.argmax(dim=-1)
+        predictions, references = predictions, batch["labels"]
+        metric.add_batch(predictions=predictions, references=references)</code></pre>
+                <p>Evaluate the model by calculating loss and accuracy for the test set after each epoch.</p>
+
+                <pre><code>    eval_metric = metric.compute()
+    print(f"epoch {epoch} loss {total_loss}:", eval_metric)</code></pre>
+                <p>Compute and print the evaluation metric (accuracy) for each epoch.</p>
+            </section>
+
+            <section class="timing">
+                <h2>Timing and Output</h2>
+                <pre><code>import time
+start = time.time()
+end = time.time()
+print("耗时：{}分钟".format((end-start) / 60))</code></pre>
+                <p>Calculate and print the time taken for the entire training and evaluation process.</p>
+            </section>
+            
+        </main>
+        
+        <footer class="footer text-center">
+            <p>&copy; 2024 ChatGPT. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
