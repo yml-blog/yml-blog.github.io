@@ -145,6 +145,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="thoughts-tab" data-toggle="tab" href="#thoughts" role="tab" aria-controls="thoughts" aria-selected="false">Thoughts</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false">Product</a>
+                </li>
             </ul>
             <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
                 <div class="tab-pane fade show active" id="about-me" role="tabpanel" aria-labelledby="about-me-tab" style="padding: 0; margin: 0;">
@@ -316,6 +319,28 @@
                         </div>
                     </section>
                 </div>
+                <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="product-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Product Section</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="product-post-1.html">First Product Post</a></h3>
+                                            <p>Welcome to the Product section! Here, I will share insights about product development, management, and strategy.</p>
+                                        </li>
+                                        <!-- Add more product-related content items here -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -379,6 +404,18 @@
             $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
                 $('#aiml-blog, #product-blog, #engineering-bi-blog, #thoughts').removeClass('show active');
+            });
+
+            $('#myTab a[href="#product"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the product tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
             });
 
             // Image Slider for profile images
