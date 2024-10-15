@@ -401,5 +401,41 @@
         });
     </script>
     <script src="js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reactionButtons = document.querySelectorAll('.reaction-btn');
+            const commentForm = document.querySelector('.comment-form');
+            const commentList = document.getElementById('comment-list');
+            const commentCount = document.getElementById('comment-count');
+
+            // Handle reactions
+            reactionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    let count = parseInt(this.querySelector('.count').textContent);
+                    this.querySelector('.count').textContent = count + 1;
+                });
+            });
+
+            // Handle comment submission
+            commentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('commenter-name').value;
+                const text = document.getElementById('comment-text').value;
+                if (name && text) {
+                    addComment(name, text);
+                    document.getElementById('commenter-name').value = '';
+                    document.getElementById('comment-text').value = '';
+                }
+            });
+
+            function addComment(name, text) {
+                const comment = document.createElement('div');
+                comment.className = 'comment';
+                comment.innerHTML = `<strong>${name}</strong>: ${text}`;
+                commentList.appendChild(comment);
+                commentCount.textContent = parseInt(commentCount.textContent) + 1;
+            }
+        });
+    </script>
 </body>
 </html>

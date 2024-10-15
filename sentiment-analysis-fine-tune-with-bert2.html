@@ -4,26 +4,37 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Explanation of Fine-tuning BERT with PEFT</title>
+    <title>Sentiment Analysis Fine-Tuning with BERT</title>
     <link href="favicon.png" rel="icon">
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header class="header">
             <div class="content text-center">
-                <h1>Fine-tuning BERT with PEFT</h1>
-                <p class="lead"></p>
+                <h1>Sentiment Analysis Fine-Tuning with BERT</h1>
+                <p class="lead">By Yangming Li</p>
             </div>
         </header>
+        
+        <!-- Add metadata section -->
+        <div class="article-metadata">
+            <span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
+            <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2400 words</span>
+            <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3500 tokens</span>
+            <div class="keywords">
+                <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning, Peft, Lora
+            </div>
+        </div>
         
         <main>
             <section class="intro">
                 <h2>Introduction</h2>
-                <p>This document provides a detailed explanation of a Python script used to fine-tune a BERT model for sequence classification tasks, leveraging Parameter Efficient Fine-Tuning (PEFT) techniques. The code is specifically designed for sentiment analysis on a Chinese sentiment dataset.</p>
+                <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
             </section>
             
             <section class="imports">
@@ -224,7 +235,7 @@ print("耗时：{}分钟".format((end-start) / 60))</code></pre>
         </main>
         
         <footer class="footer text-center">
-            <p>&copy; 2024 ChatGPT. All rights reserved.</p>
+            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
         </footer>
     </div>
 
