@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Why Have Decoder-Only Architectures Become the Standard in LLMs?</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="content text-center">
+                <h1>Why Have Decoder-Only Architectures Become the Standard in Large Language Models?</h1>
+                <p class="lead">By Yangming Li</p>
+            </div>
+        </header>
+        
+        <div class="article-metadata">
+            <span class="read-time"><i class="fa fa-clock-o"></i> 8 min read</span>
+            <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 1000 words</span>
+            <span class="token-count"><i class="fa fa-calculator"></i> Estimated 1500 tokens</span>
+            <div class="keywords">
+                <strong>Keywords:</strong> LLM, Decoder-Only Architecture, BERT, GPT, Transformer, NLP, Machine Learning
+            </div>
+        </div>
+
+        <main>
+            <section class="intro">
+                <h2>Background</h2>
+                <p>Currently, most leading large language models (LLMs) are based on decoder-only architectures. In the past, encoder-only and encoder-decoder structures also held prominence, yet today, the trend has shifted toward decoder-only designs. This article explores the reasons behind this shift.</p>
+            </section>
+            
+            <section class="architecture-types">
+                <h2>Core Architectural Designs</h2>
+                <div class="architecture-type">
+                    <h3>1. Encoder-Only Architecture</h3>
+                    <p>Exemplified by BERT, this architecture focuses solely on encoding input sequences without generating new text. It's primarily used for understanding and analysis tasks.</p>
+                </div>
+                
+                <div class="architecture-type">
+                    <h3>2. Encoder-Decoder Architecture</h3>
+                    <p>Models like T5 use both an encoder and a decoder, making them versatile for tasks that require both input comprehension and output generation.</p>
+                </div>
+                
+                <div class="architecture-type">
+                    <h3>3. Decoder-Only Architecture</h3>
+                    <p>This structure, represented by GPT, focuses only on generating text by building on previous tokens. It has become the dominant architecture in modern LLMs.</p>
+                </div>
+            </section>
+            
+            <section class="advantages">
+                <h2>Why Decoder-Only Architectures Dominate</h2>
+                
+                <div class="advantage">
+                    <h3>1. Full-Rank Properties of Causal Attention</h3>
+                    <p>Decoder-only architectures use causal attention, forming a lower triangular matrix. This structure ensures full-rank properties, which means the matrix's determinant is non-zero. This attribute enhances the model's capacity to represent complex data patterns. By contrast, encoder architectures often use bidirectional attention, which can lead to rank reduction and may limit representational power.</p>
+                </div>
+                
+                <div class="advantage">
+                    <h3>2. Increased Pretraining Task Complexity</h3>
+                    <p>In decoder-only architectures, each position in the model is only exposed to limited information, increasing the difficulty of predicting the next token during pretraining. However, as the model scale and data availability increase, decoder-only models demonstrate higher learning and generalization potential.</p>
+                </div>
+                
+                <div class="advantage">
+                    <h3>3. Superior Context Learning Ability</h3>
+                    <p>Decoder-only models excel in context learning, thanks to the way prompt and demonstration data implicitly fine-tune model parameters. This capability provides significant advantages in few-shot learning scenarios, where only a small number of examples are available.</p>
+                </div>
+                
+                <div class="advantage">
+                    <h3>4. Efficiency in Multi-Turn Tasks</h3>
+                    <p>Decoder-only architectures support KV-Cache reuse, which is especially beneficial for multi-turn dialogue tasks. In such architectures, each token representation only depends on prior inputs, whereas encoder-decoder architectures struggle to efficiently reuse context in the same way.</p>
+                </div>
+                
+                <div class="advantage">
+                    <h3>5. Enhanced Zero-Shot Performance</h3>
+                    <p>Decoder-only models show superior zero-shot performance without the need for additional fine-tuning data. On the other hand, encoder-decoder models often require multitask fine-tuning on labeled data to unlock their best performance.</p>
+                </div>
+            </section>
+            
+            <section class="conclusion">
+                <h2>Conclusion</h2>
+                <p>Given their advantages in training efficiency, engineering implementation, and theoretical properties, decoder-only architectures have become the mainstream choice for LLM design. Particularly in generative tasks, introducing bidirectional attention offers no substantial benefits, and encoder-decoder models only outperform in certain cases due to larger parameter counts. With equivalent parameter sizes and inference costs, the decoder-only architecture stands out as the optimal choice.</p>
+            </section>
+            
+            <section class="references">
+                <h2>References</h2>
+                <p>Zhihu.com</p>
+            </section>
+        </main>
+        
+        <footer class="footer text-center">
+            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html> 
