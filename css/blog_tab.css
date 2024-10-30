@@ -64,3 +64,66 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+
+/* Styling for the tab navigation */
+.nav-tabs {
+    background-color: #000000 !important; /* Black background for the entire tab bar */
+    border-bottom: none !important; /* Remove the bottom border */
+}
+
+.nav-tabs .nav-item .nav-link,
+.nav-tabs .nav-item .nav-link:hover,
+.nav-tabs .nav-item .nav-link:focus,
+.nav-tabs .nav-item .nav-link.active,
+.nav-tabs > li > a,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #ffffff !important; /* White text color for all tabs */
+    background-color: #000000 !important; /* Black background for all tabs */
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 10px 20px !important;
+    margin-right: 2px !important;
+    transition: all 0.3s ease !important;
+}
+
+.nav-tabs .nav-item .nav-link:hover,
+.nav-tabs .nav-item .nav-link:focus,
+.nav-tabs .nav-item .nav-link.active,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #333333 !important; /* Dark grey for hover/focus/active */
+    color: #ffffff !important; /* Ensure text remains white */
+}
+
+/* Override any Bootstrap styles that might be interfering */
+.nav-tabs > li > a,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #ffffff;
+    background-color: #000000;
+    border: none;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Ensure the tab content remains unchanged */
+.tab-content {
+    background-color: #ffffff !important; /* Keep the content background white */
+    color: #333 !important; /* Keep the content text dark */
+}
+
+/* Override any potential link styles */
+.nav-tabs .nav-item .nav-link,
+.nav-tabs > li > a {
+    text-decoration: none !important;
+    color: #ffffff !important;
+}

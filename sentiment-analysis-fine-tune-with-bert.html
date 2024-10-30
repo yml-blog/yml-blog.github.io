@@ -10,6 +10,8 @@
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style_blog.css" rel="stylesheet">
+    <!-- Add this line to include the new CSS file -->
+    <link href="css/blog_post.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -21,6 +23,16 @@
         </header>
         
         <main>
+            <!-- Add the metadata section here, just after the header -->
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 10 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning
+                </div>
+            </div>
+
             <section class="intro">
                 <h2>Introduction</h2>
                 <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
@@ -144,10 +156,41 @@ print(f"Validation Accuracy: {accuracy * 100:.2f}%")
                 </code></pre>
             </section>
             
-            <section class="conclusion">
-                <h2>Conclusion</h2>
-                <p>Using the Peft library and Lora for fine-tuning BERT models allows for efficient and effective adaptation to specific tasks. By following these steps, you can enhance the performance of your text sentiment classification models.</p>
-            </section>
+            <!-- Add the comment section here, at the end of the main content -->
+            <div class="comment-section">
+                <h3>What do you think?</h3>
+                <p><span id="response-count">97</span> Responses</p>
+                
+                <div class="reaction-buttons">
+                    <button class="reaction-btn" data-reaction="upvote">👍 Upvote</button>
+                    <button class="reaction-btn" data-reaction="funny">😆 Funny</button>
+                    <button class="reaction-btn" data-reaction="love">😍 Love</button>
+                    <button class="reaction-btn" data-reaction="surprised">😮 Surprised</button>
+                    <button class="reaction-btn" data-reaction="angry">😠 Angry</button>
+                    <button class="reaction-btn" data-reaction="sad">😢 Sad</button>
+                </div>
+
+                <div class="comments">
+                    <h4><span id="comment-count">3</span> Comments</h4>
+                    <div class="comment-input">
+                        <img src="path/to/default-avatar.png" alt="User Avatar" class="avatar">
+                        <textarea placeholder="Join the discussion..."></textarea>
+                    </div>
+                    <div class="login-options">
+                        <p>LOG IN WITH</p>
+                        <div class="social-login-buttons">
+                            <button class="social-btn disqus">D</button>
+                            <button class="social-btn facebook">f</button>
+                            <button class="social-btn twitter">X</button>
+                            <button class="social-btn google">G</button>
+                            <button class="social-btn microsoft">[]</button>
+                            <button class="social-btn apple"></button>
+                        </div>
+                        <p>OR SIGN UP WITH DISQUS</p>
+                        <input type="text" placeholder="Name">
+                    </div>
+                </div>
+            </div>
         </main>
         
         <footer class="footer text-center">

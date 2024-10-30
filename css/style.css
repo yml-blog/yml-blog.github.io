@@ -42,7 +42,7 @@ h4, h5, h6 {
 }
 
 a {
-    color: #2a54f5;
+    color: hsl(220, 20%, 97%);
     text-decoration: none;
     transition: all 0.3s ease 0s;
 }
