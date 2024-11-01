@@ -1,0 +1,21 @@
+/* Remove or comment out the blog container and sidebar styles */
+/* .blog-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 0 0 300px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+... other sidebar styles ... */ 
