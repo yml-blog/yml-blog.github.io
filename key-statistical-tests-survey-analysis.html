@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Choosing the Right Statistical Test for Survey Analysis</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <!-- Add jQuery before Bootstrap -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <!-- The navigation will be injected here by loadHeader.js -->
+    
+    <!-- Wrap everything after nav in a main-content div -->
+    <div class="main-content">
+        <div class="blog-container">
+            <!-- Left Sidebar -->
+            <aside class="sidebar">
+                <h3>Related Articles</h3>
+                <div class="related-posts">
+                    <!-- Related posts will be populated by blogPanel.js -->
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="blog-content">
+                <div class="container">
+                    <header class="header">
+                        <div class="content text-center">
+                            <h1>Choosing the Right Statistical Test for Survey Analysis</h1>
+                            <p class="lead">By Yangming Li</p>
+                        </div>
+                    </header>
+                    
+                    <div class="article-metadata">
+                        <span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
+                        <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+                        <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+                        <div class="keywords">
+                            <strong>Keywords:</strong> Statistical Analysis, Survey Data, Chi-Square Test, T-Test, ANOVA, Data Analysis
+                        </div>
+                    </div>
+                    
+                    <main>
+                        <section class="intro">
+                            <h2>Introduction</h2>
+                            <p>When analyzing survey data, choosing the right statistical test is crucial for drawing meaningful conclusions. This comprehensive guide covers three essential statistical tests, their applications, and real-world examples to help you make informed decisions in your data analysis.</p>
+                            
+                            <div class="quick-nav">
+                                <h3>Quick Navigation</h3>
+                                <ul>
+                                    <li><a href="#chi-square">Chi-Square Test of Independence</a></li>
+                                    <li><a href="#t-tests">T-Tests (Independent & Paired)</a></li>
+                                    <li><a href="#anova">Analysis of Variance (ANOVA)</a></li>
+                                </ul>
+                            </div>
+                        </section>
+
+            <section class="statistical-tests">
+                <div id="chi-square" class="test-section">
+                    <h2>1. Chi-Square Test of Independence</h2>
+                    
+                    <div class="test-overview">
+                        <h3>Data Type and Application</h3>
+                        <p>Used for analyzing relationships between categorical variables in survey data.</p>
+                        
+                        <div class="data-type-box">
+                            <h4>Categorical Data Examples:</h4>
+                            <ul>
+                                <li>Gender: Male, Female, Non-binary</li>
+                                <li>Department: HR, IT, Marketing, Sales</li>
+                                <li>Satisfaction Level: Satisfied, Neutral, Dissatisfied</li>
+                                <li>Customer Region: North America, Europe, Asia</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-data">
+                            <h4>Sample Data Format:</h4>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Employee ID</th>
+                                        <th>Department</th>
+                                        <th>Satisfaction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1</td><td>HR</td><td>Satisfied</td></tr>
+                                    <tr><td>2</td><td>IT</td><td>Dissatisfied</td></tr>
+                                    <tr><td>3</td><td>Marketing</td><td>Neutral</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="code-implementation">
+                            <h4>Python Implementation:</h4>
+                            <pre><code class="language-python">
+# Create example dataset
+import pandas as pd
+import numpy as np
+from scipy import stats
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+employee_data = pd.DataFrame({
+    'Department': ['HR', 'IT', 'Marketing', 'Sales', 'HR', 'IT'] * 5,
+    'Satisfaction': ['Satisfied', 'Dissatisfied', 'Neutral', 
+                    'Satisfied', 'Dissatisfied', 'Satisfied'] * 5
+})
+
+# Create contingency table
+cont_table = pd.crosstab(employee_data['Department'], 
+                        employee_data['Satisfaction'])
+
+# Perform Chi-Square test
+chi_result = stats.chi2_contingency(cont_table)
+
+# Print detailed results
+print("Chi-Square Test Results:")
+print(f"Chi-square statistic: {chi_result[0]:.2f}")
+print(f"p-value: {chi_result[1]:.4f}")
+print(f"Degrees of freedom: {chi_result[2]}")
+
+# Visualize the contingency table
+plt.figure(figsize=(10, 6))
+sns.heatmap(cont_table, annot=True, fmt='d', cmap='YlOrRd')
+plt.title('Department vs Satisfaction Distribution')
+plt.xlabel('Satisfaction Level')
+plt.ylabel('Department')
+plt.tight_layout()
+plt.show()
+
+# Calculate and display percentages
+percent_table = cont_table.div(cont_table.sum(axis=1), axis=0) * 100
+print("\nPercentage Distribution:")
+print(percent_table)
+                            </code></pre>
+                        </div>
+
+                        <div class="real-world-example">
+                            <h4>Real-World Application:</h4>
+                            <p>An HR department analyzed if job satisfaction varies across departments:</p>
+                            <ul>
+                                <li>Sample size: 500 employees</li>
+                                <li>Chi-square result: χ²(6) = 15.3, p = 0.018</li>
+                                <li>Finding: Significant relationship between department and satisfaction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="t-tests" class="test-section">
+                    <h2>2. T-Tests</h2>
+                    
+                    <!-- Similar structure for T-Tests section -->
+                    <div class="implementation">
+                        <h4>R Implementation Example:</h4>
+                        <pre><code class="python">
+# Independent Samples T-Test Example
+remote_data = pd.DataFrame({
+    'WorkType': ['Remote', 'OnSite'] * 3,
+    'Satisfaction': [4.5, 3.8, 4.2, 3.5, 4.0, 3.6]
+})
+
+# Perform t-test
+remote_scores = remote_data[remote_data['WorkType'] == 'Remote']['Satisfaction']
+onsite_scores = remote_data[remote_data['WorkType'] == 'OnSite']['Satisfaction']
+t_stat, p_value = stats.ttest_ind(remote_scores, onsite_scores)
+
+# Print results
+print(f"T-statistic: {t_stat:.3f}")
+print(f"P-value: {p_value:.4f}")
+
+# Visualize comparison
+plt.figure(figsize=(8, 6))
+sns.boxplot(x='WorkType', y='Satisfaction', data=remote_data)
+plt.title('Satisfaction Scores by Work Type')
+plt.show()
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div id="anova" class="test-section">
+                    <h2>3. Analysis of Variance (ANOVA)</h2>
+                    
+                    <!-- Similar structure for ANOVA section -->
+                    <div class="implementation">
+                        <h4>R Implementation Example:</h4>
+                        <pre><code class="python">
+# ANOVA Example
+store_data = pd.DataFrame({
+    'Location': ['A', 'B', 'C'] * 2,
+    'Satisfaction': [85, 78, 92, 88, 75, 95]
+})
+
+# Perform one-way ANOVA
+locations = [group for _, group in store_data.groupby('Location')['Satisfaction']]
+f_stat, p_value = stats.f_oneway(*locations)
+
+# Print results
+print(f"F-statistic: {f_stat:.3f}")
+print(f"P-value: {p_value:.4f}")
+
+# Post-hoc analysis
+tukey = stats.tukey_hsd(*locations)
+print("\nTukey HSD Results:")
+print(tukey)
+
+# Visualize results
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Location', y='Satisfaction', data=store_data)
+plt.title('Satisfaction Scores by Store Location')
+plt.show()
+                        </code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="decision-guide">
+                <h2>Choosing the Right Test: Decision Guide</h2>
+                <div class="decision-table">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Test Type</th>
+                                <th>Data Type</th>
+                                <th>Best For</th>
+                                <th>Business Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chi-Square Test</td>
+                                <td>Categorical</td>
+                                <td>Understanding relationships between categorical variables</td>
+                                <td>Analyzing demographic patterns, customer preferences</td>
+                            </tr>
+                            <tr>
+                                <td>T-Test</td>
+                                <td>Continuous & Categorical</td>
+                                <td>Comparing means between two groups</td>
+                                <td>Evaluating program effectiveness, comparing groups</td>
+                            </tr>
+                            <tr>
+                                <td>ANOVA</td>
+                                <td>Continuous & Multiple Categories</td>
+                                <td>Comparing means across multiple groups</td>
+                                <td>Analyzing differences across departments/locations</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer text-center">
+            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+</body>
+</html>
+

@@ -18,6 +18,11 @@ const blogList = [
         title: "Trustworthy Machine Learning",
         url: "trust-worth-machine-learning-1.html",
         category: "Machine Learning"
+    },
+    {
+        title: "Choosing the Right Statistical Test for Survey Analysis",
+        url: "key-statistical-tests-survey-analysis.html",
+        category: "Statistics"
     }
 ];
 

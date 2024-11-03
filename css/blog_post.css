@@ -19,3 +19,101 @@
 }
 
 ... other sidebar styles ... */ 
+
+/* Code block styling */
+pre {
+    background: #1e1e1e;  /* Dark background like VS Code */
+    border-radius: 6px;
+    padding: 16px;
+    margin: 15px 0;
+    overflow-x: auto;
+    color: #d4d4d4;  /* Light gray text */
+}
+
+code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.code-implementation {
+    background: #1e1e1e;
+    border: 1px solid #2d2d2d;
+    border-radius: 8px;
+    margin: 20px 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.code-implementation pre {
+    margin: 0;
+    border: none;
+    background: transparent;
+}
+
+/* Python syntax highlighting */
+.language-python .keyword { 
+    color: #569cd6;  /* Blue for keywords */
+}
+
+.language-python .string { 
+    color: #ce9178;  /* Soft red for strings */
+}
+
+.language-python .comment { 
+    color: #6a9955;  /* Green for comments */
+}
+
+.language-python .number { 
+    color: #b5cea8;  /* Light green for numbers */
+}
+
+.language-python .function {
+    color: #dcdcaa;  /* Yellow for functions */
+}
+
+.language-python .operator {
+    color: #d4d4d4;  /* Light gray for operators */
+}
+
+/* Table styling */
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+/* Quick navigation styling */
+.quick-nav {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.quick-nav ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.quick-nav li {
+    margin-bottom: 10px;
+}
+
+.quick-nav a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+/* Section spacing */
+.test-section {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.test-section:last-child {
+    border-bottom: none;
+}
