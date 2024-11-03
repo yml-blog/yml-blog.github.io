@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet"> <!-- Updated link -->
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -36,25 +37,158 @@
                 <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
                 <img src="img/Ray.png" alt="Ray Logo" style="max-width:100%; height:auto;"> <!-- Added image -->
             </section>
-            
             <section class="key-points">
-                <h2>Key Features of Ray</h2>
-                <h3>Data Preprocessing (Data Module):</h3>
-                <p>Ray helps you manage and preprocess large datasets efficiently. By breaking down the data processing tasks into smaller, parallel tasks, it speeds up the data preparation stage, which is crucial for machine learning.</p>
+                <h2>Key Features of Ray with Real-World Examples</h2>
                 
-                <h3>Distributed Training (Train Module):</h3>
-                <p>Training machine learning models can be time-consuming, especially with large datasets. Ray's Train module allows you to distribute the training process across multiple machines, significantly reducing the time it takes to train a model.</p>
+                <h3>1. Data Preprocessing (Data Module):</h3>
+                <p>Ray helps you manage and preprocess large datasets efficiently. Here's an example from an e-commerce company processing customer data:</p>
+                <div class="code-block">
+                    <pre><code class="python">
+import ray
+ray.init()
+
+@ray.remote
+def preprocess_chunk(data_chunk):
+    # Clean and transform data
+    cleaned_data = remove_nulls(data_chunk)
+    return cleaned_data
+
+# Distribute preprocessing across cluster
+data_chunks = split_data(large_customer_dataset)
+futures = [preprocess_chunk.remote(chunk) for chunk in data_chunks]
+results = ray.get(futures)
+                    </code></pre>
+                </div>
+                <div class="code-explanation">
+                    <p><strong>Code Explanation:</strong></p>
+                    <ul>
+                        <li><code>@ray.remote</code> decorator marks the function for distributed execution</li>
+                        <li>Large dataset is split into chunks for parallel processing</li>
+                        <li><code>preprocess_chunk.remote()</code> executes tasks asynchronously</li>
+                        <li><code>ray.get()</code> collects results from all workers</li>
+                    </ul>
+                </div>
+                
+                <h3>2. Distributed Training (Train Module):</h3>
+                <p>For a financial services company training a fraud detection model on millions of transactions:</p>
+                <div class="code-block">
+                    <pre><code class="python">
+from ray import train
+import torch
+
+def train_func(config):
+    model = FraudDetectionModel()
+    for epoch in range(config["epochs"]):
+        train.report({"loss": current_loss})
+    
+trainer = train.Trainer(backend="torch")
+trainer.start()
+results = trainer.run(
+    train_func,
+    config={"epochs": 10}
+)
+                    </code></pre>
+                </div>
+                <div class="code-explanation">
+                    <p><strong>Code Explanation:</strong></p>
+                    <ul>
+                        <li>Uses Ray's training module for distributed model training</li>
+                        <li><code>train.report()</code> tracks metrics during training</li>
+                        <li>Trainer automatically handles distributed setup and execution</li>
+                        <li>Supports multiple deep learning frameworks (PyTorch shown here)</li>
+                    </ul>
+                </div>
                 
                 <h3>Hyperparameter Tuning (Tune Module):</h3>
-                <p>Finding the best hyperparameters for your ML model is essential for optimal performance. Ray's Tune module automates this process, running multiple experiments in parallel to find the best combination of hyperparameters efficiently.</p>
+                <p>A healthcare company optimizing a diagnostic model:</p>
+                <div class="code-block">
+                    <pre><code class="python">
+from ray import tune
+
+def train_model(config):
+    model = DiagnosticModel(
+        learning_rate=config["lr"],
+        hidden_size=config["hidden"]
+    )
+    # Training loop here
+    tune.report(accuracy=current_accuracy)
+
+analysis = tune.run(
+    train_model,
+    config={
+        "lr": tune.loguniform(1e-4, 1e-1),
+        "hidden": tune.choice([128, 256, 512])
+    }
+)
+                    </code></pre>
+                </div>
+                <div class="code-explanation">
+                    <p><strong>Code Explanation:</strong></p>
+                    <ul>
+                        <li>Uses Ray's Tune module for automated hyperparameter optimization</li>
+                        <li><code>tune.loguniform()</code> searches learning rate on log scale</li>
+                        <li><code>tune.choice()</code> tests different network architectures</li>
+                        <li><code>tune.report()</code> tracks metrics for optimization</li>
+                    </ul>
+                </div>
                 
                 <h3>Model Serving (Serve Module):</h3>
-                <p>Once your model is trained, you need to deploy it so that it can be used to make predictions in real time. Ray's Serve module provides a scalable and efficient way to serve your models, handling large numbers of requests without compromising performance.</p>
+                <p>A real-time recommendation system for a streaming service:</p>
+                <div class="code-block">
+                    <pre><code class="python">
+from ray import serve
+
+@serve.deployment
+class RecommendationModel:
+    def __init__(self):
+        self.model = load_trained_model()
+    
+    async def __call__(self, request):
+        user_id = request.query_params["user_id"]
+        return self.model.get_recommendations(user_id)
+
+serve.start()
+RecommendationModel.deploy()
+                    </code></pre>
+                </div>
+                <div class="code-explanation">
+                    <p><strong>Code Explanation:</strong></p>
+                    <ul>
+                        <li>Uses Ray's Serve module for model serving</li>
+                        <li><code>@serve.deployment</code> decorator marks the class for deployment</li>
+                        <li><code>serve.start()</code> starts the Serve server</li>
+                        <li><code>RecommendationModel.deploy()</code> deploys the model</li>
+                    </ul>
+                </div>
                 
                 <h3>Reinforcement Learning (RLib Module):</h3>
-                <p>Ray also supports reinforcement learning (RL), a type of machine learning where an agent learns to make decisions by interacting with its environment. The RLib module offers tools and libraries to develop and train RL algorithms in parallel, speeding up the learning process.</p>
+                <p>An autonomous robotics company training a robot to navigate warehouses:</p>
+                <div class="code-block">
+                    <pre><code class="python">
+from ray.rllib.algorithms.ppo import PPO
+
+config = {
+    "env": "WarehouseNav-v0",
+    "num_workers": 4,
+    "framework": "torch"
+}
+
+trainer = PPO(config=config)
+for i in range(1000):
+    result = trainer.train()
+    print(f"Iteration {i}: reward = {result['episode_reward_mean']}")
+                    </code></pre>
+                </div>
+                <div class="code-explanation">
+                    <p><strong>Code Explanation:</strong></p>
+                    <ul>
+                        <li>Uses Ray's RLib module for reinforcement learning</li>
+                        <li><code>PPO</code> is a popular reinforcement learning algorithm</li>
+                        <li><code>config</code> specifies the environment, number of workers, and framework</li>
+                        <li><code>trainer.train()</code> trains the model for a specified number of iterations</li>
+                    </ul>
+                </div>
             </section>
-            
             
         <footer class="footer text-center">
             <p>&copy; 2024 Yangming Li. All rights reserved.</p>
