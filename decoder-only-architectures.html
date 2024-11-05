@@ -11,129 +11,133 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style_blog.css" rel="stylesheet">
     <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="content text-center">
-                <h1>Why Have Decoder-Only Architectures Become the Standard in Large Language Models?</h1>
-                <p class="lead">By Yangming Li</p>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Why Have Decoder-Only Architectures Become the Standard in Large Language Models?</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3750 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> LLM, Decoder-Only Architecture, BERT, GPT, Transformer, NLP, Machine Learning, Attention Mechanisms, Causal Attention, Self-Attention, Model Architecture
+                </div>
             </div>
-        </header>
-        
-        <div class="article-metadata">
-            <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-            <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
-            <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3750 tokens</span>
-            <div class="keywords">
-                <strong>Keywords:</strong> LLM, Decoder-Only Architecture, BERT, GPT, Transformer, NLP, Machine Learning, Attention Mechanisms, Causal Attention, Self-Attention, Model Architecture
-            </div>
-        </div>
 
-        <main>
-            <section class="intro">
-                <h2>Background</h2>
-                <p>Currently, most leading large language models (LLMs) are based on decoder-only architectures. In the past, encoder-only and encoder-decoder structures also held prominence, yet today, the trend has shifted toward decoder-only designs. This article explores the reasons behind this shift.</p>
-            </section>
+            <main>
+                <section class="intro">
+                    <h2>Background</h2>
+                    <p>Currently, most leading large language models (LLMs) are based on decoder-only architectures. In the past, encoder-only and encoder-decoder structures also held prominence, yet today, the trend has shifted toward decoder-only designs. This article explores the reasons behind this shift.</p>
+                </section>
+                
+                <section class="architecture-types">
+                    <h2>Core Architectural Designs</h2>
+                    <div class="architecture-type">
+                        <h3>1. Encoder-Only Architecture (BERT-style)</h3>
+                        <p>Encoder-only models like BERT utilize bidirectional self-attention mechanisms to process input sequences. These models excel at understanding context from both directions but cannot generate text. Key characteristics include:</p>
+                        <ul>
+                            <li>Bidirectional attention allows tokens to attend to both past and future context</li>
+                            <li>Masked Language Modeling (MLM) as the primary pre-training objective</li>
+                            <li>Optimal for classification, token-level tasks, and semantic understanding</li>
+                            <li>Examples: BERT, RoBERTa, DeBERTa</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="architecture-type">
+                        <h3>2. Encoder-Decoder Architecture (Seq2Seq)</h3>
+                        <p>Models like T5 and BART implement both encoding and decoding components, making them suitable for transformation tasks. Technical features include:</p>
+                        <ul>
+                            <li>Cross-attention mechanism between encoder and decoder</li>
+                            <li>Encoder processes input bidirectionally</li>
+                            <li>Decoder generates output autoregressively</li>
+                            <li>Examples: T5, BART, mT5</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="architecture-type">
+                        <h3>3. Decoder-Only Architecture (GPT-style)</h3>
+                        <p>Modern LLMs predominantly use this architecture, characterized by:</p>
+                        <ul>
+                            <li>Causal (unidirectional) self-attention mechanism</li>
+                            <li>Next-token prediction as the primary training objective</li>
+                            <li>Unified approach to both understanding and generation</li>
+                            <li>Examples: GPT-3, LLaMA, Claude</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section class="advantages">
+                    <h2>Technical Advantages of Decoder-Only Architectures</h2>
+                    
+                    <div class="advantage">
+                        <h3>1. Mathematical Properties of Causal Attention</h3>
+                        <p>Decoder-only architectures implement causal attention, which offers several mathematical advantages:</p>
+                        <ul>
+                            <li>Forms a lower triangular attention matrix with non-zero diagonal elements</li>
+                            <li>Guarantees full rank properties (det(A) ≠ 0)</li>
+                            <li>Enables stable gradient flow during training</li>
+                            <li>Maintains information preservation through each layer</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="advantage">
+                        <h3>2. Computational Efficiency</h3>
+                        <p>The architecture provides significant computational benefits:</p>
+                        <ul>
+                            <li>O(n) complexity for inference vs O(n²) for bidirectional attention</li>
+                            <li>Efficient KV-cache implementation for sequential processing</li>
+                            <li>Reduced memory footprint during inference</li>
+                            <li>Better parallelization capabilities during training</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="advantage">
+                        <h3>3. Advanced Context Processing</h3>
+                        <p>Technical aspects of context handling include:</p>
+                        <ul>
+                            <li>Implicit in-context learning through attention patterns</li>
+                            <li>Efficient gradient flow through causal attention layers</li>
+                            <li>Enhanced ability to maintain long-range dependencies</li>
+                            <li>Superior performance in few-shot and zero-shot scenarios</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="advantage">
+                        <h3>4. Training Dynamics</h3>
+                        <p>Unique training characteristics include:</p>
+                        <ul>
+                            <li>More stable optimization landscape due to causal structure</li>
+                            <li>Better scaling properties with model size</li>
+                            <li>Improved gradient flow through deeper networks</li>
+                            <li>More efficient parameter utilization</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>Given their advantages in training efficiency, engineering implementation, and theoretical properties, decoder-only architectures have become the mainstream choice for LLM design. Particularly in generative tasks, introducing bidirectional attention offers no substantial benefits, and encoder-decoder models only outperform in certain cases due to larger parameter counts. With equivalent parameter sizes and inference costs, the decoder-only architecture stands out as the optimal choice.</p>
+                </section>
+                
+                <section class="references">
+                    <h2>References</h2>
+                    <p>Zhihu.com</p>
+                </section>
+            </main>
             
-            <section class="architecture-types">
-                <h2>Core Architectural Designs</h2>
-                <div class="architecture-type">
-                    <h3>1. Encoder-Only Architecture (BERT-style)</h3>
-                    <p>Encoder-only models like BERT utilize bidirectional self-attention mechanisms to process input sequences. These models excel at understanding context from both directions but cannot generate text. Key characteristics include:</p>
-                    <ul>
-                        <li>Bidirectional attention allows tokens to attend to both past and future context</li>
-                        <li>Masked Language Modeling (MLM) as the primary pre-training objective</li>
-                        <li>Optimal for classification, token-level tasks, and semantic understanding</li>
-                        <li>Examples: BERT, RoBERTa, DeBERTa</li>
-                    </ul>
-                </div>
-                
-                <div class="architecture-type">
-                    <h3>2. Encoder-Decoder Architecture (Seq2Seq)</h3>
-                    <p>Models like T5 and BART implement both encoding and decoding components, making them suitable for transformation tasks. Technical features include:</p>
-                    <ul>
-                        <li>Cross-attention mechanism between encoder and decoder</li>
-                        <li>Encoder processes input bidirectionally</li>
-                        <li>Decoder generates output autoregressively</li>
-                        <li>Examples: T5, BART, mT5</li>
-                    </ul>
-                </div>
-                
-                <div class="architecture-type">
-                    <h3>3. Decoder-Only Architecture (GPT-style)</h3>
-                    <p>Modern LLMs predominantly use this architecture, characterized by:</p>
-                    <ul>
-                        <li>Causal (unidirectional) self-attention mechanism</li>
-                        <li>Next-token prediction as the primary training objective</li>
-                        <li>Unified approach to both understanding and generation</li>
-                        <li>Examples: GPT-3, LLaMA, Claude</li>
-                    </ul>
-                </div>
-            </section>
-            
-            <section class="advantages">
-                <h2>Technical Advantages of Decoder-Only Architectures</h2>
-                
-                <div class="advantage">
-                    <h3>1. Mathematical Properties of Causal Attention</h3>
-                    <p>Decoder-only architectures implement causal attention, which offers several mathematical advantages:</p>
-                    <ul>
-                        <li>Forms a lower triangular attention matrix with non-zero diagonal elements</li>
-                        <li>Guarantees full rank properties (det(A) ≠ 0)</li>
-                        <li>Enables stable gradient flow during training</li>
-                        <li>Maintains information preservation through each layer</li>
-                    </ul>
-                </div>
-                
-                <div class="advantage">
-                    <h3>2. Computational Efficiency</h3>
-                    <p>The architecture provides significant computational benefits:</p>
-                    <ul>
-                        <li>O(n) complexity for inference vs O(n²) for bidirectional attention</li>
-                        <li>Efficient KV-cache implementation for sequential processing</li>
-                        <li>Reduced memory footprint during inference</li>
-                        <li>Better parallelization capabilities during training</li>
-                    </ul>
-                </div>
-                
-                <div class="advantage">
-                    <h3>3. Advanced Context Processing</h3>
-                    <p>Technical aspects of context handling include:</p>
-                    <ul>
-                        <li>Implicit in-context learning through attention patterns</li>
-                        <li>Efficient gradient flow through causal attention layers</li>
-                        <li>Enhanced ability to maintain long-range dependencies</li>
-                        <li>Superior performance in few-shot and zero-shot scenarios</li>
-                    </ul>
-                </div>
-                
-                <div class="advantage">
-                    <h3>4. Training Dynamics</h3>
-                    <p>Unique training characteristics include:</p>
-                    <ul>
-                        <li>More stable optimization landscape due to causal structure</li>
-                        <li>Better scaling properties with model size</li>
-                        <li>Improved gradient flow through deeper networks</li>
-                        <li>More efficient parameter utilization</li>
-                    </ul>
-                </div>
-            </section>
-            
-            <section class="conclusion">
-                <h2>Conclusion</h2>
-                <p>Given their advantages in training efficiency, engineering implementation, and theoretical properties, decoder-only architectures have become the mainstream choice for LLM design. Particularly in generative tasks, introducing bidirectional attention offers no substantial benefits, and encoder-decoder models only outperform in certain cases due to larger parameter counts. With equivalent parameter sizes and inference costs, the decoder-only architecture stands out as the optimal choice.</p>
-            </section>
-            
-            <section class="references">
-                <h2>References</h2>
-                <p>Zhihu.com</p>
-            </section>
-        </main>
-        
-        <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-        </footer>
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
     </div>
 
     <!-- jquery -->

@@ -12,63 +12,66 @@
     <link href="css/style_blog.css" rel="stylesheet">
     <!-- Add this line to include the new CSS file -->
     <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="content text-center">
-                <h1>Sentiment Analysis Fine-Tuning with BERT</h1>
-                <p class="lead">By Yangming Li</p>
-            </div>
-        </header>
-        
-        <main>
-            <!-- Add the metadata section here, just after the header -->
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 10 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Sentiment Analysis Fine-Tuning with BERT</h1>
+                    <p class="lead">By Yangming Li</p>
                 </div>
-            </div>
+            </header>
+            
+            <main>
+                <!-- Add the metadata section here, just after the header -->
+                <div class="article-metadata">
+                    <span class="read-time"><i class="fa fa-clock-o"></i> 10 min read</span>
+                    <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+                    <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+                    <div class="keywords">
+                        <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning
+                    </div>
+                </div>
 
-            <section class="intro">
-                <h2>Introduction</h2>
-                <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
-            </section>
-            
-            <section class="key-points">
-                <h2>Understanding Peft and Lora</h2>
-                <h3>1. Peft Library</h3>
-                <p>The Peft library (Parameter-Efficient Fine-Tuning) is designed for efficient parameter tuning in deep learning. It enables fine-tuning of pre-trained models with minimal data and computational resources.</p>
+                <section class="intro">
+                    <h2>Introduction</h2>
+                    <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
+                </section>
                 
-                <h3>2. Lora Technique</h3>
-                <p>Lora (Low-Rank Adaptation) is a fine-tuning method that introduces low-rank matrices to expand the parameter space of pre-trained models, enhancing their representation and generalization abilities without increasing complexity.</p>
-            </section>
-            
-            <section class="practical-steps">
-                <h2>Practical Steps for Implementation</h2>
+                <section class="key-points">
+                    <h2>Understanding Peft and Lora</h2>
+                    <h3>1. Peft Library</h3>
+                    <p>The Peft library (Parameter-Efficient Fine-Tuning) is designed for efficient parameter tuning in deep learning. It enables fine-tuning of pre-trained models with minimal data and computational resources.</p>
+                    
+                    <h3>2. Lora Technique</h3>
+                    <p>Lora (Low-Rank Adaptation) is a fine-tuning method that introduces low-rank matrices to expand the parameter space of pre-trained models, enhancing their representation and generalization abilities without increasing complexity.</p>
+                </section>
                 
-                <h3>Data Preparation</h3>
-                <p>First, prepare a dataset for text sentiment classification. It should contain text content and corresponding sentiment labels (e.g., positive, negative). Divide the dataset into training, validation, and test sets.</p>
+                <section class="practical-steps">
+                    <h2>Practical Steps for Implementation</h2>
+                    
+                    <h3>Data Preparation</h3>
+                    <p>First, prepare a dataset for text sentiment classification. It should contain text content and corresponding sentiment labels (e.g., positive, negative). Divide the dataset into training, validation, and test sets.</p>
+                    
+                    <h3>Model Loading</h3>
+                    <p>Load the pre-trained BERT model and tokenizer using the Hugging Face Transformers library. This serves as the foundation for our fine-tuning process.</p>
+                    
+                    <h3>Define Lora Fine-Tuning Layer</h3>
+                    <p>Define the Lora fine-tuning layer using the Peft library. This involves introducing low-rank matrices to the pre-trained model's output layer.</p>
+                    
+                    <h3>Configure Training Parameters</h3>
+                    <p>Set hyperparameters such as learning rate, batch size, and epochs. The Peft library provides methods for efficient parameter optimization.</p>
+                    
+                    <h3>Training and Evaluation</h3>
+                    <p>Train the model using the training dataset and evaluate its performance on the validation set. Fine-tune the model parameters using gradient descent.</p>
+                </section>
                 
-                <h3>Model Loading</h3>
-                <p>Load the pre-trained BERT model and tokenizer using the Hugging Face Transformers library. This serves as the foundation for our fine-tuning process.</p>
-                
-                <h3>Define Lora Fine-Tuning Layer</h3>
-                <p>Define the Lora fine-tuning layer using the Peft library. This involves introducing low-rank matrices to the pre-trained model's output layer.</p>
-                
-                <h3>Configure Training Parameters</h3>
-                <p>Set hyperparameters such as learning rate, batch size, and epochs. The Peft library provides methods for efficient parameter optimization.</p>
-                
-                <h3>Training and Evaluation</h3>
-                <p>Train the model using the training dataset and evaluate its performance on the validation set. Fine-tune the model parameters using gradient descent.</p>
-            </section>
-            
-            <section class="code-example">
-                <h2>Code Example</h2>
-                <pre><code class="python">
+                <section class="code-example">
+                    <h2>Code Example</h2>
+                    <pre><code class="python">
 import torch
 from torch.utils.data import DataLoader, Dataset
 from transformers import BertForSequenceClassification, BertTokenizer
@@ -153,14 +156,15 @@ with torch.no_grad():
 
 accuracy = correct / total
 print(f"Validation Accuracy: {accuracy * 100:.2f}%")
-                </code></pre>
-            </section>
+                    </code></pre>
+                </section>
+                
+            </main>
             
-        </main>
-        
-        <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-        </footer>
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
     </div>
 
     <!-- jquery -->

@@ -11,39 +11,42 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style_blog.css" rel="stylesheet">
     <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="content text-center">
-                <h1>Introduction to Ray</h1>
-                <p class="lead">By Yangming Li</p>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Introduction to Ray</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <!-- Add metadata section -->
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 7 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 800 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 1200 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> Ray, Distributed Computing, Machine Learning, Parallel Processing, Data Preprocessing, Model Training, Hyperparameter Tuning
+                </div>
             </div>
-        </header>
-        
-        <!-- Add metadata section -->
-        <div class="article-metadata">
-            <span class="read-time"><i class="fa fa-clock-o"></i> 7 min read</span>
-            <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 800 words</span>
-            <span class="token-count"><i class="fa fa-calculator"></i> Estimated 1200 tokens</span>
-            <div class="keywords">
-                <strong>Keywords:</strong> Ray, Distributed Computing, Machine Learning, Parallel Processing, Data Preprocessing, Model Training, Hyperparameter Tuning
-            </div>
-        </div>
-        
-        <main>
-            <section class="intro">
-                <h2>What is Ray?</h2>
-                <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
-                <img src="img/Ray.png" alt="Ray Logo" style="max-width:100%; height:auto;"> <!-- Added image -->
-            </section>
-            <section class="key-points">
-                <h2>Key Features of Ray with Real-World Examples</h2>
-                
-                <h3>1. Data Preprocessing (Data Module):</h3>
-                <p>Ray helps you manage and preprocess large datasets efficiently. Here's an example from an e-commerce company processing customer data:</p>
-                <div class="code-block">
-                    <pre><code class="python">
+            
+            <main>
+                <section class="intro">
+                    <h2>What is Ray?</h2>
+                    <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
+                    <img src="img/Ray.png" alt="Ray Logo" style="max-width:100%; height:auto;"> <!-- Added image -->
+                </section>
+                <section class="key-points">
+                    <h2>Key Features of Ray with Real-World Examples</h2>
+                    
+                    <h3>1. Data Preprocessing (Data Module):</h3>
+                    <p>Ray helps you manage and preprocess large datasets efficiently. Here's an example from an e-commerce company processing customer data:</p>
+                    <div class="code-block">
+                        <pre><code class="python">
 import ray
 ray.init()
 
@@ -57,22 +60,22 @@ def preprocess_chunk(data_chunk):
 data_chunks = split_data(large_customer_dataset)
 futures = [preprocess_chunk.remote(chunk) for chunk in data_chunks]
 results = ray.get(futures)
-                    </code></pre>
-                </div>
-                <div class="code-explanation">
-                    <p><strong>Code Explanation:</strong></p>
-                    <ul>
-                        <li><code>@ray.remote</code> decorator marks the function for distributed execution</li>
-                        <li>Large dataset is split into chunks for parallel processing</li>
-                        <li><code>preprocess_chunk.remote()</code> executes tasks asynchronously</li>
-                        <li><code>ray.get()</code> collects results from all workers</li>
-                    </ul>
-                </div>
-                
-                <h3>2. Distributed Training (Train Module):</h3>
-                <p>For a financial services company training a fraud detection model on millions of transactions:</p>
-                <div class="code-block">
-                    <pre><code class="python">
+                        </code></pre>
+                    </div>
+                    <div class="code-explanation">
+                        <p><strong>Code Explanation:</strong></p>
+                        <ul>
+                            <li><code>@ray.remote</code> decorator marks the function for distributed execution</li>
+                            <li>Large dataset is split into chunks for parallel processing</li>
+                            <li><code>preprocess_chunk.remote()</code> executes tasks asynchronously</li>
+                            <li><code>ray.get()</code> collects results from all workers</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>2. Distributed Training (Train Module):</h3>
+                    <p>For a financial services company training a fraud detection model on millions of transactions:</p>
+                    <div class="code-block">
+                        <pre><code class="python">
 from ray import train
 import torch
 
@@ -87,22 +90,22 @@ results = trainer.run(
     train_func,
     config={"epochs": 10}
 )
-                    </code></pre>
-                </div>
-                <div class="code-explanation">
-                    <p><strong>Code Explanation:</strong></p>
-                    <ul>
-                        <li>Uses Ray's training module for distributed model training</li>
-                        <li><code>train.report()</code> tracks metrics during training</li>
-                        <li>Trainer automatically handles distributed setup and execution</li>
-                        <li>Supports multiple deep learning frameworks (PyTorch shown here)</li>
-                    </ul>
-                </div>
-                
-                <h3>Hyperparameter Tuning (Tune Module):</h3>
-                <p>A healthcare company optimizing a diagnostic model:</p>
-                <div class="code-block">
-                    <pre><code class="python">
+                        </code></pre>
+                    </div>
+                    <div class="code-explanation">
+                        <p><strong>Code Explanation:</strong></p>
+                        <ul>
+                            <li>Uses Ray's training module for distributed model training</li>
+                            <li><code>train.report()</code> tracks metrics during training</li>
+                            <li>Trainer automatically handles distributed setup and execution</li>
+                            <li>Supports multiple deep learning frameworks (PyTorch shown here)</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Hyperparameter Tuning (Tune Module):</h3>
+                    <p>A healthcare company optimizing a diagnostic model:</p>
+                    <div class="code-block">
+                        <pre><code class="python">
 from ray import tune
 
 def train_model(config):
@@ -120,22 +123,22 @@ analysis = tune.run(
         "hidden": tune.choice([128, 256, 512])
     }
 )
-                    </code></pre>
-                </div>
-                <div class="code-explanation">
-                    <p><strong>Code Explanation:</strong></p>
-                    <ul>
-                        <li>Uses Ray's Tune module for automated hyperparameter optimization</li>
-                        <li><code>tune.loguniform()</code> searches learning rate on log scale</li>
-                        <li><code>tune.choice()</code> tests different network architectures</li>
-                        <li><code>tune.report()</code> tracks metrics for optimization</li>
-                    </ul>
-                </div>
-                
-                <h3>Model Serving (Serve Module):</h3>
-                <p>A real-time recommendation system for a streaming service:</p>
-                <div class="code-block">
-                    <pre><code class="python">
+                        </code></pre>
+                    </div>
+                    <div class="code-explanation">
+                        <p><strong>Code Explanation:</strong></p>
+                        <ul>
+                            <li>Uses Ray's Tune module for automated hyperparameter optimization</li>
+                            <li><code>tune.loguniform()</code> searches learning rate on log scale</li>
+                            <li><code>tune.choice()</code> tests different network architectures</li>
+                            <li><code>tune.report()</code> tracks metrics for optimization</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Model Serving (Serve Module):</h3>
+                    <p>A real-time recommendation system for a streaming service:</p>
+                    <div class="code-block">
+                        <pre><code class="python">
 from ray import serve
 
 @serve.deployment
@@ -149,22 +152,22 @@ class RecommendationModel:
 
 serve.start()
 RecommendationModel.deploy()
-                    </code></pre>
-                </div>
-                <div class="code-explanation">
-                    <p><strong>Code Explanation:</strong></p>
-                    <ul>
-                        <li>Uses Ray's Serve module for model serving</li>
-                        <li><code>@serve.deployment</code> decorator marks the class for deployment</li>
-                        <li><code>serve.start()</code> starts the Serve server</li>
-                        <li><code>RecommendationModel.deploy()</code> deploys the model</li>
-                    </ul>
-                </div>
-                
-                <h3>Reinforcement Learning (RLib Module):</h3>
-                <p>An autonomous robotics company training a robot to navigate warehouses:</p>
-                <div class="code-block">
-                    <pre><code class="python">
+                        </code></pre>
+                    </div>
+                    <div class="code-explanation">
+                        <p><strong>Code Explanation:</strong></p>
+                        <ul>
+                            <li>Uses Ray's Serve module for model serving</li>
+                            <li><code>@serve.deployment</code> decorator marks the class for deployment</li>
+                            <li><code>serve.start()</code> starts the Serve server</li>
+                            <li><code>RecommendationModel.deploy()</code> deploys the model</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Reinforcement Learning (RLib Module):</h3>
+                    <p>An autonomous robotics company training a robot to navigate warehouses:</p>
+                    <div class="code-block">
+                        <pre><code class="python">
 from ray.rllib.algorithms.ppo import PPO
 
 config = {
@@ -177,22 +180,23 @@ trainer = PPO(config=config)
 for i in range(1000):
     result = trainer.train()
     print(f"Iteration {i}: reward = {result['episode_reward_mean']}")
-                    </code></pre>
-                </div>
-                <div class="code-explanation">
-                    <p><strong>Code Explanation:</strong></p>
-                    <ul>
-                        <li>Uses Ray's RLib module for reinforcement learning</li>
-                        <li><code>PPO</code> is a popular reinforcement learning algorithm</li>
-                        <li><code>config</code> specifies the environment, number of workers, and framework</li>
-                        <li><code>trainer.train()</code> trains the model for a specified number of iterations</li>
-                    </ul>
-                </div>
-            </section>
-            
-        <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-        </footer>
+                        </code></pre>
+                    </div>
+                    <div class="code-explanation">
+                        <p><strong>Code Explanation:</strong></p>
+                        <ul>
+                            <li>Uses Ray's RLib module for reinforcement learning</li>
+                            <li><code>PPO</code> is a popular reinforcement learning algorithm</li>
+                            <li><code>config</code> specifies the environment, number of workers, and framework</li>
+                            <li><code>trainer.train()</code> trains the model for a specified number of iterations</li>
+                        </ul>
+                    </div>
+                </section>
+                
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
     </div>
 
     <!-- jquery -->
