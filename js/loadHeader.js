@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="sentiment-analysis-fine-tune-with-bert2.html">BERT Fine-tuning Part 2</a></li>
                         <li><a href="decoder-only-architectures.html">Decoder Architectures in LLMs</a></li>
                         <li><a href="key-statistical-tests-survey-analysis.html">Statistical Tests for Survey Analysis</a></li>
+                        <li><a href="mlops-essential-skills.html">MLOps: Essential Skills for Model Management</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
