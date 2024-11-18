@@ -140,7 +140,10 @@
                     <a class="nav-link" id="product-tab" data-toggle="tab" href="#product" role="tab" aria-controls="product" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="engineering-bi-tab" data-toggle="tab" href="#engineering-bi" role="tab" aria-controls="engineering-bi" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Engineering and Business Intelligence</a>
+                    <a class="nav-link" id="engineering-tab" data-toggle="tab" href="#engineering" role="tab" aria-controls="engineering" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Engineering</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Gallery</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="thoughts-tab" data-toggle="tab" href="#thoughts" role="tab" aria-controls="thoughts" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Thoughts</a>
@@ -276,13 +279,13 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
                         </div>
                     </section>
                 </div>
-                <div class="tab-pane fade" id="engineering-bi" role="tabpanel" aria-labelledby="engineering-bi-tab" style="padding: 0; margin: 0;">
+                <div class="tab-pane fade" id="engineering" role="tabpanel" aria-labelledby="engineering-tab" style="padding: 0; margin: 0;">
                     <section class="intro section-wrapper" style="padding: 0; margin: 0;">
                         <div class="container-fluid" style="padding: 0; margin: 0;">
                             <div class="row" style="padding: 0; margin: 0;">
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
                                     <div class="section-title blog-section-title">
-                                        <h1>Yangming's Data Engineering/BI Blog</h1>
+                                        <h1>Yangming's Engineering Blog</h1>
                                     </div>
                                 </div>
                                 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
@@ -310,6 +313,27 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
                                         <li>
                                             <h3><a href="data-pipelines.html">Building Efficient Data Pipelines</a></h3>
                                             <p>Insights and best practices for building efficient and scalable data pipelines.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Gallery</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="gallery-post-1.html">First Gallery Post</a></h3>
+                                            <p>Welcome to my Gallery! Here you'll find a collection of my visual work and projects.</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -397,8 +421,20 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
                 $('#about-me').removeClass('show active');
             });
 
-            $('#myTab a[href="#engineering-bi"]').on('shown.bs.tab', function () {
+            $('#myTab a[href="#engineering"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the blog tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
+            });
+
+            $('#myTab a[href="#gallery"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the gallery tab is shown
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.type = 'text/css';
@@ -423,7 +459,7 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
 
             $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
-                $('#aiml, #product, #engineering-bi, #thoughts').removeClass('show active');
+                $('#aiml, #product, #engineering, #thoughts, #gallery').removeClass('show active');
             });
 
             $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
