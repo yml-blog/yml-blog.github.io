@@ -143,6 +143,9 @@
                     <a class="nav-link" id="engineering-tab" data-toggle="tab" href="#engineering" role="tab" aria-controls="engineering" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Engineering</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" id="readings-tab" data-toggle="tab" href="#readings" role="tab" aria-controls="readings" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Readings</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Gallery</a>
                 </li>
                 <li class="nav-item">
@@ -160,47 +163,48 @@
                                 <div class="col-md-12">
                                     <h2>About Me & Philosophy</h2>
                                     <pre><code class="language-python">
-<strong style="font-size: 1.2em">class YangmingLi:
-    @staticmethod
-    def roles() -> list:
-        return [
-            "Product Manager",
-            "AI Engineer", 
-            "Machine Learning Engineer",
-            "Data Scientist"
+<strong style="font-size: 1.2em">
+<span style="color: #4B0082">class</span> <span style="color: #008B8B">YangmingLi</span>:
+    <span style="color: #8B4513">@staticmethod</span>
+    <span style="color: #4169E1">def roles()</span> -> list:
+        <span style="color: #006400">return</span> [
+            <span style="color: #FF4500">"Product Manager"</span>,
+            <span style="color: #FF4500">"AI Engineer"</span>, 
+            <span style="color: #FF4500">"Machine Learning Engineer"</span>,
+            <span style="color: #FF4500">"Data Scientist"</span>
         ]
     
-    @staticmethod
-    def industry_experience() -> dict:
-        return {
-            "Finance": ["BCIMC", "Industrial and Commercial Bank of China"],
-            "Healthcare": ["Provincial Health Authority", "Island Health"],
-            "Transportation": ["BC Public Service"], 
-            "Environment": ["Environment Canada and Climate Change"],
-            "Education": [
-                "University of Victoria",
-                "University of Waterloo",
-                "Wilfrid Laurier University"
+    <span style="color: #8B4513">@staticmethod</span>
+    <span style="color: #4169E1">def industry_experience()</span> -> dict:
+        <span style="color: #006400">return</span> {
+            <span style="color: #FF4500">"Finance"</span>: [<span style="color: #FF4500">"BCIMC"</span>, <span style="color: #FF4500">"Industrial and Commercial Bank of China"</span>],
+            <span style="color: #FF4500">"Healthcare"</span>: [<span style="color: #FF4500">"Provincial Health Authority"</span>, <span style="color: #FF4500">"Island Health"</span>],
+            <span style="color: #FF4500">"Transportation"</span>: [<span style="color: #FF4500">"BC Public Service"</span>], 
+            <span style="color: #FF4500">"Environment"</span>: [<span style="color: #FF4500">"Environment Canada and Climate Change"</span>],
+            <span style="color: #FF4500">"Education"</span>: [
+                <span style="color: #FF4500">"University of Victoria"</span>,
+                <span style="color: #FF4500">"University of Waterloo"</span>,
+                <span style="color: #FF4500">"Wilfrid Laurier University"</span>
             ]
         }
 
-    @staticmethod
-    def philosophy() -> str:
-        return """Although there are differences in domain knowledge across industries,
+    <span style="color: #8B4513">@staticmethod</span>
+    <span style="color: #4169E1">def philosophy()</span> -> str:
+        <span style="color: #006400">return</span> <span style="color: #FF4500">"""Although there are differences in domain knowledge across industries,
                  the core product and data thinking remain unchanged. Like an LLM,
                  once equipped with domain knowledge, the fundamental principles
-                 can be applied anywhere."""
+                 can be applied anywhere."""</span>
     
-    @staticmethod
-    def mission() -> str:
-        return "Share latest ideas on data products while documenting knowledge growth"
+    <span style="color: #8B4513">@staticmethod</span>
+    <span style="color: #4169E1">def mission()</span> -> str:
+        <span style="color: #006400">return</span> <span style="color: #FF4500">"Share latest ideas on data products while documenting knowledge growth"</span>
 
-# Instantiate Yangming
+<span style="color: #228B22"># Instantiate Yangming</span>
 me = YangmingLi()
-print(f"Roles: {me.roles()}")
-print(f"Experience across {len(me.industry_experience())} industries")
-print(f"Philosophy: {me.philosophy()}")
-print(f"Mission: {me.mission()}")</strong></code></pre>
+print(f<span style="color: #FF4500">"Roles: {me.roles()}"</span>)
+print(f<span style="color: #FF4500">"Experience across {len(me.industry_experience())} industries"</span>)
+print(f<span style="color: #FF4500">"Philosophy: {me.philosophy()}"</span>)
+print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></code></pre>
                             </div>
                         </div>
                     </section>
@@ -313,6 +317,27 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
                                         <li>
                                             <h3><a href="data-pipelines.html">Building Efficient Data Pipelines</a></h3>
                                             <p>Insights and best practices for building efficient and scalable data pipelines.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="tab-pane fade" id="readings" role="tabpanel" aria-labelledby="readings-tab" style="padding: 0; margin: 0;">
+                    <section class="intro section-wrapper" style="padding: 0; margin: 0;">
+                        <div class="container-fluid" style="padding: 0; margin: 0;">
+                            <div class="row" style="padding: 0; margin: 0;">
+                                <div class="col-md-12" style="padding: 0; margin: 0;">
+                                    <div class="section-title blog-section-title">
+                                        <h1>Yangming's Reading Notes</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+                                    <ul>
+                                        <li>
+                                            <h3><a href="readings-post-1.html">First Reading Notes</a></h3>
+                                            <p>Welcome to my Reading Notes! Here I share insights and summaries from books and papers I've read.</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -457,9 +482,21 @@ print(f"Mission: {me.mission()}")</strong></code></pre>
                 $('#about-me').removeClass('show active');
             });
 
+            $('#myTab a[href="#readings"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the readings tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
+            });
+
             $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
-                $('#aiml, #product, #engineering, #thoughts, #gallery').removeClass('show active');
+                $('#aiml, #product, #engineering, #thoughts, #gallery, #readings').removeClass('show active');
             });
 
             $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
