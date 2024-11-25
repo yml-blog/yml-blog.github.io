@@ -497,17 +497,44 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 $('#about-me').removeClass('show active');
             });
 
-            // Image Slider for profile images
-            var images = document.querySelectorAll('.profile-img img');
-            var currentImageIndex = 0;
-            function changeImage() {
-                images[currentImageIndex].classList.remove('active');
-                currentImageIndex = (currentImageIndex + 1) % images.length;
-                images[currentImageIndex].classList.add('active');
-                var randomInterval = Math.floor(Math.random() * (8000 - 3000 + 1)) + 3000;
-                setTimeout(changeImage, randomInterval);
+            // Debug: Check which images are loading
+            const images = document.querySelectorAll('.profile-img img');
+            images.forEach((img, index) => {
+                img.addEventListener('load', () => {
+                    console.log(`Image ${index + 1} loaded:`, img.src);
+                });
+                img.addEventListener('error', () => {
+                    console.log(`Image ${index + 1} failed to load:`, img.src);
+                });
+            });
+
+            // Image Slider
+            let currentIndex = 0;
+            
+            // Remove any existing intervals
+            if (window.imageInterval) {
+                clearInterval(window.imageInterval);
             }
-            setTimeout(changeImage, 3000); // Start the image slider after 3 seconds
+            
+            function showNextImage() {
+                // Debug: Log current image change
+                console.log(`Changing to image ${currentIndex + 1}`);
+                
+                // Remove active class from all images
+                images.forEach(img => img.classList.remove('active'));
+                
+                // Add active class to current image
+                images[currentIndex].classList.add('active');
+                
+                // Move to next image
+                currentIndex = (currentIndex + 1) % images.length;
+            }
+            
+            // Start the sequence and store the interval
+            window.imageInterval = setInterval(showNextImage, 5000);
+            
+            // Ensure first image is showing
+            images[0].classList.add('active');
         });
     </script>
     <script src="js/scripts.js"></script>
