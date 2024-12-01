@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Understanding Kubernetes: A Comprehensive Guide</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Understanding Kubernetes: A Comprehensive Guide</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 20 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 3000 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 4500 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> Kubernetes, Container Orchestration, DevOps, Cloud Native, K8s, Microservices, Docker, Container Management, Cloud Computing, Infrastructure
+                </div>
+            </div>
+
+            <main>
+                <section class="intro">
+                    <h2>Background</h2>
+                    <p>Kubernetes has emerged as the de facto standard for container orchestration in modern cloud-native applications. This comprehensive guide explores its architecture, key components, and practical implementation strategies, helping you understand why it's become the backbone of modern cloud infrastructure.</p>
+                </section>
+                
+                <section class="core-concepts">
+                    <h2>Core Concepts</h2>
+                    <div class="concept-box">
+                        <h3>What is Kubernetes?</h3>
+                        <p>Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. Originally developed by Google, it's now maintained by the Cloud Native Computing Foundation (CNCF).</p>
+                        
+                        <h3>Key Features</h3>
+                        <ul>
+                            <li>Container orchestration</li>
+                            <li>Automated rollouts and rollbacks</li>
+                            <li>Self-healing capabilities</li>
+                            <li>Horizontal scaling</li>
+                            <li>Service discovery and load balancing</li>
+                            <li>Secret and configuration management</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="architecture">
+                    <h2>Kubernetes Architecture</h2>
+                    <div class="component-box">
+                        <h3>Control Plane Components</h3>
+                        <ul>
+                            <li><strong>kube-apiserver:</strong> The API server that exposes the Kubernetes API</li>
+                            <li><strong>etcd:</strong> Consistent and highly-available key value store</li>
+                            <li><strong>kube-scheduler:</strong> Watches for newly created pods and assigns them to nodes</li>
+                            <li><strong>kube-controller-manager:</strong> Runs controller processes</li>
+                        </ul>
+                    </div>
+
+                    <div class="component-box">
+                        <h3>Node Components</h3>
+                        <ul>
+                            <li><strong>kubelet:</strong> Ensures containers are running in a pod</li>
+                            <li><strong>kube-proxy:</strong> Maintains network rules on nodes</li>
+                            <li><strong>Container runtime:</strong> Software responsible for running containers</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>Kubernetes provides a robust platform for container orchestration, but requires careful planning and implementation. Understanding its architecture and components is crucial for successful deployment and management of containerized applications.</p>
+                </section>
+                
+                <section class="references">
+                    <h2>References</h2>
+                    <ul>
+                        <li>Kubernetes Official Documentation</li>
+                        <li>Cloud Native Computing Foundation (CNCF)</li>
+                        <li>Google Cloud Platform Documentation</li>
+                    </ul>
+                </section>
+            </main>
+            
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 
