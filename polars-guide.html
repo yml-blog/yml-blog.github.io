@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Introduction to Polars: A Fast and Efficient Data Processing Library</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Introduction to Polars: A Fast and Efficient Data Processing Library</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> Polars, Data Processing, Python, DataFrames, Series, Data Analysis, Performance, Big Data
+                </div>
+            </div>
+
+            <main>
+                <section class="intro">
+                    <h2>Background</h2>
+                    <p>Polars is a high-performance data processing library designed to handle large datasets with efficiency and ease. Whether you're working with small or large-scale data, Polars provides fast and expressive methods for transforming, analyzing, and processing data.</p>
+                </section>
+                
+                <section class="data-types">
+                    <h2>Data Types and Structures</h2>
+                    <div class="type-box">
+                        <h3>Core Data Types</h3>
+                        <ul>
+                            <li><strong>Numeric Types:</strong> 
+                                <ul>
+                                    <li>Signed integers</li>
+                                    <li>Unsigned integers</li>
+                                    <li>Floating-point numbers</li>
+                                    <li>Decimals</li>
+                                </ul>
+                            </li>
+                            <li><strong>Nested Types:</strong>
+                                <ul>
+                                    <li>Lists</li>
+                                    <li>Structs</li>
+                                    <li>Arrays</li>
+                                </ul>
+                            </li>
+                            <li><strong>Temporal Types:</strong>
+                                <ul>
+                                    <li>Dates</li>
+                                    <li>Times</li>
+                                    <li>Datetimes</li>
+                                    <li>Time deltas</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="data-structures">
+                    <h2>Core Data Structures</h2>
+                    <div class="structure-box">
+                        <h3>Series</h3>
+                        <p>One-dimensional, homogeneous collection of data elements.</p>
+                        <pre><code class="python">
+import polars as pl
+
+s = pl.Series("ints", [1, 2, 3, 4, 5])
+print(s)
+                        </code></pre>
+                        
+                        <h3>DataFrame</h3>
+                        <p>Two-dimensional, heterogeneous data structure containing named Series.</p>
+                        <pre><code class="python">
+df = pl.DataFrame({
+    "name": ["Alice", "Bob", "Charlie"],
+    "age": [25, 30, 35],
+    "height": [1.65, 1.80, 1.75]
+})
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="operations">
+                    <h2>Working with DataFrames</h2>
+                    <div class="operations-box">
+                        <h3>Basic Operations</h3>
+                        <ul>
+                            <li><strong>Inspection:</strong> head(), tail(), glimpse()</li>
+                            <li><strong>Statistics:</strong> describe(), mean(), sum()</li>
+                            <li><strong>Filtering:</strong> filter(), select()</li>
+                            <li><strong>Grouping:</strong> group_by(), agg()</li>
+                        </ul>
+                        
+                        <h3>Example Operations</h3>
+                        <pre><code class="python">
+# Calculate BMI
+result = df.select(
+    pl.col("name"),
+    (pl.col("weight") / (pl.col("height") ** 2)).alias("bmi")
+)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>Polars offers a powerful alternative to traditional data processing libraries, combining high performance with an intuitive API. Its efficient memory usage and fast execution make it particularly suitable for large-scale data processing tasks.</p>
+                </section>
+                
+                <section class="references">
+                    <h2>References</h2>
+                    <ul>
+                        <li>Polars Official Documentation</li>
+                        <li>Python Data Processing Benchmarks</li>
+                        <li>Rust-based Data Processing Libraries</li>
+                    </ul>
+                </section>
+            </main>
+            
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 
