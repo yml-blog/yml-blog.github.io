@@ -95,24 +95,160 @@ df = pl.DataFrame({
                     </div>
                 </section>
 
-                <section class="operations">
-                    <h2>Working with DataFrames</h2>
-                    <div class="operations-box">
-                        <h3>Basic Operations</h3>
-                        <ul>
-                            <li><strong>Inspection:</strong> head(), tail(), glimpse()</li>
-                            <li><strong>Statistics:</strong> describe(), mean(), sum()</li>
-                            <li><strong>Filtering:</strong> filter(), select()</li>
-                            <li><strong>Grouping:</strong> group_by(), agg()</li>
-                        </ul>
-                        
-                        <h3>Example Operations</h3>
+                <section class="examples">
+                    <h2>Working with Data</h2>
+                    
+                    <div class="example-box">
+                        <h3>Missing Values and Special Types</h3>
                         <pre><code class="python">
-# Calculate BMI
-result = df.select(
-    pl.col("name"),
-    (pl.col("weight") / (pl.col("height") ** 2)).alias("bmi")
+import polars as pl
+import numpy as np
+
+# Creating series with null values
+s_null = pl.Series("nulls", [1, None, 3, None, 5])
+print("Series with null values:")
+print(s_null)
+
+# Creating series with NaN values
+s_nan = pl.Series("nans", [1.0, np.nan, 3.0, np.nan, 5.0])
+print("\nSeries with NaN values:")
+print(s_nan)
+
+# Checking null vs NaN
+print("\nNull count:", s_null.null_count())
+print("NaN count:", s_nan.is_nan().sum())
+                        </code></pre>
+                    </div>
+
+                    <div class="example-box">
+                        <h3>Advanced Series Operations</h3>
+                        <pre><code class="python">
+# Different ways to create series
+s1 = pl.Series("ints", [1, 2, 3, 4, 5])
+s2 = pl.Series("uints", [1, 2, 3, 4, 5], dtype=pl.UInt64)
+s3 = pl.Series("floats", [1.1, 2.2, 3.3, 4.4, 5.5])
+
+print("Series types:")
+print(f"s1 dtype: {s1.dtype}")
+print(f"s2 dtype: {s2.dtype}")
+print(f"s3 dtype: {s3.dtype}")
+
+# Series operations
+print("\nBasic operations:")
+print("Sum:", s1.sum())
+print("Mean:", s1.mean())
+print("Standard deviation:", s1.std())
+                        </code></pre>
+                    </div>
+
+                    <div class="example-box">
+                        <h3>Complex DataFrame Operations</h3>
+                        <pre><code class="python">
+from datetime import date
+
+# Create a sample DataFrame
+df = pl.DataFrame(
+    {
+        "name": ["Alice Archer", "Ben Brown", "Chloe Cooper", "Daniel Donovan"],
+        "birthdate": [
+            date(1997, 1, 10),
+            date(1985, 2, 15),
+            date(1983, 3, 22),
+            date(1981, 4, 30),
+        ],
+        "weight": [57.9, 72.5, 53.6, 83.1],  # kg
+        "height": [1.56, 1.77, 1.65, 1.75],  # m
+    }
 )
+
+print("Original DataFrame:")
+print(df)
+
+# Inspection methods
+print("\nFirst 2 rows:")
+print(df.head(2))
+
+print("\nDataFrame summary:")
+print(df.describe())
+
+print("\nSchema information:")
+print(df.schema)
+                        </code></pre>
+                    </div>
+
+                    <div class="example-box">
+                        <h3>Advanced Transformations</h3>
+                        <pre><code class="python">
+# Calculate BMI and age-related statistics
+result = df.with_columns([
+    pl.col("weight")
+    .div(pl.col("height").pow(2))
+    .alias("bmi"),
+    
+    pl.col("birthdate")
+    .dt.year()
+    .alias("birth_year"),
+    
+    (2024 - pl.col("birthdate").dt.year())
+    .alias("age")
+])
+
+print("Enhanced DataFrame:")
+print(result)
+
+# Filtering and grouping
+filtered = result.filter(
+    (pl.col("bmi") > 20) & 
+    (pl.col("age") < 40)
+)
+
+print("\nFiltered results:")
+print(filtered)
+
+# Group by decade of birth
+decades = result.group_by(
+    (pl.col("birth_year") // 10 * 10)
+    .alias("decade")
+).agg([
+    pl.col("bmi").mean().alias("avg_bmi"),
+    pl.col("age").mean().alias("avg_age"),
+    pl.count("name").alias("count")
+])
+
+print("\nDecade-wise statistics:")
+print(decades)
+                        </code></pre>
+                    </div>
+
+                    <div class="example-box">
+                        <h3>Data Manipulation Techniques</h3>
+                        <pre><code class="python">
+# Adding calculated columns
+enhanced_df = df.with_columns([
+    # Calculate BMI
+    (pl.col("weight") / (pl.col("height") ** 2)).alias("bmi"),
+    
+    # Extract year from birthdate
+    pl.col("birthdate").dt.year().alias("birth_year"),
+    
+    # Create a categorical column
+    pl.when(pl.col("weight") > 70)
+    .then("heavy")
+    .otherwise("light")
+    .alias("weight_category")
+])
+
+print("Enhanced DataFrame with calculations:")
+print(enhanced_df)
+
+# Complex filtering
+filtered_df = enhanced_df.filter(
+    (pl.col("bmi") > 20) &
+    (pl.col("birth_year") > 1980)
+)
+
+print("\nFiltered results:")
+print(filtered_df)
                         </code></pre>
                     </div>
                 </section>
