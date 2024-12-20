@@ -104,6 +104,59 @@
         .profile-img img.active {
             opacity: 1;
         }
+        .meeting-scheduler {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        #map {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: #f8f9fa;
+        }
+
+        .map-error {
+            padding: 20px;
+            text-align: center;
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+        }
+
+        .meeting-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #0565dc;
+            color: white !important;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .meeting-button:hover {
+            background-color: #0451b0;
+            text-decoration: none;
+        }
+
+        .meeting-button i {
+            margin-right: 8px;
+        }
+
+        .text-muted {
+            color: #6c757d;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
     </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -312,6 +365,10 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                             <h3><a href="polars-guide.html">[Engineering] Introduction to Polars: A Fast and Efficient Data Processing Library</a></h3>
                                             <p>A comprehensive guide to using Polars for high-performance data processing in Python</p>
                                         </li>
+                                        <li>
+                                            <h3><a href="jax-guide.html">[Engineering] Deep Learning Engineering with JAX: A Modern Approach</a></h3>
+                                            <p>A comprehensive guide to using JAX for high-performance machine learning and numerical computing</p>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -397,6 +454,27 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                         </li>
                                         <li>
                                             <h3>LinkedIn: <a href="https://www.linkedin.com/in/yangming-l-9a964791/" target="_blank"><i class="fa fa-linkedin"></i> Yangming Li</a></h3>
+                                        </li>
+                                        <li>
+                                            <h3>Location: Vancouver, BC, Canada</h3>
+                                            <!-- Google Maps Integration -->
+                                            <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
+                                        </li>
+                                        <li>
+                                            <h3>Book a Meeting</h3>
+                                            <div class="meeting-scheduler">
+                                                <p>Click below to schedule a meeting with me:</p>
+                                                <!-- Email Meeting Request Link -->
+                                                <a href="mailto:yangmingml@yahoo.com?subject=Meeting%20Request&body=Hi%20Yangming%2C%0A%0AI%20would%20like%20to%20schedule%20a%20meeting%20with%20you.%0A%0APreferred%20Date%20and%20Time%3A%0ATime%20Zone%3A%0ATopic%3A%0A%0ABest%20regards" 
+                                                   class="btn btn-primary meeting-button">
+                                                    <i class="fa fa-calendar"></i> Schedule Meeting
+                                                </a>
+                                                <p class="mt-2 text-muted">
+                                                    <small>Email me at: 
+                                                        <a href="mailto:yangmingml@yahoo.com">yangmingml@yahoo.com</a>
+                                                    </small>
+                                                </p>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -579,6 +657,55 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 comment.innerHTML = `<strong>${name}</strong>: ${text}`;
                 commentList.appendChild(comment);
                 commentCount.textContent = parseInt(commentCount.textContent) + 1;
+            }
+        });
+    </script>
+    <!-- Google Maps Script -->
+    <script>
+        function initMap() {
+            try {
+                const vancouver = { lat: 49.2827, lng: -123.1207 };
+                const mapOptions = {
+                    zoom: 12,
+                    center: vancouver,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                
+                const map = new google.maps.Map(
+                    document.getElementById("map"),
+                    mapOptions
+                );
+                
+                const marker = new google.maps.Marker({
+                    position: vancouver,
+                    map: map,
+                    title: "Vancouver, BC"
+                });
+            } catch (error) {
+                console.error("Error initializing map:", error);
+                document.getElementById("map").innerHTML = "Map loading failed. Please try again later.";
+            }
+        }
+
+        // Load Google Maps API with callback
+        function loadGoogleMaps() {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap';
+            script.async = true;
+            script.defer = true;
+            script.onerror = function() {
+                console.error("Failed to load Google Maps API");
+                document.getElementById("map").innerHTML = "Map loading failed. Please try again later.";
+            };
+            document.head.appendChild(script);
+        }
+
+        // Initialize map when the contact tab is shown
+        $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
+            if (typeof google === 'undefined') {
+                loadGoogleMaps();
+            } else {
+                initMap();
             }
         });
     </script>

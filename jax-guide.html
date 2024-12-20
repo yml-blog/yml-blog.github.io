@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep Learning Engineering with JAX</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <!-- Navigation will be injected here -->
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Deep Learning Engineering with JAX: A Modern Approach</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3500 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> JAX, Machine Learning, Deep Learning, TensorFlow, PyTorch, Autograd, XLA, Accelerator, Functional Programming
+                </div>
+            </div>
+
+            <main>
+                <section class="intro">
+                    <h2>Introduction</h2>
+                    <p>JAX, an innovative library developed by Google, has quickly gained traction in the machine learning (ML) community. Its seamless integration of NumPy-like syntax with accelerator-optimized computation and advanced automatic differentiation makes it a compelling choice for both researchers and engineers.</p>
+                    
+                    <p>In this blog, we'll explore the unique features of JAX, its ecosystem, and how it compares to traditional libraries like TensorFlow or PyTorch. We'll also look at its practical use in building high-performance ML systems.</p>
+                    
+                    <h3>What is JAX?</h3>
+                    <p>At its core, JAX combines two powerful technologies:</p>
+                    <ul>
+                        <li><strong>Autograd:</strong> Enables automatic differentiation of native Python functions, crucial for optimizing ML models.</li>
+                        <li><strong>XLA (Accelerated Linear Algebra):</strong> A compiler that transforms high-level linear algebra into low-level machine instructions optimized for CPUs, GPUs, and TPUs.</li>
+                    </ul>
+                    
+                    <p>JAX bridges the gap between mathematical flexibility and hardware acceleration, providing a unique advantage to ML researchers and engineers. The library is particularly suited for:</p>
+                    <ul>
+                        <li>High-performance numerical computing</li>
+                        <li>Research and experimentation with new algorithms</li>
+                        <li>Building custom neural networks and models with shared ecosystem libraries like Flax and Haiku</li>
+                    </ul>
+                </section>
+
+                <section class="key-points">
+                    <h2>Key Aspects of JAX</h2>
+                    
+                    <h3>1. NumPy-like API with Accelerator Support</h3>
+                    <p>JAX replicates the familiar NumPy API, but its operations can run on GPUs and TPUs:</p>
+                    <pre><code class="language-python">
+import jax.numpy as jnp
+
+data = jnp.linspace(0, 1, 1000)
+result = jnp.sin(data) + jnp.cos(data)
+                    </code></pre>
+                    
+                    <h3>2. Functional Programming Paradigm</h3>
+                    <p>Unlike traditional libraries, JAX enforces immutability and functional programming. Arrays in JAX are immutable, ensuring pure functions and reducing unexpected side effects—a paradigm shift for many developers.</p>
+                    
+                    <h3>3. Automatic Differentiation</h3>
+                    <p>JAX's grad function enables automatic differentiation:</p>
+                    <pre><code class="language-python">
+from jax import grad
+
+# Define a function
+def square(x):
+    return x ** 2
+
+# Compute its gradient
+grad_square = grad(square)
+print(grad_square(3.0))  # Output: 6.0
+                    </code></pre>
+                    
+                    <h3>4. Transform Functions</h3>
+                    <p>JAX includes advanced transformations such as:</p>
+                    <ul>
+                        <li><strong>jit (Just-In-Time Compilation):</strong> Speeds up computation by compiling functions with XLA</li>
+                        <li><strong>vmap (Vectorization Mapping):</strong> Automatically vectorizes functions to process batches of data efficiently</li>
+                        <li><strong>pmap (Parallel Mapping):</strong> Distributes computations across multiple devices</li>
+                    </ul>
+                </section>
+
+                <section class="building-blocks">
+                    <h2>Building Blocks of JAX</h2>
+                    
+                    <h3>NumPy API</h3>
+                    <p>The jax.numpy module replicates the familiar NumPy API, offering seamless integration with existing workflows.</p>
+                    
+                    <div class="code-box">
+                        <h4>Random Number Generation</h4>
+                        <pre><code class="language-python">
+from jax import random
+
+key = random.PRNGKey(42)
+random_number = random.normal(key, shape=(3,))
+print(random_number)
+                        </code></pre>
+                    </div>
+
+                    <h3>Advanced Transformations</h3>
+                    <div class="code-box">
+                        <h4>JIT Compilation</h4>
+                        <pre><code class="language-python">
+from jax import jit
+
+@jit
+def multiply(x, y):
+    return x * y
+
+result = multiply(3, 4)  # Faster execution
+                        </code></pre>
+                    </div>
+
+                    <div class="code-box">
+                        <h4>Vectorized Operations</h4>
+                        <pre><code class="language-python">
+from jax import vmap
+
+# Define a simple function
+def add(x, y):
+    return x + y
+
+# Vectorize it
+batched_add = vmap(add)
+
+result = batched_add(jnp.array([1, 2, 3]), jnp.array([4, 5, 6]))
+print(result)  # Output: [5, 7, 9]
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="framework-comparison">
+                    <h2>Comparing JAX to Other Frameworks</h2>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>JAX</th>
+                                <th>TensorFlow/PyTorch</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>API Style</td>
+                                <td>Functional</td>
+                                <td>Object-Oriented</td>
+                            </tr>
+                            <tr>
+                                <td>Hardware Support</td>
+                                <td>Native</td>
+                                <td>Native</td>
+                            </tr>
+                            <tr>
+                                <td>Ecosystem</td>
+                                <td>Growing (Flax, Haiku)</td>
+                                <td>Mature</td>
+                            </tr>
+                            <tr>
+                                <td>Gradient Calculation</td>
+                                <td>Built-in via grad</td>
+                                <td>Built-in</td>
+                            </tr>
+                            <tr>
+                                <td>Performance</td>
+                                <td>Highly Optimized (via XLA)</td>
+                                <td>Optimized</td>
+                            </tr>
+                            <tr>
+                                <td>Industry Use Cases</td>
+                                <td>Reinforcement learning, Simulation-based tasks, Parallelism</td>
+                                <td>Traditional deep learning tasks, Large-scale deployment</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="use-cases">
+                    <h2>When to Use JAX</h2>
+                    
+                    <h3>Ideal Scenarios</h3>
+                    <ul>
+                        <li><strong>Research and Prototyping:</strong> Experimenting with novel algorithms or needing flexible computation</li>
+                        <li><strong>Accelerator-Optimized Workflows:</strong> Scaling across GPUs or TPUs with XLA optimization</li>
+                        <li><strong>Functional Programming:</strong> Projects benefiting from immutable data and pure functions</li>
+                        <li><strong>Custom Neural Networks:</strong> Building from scratch or using Flax/Haiku</li>
+                        <li><strong>Parallelism and Vectorization:</strong> Heavy batching or parallel execution needs</li>
+                    </ul>
+
+                    <h3>Industry Applications</h3>
+                    <ul>
+                        <li><strong>Autonomous Driving:</strong> Simulation environments and large-scale data processing</li>
+                        <li><strong>Robotics:</strong> Real-time control and optimization</li>
+                        <li><strong>Scientific Computing:</strong> High-performance numerical computations</li>
+                        <li><strong>Research Labs:</strong> Novel algorithm development and experimentation</li>
+                    </ul>
+
+                    <div class="note-box">
+                        <p><strong>Note:</strong> For general deep learning tasks prioritizing ease of use and extensive community support, PyTorch and TensorFlow remain strong alternatives.</p>
+                    </div>
+                </section>
+
+                <section class="challenges">
+                    <h2>Implementation Challenges and Solutions</h2>
+                    
+                    <h3>Common Challenges</h3>
+                    <ul>
+                        <li><strong>Learning Curve:</strong> Adapting to functional programming paradigm</li>
+                        <li><strong>Debugging Complexity:</strong> Understanding JIT compilation errors</li>
+                        <li><strong>Memory Management:</strong> Handling large-scale computations efficiently</li>
+                        <li><strong>Ecosystem Maturity:</strong> Finding equivalent tools compared to PyTorch/TensorFlow</li>
+                    </ul>
+
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li><strong>Code Organization:</strong> Structure code around pure functions</li>
+                        <li><strong>Performance Optimization:</strong> Use appropriate transformation combinations</li>
+                        <li><strong>Testing Strategy:</strong> Implement comprehensive unit tests for numerical code</li>
+                        <li><strong>Resource Management:</strong> Monitor and optimize memory usage patterns</li>
+                    </ul>
+                </section>
+
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>JAX represents a significant advancement in scientific computing and machine learning frameworks. Its combination of automatic differentiation, hardware acceleration, and functional programming principles makes it particularly powerful for research and high-performance applications. While there are challenges to adoption, the benefits of using JAX - especially in areas requiring numerical computing and large-scale machine learning - make it a compelling choice for modern ML engineering.</p>
+                </section>
+            </main>
+
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 

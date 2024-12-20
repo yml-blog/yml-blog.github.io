@@ -23,6 +23,11 @@ const blogList = [
         title: "Choosing the Right Statistical Test for Survey Analysis",
         url: "key-statistical-tests-survey-analysis.html",
         category: "Statistics"
+    },
+    {
+        title: "Deep Learning Engineering with JAX",
+        url: "jax-guide.html",
+        category: "Machine Learning"
     }
 ];
 
