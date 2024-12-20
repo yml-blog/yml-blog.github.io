@@ -57,26 +57,244 @@
                     </div>
                 </section>
 
-                <section class="architecture">
-                    <h2>Kubernetes Architecture</h2>
-                    <div class="component-box">
-                        <h3>Control Plane Components</h3>
+                <section class="features">
+                    <h2>Key Features</h2>
+                    
+                    <div class="feature-box">
+                        <h3>1. Container Orchestration</h3>
+                        <p>Kubernetes automates the deployment and management of containerized applications, ensuring that your containers run as expected. It handles tasks such as:</p>
                         <ul>
-                            <li><strong>kube-apiserver:</strong> The API server that exposes the Kubernetes API</li>
-                            <li><strong>etcd:</strong> Consistent and highly-available key value store</li>
-                            <li><strong>kube-scheduler:</strong> Watches for newly created pods and assigns them to nodes</li>
-                            <li><strong>kube-controller-manager:</strong> Runs controller processes</li>
+                            <li>Container scheduling</li>
+                            <li>Resource allocation</li>
+                            <li>Scaling management</li>
                         </ul>
                     </div>
 
-                    <div class="component-box">
-                        <h3>Node Components</h3>
+                    <div class="feature-box">
+                        <h3>2. Automated Rollouts and Rollbacks</h3>
+                        <p>With Kubernetes, you can:</p>
                         <ul>
-                            <li><strong>kubelet:</strong> Ensures containers are running in a pod</li>
-                            <li><strong>kube-proxy:</strong> Maintains network rules on nodes</li>
-                            <li><strong>Container runtime:</strong> Software responsible for running containers</li>
+                            <li>Roll out updates incrementally</li>
+                            <li>Automatically rollback changes in case of failures</li>
+                            <li>Minimize downtime</li>
+                            <li>Maintain system stability</li>
                         </ul>
                     </div>
+
+                    <div class="feature-box">
+                        <h3>3. Self-Healing Capabilities</h3>
+                        <p>Kubernetes continuously monitors application health and:</p>
+                        <ul>
+                            <li>Automatically restarts failed containers</li>
+                            <li>Replaces unresponsive containers</li>
+                            <li>Ensures system operational status</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h3>4. Horizontal Scaling</h3>
+                        <p>Kubernetes supports dynamic scaling by:</p>
+                        <ul>
+                            <li>Adjusting container instances based on traffic</li>
+                            <li>Managing resource usage efficiently</li>
+                            <li>Ensuring optimal performance during high demand</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h3>5. Service Discovery and Load Balancing</h3>
+                        <p>Kubernetes simplifies networking by:</p>
+                        <ul>
+                            <li>Assigning unique DNS names/IPs to services</li>
+                            <li>Providing built-in load balancing</li>
+                            <li>Ensuring even traffic distribution</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-box">
+                        <h3>6. Secret and Configuration Management</h3>
+                        <p>Kubernetes provides secure management of:</p>
+                        <ul>
+                            <li>Sensitive data (passwords, API keys)</li>
+                            <li>Dynamic configuration updates</li>
+                            <li>Application deployments without rebuilds</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="architecture-details">
+                    <h2>Kubernetes Architecture</h2>
+                    <p>Kubernetes' architecture consists of Control Plane and Node Components, working together to maintain the desired cluster state.</p>
+
+                    <div class="architecture-box control-plane">
+                        <h3>Control Plane Components</h3>
+                        
+                        <div class="component">
+                            <h4>kube-apiserver</h4>
+                            <p>The front-end for the Kubernetes control plane that:</p>
+                            <ul>
+                                <li>Exposes the Kubernetes API</li>
+                                <li>Serves as the primary interface for cluster interaction</li>
+                                <li>Ensures communication using RESTful APIs</li>
+                            </ul>
+                        </div>
+
+                        <div class="component">
+                            <h4>etcd</h4>
+                            <p>A distributed key-value store that:</p>
+                            <ul>
+                                <li>Stores all cluster data</li>
+                                <li>Acts as the single source of truth</li>
+                                <li>Ensures data consistency across nodes</li>
+                            </ul>
+                        </div>
+
+                        <div class="component">
+                            <h4>kube-scheduler</h4>
+                            <p>Monitors and manages pod scheduling by:</p>
+                            <ul>
+                                <li>Tracking newly created pods</li>
+                                <li>Assigning pods to nodes based on requirements</li>
+                                <li>Optimizing resource utilization</li>
+                            </ul>
+                        </div>
+
+                        <div class="component">
+                            <h4>kube-controller-manager</h4>
+                            <p>Runs various controllers including:</p>
+                            <ul>
+                                <li>Node Controller: Manages node failures</li>
+                                <li>Replication Controller: Maintains pod replicas</li>
+                                <li>Endpoints Controller: Updates service-pod relationships</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="architecture-box node-components">
+                        <h3>Node Components</h3>
+                        
+                        <div class="component">
+                            <h4>kubelet</h4>
+                            <p>The primary node agent that:</p>
+                            <ul>
+                                <li>Ensures containers are running in pods</li>
+                                <li>Maintains container health</li>
+                                <li>Communicates with the control plane</li>
+                            </ul>
+                        </div>
+
+                        <div class="component">
+                            <h4>kube-proxy</h4>
+                            <p>Maintains network functionality by:</p>
+                            <ul>
+                                <li>Managing network rules</li>
+                                <li>Handling load balancing</li>
+                                <li>Enabling pod-service communication</li>
+                            </ul>
+                        </div>
+
+                        <div class="component">
+                            <h4>Container Runtime</h4>
+                            <p>Software responsible for running containers:</p>
+                            <ul>
+                                <li>Supports Docker</li>
+                                <li>Supports containerd</li>
+                                <li>Supports CRI-O</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="implementation">
+                    <h2>Practical Implementation Strategies</h2>
+                    
+                    <div class="implementation-box">
+                        <h3>1. Setting Up a Kubernetes Cluster</h3>
+                        <p>To deploy a Kubernetes cluster, you can choose from several tools:</p>
+                        <ul>
+                            <li><strong>Minikube:</strong> Ideal for local testing and development</li>
+                            <li><strong>Kubeadm:</strong> Simplifies cluster setup for production environments</li>
+                            <li><strong>Managed Kubernetes Services:</strong> Cloud providers like AWS (EKS), Azure (AKS), and Google Cloud (GKE)</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-box">
+                        <h3>2. Defining Workloads</h3>
+                        <p>Kubernetes uses YAML files to define workloads:</p>
+                        <pre><code class="yaml">
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.17
+        ports:
+        - containerPort: 80
+                        </code></pre>
+                    </div>
+
+                    <div class="code-box">
+                        <h3>Service Example</h3>
+                        <pre><code class="yaml">
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="monitoring">
+                    <h2>Monitoring and Logging</h2>
+                    <div class="code-box">
+                        <h3>Prometheus Configuration</h3>
+                        <pre><code class="yaml">
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-service-monitor
+spec:
+  selector:
+    matchLabels:
+      app: prometheus
+  endpoints:
+  - port: http
+    interval: 15s
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="challenges">
+                    <h2>Challenges and Solutions</h2>
+                    <div class="challenge-box">
+                        <h3>1. Complexity</h3>
+                        <p>While Kubernetes is powerful, its complexity can be overwhelming for beginners.</p>
+                        <h4>Solutions:</h4>
+                        <ul>
+                            <li>Start with small, local clusters to build foundational knowledge</li>
+                            <li>Use managed Kubernetes services to abstract infrastructure management</li>
+                        </ul>
+                    </div>
+                    <!-- Add more challenges... -->
                 </section>
 
                 <section class="conclusion">
@@ -106,5 +324,88 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/blogPanel.js"></script>
+
+    <style>
+        .implementation-box, .code-box, .challenge-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .code-box {
+            background: #2d2d2d;
+            color: #fff;
+        }
+
+        .code-box pre {
+            margin: 0;
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        .code-box code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+
+        .challenge-box h4 {
+            color: #f1780e;
+            margin: 15px 0 10px 0;
+        }
+
+        .implementation-box ul,
+        .challenge-box ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .implementation-box li,
+        .challenge-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .feature-box, .architecture-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature-box h3, .architecture-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1780e;
+            padding-bottom: 10px;
+        }
+
+        .component {
+            background: white;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .component h4 {
+            color: #f1780e;
+            margin-bottom: 10px;
+        }
+
+        .feature-box ul,
+        .component ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .feature-box li,
+        .component li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+    </style>
 </body>
 </html> 
