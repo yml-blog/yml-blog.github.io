@@ -906,5 +906,20 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         }
     });
     </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get current count from localStorage or start at 0
+        let count = localStorage.getItem('visitorCount') || 0;
+        
+        // Increment count
+        count = parseInt(count) + 1;
+        
+        // Save new count
+        localStorage.setItem('visitorCount', count);
+        
+        // Update all visitor count displays
+        document.getElementById('visitorCount').textContent = count;
+    });
+    </script>
 </body>
 </html>
