@@ -224,6 +224,31 @@
             color: #999;
             font-size: 0.8em;
         }
+
+        .visitor-counter {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #f1780e;
+        }
+
+        .visitor-counter span {
+            font-weight: bold;
+            color: #0565dc;
+        }
+
+        .visitor-text {
+            font-size: 1.2em;
+            color: #f1780e;
+            display: block;
+            margin-top: 20px;
+        }
+
+        .visitor-number {
+            color: #f1780e;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
     </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -238,6 +263,8 @@
                             I am interested in AI/ML & product design & information visualization.<br>
                             I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong>.
                             <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
+                            <br><br>
+                            <strong class="visitor-text">You're the <span id="visitorCount" class="visitor-number">0</span>th visitor</strong>
                         </p>
                     </div>
                     <div class="profile-img">
@@ -254,6 +281,9 @@
                         <img src="img/sd11.jpg" alt="Profile Image 11">
                         <img src="img/sd12.jpg" alt="Profile Image 12">
                         <img src="img/Cloud.png" alt="Profile Image 13">
+                    </div>
+                    <div class="visitor-counter">
+                        <p>You're the <span id="visitorCount">0</span>th visitor</p>
                     </div>
                 </header>
             </div>
