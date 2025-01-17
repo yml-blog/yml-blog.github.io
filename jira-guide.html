@@ -68,10 +68,72 @@
                         <p>Perfect for continuous workflows, Kanban boards allow tasks to flow from "To Do" to "Done" without time-boxed sprints. Teams can visualize work in progress (WIP) and optimize throughput by setting WIP limits.</p>
                     </div>
 
-                    <!-- Continue with remaining sections following the same pattern -->
-                </section>
+                    <section class="user-stories">
+                        <h3>User Stories and Epics</h3>
+                        <div class="feature-box">
+                            <p>In Jira, work items are often represented as user stories. A typical user story follows this format:</p>
+                            <div class="code-example">
+                                "As a [type of user], I want [goal] so that [reason]."
+                            </div>
+                            <p>For example:</p>
+                            <div class="code-example">
+                                User Story: "As a web developer, I want to add user authentication so that data is secure."
+                            </div>
+                            <p>For larger initiatives, multiple user stories can be grouped into epics. Epics are designed to track overarching goals that span multiple sprints or workflows.</p>
+                        </div>
 
-                <!-- Add all remaining sections with proper HTML structure -->
+                        <h3>Customizable Workflows</h3>
+                        <div class="feature-box">
+                            <p>Jira's workflows are fully customizable, enabling teams to adapt to unique processes. Workflows consist of:</p>
+                            <ul>
+                                <li><strong>Statuses:</strong> Represent stages like "To Do," "In Progress," and "Done."</li>
+                                <li><strong>Transitions:</strong> Define how tasks move between statuses.</li>
+                            </ul>
+                        </div>
+
+                        <h3>Advanced Search and Filters</h3>
+                        <div class="feature-box">
+                            <p>Jira's search functionality is powered by JQL (Jira Query Language), enabling highly specific queries, such as:</p>
+                            <div class="code-example">
+                                project = "Web Development" AND status = "In Progress" AND assignee = currentUser()
+                            </div>
+                            <p>Filters can be saved and shared, forming the backbone of dashboards and reports.</p>
+                        </div>
+                    </section>
+
+                    <section class="real-world-practices">
+                        <h2>Real-World Practices and Insights</h2>
+                        
+                        <div class="content-box">
+                            <h3>Simplified Issue Types</h3>
+                            <p>Many organizations streamline Jira by focusing on essential issue types like Bug, Story, and Task. Overloading projects with too many custom issue types can lead to confusion and inefficiencies. By keeping it simple, teams can focus on delivery rather than administration.</p>
+
+                            <h3>Agile Status Columns</h3>
+                            <p>A common setup for workflows includes statuses like To Do, In Progress, Done, and Blocked. This minimalistic approach ensures clarity and avoids unnecessary complexity in project boards.</p>
+
+                            <h3>Release Tracking</h3>
+                            <p>Some teams use the Fix Version or Release field in Jira to group tasks, but without proper governance, these fields can become cluttered. For high-frequency deployments (e.g., 10 releases a day), release tracking should align closely with version control tools like GitHub or GitLab, which integrate seamlessly with Jira.</p>
+                        </div>
+                    </section>
+
+                    <section class="project-setup">
+                        <h2>Setting Up a Team-Managed Project</h2>
+                        <div class="content-box">
+                            <p>Team-managed projects are designed for rapid setup and autonomy:</p>
+                            <ul>
+                                <li><strong>Create a New Project:</strong> Select a template (e.g., Scrum or Kanban)</li>
+                                <li><strong>Add Custom Issue Types:</strong> For example, create issue types like "Bug," "Idea," or "Improvement"</li>
+                                <li><strong>Customize Fields:</strong> Tailor the fields to your team's needs (e.g., add dropdowns for priority levels)</li>
+                            </ul>
+
+                            <h3>Benefits of Team-Managed Projects:</h3>
+                            <ul>
+                                <li>No administrative permissions required</li>
+                                <li>All entities (e.g., issue types, workflows) live within the project</li>
+                            </ul>
+                        </div>
+                    </section>
+                </section>
 
                 <section class="conclusion">
                     <h2>Conclusion</h2>
