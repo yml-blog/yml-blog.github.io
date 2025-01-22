@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Generalized Linear Models (GLM): A Comprehensive Overview</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Generalized Linear Models (GLM): A Comprehensive Overview</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 20 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> GLM, Statistics, Machine Learning, Regression, Statistical Modeling, Data Analysis
+                </div>
+            </div>
+
+            <main>
+                <section class="intro">
+                    <h2>What is GLM?</h2>
+                    <p>Generalized Linear Models (GLMs) are a powerful statistical framework designed to address various types of response variables beyond the assumptions of classical linear regression. They extend the traditional linear regression model to support diverse probability distributions, making them indispensable for analyzing real-world data.</p>
+                    
+                    <div class="key-components">
+                        <h3>Key Components of GLMs:</h3>
+                        <ul>
+                            <li>Linear Predictor: A weighted sum of input variables</li>
+                            <li>Link Function: Connects the mean of the response variable to the linear predictor</li>
+                            <li>Error Distribution: Defines the probability distribution of the response variable, typically from the exponential family</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="statistical-vs-ml">
+                    <h2>GLM: Statistical Model or Machine Learning Technique?</h2>
+                    <div class="comparison-box">
+                        <h3>GLM as a Statistical Model:</h3>
+                        <ul>
+                            <li>Originally developed as part of statistical theory</li>
+                            <li>Focus on inferring parameters and understanding relationships</li>
+                            <li>Explicit model structure definition</li>
+                        </ul>
+
+                        <h3>GLM in Machine Learning:</h3>
+                        <ul>
+                            <li>Adopted for predictive tasks</li>
+                            <li>Focus on optimizing predictive accuracy</li>
+                            <li>Integration with Bayesian approaches</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="types">
+                    <h2>Types of Generalized Linear Models</h2>
+                    <div class="model-box">
+                        <h3>Classical Linear Regression</h3>
+                        <ul>
+                            <li>Distribution: Normal</li>
+                            <li>Link Function: Identity</li>
+                            <li>Usage: Continuous data with normally distributed residuals</li>
+                        </ul>
+
+                        <h3>Logistic Regression</h3>
+                        <ul>
+                            <li>Distribution: Binomial</li>
+                            <li>Link Function: Logit</li>
+                            <li>Usage: Binary outcomes</li>
+                        </ul>
+
+                        <!-- Add other model types -->
+                    </div>
+                </section>
+
+                <section class="glm-practice">
+                    <h2>GLMs in Practice</h2>
+                    <div class="practice-box">
+                        <h3>Strengths:</h3>
+                        <ul>
+                            <li><strong>Flexibility:</strong> Handle a wide range of data distributions and relationships</li>
+                            <li><strong>Interpretability:</strong> Provide coefficients that explain relationships between variables</li>
+                            <li><strong>Robust Statistical Inference:</strong> Enable hypothesis testing and confidence interval estimation</li>
+                        </ul>
+
+                        <h3>Challenges:</h3>
+                        <ul>
+                            <li><strong>Assumption-Driven:</strong> GLMs depend on assumptions about the error distribution and link function</li>
+                            <li><strong>Scalability:</strong> Computationally intensive for large datasets, though modern machine learning techniques have mitigated these limitations</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="ml-differences">
+                    <h2>GLMs in Machine Learning: Practical Differences</h2>
+                    <div class="differences-box">
+                        <h3>Model Structure:</h3>
+                        <ul>
+                            <li>Statistical models like GLMs define a fixed structure (e.g., linear relationship) before fitting</li>
+                            <li>Machine learning models often explore non-linear, flexible structures using algorithms like decision trees or neural networks</li>
+                        </ul>
+
+                        <h3>Objective:</h3>
+                        <ul>
+                            <li>Statistical models prioritize parameter estimation and hypothesis testing</li>
+                            <li>Machine learning emphasizes prediction and generalization on unseen data</li>
+                        </ul>
+
+                        <h3>Model Validation:</h3>
+                        <ul>
+                            <li>Statistics relies on p-values, confidence intervals, and residual analysis</li>
+                            <li>Machine learning focuses on cross-validation, regularization, and minimizing predictive error</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="applications">
+                    <h2>Applications of GLMs</h2>
+                    <div class="applications-box">
+                        <ul>
+                            <li><strong>Healthcare:</strong> Predicting disease incidence or survival times</li>
+                            <li><strong>Economics:</strong> Modeling count data like the number of purchases</li>
+                            <li><strong>Environmental Studies:</strong> Analyzing species abundance or weather patterns</li>
+                            <li><strong>Social Sciences:</strong> Survey analysis, including ordinal and categorical data</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="healthcare-focus">
+                    <h2>GLMs in Healthcare: A Deeper Look</h2>
+                    <div class="healthcare-box">
+                        <h3>Common Applications:</h3>
+                        <ul>
+                            <li><strong>Hospital Readmission Rates:</strong> Using Poisson regression to model count data of readmissions</li>
+                            <li><strong>Infection Surveillance:</strong> Modeling disease incidence rates with population adjustments</li>
+                            <li><strong>Resource Utilization:</strong> Predicting ICU and emergency room usage patterns</li>
+                        </ul>
+
+                        <h3>Case Study: Hospital Resource Management</h3>
+                        <p>Healthcare facilities use GLMs to analyze and predict:</p>
+                        <ul>
+                            <li>Patient flow patterns</li>
+                            <li>Seasonal variations in admissions</li>
+                            <li>Staff scheduling requirements</li>
+                            <li>Equipment utilization rates</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="implementation">
+                    <h2>Practical Implementation</h2>
+                    <div class="code-box">
+                        <h3>In R:</h3>
+                        <pre><code class="r">
+glm_model <- glm(y ~ x1 + x2, family = poisson(link = "log"), data = dataset)
+summary(glm_model)
+                        </code></pre>
+
+                        <h3>In Python:</h3>
+                        <pre><code class="python">
+import statsmodels.api as sm
+model = sm.GLM(y, X, family=sm.families.Poisson())
+results = model.fit()
+print(results.summary())
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>GLMs bridge the gap between statistical inference and machine learning. By understanding their foundations and adapting them to specific contexts, you can leverage their power for both explanatory and predictive modeling.</p>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <style>
+        .comparison-box, .model-box, .code-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        pre code {
+            background-color: #f8f9fa;
+            border-left: 4px solid #f1780e;
+            padding: 15px;
+            display: block;
+            overflow-x: auto;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin: 30px 0 20px;
+            border-bottom: 2px solid #f1780e;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #f1780e;
+            margin: 20px 0 15px;
+        }
+
+        .practice-box, .differences-box, .applications-box, .healthcare-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .healthcare-box {
+            border-left: 4px solid #f1780e;
+        }
+
+        .applications-box ul {
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+
+        @media (max-width: 768px) {
+            .applications-box ul {
+                columns: 1;
+                -webkit-columns: 1;
+                -moz-columns: 1;
+            }
+        }
+    </style>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html> 
