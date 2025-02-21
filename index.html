@@ -343,35 +343,39 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 9999;
             padding-top: 50px;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
         }
 
         .modal-content {
             margin: auto;
             display: block;
+            width: auto;
             max-width: 90%;
             max-height: 90vh;
-            object-fit: contain;
         }
 
         .close {
             position: absolute;
             right: 35px;
-            top: 15px;
+            top: 25px;
             color: #f1f1f1;
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
         }
 
-        .close:hover {
+        .close:hover,
+        .close:focus {
             color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
         }
 
         /* Responsive adjustments */
@@ -670,71 +674,71 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                     
                                     <div class="gallery-grid">
                                         <div class="gallery-item">
-                                            <img src="img/sd13.png" alt="AI Art 1" data-caption="AI-generated artwork #1" onclick="openModal(this.src)">
+                                            <img src="img/sd13.png" alt="AI Art 1" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd2.jpg" alt="AI Art 2" data-caption="AI-generated artwork #2" onclick="openModal(this.src)">
+                                            <img src="img/sd2.jpg" alt="AI Art 2" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd3.png" alt="AI Art 3" data-caption="AI-generated artwork #3" onclick="openModal(this.src)">
+                                            <img src="img/sd3.png" alt="AI Art 3" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd4.png" alt="AI Art 4" data-caption="AI-generated artwork #4" onclick="openModal(this.src)">
+                                            <img src="img/sd4.png" alt="AI Art 4" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd5.png" alt="AI Art 5" data-caption="AI-generated artwork #5" onclick="openModal(this.src)">
+                                            <img src="img/sd5.png" alt="AI Art 5" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd6.jpg" alt="AI Art 6" data-caption="AI-generated artwork #6" onclick="openModal(this.src)">
+                                            <img src="img/sd6.jpg" alt="AI Art 6" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd7.png" alt="AI Art 7" data-caption="AI-generated artwork #7" onclick="openModal(this.src)">
+                                            <img src="img/sd7.png" alt="AI Art 7" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd8.png" alt="AI Art 8" data-caption="AI-generated artwork #8" onclick="openModal(this.src)">
+                                            <img src="img/sd8.png" alt="AI Art 8" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd9.png" alt="AI Art 9" data-caption="AI-generated artwork #9" onclick="openModal(this.src)">
+                                            <img src="img/sd9.png" alt="AI Art 9" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd14.png" alt="AI Art 10" data-caption="AI-generated artwork #10" onclick="openModal(this.src)">
+                                            <img src="img/sd14.png" alt="AI Art 10" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd11.png" alt="AI Art 11" data-caption="AI-generated artwork #11" onclick="openModal(this.src)">
+                                            <img src="img/sd11.png" alt="AI Art 11" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd12.jpg" alt="AI Art 12" data-caption="AI-generated artwork #12" onclick="openModal(this.src)">
+                                            <img src="img/sd12.jpg" alt="AI Art 12" onclick="openModal(this.src)">
                                         </div>
                                         <!-- New images -->
                                         <div class="gallery-item">
-                                            <img src="img/sd15.png" alt="AI Art 15" data-caption="AI-generated artwork #15" onclick="openModal(this.src)">
+                                            <img src="img/sd15.png" alt="AI Art 15" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd16.png" alt="AI Art 16" data-caption="AI-generated artwork #16" onclick="openModal(this.src)">
+                                            <img src="img/sd16.png" alt="AI Art 16" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd17.png" alt="AI Art 17" data-caption="AI-generated artwork #17" onclick="openModal(this.src)">
+                                            <img src="img/sd17.png" alt="AI Art 17" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd18.png" alt="AI Art 18" data-caption="AI-generated artwork #18" onclick="openModal(this.src)">
+                                            <img src="img/sd18.png" alt="AI Art 18" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd19.png" alt="AI Art 19" data-caption="AI-generated artwork #19" onclick="openModal(this.src)">
+                                            <img src="img/sd19.png" alt="AI Art 19" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd20.png" alt="AI Art 20" data-caption="AI-generated artwork #20" onclick="openModal(this.src)">
+                                            <img src="img/sd20.png" alt="AI Art 20" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd21.png" alt="AI Art 21" data-caption="AI-generated artwork #21" onclick="openModal(this.src)">
+                                            <img src="img/sd21.png" alt="AI Art 21" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd22.png" alt="AI Art 22" data-caption="AI-generated artwork #22" onclick="openModal(this.src)">
+                                            <img src="img/sd22.png" alt="AI Art 22" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd23.png" alt="AI Art 23" data-caption="AI-generated artwork #23" onclick="openModal(this.src)">
+                                            <img src="img/sd23.png" alt="AI Art 23" onclick="openModal(this.src)">
                                         </div>
                                         <div class="gallery-item">
-                                            <img src="img/sd24.png" alt="AI Art 24" data-caption="AI-generated artwork #24" onclick="openModal(this.src)">
+                                            <img src="img/sd24.png" alt="AI Art 24" onclick="openModal(this.src)">
                                         </div>
                                     </div>
                                     
@@ -1158,5 +1162,35 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         <span class="close" onclick="closeModal()">&times;</span>
         <img id="modalImage" class="modal-content">
     </div>
+    <script>
+    function openModal(imgSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        modal.style.display = "block";
+        modalImg.src = imgSrc;
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+        document.body.style.overflow = 'auto'; // 恢复滚动
+    }
+
+    // 点击模态框外部关闭
+    window.onclick = function(event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    // ESC 键关闭模态框
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape") {
+            closeModal();
+        }
+    });
+    </script>
 </body>
 </html>
