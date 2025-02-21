@@ -13,6 +13,39 @@
     <link href="css/blog_post.css" rel="stylesheet">
     <link href="css/nav.css" rel="stylesheet">
     <script src="js/loadHeader.js"></script>
+    <style>
+        .feature-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .feature-box ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .feature-box ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-box ul li:last-child {
+            border-bottom: none;
+        }
+
+        .code-block {
+            margin: 15px 0;
+        }
+
+        .code-block pre {
+            background-color: #f8f9fa;
+            border-left: 4px solid #f1780e;
+            padding: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="main-content">
@@ -102,8 +135,133 @@ edited_report = report_agent.apply_edits(
                     </div>
                 </section>
 
-                <!-- Add more sections for Integration, Security, etc. -->
-                
+                <section class="workflow">
+                    <h2>How LlamaReport Works</h2>
+                    
+                    <h3>1. Document Upload & Template Definition</h3>
+                    <div class="feature-box">
+                        <p>Source documents serve as the knowledge base for report generation. Templates can take various forms:</p>
+                        <ul>
+                            <li>Markdown templates with section-specific instructions</li>
+                            <li>Questionnaires with blank fields to fill in</li>
+                            <li>Example blog posts with template parsing instructions</li>
+                            <li>Python docstring-style comments for field extraction</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="python">
+# Example template definition
+template = LlamaReport.Template.from_markdown("""
+# Company Analysis Report
+
+## Executive Summary
+{executive_summary}
+
+## Market Analysis
+{market_analysis}
+
+## Financial Overview
+{financial_metrics}
+""")
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <h3>2. Plan Generation</h3>
+                    <div class="feature-box">
+                        <p>The system constructs a plan with dependencies to ensure logical report generation:</p>
+                        <div class="code-block">
+                            <pre><code class="python">
+# Generate plan with dependencies
+plan = report_agent.create_plan(
+    template=template,
+    documents=processed_docs,
+    dependencies={
+        "financial_metrics": ["market_analysis"],
+        "executive_summary": ["market_analysis", "financial_metrics"]
+    }
+)
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <h3>3. Report Generation</h3>
+                    <div class="feature-box">
+                        <p>Reports are generated with maximum parallelization where possible:</p>
+                        <div class="code-block">
+                            <pre><code class="python">
+# Configure parallel processing
+config = LlamaReport.Config(
+    max_parallel_blocks=4,
+    enable_streaming=True
+)
+
+# Generate report with progress tracking
+report = report_agent.generate_report(
+    plan=plan,
+    config=config,
+    progress_callback=lambda x: print(f"Progress: {x}%")
+)
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <h3>4. AI-Assisted Editing</h3>
+                    <div class="feature-box">
+                        <p>The system can suggest and apply intelligent edits to the generated report:</p>
+                        <div class="code-block">
+                            <pre><code class="python">
+# Request and apply edits
+edits = report_agent.suggest_edits(
+    report=report,
+    style_guide="company_style.md",
+    focus_areas=["clarity", "consistency", "tone"]
+)
+
+# Review and apply suggested edits
+final_report = report_agent.apply_edits(
+    report=report,
+    edits=edits,
+    require_approval=True
+)
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="developer-api">
+                    <h2>Developer API Integration</h2>
+                    <div class="feature-box">
+                        <p>LlamaReport offers a comprehensive API for seamless integration:</p>
+                        <div class="code-block">
+                            <pre><code class="python">
+from llama_index.report import ReportAPI
+
+# Initialize API client
+api = ReportAPI(api_key="your_api_key")
+
+# Stream report generation events
+async for event in api.stream_report_generation(plan_id):
+    if event.type == "progress":
+        print(f"Progress: {event.data.percentage}%")
+    elif event.type == "completion":
+        report = event.data.report
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="future-roadmap">
+                    <h2>Coming Soon</h2>
+                    <div class="feature-box">
+                        <ul>
+                            <li>Enhanced report generation quality</li>
+                            <li>Token-level streaming API options</li>
+                            <li>Expanded template library</li>
+                            <li>Comprehensive documentation</li>
+                            <li>Example notebooks and tutorials</li>
+                        </ul>
+                    </div>
+                </section>
             </main>
             
             <footer class="footer text-center">
