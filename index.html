@@ -458,7 +458,7 @@
                     <a class="nav-link" id="engineering-tab" data-toggle="tab" href="#engineering" role="tab" aria-controls="engineering" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Engineering</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="readings-tab" data-toggle="tab" href="#readings" role="tab" aria-controls="readings" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Readings</a>
+                    <a class="nav-link" id="reading-tab" data-toggle="tab" href="#reading" role="tab" aria-controls="reading" aria-selected="false">Learning</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Gallery</a>
@@ -643,20 +643,20 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                         </div>
                     </section>
                 </div>
-                <div class="tab-pane fade" id="readings" role="tabpanel" aria-labelledby="readings-tab" style="padding: 0; margin: 0;">
+                <div class="tab-pane fade" id="reading" role="tabpanel" aria-labelledby="reading-tab" style="padding: 0; margin: 0;">
                     <section class="intro section-wrapper" style="padding: 0; margin: 0;">
                         <div class="container-fluid" style="padding: 0; margin: 0;">
                             <div class="row" style="padding: 0; margin: 0;">
                                 <div class="col-md-12" style="padding: 0; margin: 0;">
                                     <div class="section-title blog-section-title">
-                                        <h1>Yangming's Reading Notes</h1>
+                                        <h1>Yangming's Self-Learning</h1>
                                     </div>
                                 </div>
                                 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
                                     <ul>
                                         <li>
-                                            <h3><a href="readings-post-1.html">First Reading Notes</a></h3>
-                                            <p>Welcome to my Reading Notes! Here I share insights and summaries from books and papers I've read.</p>
+                                            <h3><a href="cmu-nlp-notes.html">Carnegie Mellon University Advanced NLP Course Notes</a></h3>
+                                            <p>These are my study notes from CMU's Advanced Natural Language Processing course. The notes cover fundamental concepts and advanced topics in NLP.</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -921,7 +921,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 $('#about-me').removeClass('show active');
             });
 
-            $('#myTab a[href="#readings"]').on('shown.bs.tab', function () {
+            $('#myTab a[href="#reading"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the readings tab is shown
                 var link = document.createElement('link');
                 link.rel = 'stylesheet';
@@ -935,7 +935,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 
             $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
                 // Hide the Blog tab content
-                $('#aiml, #product, #engineering, #thoughts, #gallery, #readings').removeClass('show active');
+                $('#aiml, #product, #engineering, #thoughts, #gallery, #reading').removeClass('show active');
             });
 
             $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {

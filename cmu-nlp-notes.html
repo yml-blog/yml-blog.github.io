@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMU Advanced NLP Course Notes - Yangming's Blog</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+    <style>
+        .main-content .container {
+            max-width: 98%;
+            width: 98%;
+            padding: 0;
+            margin: 0 auto; /* 居中对齐 */
+        }
+
+        .pdf-container {
+            width: calc(100% + 600px); /* 显著增加宽度 */
+            margin: 20px -300px; /* 使用负边距使其居中延伸 */
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 1000px;
+            border: none;
+        }
+
+        /* 其他元素居中 */
+        .header .content,
+        .article-metadata,
+        .intro {
+            max-width: 100%;
+            padding: 0 20px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .pdf-container {
+                width: 100%;
+                margin: 20px 0;
+            }
+        }
+
+        /* 移除相关文章侧边栏的样式 */
+        .blog-panel {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Carnegie Mellon University Advanced NLP Course Notes</h1>
+                </div>
+            </header>
+
+            <div class="article-metadata">
+                <div class="keywords">
+                    <strong>Keywords:</strong> NLP, Deep Learning, Machine Learning, Language Models, Transformers
+                </div>
+            </div>
+
+            <main>
+                <section class="intro">
+                    <p>My study notes from CMU's Advanced Natural Language Processing course, covering fundamental concepts and advanced topics in NLP.</p>
+                </section>
+
+                <section>
+                    <div class="pdf-container">
+                        <object data="img/course_note_CMU_NLP_Lecture1_5.pdf" 
+                                type="application/pdf" 
+                                class="pdf-viewer">
+                            <p>It appears you don't have a PDF plugin for this browser. 
+                            You can <a href="img/course_note_CMU_NLP_Lecture1_5.pdf">click here to download the PDF file.</a></p>
+                        </object>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 
