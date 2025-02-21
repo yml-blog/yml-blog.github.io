@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Building an Enterprise-Level AI Agent for Document Transformation</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Building an Enterprise-Level AI Agent for Document Transformation</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> LlamaReport, LlamaCloud, Document Processing, AI Agent, Enterprise Solutions, LLM
+                </div>
+            </div>
+            
+            <main>
+                <section class="intro">
+                    <h2>Introduction to LlamaReport and LlamaCloud</h2>
+                    <p>LlamaReport is an API-first solution designed to automate the transformation of unstructured documents into structured, organization-ready reports. It offers a flexible templating system and intelligent document processing capabilities, enabling enterprises to generate comprehensive reports efficiently.</p>
+                    
+                    <div class="code-block">
+                        <pre><code class="python">
+from llama_index import LlamaReport, LlamaCloud
+
+# Initialize LlamaReport with your API key
+report_agent = LlamaReport(api_key="your_api_key")
+
+# Configure document processing
+cloud_config = LlamaCloud.Config(
+    parsing_mode="intelligent",
+    supported_formats=["pdf", "pptx", "xlsx"]
+)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <section class="key-features">
+                    <h2>Key Features and Technical Components</h2>
+                    
+                    <h3>1. Intelligent Document Processing</h3>
+                    <div class="code-block">
+                        <pre><code class="python">
+# Document ingestion and parsing
+document_processor = LlamaCloud.DocumentProcessor(config=cloud_config)
+
+# Process multiple documents
+processed_docs = document_processor.batch_process([
+    "report1.pdf",
+    "presentation.pptx",
+    "data.xlsx"
+])
+                        </code></pre>
+                    </div>
+
+                    <h3>2. Template Design and Plan Generation</h3>
+                    <div class="code-block">
+                        <pre><code class="python">
+# Define report template
+template = LlamaReport.Template.from_markdown("template.md")
+
+# Generate report plan
+plan = report_agent.create_plan(
+    template=template,
+    documents=processed_docs,
+    allow_human_review=True
+)
+                        </code></pre>
+                    </div>
+
+                    <h3>3. Report Generation and AI-Assisted Editing</h3>
+                    <div class="code-block">
+                        <pre><code class="python">
+# Generate initial report
+report = report_agent.generate_report(plan=plan)
+
+# Apply AI-powered edits
+edited_report = report_agent.apply_edits(
+    report=report,
+    style_guide="company_style_guide.md",
+    review_required=True
+)
+                        </code></pre>
+                    </div>
+                </section>
+
+                <!-- Add more sections for Integration, Security, etc. -->
+                
+            </main>
+            
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 
