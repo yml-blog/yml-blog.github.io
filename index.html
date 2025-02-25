@@ -789,6 +789,9 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                             <h3>LinkedIn: <a href="https://www.linkedin.com/in/yangming-l-9a964791/" target="_blank"><i class="fa fa-linkedin"></i> Yangming Li</a></h3>
                                         </li>
                                         <li>
+                                            <h3>GitHub: <a href="https://github.com/" target="_blank"><i class="fa fa-github"></i> GitHub</a></h3>
+                                        </li>
+                                        <li>
                                             <h3>Location: Vancouver, BC, Canada</h3>
                                             <!-- Google Maps Integration -->
                                             <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
@@ -1030,51 +1033,49 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     <!-- Google Maps Script -->
     <script>
         function initMap() {
-            try {
-                const vancouver = { lat: 49.2827, lng: -123.1207 };
-                const mapOptions = {
-                    zoom: 12,
-                    center: vancouver,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                
-                const map = new google.maps.Map(
-                    document.getElementById("map"),
-                    mapOptions
-                );
-                
-                const marker = new google.maps.Marker({
-                    position: vancouver,
-                    map: map,
-                    title: "Vancouver, BC"
-                });
-            } catch (error) {
-                console.error("Error initializing map:", error);
-                document.getElementById("map").innerHTML = "Map loading failed. Please try again later.";
-            }
+            // 温哥华的坐标
+            const vancouver = { lat: 49.2827, lng: -123.1207 };
+            
+            // 创建地图
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: vancouver,
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#242f3e"}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{"lightness": -80}]
+                    },
+                    {
+                        "featureType": "administrative",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"color": "#746855"}]
+                    },
+                    {
+                        "featureType": "water",
+                        "elementType": "geometry",
+                        "stylers": [{"color": "#17263c"}]
+                    }
+                ]  // 添加深色主题样式
+            });
+            
+            // 添加标记
+            const marker = new google.maps.Marker({
+                position: vancouver,
+                map: map,
+                title: "Vancouver, BC"
+            });
         }
-
-        // Load Google Maps API with callback
-        function loadGoogleMaps() {
-            const script = document.createElement('script');
-            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap';
-            script.async = true;
-            script.defer = true;
-            script.onerror = function() {
-                console.error("Failed to load Google Maps API");
-                document.getElementById("map").innerHTML = "Map loading failed. Please try again later.";
-            };
-            document.head.appendChild(script);
-        }
-
-        // Initialize map when the contact tab is shown
-        $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
-            if (typeof google === 'undefined') {
-                loadGoogleMaps();
-            } else {
-                initMap();
-            }
-        });
+    </script>
+    <!-- 使用提供的 API key -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtUt5YL0lK8vGUw4jsd06Dhhs5gGBzoQs&callback=initMap"
+        onerror="handleMapError()">
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
