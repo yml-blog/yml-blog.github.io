@@ -405,6 +405,30 @@
         .code-block .comment { color: #6a9955; }  /* 注释绿色 */
         .code-block .function { color: #dcdcaa; } /* 函数名黄色 */
         .code-block .number { color: #b5cea8; }   /* 数字浅绿色 */
+
+        /* 美化AI/ML filter下拉框 */
+        #aiml-filter {
+            padding: 6px 16px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            font-size: 1.1em;
+            background: #fff;
+            color: #333;
+            margin-bottom: 18px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #aiml-filter:focus, #aiml-filter:hover {
+            border-color: #f1780e;
+            box-shadow: 0 2px 12px rgba(241,120,14,0.13);
+            outline: none;
+        }
+        #aiml-filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #f1780e;
+            font-size: 1.1em;
+        }
     </style>
 </head>
 <body id="page-top" data-spy="scroll" data-target=".navbar">
@@ -538,40 +562,46 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                     </div>
                                 </div>
                                 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
-                                    <ul>
-                                        <li>
-                                            <h3><a href="docker-in-ml.html">[MLOps] Leveraging Docker in Machine Learning and Data Science</a></h3>
-                                            <p>[MLOps] A comprehensive guide to using Docker for ML/DS projects - from development to deployment</p>
+                                    <label id="aiml-filter-label" for="aiml-filter">Filter by Tag:</label>
+                                    <select id="aiml-filter">
+                                        <option value="all">All</option>
+                                        <option value="MLOP">MLOP</option>
+                                        <option value="ML">ML</option>
+                                    </select>
+                                    <ul id="aiml-blog-list">
+                                        <li data-tag="MLOP">
+                                            <h3><a href="docker-in-ml.html">[MLOP] Leveraging Docker in Machine Learning and Data Science</a></h3>
+                                            <p>[MLOP] A comprehensive guide to using Docker for ML/DS projects - from development to deployment</p>
                                         </li>
-                                        <li>
-                                            <h3><a href="mlops-essential-skills.html">[MLOps] A Must-Have Skill for Efficient Model Management and Deployment</a></h3>
-                                            <p>[MLOps] Understanding MLOps principles and implementation with MLflow and Weights & Biases</p>
+                                        <li data-tag="MLOP">
+                                            <h3><a href="mlops-essential-skills.html">[MLOP] A Must-Have Skill for Efficient Model Management and Deployment</a></h3>
+                                            <p>[MLOP] Understanding MLOP principles and implementation with MLflow and Weights & Biases</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="trust-worth-machine-learning-1.html">[ML]Trustworthy machine learning.</a></h3>
                                             <p>[ML] What is trustworthy machine learning.</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="sentiment-analysis-fine-tune-with-bert.html">[ML]Fine Tune Large Language Model for sentiment analysis</a></h3>
                                             <p>[ML] sft Large Language Model</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="sentiment-analysis-fine-tune-with-bert2.html">[ML]Fine Tune Large Language Model for sentiment analysis2</a></h3>
                                             <p>[ML] sft Tune Large Language Model2</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="MLOP">
                                             <h3><a href="ray_explanation.html">[MLOP] Ray.</a></h3>
                                             <p>[MLOP]What is ray.</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="decoder-only-architectures.html">[ML]Why Have Decoder-Only Architectures Become the Standard in LLMs?</a></h3>
                                             <p>[ML] Understanding the dominance of decoder-only architectures in modern LLMs</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="llama-report-guide.html">[ML] Building an Enterprise-Level AI Agent for Document Transformation</a></h3>
                                             <p>[ML] A comprehensive guide to building document processing AI agents using LlamaReport and LlamaCloud</p>
                                         </li>
-                                        <li>
+                                        <li data-tag="ML">
                                             <h3><a href="mcp-protocol-guide.html">[ML] The Model Context Protocol (MCP): Building a Connected Future for AI</a></h3>
                                             <p>[ML] A comprehensive guide to understanding and implementing the Model Context Protocol for AI integration</p>
                                         </li>
@@ -1202,6 +1232,23 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         if (e.key === "Escape") {
             closeModal();
         }
+    });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var filter = document.getElementById('aiml-filter');
+        var blogList = document.getElementById('aiml-blog-list');
+        filter.addEventListener('change', function() {
+            var value = filter.value;
+            var items = blogList.querySelectorAll('li');
+            items.forEach(function(li) {
+                if (value === 'all' || li.getAttribute('data-tag') === value) {
+                    li.style.display = '';
+                } else {
+                    li.style.display = 'none';
+                }
+            });
+        });
     });
     </script>
 </body>
