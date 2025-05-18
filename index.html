@@ -421,7 +421,7 @@
                             <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
                             <br><br>
                             <div class="visitor-counter">
-                                <p>You're the <span id="visitorCount">0</span>th visitor</p>
+                                <p>You're the <span id="visitorCount">...</span>th visitor</p>
                             </div>
                         </p>
                     </div>
@@ -800,6 +800,11 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                             <h3>GitHub: <a href="https://github.com/" target="_blank"><i class="fa fa-github"></i> GitHub</a></h3>
                                         </li>
                                         <li>
+                                            <h3>Google Scholar: <a href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en" target="_blank">
+                                                <i class="fa fa-graduation-cap"></i> Google Scholar Profile
+                                            </a></h3>
+                                        </li>
+                                        <li>
                                             <h3>Location: Vancouver, BC, Canada</h3>
                                             <!-- Google Maps Integration -->
                                             <div id="map" style="height: 400px; width: 100%; margin: 20px 0;"></div>
@@ -1153,17 +1158,15 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     </script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Get current count from localStorage or start at 0
-        let count = localStorage.getItem('visitorCount') || 0;
-        
-        // Increment count
-        count = parseInt(count) + 1;
-        
-        // Save new count
-        localStorage.setItem('visitorCount', count);
-        
-        // Update all visitor count displays
-        document.getElementById('visitorCount').textContent = count;
+        fetch('counter.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('visitorCount').textContent = data.count;
+            })
+            .catch(error => {
+                console.error('Error fetching visitor count:', error);
+                document.getElementById('visitorCount').textContent = '---';
+            });
     });
     </script>
     <!-- Add Modal for image preview -->
