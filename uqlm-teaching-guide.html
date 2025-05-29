@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Uncertainty Quantification for LLMs: Teaching with UQLM</title>
+    <link href="favicon.png" rel="icon">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <header class="header">
+                <div class="content text-center">
+                    <h1>Uncertainty Quantification for LLMs: Teaching with UQLM</h1>
+                    <p class="lead">By Yangming Li</p>
+                </div>
+            </header>
+            <div class="article-metadata">
+                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2200 words</span>
+                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3200 tokens</span>
+                <div class="keywords">
+                    <strong>Keywords:</strong> UQLM, Uncertainty Quantification, LLM, Teaching, NLP, Black-Box, White-Box, Ensemble, Education
+                </div>
+            </div>
+            <main>
+                <section class="intro">
+                    <h2>1. Why Teach Uncertainty Quantification?</h2>
+                    <p>Large Language Models (LLMs) like GPT and Gemini are powerful, but they can "hallucinate"—i.e., produce plausible-sounding yet incorrect or nonsensical outputs. In educational settings, it's crucial for students to:</p>
+                    <ul>
+                        <li>Understand why hallucinations occur</li>
+                        <li>Measure how confident a model is in its outputs</li>
+                        <li>Mitigate hallucinations to build more reliable applications</li>
+                    </ul>
+                    <p><strong>UQLM</strong> (<a href="https://github.com/stanfordnlp/uqlm" target="_blank">Uncertainty Quantification for Language Models</a>) is an open-source Python package that provides off-the-shelf tools to score LLM outputs based on various uncertainty metrics, making it ideal for hands-on teaching and experimentation. <a href="https://uqlm.readthedocs.io/" target="_blank">Official Docs</a></p>
+                </section>
+                <section class="getting-started">
+                    <h2>2. Getting Started: Installation</h2>
+                    <p>Install UQLM via pip:</p>
+                    <div class="code-block"><pre><code class="bash">pip install uqlm</code></pre></div>
+                    <p class="teaching-tip"><strong>Tip for Students:</strong> Always install in a fresh virtual environment to avoid dependency conflicts.</p>
+                </section>
+                <section class="core-concepts">
+                    <h2>3. Core Concepts &amp; Scorer Types</h2>
+                    <p>UQLM categorizes uncertainty scorers into four families. As you walk students through each, encourage them to compare trade-offs in latency, cost, and compatibility:</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Scorer Family</th>
+                                    <th>Latency</th>
+                                    <th>Cost</th>
+                                    <th>Compatibility</th>
+                                    <th>Teaching Focus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Black-Box</td>
+                                    <td>Medium–High</td>
+                                    <td>High</td>
+                                    <td>Any LLM</td>
+                                    <td>Consistency through multiple calls</td>
+                                </tr>
+                                <tr>
+                                    <td>White-Box</td>
+                                    <td>Minimal</td>
+                                    <td>None</td>
+                                    <td>Token-probability–enabled</td>
+                                    <td>Directly leverage model internals</td>
+                                </tr>
+                                <tr>
+                                    <td>LLM-as-Judge</td>
+                                    <td>Low–Medium</td>
+                                    <td>Low–High</td>
+                                    <td>Any LLM as judge</td>
+                                    <td>Prompt-engineering for judges</td>
+                                </tr>
+                                <tr>
+                                    <td>Ensemble</td>
+                                    <td>Flexible</td>
+                                    <td>Flexible</td>
+                                    <td>Flexible</td>
+                                    <td>Combining multiple scorers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="hands-on-demo">
+                    <h2>4. Hands-On Demo: Black-Box Uncertainty</h2>
+                    <p><strong>Objective:</strong> Show how variations in multiple generations reveal uncertainty.</p>
+                    <div class="code-block"><pre><code class="python">from langchain_google_vertexai import ChatVertexAI
+from uqlm import BlackBoxUQ
+
+# Initialize an LLM (any LangChain-compatible chat model works)
+llm = ChatVertexAI(model='gemini-pro')
+
+# Set up a Black-Box scorer
+bbuq = BlackBoxUQ(llm=llm, scorers=["semantic_negentropy"], use_best=True)
+
+# Generate and score 5 responses to a single prompt
+results = await bbuq.generate_and_score(
+    prompts=["Explain why the sky is green."],
+    num_responses=5
+)
+
+print(results.to_df())</code></pre></div>
+                    <p class="discussion"><strong>Discussion point:</strong> Why might "semantic negentropy" flag "green sky" as highly uncertain?</p>
+                    <p class="exercise"><strong>Class exercise:</strong> Compare with "exact_match" scorer and discuss differences. <a href="https://github.com/stanfordnlp/uqlm" target="_blank">GitHub</a></p>
+                </section>
+                <section class="deeper-dive">
+                    <h2>5. Diving Deeper: White-Box &amp; LLM-as-Judge</h2>
+                    <h3>White-Box Scorer</h3>
+                    <p>Uses token probabilities directly. Ultra-fast, cost-free, but requires probability access.</p>
+                    <div class="code-block"><pre><code class="python">from uqlm import WhiteBoxUQ
+wbuq = WhiteBoxUQ(llm=llm, scorers=["min_probability"])
+results = await wbuq.generate_and_score(prompts=prompts)</code></pre></div>
+                    <h3>LLM-as-Judge</h3>
+                    <p>Leverages a second (or panel of) LLM(s) to "judge" each response. Excellent for teaching prompt-engineering and human-in-the-loop concepts.</p>
+                    <div class="code-block"><pre><code class="python">from uqlm import LLMPanel
+judges = [ChatVertexAI(model=m) for m in ["gemini-1.0-pro","gemini-1.5-pro-001"]]
+panel = LLMPanel(llm=llm, judges=judges)
+results = await panel.generate_and_score(prompts=prompts)</code></pre></div>
+                </section>
+                <section class="ensemble">
+                    <h2>6. Building an Ensemble</h2>
+                    <p>Show students how combining multiple scorers often yields the most robust uncertainty estimates:</p>
+                    <div class="code-block"><pre><code class="python">from uqlm import UQEnsemble
+
+scorers = ["exact_match", "noncontradiction", "min_probability", llm]
+uqe = UQEnsemble(llm=llm, scorers=scorers)
+
+# Tune on a small set of known question-answer pairs
+tune_results = await uqe.tune(
+    prompts=tuning_prompts,
+    ground_truth_answers=ground_truth_answers
+)
+
+# Generate scored outputs
+final_results = await uqe.generate_and_score(prompts=prompts)</code></pre></div>
+                    <p class="challenge"><strong>Class Challenge:</strong> Have students design their own ensemble, justify scorer selection, and evaluate on a real QA dataset.</p>
+                </section>
+                <section class="next-steps">
+                    <h2>7. Next Steps &amp; Resources</h2>
+                    <ul>
+                        <li>Explore the <a href="https://uqlm.readthedocs.io/" target="_blank">official docs</a> for API details and advanced demos.</li>
+                        <li>Assign students to run the example notebooks under <code>examples/</code> and present findings.</li>
+                        <li>Encourage a small project: integrate UQLM into a simple chatbot and compare user satisfaction with and without uncertainty filtering.</li>
+                    </ul>
+                </section>
+                <section class="conclusion">
+                    <h2>Conclusion</h2>
+                    <p>By guiding learners through installation, core concepts, and incremental hands-on exercises, UQLM becomes not just a tool, but a platform for teaching principled uncertainty quantification in modern NLP. Happy teaching!</p>
+                </section>
+            </main>
+            <footer class="footer text-center">
+                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+    <!-- jquery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+</body>
+</html> 
