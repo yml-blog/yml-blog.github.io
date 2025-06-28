@@ -67,6 +67,12 @@
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
+   <url>
+      <loc>https://www.yangmingli.com/n8n-ai-workflows.html</loc>
+      <lastmod>2024-07-20</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
    
    <!-- Product Blogs -->
    <url>
