@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Yangming Li's personal website featuring AI/ML blogs, product insights, engineering tutorials, and professional portfolio.">
     <title>Home</title>
     <link href="favicon.png" rel="icon">
+    <link rel="alternate" type="application/rss+xml" title="Yangming's Blog RSS Feed" href="rss.xml">
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +21,97 @@
         body, td, th {
             font-family: Hind, sans-serif;
         }
+        
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode #myTabContent {
+            background-color: #2a2a2a;
+        }
+        body.dark-mode .blog-section-content h3 a {
+            color: #f1780e;
+        }
+        body.dark-mode .blog-section-content p {
+            color: #dddddd;
+        }
+        body.dark-mode .message-board, 
+        body.dark-mode .meeting-scheduler {
+            background-color: #333;
+            color: #f5f5f5;
+        }
+        body.dark-mode .message {
+            background-color: #444;
+            color: #f5f5f5;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode #aiml-blog-list li {
+            background-color: #333;
+            box-shadow: 0 1px 6px rgba(255,255,255,0.1);
+        }
+        body.dark-mode #aiml-blog-list li:hover {
+            background-color: #444;
+            box-shadow: 0 4px 18px rgba(241,120,14,0.2), 0 1.5px 8px rgba(255,255,255,0.1);
+        }
+
         #page-top #main-wrapper .columns-block .left-col-block.blocks .header .content.text-center .lead a {
             color: #FF8040;
         }
@@ -464,6 +557,40 @@
             background: #d66a0a;
             box-shadow: 0 2px 12px rgba(241,120,14,0.13);
         }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .share-btn.twitter {
+            background-color: #1DA1F2;
+        }
+        .share-btn.linkedin {
+            background-color: #0077B5;
+        }
+        .share-btn.email {
+            background-color: #f1780e;
+        }
+        body.dark-mode .share-btn.email {
+            background-color: #ff9d45;
+        }
         #aiml-filter option[data-badge]:after {
             content: attr(data-badge);
             background: #f1780e;
@@ -515,7 +642,15 @@
                             <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
                             <br><br>
                             <div class="visitor-counter">
-                                <p>You're the <span id="visitorCount">...</span>th visitor</p>
+                                <p>You're the <span id="visitorCount"><i class="fa fa-spinner fa-spin"></i></span>th visitor</p>
+                            </div>
+                            <div class="theme-switch-wrapper">
+                                <span>🌙</span>
+                                <label class="theme-switch" for="checkbox">
+                                    <input type="checkbox" id="checkbox" />
+                                    <div class="slider round"></div>
+                                </label>
+                                <span>☀️</span>
                             </div>
                         </p>
                     </div>
@@ -562,6 +697,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" style="color: #ffffff !important; background-color: #000000;">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rss.xml" target="_blank" style="color: #ffffff !important; background-color: #000000;"><i class="fa fa-rss"></i> RSS</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
@@ -617,6 +755,13 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                             "Most people are willing to do anything to avoid true thinking. This is the state of many—diligence in action masking laziness in thought. Hard work without direction will lead to constant obstacles. Only deep thinking can become the weapon that helps you forge ahead in the future."
                                         </blockquote>
                                     </div>
+                                    
+                                    <div style="margin-top: 30px;">
+                                        <h3 style="color: #333; margin-bottom: 15px;">Skills Radar</h3>
+                                        <div class="skills-radar-container">
+                                            <canvas id="skillsRadar" width="400" height="400"></canvas>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -641,9 +786,20 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                     </select>
                                     <button id="aiml-reset-btn" type="button">Reset</button>
                                     <ul id="aiml-blog-list">
-                                        <li data-tag="MLOP">
+                                        <li data-tag="MLOP" class="blog-item">
                                             <h3><a href="docker-in-ml.html">[MLOP] Leveraging Docker in Machine Learning and Data Science</a></h3>
                                             <p>[MLOP] A comprehensive guide to using Docker for ML/DS projects - from development to deployment</p>
+                                            <div class="blog-share-buttons">
+                                                <a href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.origin+'/docker-in-ml.html')+'&text='+encodeURIComponent('[MLOP] Leveraging Docker in Machine Learning and Data Science'),'_blank')" class="share-btn twitter" title="Share on Twitter">
+                                                    <i class="fa fa-twitter"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(window.location.origin+'/docker-in-ml.html')+'&title='+encodeURIComponent('[MLOP] Leveraging Docker in Machine Learning and Data Science'),'_blank')" class="share-btn linkedin" title="Share on LinkedIn">
+                                                    <i class="fa fa-linkedin"></i>
+                                                </a>
+                                                <a href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('[MLOP] Leveraging Docker in Machine Learning and Data Science')+'&body='+encodeURIComponent('Check out this article: '+window.location.origin+'/docker-in-ml.html'),'_blank')" class="share-btn email" title="Share via Email">
+                                                    <i class="fa fa-envelope"></i>
+                                                </a>
+                                            </div>
                                         </li>
                                         <li data-tag="MLOP">
                                             <h3><a href="mlops-essential-skills.html">[MLOP] A Must-Have Skill for Efficient Model Management and Deployment</a></h3>
@@ -983,9 +1139,18 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     <script src="js/jquery-2.1.4.min.js"></script>
     <!-- Bootstrap -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- Chart.js for skills radar -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function () {
             $('#myTab a[href="#about-me"]').tab('show'); // Show the About Me tab by default
+            
+            // Initialize skills radar chart when About Me tab is shown
+            $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
+                initSkillsRadar();
+                // Hide the Blog tab content
+                $('#aiml, #product, #engineering, #thoughts, #gallery, #reading').removeClass('show active');
+            });
             
             $('#myTab a[href="#aiml"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the blog tab is shown
@@ -1059,11 +1224,6 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 $('#about-me').removeClass('show active');
             });
 
-            $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
-                // Hide the Blog tab content
-                $('#aiml, #product, #engineering, #thoughts, #gallery, #reading').removeClass('show active');
-            });
-
             $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
                 // Ensure the blog CSS is loaded when the contact tab is shown
                 var link = document.createElement('link');
@@ -1114,6 +1274,60 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
             
             // Ensure first image is showing
             images[0].classList.add('active');
+            
+            // Initialize skills radar on page load
+            initSkillsRadar();
+            
+            function initSkillsRadar() {
+                const ctx = document.getElementById('skillsRadar');
+                if (!ctx) return; // Exit if element doesn't exist
+                
+                // Destroy existing chart if any
+                if (window.skillsChart) {
+                    window.skillsChart.destroy();
+                }
+                
+                window.skillsChart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: [
+                            'AI/ML',
+                            'Data Science',
+                            'Product Management',
+                            'Statistics',
+                            'Engineering',
+                            'Visualization'
+                        ],
+                        datasets: [{
+                            label: 'Skills',
+                            data: [95, 90, 85, 95, 75, 80],
+                            fill: true,
+                            backgroundColor: 'rgba(241, 120, 14, 0.2)',
+                            borderColor: '#f1780e',
+                            pointBackgroundColor: '#f1780e',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#f1780e'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: true
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
     <script src="js/scripts.js"></script>
@@ -1269,13 +1483,18 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         fetch('counter.php')
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
-                document.getElementById('visitorCount').textContent = data.count;
+                document.getElementById('visitorCount').innerHTML = data.count;
             })
             .catch(error => {
                 console.error('Error fetching visitor count:', error);
-                document.getElementById('visitorCount').textContent = '---';
+                document.getElementById('visitorCount').innerHTML = '<span title="Unable to retrieve visitor count">--</span>';
             });
     });
     </script>
@@ -1396,6 +1615,37 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         });
         // 初始化badge
         updateAIMLTagBadges();
+    });
+    </script>
+    <script>
+    function handleMapError() {
+        document.getElementById('map').innerHTML = '<div class="map-error">Google Maps could not be loaded. Please check your internet connection or try again later.</div>';
+    }
+    </script>
+    <script>
+    // Dark mode functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme) {
+            document.body.classList.toggle('dark-mode', currentTheme === 'dark');
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+        
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        toggleSwitch.addEventListener('change', switchTheme, false);
     });
     </script>
 </body>
