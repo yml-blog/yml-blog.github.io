@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,21 @@
     <title>{{TITLE}}</title>
     <meta name="description" content="{{DESCRIPTION}}">
     <link href="favicon.png" rel="icon">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:url" content="https://yangmingli.com/{{URL}}">
+    <meta property="og:image" content="https://yangmingli.com/img/Logo.png">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{TITLE}}">
+    <meta name="twitter:description" content="{{DESCRIPTION}}">
+    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png">
+    
     <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -126,6 +141,33 @@
             margin-right: 8px;
         }
     </style>
+    
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{TITLE}}",
+      "description": "{{DESCRIPTION}}",
+      "image": "https://yangmingli.com/img/Logo.png",
+      "author": {
+        "@type": "Person",
+        "name": "Yangming Li"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Yangming Li Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yangmingli.com/img/Logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yangmingli.com/{{URL}}"
+      }
+    }
+    </script>
 </head>
 <body>
     <div class="container">
