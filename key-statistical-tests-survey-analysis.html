@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  line-height: 1.6;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.header {
+  text-align: center;
+  padding: 2rem 0;
+}
+h1 {
+  margin-top: 0;
+}
+</style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -15,7 +35,7 @@
 <link href="css/nav.css" rel="stylesheet"/>
 <!-- Add jQuery before Bootstrap -->
 <script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
 <script src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
@@ -151,7 +171,7 @@
 <div class="main-content">
 <div class="blog-container">
 <!-- Main Content -->
-<div class="blog-content">
+<article class="blog-content" id="">
 <div class="container">
 <header class="header">
 <div class="content text-center">
@@ -192,14 +212,14 @@
 <section class="intro">
 <h2>Introduction</h2>
 <p>When analyzing survey data, choosing the right statistical test is crucial for drawing meaningful conclusions. This comprehensive guide covers three essential statistical tests, their applications, and real-world examples to help you make informed decisions in your data analysis.</p>
-<div class="quick-nav">
+<nav class="quick-nav" id="">
 <h3>Quick Navigation</h3>
 <ul>
 <li><a href="#chi-square">Chi-Square Test of Independence</a></li>
 <li><a href="#t-tests">T-Tests (Independent &amp; Paired)</a></li>
 <li><a href="#anova">Analysis of Variance (ANOVA)</a></li>
 </ul>
-</div>
+</nav>
 </section>
 <section class="statistical-tests">
 <div class="test-section" id="chi-square">
@@ -394,12 +414,12 @@ plt.show()
 <!-- jquery -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/blogPanel.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
-</div></div></div>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+</article></div></div>
 <script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;

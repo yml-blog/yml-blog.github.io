@@ -1,7 +1,27 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  line-height: 1.6;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.header {
+  text-align: center;
+  padding: 2rem 0;
+}
+h1 {
+  margin-top: 0;
+}
+</style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -356,13 +376,13 @@
 </div>
 <p class="source-link">Source: <a href="https://www.tesla.com/model3" target="_blank">Tesla Model 3</a></p>
 </div>
-<div class="advanced-section">
+<section class="advanced-section" id="">
 <h4>Advanced User Research Methods:</h4>
 <ul>
 <li><strong>Ethnographic Studies:</strong> In-depth observation of users in their natural environment to gain insights into behaviors and needs.</li>
 <li><strong>Journey Mapping:</strong> Visual representation of the user's interaction with the product to identify pain points and opportunities.</li>
 </ul>
-</div>
+</section>
 <section>
 <h2>2. Building User Stickiness</h2>
 <p>Stickiness is another hallmark of successful products. A product with high stickiness is one that users continually return to whenever they have a need. High engagement indicates that the product doesn't just fulfill an initial need but keeps users coming back. Stickiness is what makes products like QQ, Google, or Instagram daily habits for millions of users worldwide.</p>
@@ -562,9 +582,9 @@
 <!-- jquery -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/blogPanel.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
 <script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
