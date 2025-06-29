@@ -1,19 +1,20 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CMU Advanced NLP Course Notes - Yangming's Blog</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>CMU Advanced NLP Course Notes - Yangming's Blog</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
         .main-content .container {
             max-width: 98%;
             width: 98%;
@@ -59,49 +60,218 @@
             display: none;
         }
     </style>
-</head>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="My study notes from CMU's Advanced Natural Language Processing course, covering fundamental concepts and advanced topics in NLP...." name="description"/></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Carnegie Mellon University Advanced NLP Course Notes</h1>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Carnegie Mellon University Advanced NLP Course Notes</h1>
+</div>
+</header>
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<div class="keywords">
+<strong>Keywords:</strong> NLP, Deep Learning, Machine Learning, Language Models, Transformers
                 </div>
-            </header>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-            <div class="article-metadata">
-                <div class="keywords">
-                    <strong>Keywords:</strong> NLP, Deep Learning, Machine Learning, Language Models, Transformers
-                </div>
-            </div>
-
-            <main>
-                <section class="intro">
-                    <p>My study notes from CMU's Advanced Natural Language Processing course, covering fundamental concepts and advanced topics in NLP.</p>
-                </section>
-
-                <section>
-                    <div class="pdf-container">
-                        <object data="img/course_note_CMU_NLP_Lecture1_5.pdf" 
-                                type="application/pdf" 
-                                class="pdf-viewer">
-                            <p>It appears you don't have a PDF plugin for this browser. 
+<main>
+<section class="intro">
+<p>My study notes from CMU's Advanced Natural Language Processing course, covering fundamental concepts and advanced topics in NLP.</p>
+</section>
+<section>
+<div class="pdf-container">
+<object class="pdf-viewer" data="img/course_note_CMU_NLP_Lecture1_5.pdf" type="application/pdf">
+<p>It appears you don't have a PDF plugin for this browser. 
                             You can <a href="img/course_note_CMU_NLP_Lecture1_5.pdf">click here to download the PDF file.</a></p>
-                        </object>
-                    </div>
-                </section>
-            </main>
+</object>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
 
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

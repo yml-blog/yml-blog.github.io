@@ -1,101 +1,243 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Choosing the Right Statistical Test for Survey Analysis</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <!-- Add jQuery before Bootstrap -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Choosing the Right Statistical Test for Survey Analysis</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<!-- Add jQuery before Bootstrap -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="By Yangming Li..." name="description"/></head>
 <body>
-    <!-- The navigation will be injected here by loadHeader.js -->
-    
-    <!-- Wrap everything after nav in a main-content div -->
-    <div class="main-content">
-        <div class="blog-container">
-            <!-- Main Content -->
-            <div class="blog-content">
-                <div class="container">
-                    <header class="header">
-                        <div class="content text-center">
-                            <h1>Choosing the Right Statistical Test for Survey Analysis</h1>
-                            <p class="lead">By Yangming Li</p>
-                        </div>
-                    </header>
-                    
-                    <div class="article-metadata">
-                        <span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
-                        <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
-                        <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
-                        <div class="keywords">
-                            <strong>Keywords:</strong> Statistical Analysis, Survey Data, Chi-Square Test, T-Test, ANOVA, Data Analysis
-                        </div>
-                    </div>
-                    
-                    <main>
-                        <section class="intro">
-                            <h2>Introduction</h2>
-                            <p>When analyzing survey data, choosing the right statistical test is crucial for drawing meaningful conclusions. This comprehensive guide covers three essential statistical tests, their applications, and real-world examples to help you make informed decisions in your data analysis.</p>
-                            
-                            <div class="quick-nav">
-                                <h3>Quick Navigation</h3>
-                                <ul>
-                                    <li><a href="#chi-square">Chi-Square Test of Independence</a></li>
-                                    <li><a href="#t-tests">T-Tests (Independent & Paired)</a></li>
-                                    <li><a href="#anova">Analysis of Variance (ANOVA)</a></li>
-                                </ul>
-                            </div>
-                        </section>
+<!-- The navigation will be injected here by loadHeader.js -->
+<!-- Wrap everything after nav in a main-content div -->
+<div class="main-content">
+<div class="blog-container">
+<!-- Main Content -->
+<div class="blog-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Choosing the Right Statistical Test for Survey Analysis</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
 
-            <section class="statistical-tests">
-                <div id="chi-square" class="test-section">
-                    <h2>1. Chi-Square Test of Independence</h2>
-                    
-                    <div class="test-overview">
-                        <h3>Data Type and Application</h3>
-                        <p>Used for analyzing relationships between categorical variables in survey data.</p>
-                        
-                        <div class="data-type-box">
-                            <h4>Categorical Data Examples:</h4>
-                            <ul>
-                                <li>Gender: Male, Female, Non-binary</li>
-                                <li>Department: HR, IT, Marketing, Sales</li>
-                                <li>Satisfaction Level: Satisfied, Neutral, Dissatisfied</li>
-                                <li>Customer Region: North America, Europe, Asia</li>
-                            </ul>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> Statistical Analysis, Survey Data, Chi-Square Test, T-Test, ANOVA, Data Analysis
                         </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-                        <div class="example-data">
-                            <h4>Sample Data Format:</h4>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Employee ID</th>
-                                        <th>Department</th>
-                                        <th>Satisfaction</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>1</td><td>HR</td><td>Satisfied</td></tr>
-                                    <tr><td>2</td><td>IT</td><td>Dissatisfied</td></tr>
-                                    <tr><td>3</td><td>Marketing</td><td>Neutral</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="code-implementation">
-                            <h4>Python Implementation:</h4>
-                            <pre><code class="language-python">
+<main>
+<section class="intro">
+<h2>Introduction</h2>
+<p>When analyzing survey data, choosing the right statistical test is crucial for drawing meaningful conclusions. This comprehensive guide covers three essential statistical tests, their applications, and real-world examples to help you make informed decisions in your data analysis.</p>
+<div class="quick-nav">
+<h3>Quick Navigation</h3>
+<ul>
+<li><a href="#chi-square">Chi-Square Test of Independence</a></li>
+<li><a href="#t-tests">T-Tests (Independent &amp; Paired)</a></li>
+<li><a href="#anova">Analysis of Variance (ANOVA)</a></li>
+</ul>
+</div>
+</section>
+<section class="statistical-tests">
+<div class="test-section" id="chi-square">
+<h2>1. Chi-Square Test of Independence</h2>
+<div class="test-overview">
+<h3>Data Type and Application</h3>
+<p>Used for analyzing relationships between categorical variables in survey data.</p>
+<div class="data-type-box">
+<h4>Categorical Data Examples:</h4>
+<ul>
+<li>Gender: Male, Female, Non-binary</li>
+<li>Department: HR, IT, Marketing, Sales</li>
+<li>Satisfaction Level: Satisfied, Neutral, Dissatisfied</li>
+<li>Customer Region: North America, Europe, Asia</li>
+</ul>
+</div>
+<div class="example-data">
+<h4>Sample Data Format:</h4>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Employee ID</th>
+<th>Department</th>
+<th>Satisfaction</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>HR</td><td>Satisfied</td></tr>
+<tr><td>2</td><td>IT</td><td>Dissatisfied</td></tr>
+<tr><td>3</td><td>Marketing</td><td>Neutral</td></tr>
+</tbody>
+</table>
+</div>
+<div class="code-implementation">
+<h4>Python Implementation:</h4>
+<pre><code class="language-python">
 # Create example dataset
 import pandas as pd
 import numpy as np
@@ -136,27 +278,24 @@ percent_table = cont_table.div(cont_table.sum(axis=1), axis=0) * 100
 print("\nPercentage Distribution:")
 print(percent_table)
                             </code></pre>
-                        </div>
-
-                        <div class="real-world-example">
-                            <h4>Real-World Application:</h4>
-                            <p>An HR department analyzed if job satisfaction varies across departments:</p>
-                            <ul>
-                                <li>Sample size: 500 employees</li>
-                                <li>Chi-square result: χ²(6) = 15.3, p = 0.018</li>
-                                <li>Finding: Significant relationship between department and satisfaction</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="t-tests" class="test-section">
-                    <h2>2. T-Tests</h2>
-                    
-                    <!-- Similar structure for T-Tests section -->
-                    <div class="implementation">
-                        <h4>R Implementation Example:</h4>
-                        <pre><code class="python">
+</div>
+<div class="real-world-example">
+<h4>Real-World Application:</h4>
+<p>An HR department analyzed if job satisfaction varies across departments:</p>
+<ul>
+<li>Sample size: 500 employees</li>
+<li>Chi-square result: χ²(6) = 15.3, p = 0.018</li>
+<li>Finding: Significant relationship between department and satisfaction</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="test-section" id="t-tests">
+<h2>2. T-Tests</h2>
+<!-- Similar structure for T-Tests section -->
+<div class="implementation">
+<h4>R Implementation Example:</h4>
+<pre><code class="python">
 # Independent Samples T-Test Example
 remote_data = pd.DataFrame({
     'WorkType': ['Remote', 'OnSite'] * 3,
@@ -178,16 +317,14 @@ sns.boxplot(x='WorkType', y='Satisfaction', data=remote_data)
 plt.title('Satisfaction Scores by Work Type')
 plt.show()
                         </code></pre>
-                    </div>
-                </div>
-
-                <div id="anova" class="test-section">
-                    <h2>3. Analysis of Variance (ANOVA)</h2>
-                    
-                    <!-- Similar structure for ANOVA section -->
-                    <div class="implementation">
-                        <h4>R Implementation Example:</h4>
-                        <pre><code class="python">
+</div>
+</div>
+<div class="test-section" id="anova">
+<h2>3. Analysis of Variance (ANOVA)</h2>
+<!-- Similar structure for ANOVA section -->
+<div class="implementation">
+<h4>R Implementation Example:</h4>
+<pre><code class="python">
 # ANOVA Example
 store_data = pd.DataFrame({
     'Location': ['A', 'B', 'C'] * 2,
@@ -213,60 +350,82 @@ sns.boxplot(x='Location', y='Satisfaction', data=store_data)
 plt.title('Satisfaction Scores by Store Location')
 plt.show()
                         </code></pre>
-                    </div>
-                </div>
-            </section>
-
-            <section class="decision-guide">
-                <h2>Choosing the Right Test: Decision Guide</h2>
-                <div class="decision-table">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Test Type</th>
-                                <th>Data Type</th>
-                                <th>Best For</th>
-                                <th>Business Use</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Chi-Square Test</td>
-                                <td>Categorical</td>
-                                <td>Understanding relationships between categorical variables</td>
-                                <td>Analyzing demographic patterns, customer preferences</td>
-                            </tr>
-                            <tr>
-                                <td>T-Test</td>
-                                <td>Continuous & Categorical</td>
-                                <td>Comparing means between two groups</td>
-                                <td>Evaluating program effectiveness, comparing groups</td>
-                            </tr>
-                            <tr>
-                                <td>ANOVA</td>
-                                <td>Continuous & Multiple Categories</td>
-                                <td>Comparing means across multiple groups</td>
-                                <td>Analyzing differences across departments/locations</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-
-        <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-        </footer>
-    </div>
-
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+</div>
+</div>
+</section>
+<section class="decision-guide">
+<h2>Choosing the Right Test: Decision Guide</h2>
+<div class="decision-table">
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Test Type</th>
+<th>Data Type</th>
+<th>Best For</th>
+<th>Business Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chi-Square Test</td>
+<td>Categorical</td>
+<td>Understanding relationships between categorical variables</td>
+<td>Analyzing demographic patterns, customer preferences</td>
+</tr>
+<tr>
+<td>T-Test</td>
+<td>Continuous &amp; Categorical</td>
+<td>Comparing means between two groups</td>
+<td>Evaluating program effectiveness, comparing groups</td>
+</tr>
+<tr>
+<td>ANOVA</td>
+<td>Continuous &amp; Multiple Categories</td>
+<td>Comparing means across multiple groups</td>
+<td>Analyzing differences across departments/locations</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-r.min.js"></script>
+</div></div></div>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html>
-

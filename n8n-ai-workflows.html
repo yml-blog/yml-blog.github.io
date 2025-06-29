@@ -1,317 +1,466 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Build Autonomous AI Workflows with n8n: A Technical Introduction to Agentic Automation</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Build Autonomous AI Workflows with n8n: A Technical Introduction to Agentic Automation</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="By Yangming Li..." name="description"/></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Build Autonomous AI Workflows with n8n: A Technical Introduction to Agentic Automation</h1>
-                    <p class="lead">By Yangming Li</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Build Autonomous AI Workflows with n8n: A Technical Introduction to Agentic Automation</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> n8n, AI Agents, Automation, LLM, Workflow, Airtable, OpenAI, Agentic Systems
                 </div>
-            </header>
-            
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> n8n, AI Agents, Automation, LLM, Workflow, Airtable, OpenAI, Agentic Systems
-                </div>
-            </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-            <main>
-                <section class="table-of-contents">
-                    <h2>📌 Table of Contents</h2>
-                    <ul>
-                        <li><a href="#why-agents">Why talk about agents?</a></li>
-                        <li><a href="#n8n-essentials">n8n essentials at a glance</a></li>
-                        <li><a href="#walkthrough">Walk-through: a Home-Inventory Agent</a></li>
-                        <li><a href="#scaling-up">Scaling up with sub-agents</a></li>
-                        <li><a href="#best-practices">Best practices & tips</a></li>
-                        <li><a href="#next-steps">Where to go next</a></li>
-                    </ul>
-                </section>
-
-                <section id="why-agents" class="intro">
-                    <h2>1. Why talk about agents?</h2>
-                    <p>Most automation tutorials stick to workflows—a linear series of steps where every output path is pre-wired. Useful, but rigid.</p>
-                    <p>By contrast, an agentic system pairs a Large Language Model (LLM) with a toolbox of actions; at run time the model decides which tool(s) to invoke and how to combine the results. Think of:</p>
-                    
-                    <div class="comparison-table">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Workflow</th>
-                                    <th>Agent</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Post-purchase email ✔️</td>
-                                    <td>Customer-support LLM that can open tickets, pull orders, and issue refunds 🛠️</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <p>n8n (pronounced "n-eight-n") is one of the first open-source platforms to treat both paradigms as first-class citizens. Its Advanced AI Agent node drops an LLM into any workflow and lets you bolt on tools à-la-carte.</p>
-                </section>
-
-                <section id="n8n-essentials">
-                    <h2>2. n8n essentials at a glance</h2>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Concept</th>
-                                    <th>What it is</th>
-                                    <th>Why it matters for agents</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Workspace</td>
-                                    <td>Cloud or self-hosted project root</td>
-                                    <td>Holds your credentials, executions, and multiple workflows</td>
-                                </tr>
-                                <tr>
-                                    <td>Node</td>
-                                    <td>A single step in a workflow</td>
-                                    <td>Five families: Triggers, Actions, Utilities, Code, Advanced AI</td>
-                                </tr>
-                                <tr>
-                                    <td>Execution</td>
-                                    <td>A run of a workflow/agent</td>
-                                    <td>Every chat message or API hit shows up here for debugging</td>
-                                </tr>
-                                <tr>
-                                    <td>Credentials</td>
-                                    <td>API keys, OAuth tokens, etc.</td>
-                                    <td>Centralised; reuse the same OpenAI key in many agents</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <h3>The five node families</h3>
-                    <ul>
-                        <li><strong>Triggers</strong> · Start the flow (cron, webhook, chat, etc.).</li>
-                        <li><strong>Actions</strong> · Concrete API calls (Gmail, Telegram, Airtable…).</li>
-                        <li><strong>Utilities</strong> · Branching, data transforms, storage.</li>
-                        <li><strong>Code</strong> · JavaScript, HTTP Request, custom Webhook.</li>
-                        <li><strong>Advanced AI</strong> · Chat Model and AI Agent nodes—where the magic lives.</li>
-                    </ul>
-                </section>
-
-                <section id="walkthrough">
-                    <h2>3. Walk-through: a Home-Inventory Agent</h2>
-                    <p>We'll replicate the demo from the video: a chat-based agent that searches and updates an Airtable stock list.</p>
-
-                    <h3>Prerequisites</h3>
-                    <ul>
-                        <li>n8n Cloud workspace (or self-hosted ≥ v1.50)</li>
-                        <li>OpenAI (or Anthropic, Groq, etc.) API key</li>
-                        <li>Airtable base with fields: Item Name, Current Qty, Order Threshold</li>
-                    </ul>
-
-                    <h3>3.1 Create the skeleton</h3>
-                    <p><strong>Trigger → On Chat Message</strong><br>
+<main>
+<section class="table-of-contents">
+<h2>📌 Table of Contents</h2>
+<ul>
+<li><a href="#why-agents">Why talk about agents?</a></li>
+<li><a href="#n8n-essentials">n8n essentials at a glance</a></li>
+<li><a href="#walkthrough">Walk-through: a Home-Inventory Agent</a></li>
+<li><a href="#scaling-up">Scaling up with sub-agents</a></li>
+<li><a href="#best-practices">Best practices &amp; tips</a></li>
+<li><a href="#next-steps">Where to go next</a></li>
+</ul>
+</section>
+<section class="intro" id="why-agents">
+<h2>1. Why talk about agents?</h2>
+<p>Most automation tutorials stick to workflows—a linear series of steps where every output path is pre-wired. Useful, but rigid.</p>
+<p>By contrast, an agentic system pairs a Large Language Model (LLM) with a toolbox of actions; at run time the model decides which tool(s) to invoke and how to combine the results. Think of:</p>
+<div class="comparison-table">
+<table class="table">
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Post-purchase email ✔️</td>
+<td>Customer-support LLM that can open tickets, pull orders, and issue refunds 🛠️</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>n8n (pronounced "n-eight-n") is one of the first open-source platforms to treat both paradigms as first-class citizens. Its Advanced AI Agent node drops an LLM into any workflow and lets you bolt on tools à-la-carte.</p>
+</section>
+<section id="n8n-essentials">
+<h2>2. n8n essentials at a glance</h2>
+<div class="table-responsive">
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it is</th>
+<th>Why it matters for agents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workspace</td>
+<td>Cloud or self-hosted project root</td>
+<td>Holds your credentials, executions, and multiple workflows</td>
+</tr>
+<tr>
+<td>Node</td>
+<td>A single step in a workflow</td>
+<td>Five families: Triggers, Actions, Utilities, Code, Advanced AI</td>
+</tr>
+<tr>
+<td>Execution</td>
+<td>A run of a workflow/agent</td>
+<td>Every chat message or API hit shows up here for debugging</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>API keys, OAuth tokens, etc.</td>
+<td>Centralised; reuse the same OpenAI key in many agents</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>The five node families</h3>
+<ul>
+<li><strong>Triggers</strong> · Start the flow (cron, webhook, chat, etc.).</li>
+<li><strong>Actions</strong> · Concrete API calls (Gmail, Telegram, Airtable…).</li>
+<li><strong>Utilities</strong> · Branching, data transforms, storage.</li>
+<li><strong>Code</strong> · JavaScript, HTTP Request, custom Webhook.</li>
+<li><strong>Advanced AI</strong> · Chat Model and AI Agent nodes—where the magic lives.</li>
+</ul>
+</section>
+<section id="walkthrough">
+<h2>3. Walk-through: a Home-Inventory Agent</h2>
+<p>We'll replicate the demo from the video: a chat-based agent that searches and updates an Airtable stock list.</p>
+<h3>Prerequisites</h3>
+<ul>
+<li>n8n Cloud workspace (or self-hosted ≥ v1.50)</li>
+<li>OpenAI (or Anthropic, Groq, etc.) API key</li>
+<li>Airtable base with fields: Item Name, Current Qty, Order Threshold</li>
+</ul>
+<h3>3.1 Create the skeleton</h3>
+<p><strong>Trigger → On Chat Message</strong><br/>
                     Set to "Public" so anyone with the URL can chat.</p>
-
-                    <p><strong>Advanced AI → AI Agent</strong><br>
+<p><strong>Advanced AI → AI Agent</strong><br/>
                     Think of this node as the agent's "brain".</p>
-
-                    <p><strong>Chat Model inside the agent</strong></p>
-                    <div class="code-block">
-                        <pre><code>Provider: OpenAI
+<p><strong>Chat Model inside the agent</strong></p>
+<div class="code-block">
+<pre><code>Provider: OpenAI
 Model: gpt-4o
 Memory → Window Buffer
 Store last 5 turns so the agent remembers context ("4, 5, 6 …").</code></pre>
-                    </div>
-
-                    <h3>3.2 Add the first tool – Search Airtable</h3>
-                    <p>Inside the AI Agent node → Tools → ➕</p>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Setting</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Type</td>
-                                    <td>Airtable</td>
-                                </tr>
-                                <tr>
-                                    <td>Operation</td>
-                                    <td>Search</td>
-                                </tr>
-                                <tr>
-                                    <td>Credential</td>
-                                    <td>Personal access token with scopes schema.read, data.records:read</td>
-                                </tr>
-                                <tr>
-                                    <td>Tool description</td>
-                                    <td>Searches my "Home Inventory" Airtable base for items and quantities.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p>Now the LLM can decide, "User asked 'What's out of stock?'—I'll run the Search tool."</p>
-
-                    <h3>3.3 Add the second tool – Update records</h3>
-                    <p>Add another Airtable tool:</p>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Setting</th>
-                                    <th>Value</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Operation</td>
-                                    <td>Update</td>
-                                </tr>
-                                <tr>
-                                    <td>Tool description</td>
-                                    <td>Updates item quantities in the Home Inventory base.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <p>Inside the field mapper, use fromAI expressions so the model injects parameters dynamically:</p>
-                    <div class="code-block">
-                        <pre><code>id: {{ fromAI("record_id",
+</div>
+<h3>3.2 Add the first tool – Search Airtable</h3>
+<p>Inside the AI Agent node → Tools → ➕</p>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Airtable</td>
+</tr>
+<tr>
+<td>Operation</td>
+<td>Search</td>
+</tr>
+<tr>
+<td>Credential</td>
+<td>Personal access token with scopes schema.read, data.records:read</td>
+</tr>
+<tr>
+<td>Tool description</td>
+<td>Searches my "Home Inventory" Airtable base for items and quantities.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Now the LLM can decide, "User asked 'What's out of stock?'—I'll run the Search tool."</p>
+<h3>3.3 Add the second tool – Update records</h3>
+<p>Add another Airtable tool:</p>
+<div class="table-responsive">
+<table class="table">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation</td>
+<td>Update</td>
+</tr>
+<tr>
+<td>Tool description</td>
+<td>Updates item quantities in the Home Inventory base.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Inside the field mapper, use fromAI expressions so the model injects parameters dynamically:</p>
+<div class="code-block">
+<pre><code>id: {{ fromAI("record_id",
               "The Airtable record ID of the item to update") }}
 
 Current Qty: {{ fromAI("new_qty",
                        "New quantity for this item",
                        "number") }}</code></pre>
-                    </div>
-
-                    <p>When you say, "I just bought two tubes of toothpaste—update my inventory," the agent:</p>
-                    <ol>
-                        <li>Searches the base to find the record_id for toothpaste.</li>
-                        <li>Calls the Update tool with new_qty = previous + 2.</li>
-                    </ol>
-
-                    <h3>3.4 Test the loop</h3>
-                    <p>Chat window →</p>
-                    <div class="code-block">
-                        <pre><code>User: Is anything out of stock?
+</div>
+<p>When you say, "I just bought two tubes of toothpaste—update my inventory," the agent:</p>
+<ol>
+<li>Searches the base to find the record_id for toothpaste.</li>
+<li>Calls the Update tool with new_qty = previous + 2.</li>
+</ol>
+<h3>3.4 Test the loop</h3>
+<p>Chat window →</p>
+<div class="code-block">
+<pre><code>User: Is anything out of stock?
 Agent: Butter has Current Qty = 0.
 User: I picked up 2 butters, please update.
 Agent: Updated Butter → Current Qty = 2.</code></pre>
-                    </div>
-                    <p>No hard-coded paths; the agent chose both tools on its own.</p>
-                </section>
-
-                <section id="scaling-up">
-                    <h2>4. Scaling up with sub-agents</h2>
-                    <p>Large projects rarely fit in one canvas. n8n lets you:</p>
-                    <ul>
-                        <li>Convert a workflow into a callable tool (Trigger → When Called by Another Workflow).</li>
-                        <li>Nest agents – A "front-door" agent can route intents to specialised sub-agents:</li>
-                    </ul>
-
-                    <div class="code-block">
-                        <pre><code>Customer Agent
+</div>
+<p>No hard-coded paths; the agent chose both tools on its own.</p>
+</section>
+<section id="scaling-up">
+<h2>4. Scaling up with sub-agents</h2>
+<p>Large projects rarely fit in one canvas. n8n lets you:</p>
+<ul>
+<li>Convert a workflow into a callable tool (Trigger → When Called by Another Workflow).</li>
+<li>Nest agents – A "front-door" agent can route intents to specialised sub-agents:</li>
+</ul>
+<div class="code-block">
+<pre><code>Customer Agent
  ├── Inventory Agent  (Airtable tools)
  ├── Order Agent      (Stripe, Shopify)
  └── FAQ Agent        (Vector search, RAG)</code></pre>
-                    </div>
-
-                    <p>Each sub-agent has its own memory, prompt, and credentials—yet the parent agent uses a single Call Workflow tool to orchestrate them.</p>
-                </section>
-
-                <section id="best-practices">
-                    <h2>5. Best practices & tips</h2>
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Tip</th>
-                                    <th>Why</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Write rich tool descriptions.</td>
-                                    <td>The LLM's planner relies on them to pick the right action.</td>
-                                </tr>
-                                <tr>
-                                    <td>Start with small context windows.</td>
-                                    <td>Shorter memories are cheaper and reduce hallucinations.</td>
-                                </tr>
-                                <tr>
-                                    <td>Guard mutate operations.</td>
-                                    <td>Add an if-statement or human approval before updates that spend money or hit prod systems.</td>
-                                </tr>
-                                <tr>
-                                    <td>Log executions.</td>
-                                    <td>n8n's Executions tab captures every agent decision—vital for prompt tuning.</td>
-                                </tr>
-                                <tr>
-                                    <td>Version your prompts.</td>
-                                    <td>Store long system prompts in an n8n Static Data node or pull from Git.</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                <section id="next-steps">
-                    <h2>6. Where to go next</h2>
-                    <ul>
-                        <li><strong><a href="https://docs.n8n.io/advanced-ai/" target="_blank">n8n Docs – Advanced AI</a></strong><br>
+</div>
+<p>Each sub-agent has its own memory, prompt, and credentials—yet the parent agent uses a single Call Workflow tool to orchestrate them.</p>
+</section>
+<section id="best-practices">
+<h2>5. Best practices &amp; tips</h2>
+<div class="table-responsive">
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Tip</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Write rich tool descriptions.</td>
+<td>The LLM's planner relies on them to pick the right action.</td>
+</tr>
+<tr>
+<td>Start with small context windows.</td>
+<td>Shorter memories are cheaper and reduce hallucinations.</td>
+</tr>
+<tr>
+<td>Guard mutate operations.</td>
+<td>Add an if-statement or human approval before updates that spend money or hit prod systems.</td>
+</tr>
+<tr>
+<td>Log executions.</td>
+<td>n8n's Executions tab captures every agent decision—vital for prompt tuning.</td>
+</tr>
+<tr>
+<td>Version your prompts.</td>
+<td>Store long system prompts in an n8n Static Data node or pull from Git.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="next-steps">
+<h2>6. Where to go next</h2>
+<ul>
+<li><strong><a href="https://docs.n8n.io/advanced-ai/" target="_blank">n8n Docs – Advanced AI</a></strong><br/>
                         Deep-dive on fromAI, vector stores, and function calling.</li>
-                        <li><strong>AI Foundations Community (featured in the video)</strong><br>
+<li><strong>AI Foundations Community (featured in the video)</strong><br/>
                         25-module course + weekly calls on LLM ops.</li>
-                        <li><strong>Source-control your workflows</strong><br>
+<li><strong>Source-control your workflows</strong><br/>
                         n8n supports JSON export—check it into Git to diff prompt changes.</li>
-                    </ul>
-                </section>
+</ul>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>Agents turn automation upside-down: instead of us defining the path, we define capabilities and let the model think. n8n's new AI Agent node, paired with a vast catalog of Triggers and Actions, makes it one of the fastest ways to prototype and ship production-grade agentic systems—no heavyweight orchestration layer required.</p>
+<p>Spin up a workspace, wire in a chat model, and give your LLM a toolbox. Your first autonomous workflow is only a few nodes away. Happy building!</p>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
 
-                <section class="conclusion">
-                    <h2>Conclusion</h2>
-                    <p>Agents turn automation upside-down: instead of us defining the path, we define capabilities and let the model think. n8n's new AI Agent node, paired with a vast catalog of Triggers and Actions, makes it one of the fastest ways to prototype and ship production-grade agentic systems—no heavyweight orchestration layer required.</p>
-                    <p>Spin up a workspace, wire in a chat model, and give your LLM a toolbox. Your first autonomous workflow is only a few nodes away. Happy building!</p>
-                </section>
-            </main>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
             
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

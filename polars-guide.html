@@ -1,106 +1,250 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Introduction to Polars: A Fast and Efficient Data Processing Library</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Introduction to Polars: A Fast and Efficient Data Processing Library</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="By Yangming Li..." name="description"/></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Introduction to Polars: A Fast and Efficient Data Processing Library</h1>
-                    <p class="lead">By Yangming Li</p>
-                </div>
-            </header>
-            
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> Polars, Data Processing, Python, DataFrames, Series, Data Analysis, Performance, Big Data
-                </div>
-            </div>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Introduction to Polars: A Fast and Efficient Data Processing Library</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
 
-            <main>
-                <section class="intro">
-                    <h2>Background</h2>
-                    <p>Polars is a high-performance data processing library designed to handle large datasets with efficiency and ease. Whether you're working with small or large-scale data, Polars provides fast and expressive methods for transforming, analyzing, and processing data.</p>
-                </section>
-                
-                <section class="data-types">
-                    <h2>Data Types and Structures</h2>
-                    <div class="type-box">
-                        <h3>Core Data Types</h3>
-                        <ul>
-                            <li><strong>Numeric Types:</strong> 
-                                <ul>
-                                    <li>Signed integers</li>
-                                    <li>Unsigned integers</li>
-                                    <li>Floating-point numbers</li>
-                                    <li>Decimals</li>
-                                </ul>
-                            </li>
-                            <li><strong>Nested Types:</strong>
-                                <ul>
-                                    <li>Lists</li>
-                                    <li>Structs</li>
-                                    <li>Arrays</li>
-                                </ul>
-                            </li>
-                            <li><strong>Temporal Types:</strong>
-                                <ul>
-                                    <li>Dates</li>
-                                    <li>Times</li>
-                                    <li>Datetimes</li>
-                                    <li>Time deltas</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> Polars, Data Processing, Python, DataFrames, Series, Data Analysis, Performance, Big Data
+                </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-                <section class="data-structures">
-                    <h2>Core Data Structures</h2>
-                    <div class="structure-box">
-                        <h3>Series</h3>
-                        <p>One-dimensional, homogeneous collection of data elements.</p>
-                        <pre><code class="python">
+<main>
+<section class="intro">
+<h2>Background</h2>
+<p>Polars is a high-performance data processing library designed to handle large datasets with efficiency and ease. Whether you're working with small or large-scale data, Polars provides fast and expressive methods for transforming, analyzing, and processing data.</p>
+</section>
+<section class="data-types">
+<h2>Data Types and Structures</h2>
+<div class="type-box">
+<h3>Core Data Types</h3>
+<ul>
+<li><strong>Numeric Types:</strong>
+<ul>
+<li>Signed integers</li>
+<li>Unsigned integers</li>
+<li>Floating-point numbers</li>
+<li>Decimals</li>
+</ul>
+</li>
+<li><strong>Nested Types:</strong>
+<ul>
+<li>Lists</li>
+<li>Structs</li>
+<li>Arrays</li>
+</ul>
+</li>
+<li><strong>Temporal Types:</strong>
+<ul>
+<li>Dates</li>
+<li>Times</li>
+<li>Datetimes</li>
+<li>Time deltas</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section class="data-structures">
+<h2>Core Data Structures</h2>
+<div class="structure-box">
+<h3>Series</h3>
+<p>One-dimensional, homogeneous collection of data elements.</p>
+<pre><code class="python">
 import polars as pl
 
 s = pl.Series("ints", [1, 2, 3, 4, 5])
 print(s)
                         </code></pre>
-                        
-                        <h3>DataFrame</h3>
-                        <p>Two-dimensional, heterogeneous data structure containing named Series.</p>
-                        <pre><code class="python">
+<h3>DataFrame</h3>
+<p>Two-dimensional, heterogeneous data structure containing named Series.</p>
+<pre><code class="python">
 df = pl.DataFrame({
     "name": ["Alice", "Bob", "Charlie"],
     "age": [25, 30, 35],
     "height": [1.65, 1.80, 1.75]
 })
                         </code></pre>
-                    </div>
-                </section>
-
-                <section class="examples">
-                    <h2>Working with Data</h2>
-                    
-                    <div class="example-box">
-                        <h3>Missing Values and Special Types</h3>
-                        <pre><code class="python">
+</div>
+</section>
+<section class="examples">
+<h2>Working with Data</h2>
+<div class="example-box">
+<h3>Missing Values and Special Types</h3>
+<pre><code class="python">
 import polars as pl
 import numpy as np
 
@@ -118,11 +262,10 @@ print(s_nan)
 print("\nNull count:", s_null.null_count())
 print("NaN count:", s_nan.is_nan().sum())
                         </code></pre>
-                    </div>
-
-                    <div class="example-box">
-                        <h3>Advanced Series Operations</h3>
-                        <pre><code class="python">
+</div>
+<div class="example-box">
+<h3>Advanced Series Operations</h3>
+<pre><code class="python">
 # Different ways to create series
 s1 = pl.Series("ints", [1, 2, 3, 4, 5])
 s2 = pl.Series("uints", [1, 2, 3, 4, 5], dtype=pl.UInt64)
@@ -139,11 +282,10 @@ print("Sum:", s1.sum())
 print("Mean:", s1.mean())
 print("Standard deviation:", s1.std())
                         </code></pre>
-                    </div>
-
-                    <div class="example-box">
-                        <h3>Complex DataFrame Operations</h3>
-                        <pre><code class="python">
+</div>
+<div class="example-box">
+<h3>Complex DataFrame Operations</h3>
+<pre><code class="python">
 from datetime import date
 
 # Create a sample DataFrame
@@ -174,11 +316,10 @@ print(df.describe())
 print("\nSchema information:")
 print(df.schema)
                         </code></pre>
-                    </div>
-
-                    <div class="example-box">
-                        <h3>Advanced Transformations</h3>
-                        <pre><code class="python">
+</div>
+<div class="example-box">
+<h3>Advanced Transformations</h3>
+<pre><code class="python">
 # Calculate BMI and age-related statistics
 result = df.with_columns([
     pl.col("weight")
@@ -198,8 +339,8 @@ print(result)
 
 # Filtering and grouping
 filtered = result.filter(
-    (pl.col("bmi") > 20) & 
-    (pl.col("age") < 40)
+    (pl.col("bmi") &gt; 20) &amp; 
+    (pl.col("age") &lt; 40)
 )
 
 print("\nFiltered results:")
@@ -218,11 +359,10 @@ decades = result.group_by(
 print("\nDecade-wise statistics:")
 print(decades)
                         </code></pre>
-                    </div>
-
-                    <div class="example-box">
-                        <h3>Data Manipulation Techniques</h3>
-                        <pre><code class="python">
+</div>
+<div class="example-box">
+<h3>Data Manipulation Techniques</h3>
+<pre><code class="python">
 # Adding calculated columns
 enhanced_df = df.with_columns([
     # Calculate BMI
@@ -232,7 +372,7 @@ enhanced_df = df.with_columns([
     pl.col("birthdate").dt.year().alias("birth_year"),
     
     # Create a categorical column
-    pl.when(pl.col("weight") > 70)
+    pl.when(pl.col("weight") &gt; 70)
     .then("heavy")
     .otherwise("light")
     .alias("weight_category")
@@ -243,41 +383,63 @@ print(enhanced_df)
 
 # Complex filtering
 filtered_df = enhanced_df.filter(
-    (pl.col("bmi") > 20) &
-    (pl.col("birth_year") > 1980)
+    (pl.col("bmi") &gt; 20) &amp;
+    (pl.col("birth_year") &gt; 1980)
 )
 
 print("\nFiltered results:")
 print(filtered_df)
                         </code></pre>
-                    </div>
-                </section>
+</div>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>Polars offers a powerful alternative to traditional data processing libraries, combining high performance with an intuitive API. Its efficient memory usage and fast execution make it particularly suitable for large-scale data processing tasks.</p>
+</section>
+<section class="references">
+<h2>References</h2>
+<ul>
+<li>Polars Official Documentation</li>
+<li>Python Data Processing Benchmarks</li>
+<li>Rust-based Data Processing Libraries</li>
+</ul>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
 
-                <section class="conclusion">
-                    <h2>Conclusion</h2>
-                    <p>Polars offers a powerful alternative to traditional data processing libraries, combining high performance with an intuitive API. Its efficient memory usage and fast execution make it particularly suitable for large-scale data processing tasks.</p>
-                </section>
-                
-                <section class="references">
-                    <h2>References</h2>
-                    <ul>
-                        <li>Polars Official Documentation</li>
-                        <li>Python Data Processing Benchmarks</li>
-                        <li>Rust-based Data Processing Libraries</li>
-                    </ul>
-                </section>
-            </main>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
             
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

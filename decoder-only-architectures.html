@@ -1,150 +1,314 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Why Have Decoder-Only Architectures Become the Standard in LLMs?</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Why Decoder-Only Architectures Dominate Modern LLMs | Technical Analysis</title>
+<meta content="Explore why decoder-only architectures have become standard in LLMs. Technical comparison of encoder-only, encoder-decoder, and decoder-only models, with analysis of computational efficiency and training dynamics." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Why Have Decoder-Only Architectures Become the Standard in Large Language Models?</h1>
-                    <p class="lead">By Yangming Li</p>
-                </div>
-            </header>
-            
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3750 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> LLM, Decoder-Only Architecture, BERT, GPT, Transformer, NLP, Machine Learning, Attention Mechanisms, Causal Attention, Self-Attention, Model Architecture
-                </div>
-            </div>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Why Have Decoder-Only Architectures Become the Standard in Large Language Models?</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
 
-            <main>
-                <section class="intro">
-                    <h2>Background</h2>
-                    <p>Currently, most leading large language models (LLMs) are based on decoder-only architectures. In the past, encoder-only and encoder-decoder structures also held prominence, yet today, the trend has shifted toward decoder-only designs. This article explores the reasons behind this shift.</p>
-                </section>
-                
-                <section class="architecture-types">
-                    <h2>Core Architectural Designs</h2>
-                    <div class="architecture-type">
-                        <h3>1. Encoder-Only Architecture (BERT-style)</h3>
-                        <p>Encoder-only models like BERT utilize bidirectional self-attention mechanisms to process input sequences. These models excel at understanding context from both directions but cannot generate text. Key characteristics include:</p>
-                        <ul>
-                            <li>Bidirectional attention allows tokens to attend to both past and future context</li>
-                            <li>Masked Language Modeling (MLM) as the primary pre-training objective</li>
-                            <li>Optimal for classification, token-level tasks, and semantic understanding</li>
-                            <li>Examples: BERT, RoBERTa, DeBERTa</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="architecture-type">
-                        <h3>2. Encoder-Decoder Architecture (Seq2Seq)</h3>
-                        <p>Models like T5 and BART implement both encoding and decoding components, making them suitable for transformation tasks. Technical features include:</p>
-                        <ul>
-                            <li>Cross-attention mechanism between encoder and decoder</li>
-                            <li>Encoder processes input bidirectionally</li>
-                            <li>Decoder generates output autoregressively</li>
-                            <li>Examples: T5, BART, mT5</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="architecture-type">
-                        <h3>3. Decoder-Only Architecture (GPT-style)</h3>
-                        <p>Modern LLMs predominantly use this architecture, characterized by:</p>
-                        <ul>
-                            <li>Causal (unidirectional) self-attention mechanism</li>
-                            <li>Next-token prediction as the primary training objective</li>
-                            <li>Unified approach to both understanding and generation</li>
-                            <li>Examples: GPT-3, LLaMA, Claude</li>
-                        </ul>
-                    </div>
-                </section>
-                
-                <section class="advantages">
-                    <h2>Technical Advantages of Decoder-Only Architectures</h2>
-                    
-                    <div class="advantage">
-                        <h3>1. Mathematical Properties of Causal Attention</h3>
-                        <p>Decoder-only architectures implement causal attention, which offers several mathematical advantages:</p>
-                        <ul>
-                            <li>Forms a lower triangular attention matrix with non-zero diagonal elements</li>
-                            <li>Guarantees full rank properties (det(A) ≠ 0)</li>
-                            <li>Enables stable gradient flow during training</li>
-                            <li>Maintains information preservation through each layer</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="advantage">
-                        <h3>2. Computational Efficiency</h3>
-                        <p>The architecture provides significant computational benefits:</p>
-                        <ul>
-                            <li>O(n) complexity for inference vs O(n²) for bidirectional attention</li>
-                            <li>Efficient KV-cache implementation for sequential processing</li>
-                            <li>Reduced memory footprint during inference</li>
-                            <li>Better parallelization capabilities during training</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="advantage">
-                        <h3>3. Advanced Context Processing</h3>
-                        <p>Technical aspects of context handling include:</p>
-                        <ul>
-                            <li>Implicit in-context learning through attention patterns</li>
-                            <li>Efficient gradient flow through causal attention layers</li>
-                            <li>Enhanced ability to maintain long-range dependencies</li>
-                            <li>Superior performance in few-shot and zero-shot scenarios</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="advantage">
-                        <h3>4. Training Dynamics</h3>
-                        <p>Unique training characteristics include:</p>
-                        <ul>
-                            <li>More stable optimization landscape due to causal structure</li>
-                            <li>Better scaling properties with model size</li>
-                            <li>Improved gradient flow through deeper networks</li>
-                            <li>More efficient parameter utilization</li>
-                        </ul>
-                    </div>
-                </section>
-                
-                <section class="conclusion">
-                    <h2>Conclusion</h2>
-                    <p>Given their advantages in training efficiency, engineering implementation, and theoretical properties, decoder-only architectures have become the mainstream choice for LLM design. Particularly in generative tasks, introducing bidirectional attention offers no substantial benefits, and encoder-decoder models only outperform in certain cases due to larger parameter counts. With equivalent parameter sizes and inference costs, the decoder-only architecture stands out as the optimal choice.</p>
-                </section>
-                
-                <section class="references">
-                    <h2>References</h2>
-                    <p>Zhihu.com</p>
-                </section>
-            </main>
-            
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3750 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> LLM, Decoder-Only Architecture, BERT, GPT, Transformer, NLP, Machine Learning, Attention Mechanisms, Causal Attention, Self-Attention, Model Architecture
+                </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+<main>
+<section class="intro">
+<h2>Background</h2>
+<p>Currently, most leading large language models (LLMs) are based on decoder-only architectures. In the past, encoder-only and encoder-decoder structures also held prominence, yet today, the trend has shifted toward decoder-only designs. This article explores the reasons behind this shift.</p>
+</section>
+<section class="architecture-types">
+<h2>Core Architectural Designs</h2>
+<div class="architecture-type">
+<h3>1. Encoder-Only Architecture (BERT-style)</h3>
+<p>Encoder-only models like BERT utilize bidirectional self-attention mechanisms to process input sequences. These models excel at understanding context from both directions but cannot generate text. Key characteristics include:</p>
+<ul>
+<li>Bidirectional attention allows tokens to attend to both past and future context</li>
+<li>Masked Language Modeling (MLM) as the primary pre-training objective</li>
+<li>Optimal for classification, token-level tasks, and semantic understanding</li>
+<li>Examples: BERT, RoBERTa, DeBERTa</li>
+</ul>
+</div>
+<div class="architecture-type">
+<h3>2. Encoder-Decoder Architecture (Seq2Seq)</h3>
+<p>Models like T5 and BART implement both encoding and decoding components, making them suitable for transformation tasks. Technical features include:</p>
+<ul>
+<li>Cross-attention mechanism between encoder and decoder</li>
+<li>Encoder processes input bidirectionally</li>
+<li>Decoder generates output autoregressively</li>
+<li>Examples: T5, BART, mT5</li>
+</ul>
+</div>
+<div class="architecture-type">
+<h3>3. Decoder-Only Architecture (GPT-style)</h3>
+<p>Modern LLMs predominantly use this architecture, characterized by:</p>
+<ul>
+<li>Causal (unidirectional) self-attention mechanism</li>
+<li>Next-token prediction as the primary training objective</li>
+<li>Unified approach to both understanding and generation</li>
+<li>Examples: GPT-3, LLaMA, Claude</li>
+</ul>
+</div>
+</section>
+<section class="advantages">
+<h2>Technical Advantages of Decoder-Only Architectures</h2>
+<div class="advantage">
+<h3>1. Mathematical Properties of Causal Attention</h3>
+<p>Decoder-only architectures implement causal attention, which offers several mathematical advantages:</p>
+<ul>
+<li>Forms a lower triangular attention matrix with non-zero diagonal elements</li>
+<li>Guarantees full rank properties (det(A) ≠ 0)</li>
+<li>Enables stable gradient flow during training</li>
+<li>Maintains information preservation through each layer</li>
+</ul>
+</div>
+<div class="advantage">
+<h3>2. Computational Efficiency</h3>
+<p>The architecture provides significant computational benefits:</p>
+<ul>
+<li>O(n) complexity for inference vs O(n²) for bidirectional attention</li>
+<li>Efficient KV-cache implementation for sequential processing</li>
+<li>Reduced memory footprint during inference</li>
+<li>Better parallelization capabilities during training</li>
+</ul>
+</div>
+<div class="advantage">
+<h3>3. Advanced Context Processing</h3>
+<p>Technical aspects of context handling include:</p>
+<ul>
+<li>Implicit in-context learning through attention patterns</li>
+<li>Efficient gradient flow through causal attention layers</li>
+<li>Enhanced ability to maintain long-range dependencies</li>
+<li>Superior performance in few-shot and zero-shot scenarios</li>
+</ul>
+</div>
+<div class="advantage">
+<h3>4. Training Dynamics</h3>
+<p>Unique training characteristics include:</p>
+<ul>
+<li>More stable optimization landscape due to causal structure</li>
+<li>Better scaling properties with model size</li>
+<li>Improved gradient flow through deeper networks</li>
+<li>More efficient parameter utilization</li>
+</ul>
+</div>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>Given their advantages in training efficiency, engineering implementation, and theoretical properties, decoder-only architectures have become the mainstream choice for LLM design. Particularly in generative tasks, introducing bidirectional attention offers no substantial benefits, and encoder-decoder models only outperform in certain cases due to larger parameter counts. With equivalent parameter sizes and inference costs, the decoder-only architecture stands out as the optimal choice.</p>
+</section>
+<section class="references">
+<h2>References</h2>
+<p>Zhihu.com</p>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
+
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

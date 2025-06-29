@@ -1,52 +1,201 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Introduction to Trustworthy Machine Learning</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Ray Framework Guide: Distributed Computing for ML Applications | Yangming Li</title>
+<meta content="Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter tuning, and serving in production." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Introduction to Ray</h1>
-                    <p class="lead">By Yangming Li</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Introduction to Ray</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<!-- Add metadata section -->
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 7 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 800 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 1200 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> Ray, Distributed Computing, Machine Learning, Parallel Processing, Data Preprocessing, Model Training, Hyperparameter Tuning
                 </div>
-            </header>
-            
-            <!-- Add metadata section -->
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 7 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 800 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 1200 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> Ray, Distributed Computing, Machine Learning, Parallel Processing, Data Preprocessing, Model Training, Hyperparameter Tuning
-                </div>
-            </div>
-            
-            <main>
-                <section class="intro">
-                    <h2>What is Ray?</h2>
-                    <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
-                    <img src="img/Ray.png" alt="Ray Logo" style="max-width:100%; height:auto;"> <!-- Added image -->
-                </section>
-                <section class="key-points">
-                    <h2>Key Features of Ray with Real-World Examples</h2>
-                    
-                    <h3>1. Data Preprocessing (Data Module):</h3>
-                    <p>Ray helps you manage and preprocess large datasets efficiently. Here's an example from an e-commerce company processing customer data:</p>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+
+<main>
+<section class="intro">
+<h2>What is Ray?</h2>
+<p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
+<img alt="Ray Logo" src="img/Ray.png" style="max-width:100%; height:auto;"/> <!-- Added image -->
+</section>
+<section class="key-points">
+<h2>Key Features of Ray with Real-World Examples</h2>
+<h3>1. Data Preprocessing (Data Module):</h3>
+<p>Ray helps you manage and preprocess large datasets efficiently. Here's an example from an e-commerce company processing customer data:</p>
+<div class="code-block">
+<pre><code class="python">
 import ray
 ray.init()
 
@@ -61,21 +210,20 @@ data_chunks = split_data(large_customer_dataset)
 futures = [preprocess_chunk.remote(chunk) for chunk in data_chunks]
 results = ray.get(futures)
                         </code></pre>
-                    </div>
-                    <div class="code-explanation">
-                        <p><strong>Code Explanation:</strong></p>
-                        <ul>
-                            <li><code>@ray.remote</code> decorator marks the function for distributed execution</li>
-                            <li>Large dataset is split into chunks for parallel processing</li>
-                            <li><code>preprocess_chunk.remote()</code> executes tasks asynchronously</li>
-                            <li><code>ray.get()</code> collects results from all workers</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>2. Distributed Training (Train Module):</h3>
-                    <p>For a financial services company training a fraud detection model on millions of transactions:</p>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<div class="code-explanation">
+<p><strong>Code Explanation:</strong></p>
+<ul>
+<li><code>@ray.remote</code> decorator marks the function for distributed execution</li>
+<li>Large dataset is split into chunks for parallel processing</li>
+<li><code>preprocess_chunk.remote()</code> executes tasks asynchronously</li>
+<li><code>ray.get()</code> collects results from all workers</li>
+</ul>
+</div>
+<h3>2. Distributed Training (Train Module):</h3>
+<p>For a financial services company training a fraud detection model on millions of transactions:</p>
+<div class="code-block">
+<pre><code class="python">
 from ray import train
 import torch
 
@@ -91,21 +239,20 @@ results = trainer.run(
     config={"epochs": 10}
 )
                         </code></pre>
-                    </div>
-                    <div class="code-explanation">
-                        <p><strong>Code Explanation:</strong></p>
-                        <ul>
-                            <li>Uses Ray's training module for distributed model training</li>
-                            <li><code>train.report()</code> tracks metrics during training</li>
-                            <li>Trainer automatically handles distributed setup and execution</li>
-                            <li>Supports multiple deep learning frameworks (PyTorch shown here)</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>Hyperparameter Tuning (Tune Module):</h3>
-                    <p>A healthcare company optimizing a diagnostic model:</p>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<div class="code-explanation">
+<p><strong>Code Explanation:</strong></p>
+<ul>
+<li>Uses Ray's training module for distributed model training</li>
+<li><code>train.report()</code> tracks metrics during training</li>
+<li>Trainer automatically handles distributed setup and execution</li>
+<li>Supports multiple deep learning frameworks (PyTorch shown here)</li>
+</ul>
+</div>
+<h3>Hyperparameter Tuning (Tune Module):</h3>
+<p>A healthcare company optimizing a diagnostic model:</p>
+<div class="code-block">
+<pre><code class="python">
 from ray import tune
 
 def train_model(config):
@@ -124,21 +271,20 @@ analysis = tune.run(
     }
 )
                         </code></pre>
-                    </div>
-                    <div class="code-explanation">
-                        <p><strong>Code Explanation:</strong></p>
-                        <ul>
-                            <li>Uses Ray's Tune module for automated hyperparameter optimization</li>
-                            <li><code>tune.loguniform()</code> searches learning rate on log scale</li>
-                            <li><code>tune.choice()</code> tests different network architectures</li>
-                            <li><code>tune.report()</code> tracks metrics for optimization</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>Model Serving (Serve Module):</h3>
-                    <p>A real-time recommendation system for a streaming service:</p>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<div class="code-explanation">
+<p><strong>Code Explanation:</strong></p>
+<ul>
+<li>Uses Ray's Tune module for automated hyperparameter optimization</li>
+<li><code>tune.loguniform()</code> searches learning rate on log scale</li>
+<li><code>tune.choice()</code> tests different network architectures</li>
+<li><code>tune.report()</code> tracks metrics for optimization</li>
+</ul>
+</div>
+<h3>Model Serving (Serve Module):</h3>
+<p>A real-time recommendation system for a streaming service:</p>
+<div class="code-block">
+<pre><code class="python">
 from ray import serve
 
 @serve.deployment
@@ -153,21 +299,20 @@ class RecommendationModel:
 serve.start()
 RecommendationModel.deploy()
                         </code></pre>
-                    </div>
-                    <div class="code-explanation">
-                        <p><strong>Code Explanation:</strong></p>
-                        <ul>
-                            <li>Uses Ray's Serve module for model serving</li>
-                            <li><code>@serve.deployment</code> decorator marks the class for deployment</li>
-                            <li><code>serve.start()</code> starts the Serve server</li>
-                            <li><code>RecommendationModel.deploy()</code> deploys the model</li>
-                        </ul>
-                    </div>
-                    
-                    <h3>Reinforcement Learning (RLib Module):</h3>
-                    <p>An autonomous robotics company training a robot to navigate warehouses:</p>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<div class="code-explanation">
+<p><strong>Code Explanation:</strong></p>
+<ul>
+<li>Uses Ray's Serve module for model serving</li>
+<li><code>@serve.deployment</code> decorator marks the class for deployment</li>
+<li><code>serve.start()</code> starts the Serve server</li>
+<li><code>RecommendationModel.deploy()</code> deploys the model</li>
+</ul>
+</div>
+<h3>Reinforcement Learning (RLib Module):</h3>
+<p>An autonomous robotics company training a robot to navigate warehouses:</p>
+<div class="code-block">
+<pre><code class="python">
 from ray.rllib.algorithms.ppo import PPO
 
 config = {
@@ -181,30 +326,54 @@ for i in range(1000):
     result = trainer.train()
     print(f"Iteration {i}: reward = {result['episode_reward_mean']}")
                         </code></pre>
-                    </div>
-                    <div class="code-explanation">
-                        <p><strong>Code Explanation:</strong></p>
-                        <ul>
-                            <li>Uses Ray's RLib module for reinforcement learning</li>
-                            <li><code>PPO</code> is a popular reinforcement learning algorithm</li>
-                            <li><code>config</code> specifies the environment, number of workers, and framework</li>
-                            <li><code>trainer.train()</code> trains the model for a specified number of iterations</li>
-                        </ul>
-                    </div>
-                </section>
-                
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
+</div>
+<div class="code-explanation">
+<p><strong>Code Explanation:</strong></p>
+<ul>
+<li>Uses Ray's RLib module for reinforcement learning</li>
+<li><code>PPO</code> is a popular reinforcement learning algorithm</li>
+<li><code>config</code> specifies the environment, number of workers, and framework</li>
+<li><code>trainer.train()</code> trains the model for a specified number of iterations</li>
+</ul>
+</div>
+</section>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</main></div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Add before </body> -->
+<script src="js/blogPanel.js"></script>
 
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <!-- Add before </body> -->
-    <script src="js/blogPanel.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html>

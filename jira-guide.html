@@ -1,152 +1,285 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>A Deep Dive into Jira: Agile Project Management for the Modern Team</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>A Deep Dive into Jira: Agile Project Management for the Modern Team</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="By Yangming Li..." name="description"/></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>A Deep Dive into Jira: Agile Project Management for the Modern Team</h1>
-                    <p class="lead">By Yangming Li</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>A Deep Dive into Jira: Agile Project Management for the Modern Team</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 20 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+<div class="keywords">
+<strong>Keywords:</strong> Jira, Agile, Project Management, Scrum, Kanban, Atlassian, Team Collaboration
                 </div>
-            </header>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 20 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> Jira, Agile, Project Management, Scrum, Kanban, Atlassian, Team Collaboration
-                </div>
-            </div>
-
-            <main>
-                <section class="intro">
-                    <p>Jira, developed by Atlassian, has become a cornerstone tool for project management and issue tracking. Designed with agile methodologies in mind, Jira helps teams collaborate, prioritize, and deliver projects efficiently. But what exactly does Jira offer, and how can teams leverage its robust features for agile workflows? Let's explore.</p>
-                </section>
-
-                <section class="what-is-jira">
-                    <h2>What is Jira?</h2>
-                    <div class="content-box">
-                        <p>Jira's name derives from "Gojira," the Japanese word for Godzilla—a nod to its origin story. At its core, Jira is a dynamic project management tool that supports various agile methodologies, such as Scrum and Kanban. It empowers teams to:</p>
-                        <ul>
-                            <li>Plan and prioritize tasks</li>
-                            <li>Track progress and resolve issues</li>
-                            <li>Deliver high-quality products iteratively</li>
-                        </ul>
-                        <p>Jira's flexibility extends beyond software development to marketing, operations, and even HR teams, making it a versatile tool across industries.</p>
-                    </div>
-                </section>
-
-                <section class="key-features">
-                    <h2>Key Features of Jira</h2>
-                    
-                    <h3>Agile Boards: Scrum and Kanban</h3>
-                    <div class="feature-box">
-                        <p>Jira offers two primary workflows:</p>
-                        
-                        <h4>Scrum Boards</h4>
-                        <p>Ideal for teams working in sprints, Scrum boards allow you to plan work for a fixed period (e.g., two weeks). Key elements include:</p>
-                        <ul>
-                            <li>Sprints: Time-boxed cycles of work</li>
-                            <li>Sprint Planning Meetings: Sessions where teams agree on tasks to complete</li>
-                            <li>Sprint Backlogs: A prioritized list of tasks for the sprint</li>
-                        </ul>
-
-                        <h4>Kanban Boards</h4>
-                        <p>Perfect for continuous workflows, Kanban boards allow tasks to flow from "To Do" to "Done" without time-boxed sprints. Teams can visualize work in progress (WIP) and optimize throughput by setting WIP limits.</p>
-                    </div>
-
-                    <section class="user-stories">
-                        <h3>User Stories and Epics</h3>
-                        <div class="feature-box">
-                            <p>In Jira, work items are often represented as user stories. A typical user story follows this format:</p>
-                            <div class="code-example">
+<main>
+<section class="intro">
+<p>Jira, developed by Atlassian, has become a cornerstone tool for project management and issue tracking. Designed with agile methodologies in mind, Jira helps teams collaborate, prioritize, and deliver projects efficiently. But what exactly does Jira offer, and how can teams leverage its robust features for agile workflows? Let's explore.</p>
+</section>
+<section class="what-is-jira">
+<h2>What is Jira?</h2>
+<div class="content-box">
+<p>Jira's name derives from "Gojira," the Japanese word for Godzilla—a nod to its origin story. At its core, Jira is a dynamic project management tool that supports various agile methodologies, such as Scrum and Kanban. It empowers teams to:</p>
+<ul>
+<li>Plan and prioritize tasks</li>
+<li>Track progress and resolve issues</li>
+<li>Deliver high-quality products iteratively</li>
+</ul>
+<p>Jira's flexibility extends beyond software development to marketing, operations, and even HR teams, making it a versatile tool across industries.</p>
+</div>
+</section>
+<section class="key-features">
+<h2>Key Features of Jira</h2>
+<h3>Agile Boards: Scrum and Kanban</h3>
+<div class="feature-box">
+<p>Jira offers two primary workflows:</p>
+<h4>Scrum Boards</h4>
+<p>Ideal for teams working in sprints, Scrum boards allow you to plan work for a fixed period (e.g., two weeks). Key elements include:</p>
+<ul>
+<li>Sprints: Time-boxed cycles of work</li>
+<li>Sprint Planning Meetings: Sessions where teams agree on tasks to complete</li>
+<li>Sprint Backlogs: A prioritized list of tasks for the sprint</li>
+</ul>
+<h4>Kanban Boards</h4>
+<p>Perfect for continuous workflows, Kanban boards allow tasks to flow from "To Do" to "Done" without time-boxed sprints. Teams can visualize work in progress (WIP) and optimize throughput by setting WIP limits.</p>
+</div>
+<section class="user-stories">
+<h3>User Stories and Epics</h3>
+<div class="feature-box">
+<p>In Jira, work items are often represented as user stories. A typical user story follows this format:</p>
+<div class="code-example">
                                 "As a [type of user], I want [goal] so that [reason]."
                             </div>
-                            <p>For example:</p>
-                            <div class="code-example">
+<p>For example:</p>
+<div class="code-example">
                                 User Story: "As a web developer, I want to add user authentication so that data is secure."
                             </div>
-                            <p>For larger initiatives, multiple user stories can be grouped into epics. Epics are designed to track overarching goals that span multiple sprints or workflows.</p>
-                        </div>
-
-                        <h3>Customizable Workflows</h3>
-                        <div class="feature-box">
-                            <p>Jira's workflows are fully customizable, enabling teams to adapt to unique processes. Workflows consist of:</p>
-                            <ul>
-                                <li><strong>Statuses:</strong> Represent stages like "To Do," "In Progress," and "Done."</li>
-                                <li><strong>Transitions:</strong> Define how tasks move between statuses.</li>
-                            </ul>
-                        </div>
-
-                        <h3>Advanced Search and Filters</h3>
-                        <div class="feature-box">
-                            <p>Jira's search functionality is powered by JQL (Jira Query Language), enabling highly specific queries, such as:</p>
-                            <div class="code-example">
+<p>For larger initiatives, multiple user stories can be grouped into epics. Epics are designed to track overarching goals that span multiple sprints or workflows.</p>
+</div>
+<h3>Customizable Workflows</h3>
+<div class="feature-box">
+<p>Jira's workflows are fully customizable, enabling teams to adapt to unique processes. Workflows consist of:</p>
+<ul>
+<li><strong>Statuses:</strong> Represent stages like "To Do," "In Progress," and "Done."</li>
+<li><strong>Transitions:</strong> Define how tasks move between statuses.</li>
+</ul>
+</div>
+<h3>Advanced Search and Filters</h3>
+<div class="feature-box">
+<p>Jira's search functionality is powered by JQL (Jira Query Language), enabling highly specific queries, such as:</p>
+<div class="code-example">
                                 project = "Web Development" AND status = "In Progress" AND assignee = currentUser()
                             </div>
-                            <p>Filters can be saved and shared, forming the backbone of dashboards and reports.</p>
-                        </div>
-                    </section>
-
-                    <section class="real-world-practices">
-                        <h2>Real-World Practices and Insights</h2>
-                        
-                        <div class="content-box">
-                            <h3>Simplified Issue Types</h3>
-                            <p>Many organizations streamline Jira by focusing on essential issue types like Bug, Story, and Task. Overloading projects with too many custom issue types can lead to confusion and inefficiencies. By keeping it simple, teams can focus on delivery rather than administration.</p>
-
-                            <h3>Agile Status Columns</h3>
-                            <p>A common setup for workflows includes statuses like To Do, In Progress, Done, and Blocked. This minimalistic approach ensures clarity and avoids unnecessary complexity in project boards.</p>
-
-                            <h3>Release Tracking</h3>
-                            <p>Some teams use the Fix Version or Release field in Jira to group tasks, but without proper governance, these fields can become cluttered. For high-frequency deployments (e.g., 10 releases a day), release tracking should align closely with version control tools like GitHub or GitLab, which integrate seamlessly with Jira.</p>
-                        </div>
-                    </section>
-
-                    <section class="project-setup">
-                        <h2>Setting Up a Team-Managed Project</h2>
-                        <div class="content-box">
-                            <p>Team-managed projects are designed for rapid setup and autonomy:</p>
-                            <ul>
-                                <li><strong>Create a New Project:</strong> Select a template (e.g., Scrum or Kanban)</li>
-                                <li><strong>Add Custom Issue Types:</strong> For example, create issue types like "Bug," "Idea," or "Improvement"</li>
-                                <li><strong>Customize Fields:</strong> Tailor the fields to your team's needs (e.g., add dropdowns for priority levels)</li>
-                            </ul>
-
-                            <h3>Benefits of Team-Managed Projects:</h3>
-                            <ul>
-                                <li>No administrative permissions required</li>
-                                <li>All entities (e.g., issue types, workflows) live within the project</li>
-                            </ul>
-                        </div>
-                    </section>
-                </section>
-
-                <section class="conclusion">
-                    <h2>Conclusion</h2>
-                    <div class="content-box">
-                        <p>Jira's power lies in its adaptability. Whether you're running a small agile team or managing enterprise-level workflows, Jira provides the tools you need to succeed. By understanding its features—from boards and filters to automation and integrations—teams can unlock new levels of productivity and collaboration.</p>
-                        <p>So, why not dive in and start customizing your Jira instance today? Have questions or need help? Share your thoughts below, and don't forget to hit Subscribe and the notification bell to stay updated on all things Jira!</p>
-                    </div>
-                </section>
-            </main>
-        </div>
-    </div>
-
-    <style>
+<p>Filters can be saved and shared, forming the backbone of dashboards and reports.</p>
+</div>
+</section>
+<section class="real-world-practices">
+<h2>Real-World Practices and Insights</h2>
+<div class="content-box">
+<h3>Simplified Issue Types</h3>
+<p>Many organizations streamline Jira by focusing on essential issue types like Bug, Story, and Task. Overloading projects with too many custom issue types can lead to confusion and inefficiencies. By keeping it simple, teams can focus on delivery rather than administration.</p>
+<h3>Agile Status Columns</h3>
+<p>A common setup for workflows includes statuses like To Do, In Progress, Done, and Blocked. This minimalistic approach ensures clarity and avoids unnecessary complexity in project boards.</p>
+<h3>Release Tracking</h3>
+<p>Some teams use the Fix Version or Release field in Jira to group tasks, but without proper governance, these fields can become cluttered. For high-frequency deployments (e.g., 10 releases a day), release tracking should align closely with version control tools like GitHub or GitLab, which integrate seamlessly with Jira.</p>
+</div>
+</section>
+<section class="project-setup">
+<h2>Setting Up a Team-Managed Project</h2>
+<div class="content-box">
+<p>Team-managed projects are designed for rapid setup and autonomy:</p>
+<ul>
+<li><strong>Create a New Project:</strong> Select a template (e.g., Scrum or Kanban)</li>
+<li><strong>Add Custom Issue Types:</strong> For example, create issue types like "Bug," "Idea," or "Improvement"</li>
+<li><strong>Customize Fields:</strong> Tailor the fields to your team's needs (e.g., add dropdowns for priority levels)</li>
+</ul>
+<h3>Benefits of Team-Managed Projects:</h3>
+<ul>
+<li>No administrative permissions required</li>
+<li>All entities (e.g., issue types, workflows) live within the project</li>
+</ul>
+</div>
+</section>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<div class="content-box">
+<p>Jira's power lies in its adaptability. Whether you're running a small agile team or managing enterprise-level workflows, Jira provides the tools you need to succeed. By understanding its features—from boards and filters to automation and integrations—teams can unlock new levels of productivity and collaboration.</p>
+<p>So, why not dive in and start customizing your Jira instance today? Have questions or need help? Share your thoughts below, and don't forget to hit Subscribe and the notification bell to stay updated on all things Jira!</p>
+</div>
+</section>
+</main>
+</div>
+</div>
+<style>
         .content-box {
             background: #f8f9fa;
             padding: 20px;
@@ -197,10 +330,35 @@
             font-family: monospace;
         }
     </style>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
 
-    <!-- Scripts -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

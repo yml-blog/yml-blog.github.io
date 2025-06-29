@@ -1,82 +1,227 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MLOps: A Must-Have Skill for Efficient Model Management and Deployment</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <link href="css/prism.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>MLOps Guide: Streamline Your ML Model Deployment Pipeline | Yangming Li</title>
+<meta content="Master MLOps essentials for efficient machine learning operations. Learn practical implementation with MLflow and Weights &amp; Biases, from model training to monitoring and deployment." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<link href="css/prism.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>MLOps: A Must-Have Skill for Efficient Model Management and Deployment</h1>
-                    <p class="lead">By Yangming Li</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>MLOps: A Must-Have Skill for Efficient Model Management and Deployment</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 8 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 1000 words</span>
+<div class="keywords">
+<strong>Keywords:</strong> MLOps, Machine Learning, Model Deployment, MLflow, Weights &amp; Biases, DevOps
                 </div>
-            </header>
-            
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 8 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 1000 words</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> MLOps, Machine Learning, Model Deployment, MLflow, Weights & Biases, DevOps
-                </div>
-            </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
 
-            <main>
-                <section class="intro">
-                    <p>As machine learning (ML) technologies continue to mature, a central concern for many organizations is how to deploy models to production efficiently and ensure they are maintained seamlessly. This is where MLOps, or Machine Learning Operations, comes into play. MLOps combines the principles of traditional DevOps with the unique needs of machine learning, aiming to improve the efficiency of model development, deployment, and monitoring through automation and collaboration.</p>
-                </section>
-
-                <section>
-                    <h2>What is MLOps?</h2>
-                    <p>MLOps is a systematic framework that covers a series of steps from data management and model development to deployment and continuous monitoring. The goal is to accelerate model deployment through automated, standardized processes, ensuring that models perform consistently in production.</p>
-                    
-                    <div class="technical-box">
-                        <h3>Key Aspects of MLOps</h3>
-                        <ul>
-                            <li><strong>Data Management:</strong> Ensures data version control and consistency</li>
-                            <li><strong>Model Training and Evaluation:</strong> Supports automated model selection and performance tuning</li>
-                            <li><strong>Model Deployment:</strong> Automates model deployment through CI/CD pipelines</li>
-                            <li><strong>Model Monitoring:</strong> Continuously tracks model performance to detect issues like model drift</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Why is MLOps Important?</h2>
-                    <ul>
-                        <li><strong>Accelerates Model Deployment:</strong> MLOps significantly reduces the time from model development to deployment, enabling organizations to respond quickly to market changes.</li>
-                        <li><strong>Improves Collaboration:</strong> A unified platform allows data scientists and development teams to collaborate more effectively, reducing duplicated efforts.</li>
-                        <li><strong>Continuous Monitoring and Improvement:</strong> MLOps enables models to be automatically monitored post-deployment. When model performance degrades, it can trigger retraining, ensuring the model consistently performs at its best.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>MLOps Example: Building a Simple ML Pipeline</h2>
-                    <p>Below is an example of how to create and manage an ML pipeline using both MLflow and Weights & Biases (W&B), two popular tools in MLOps. MLflow is used for tracking and managing model versions and deployments, while Weights & Biases helps visualize and monitor metrics in real time.</p>
-
-                    <div class="code-block">
-                        <pre><code class="language-python">
+<main>
+<section class="intro">
+<p>As machine learning (ML) technologies continue to mature, a central concern for many organizations is how to deploy models to production efficiently and ensure they are maintained seamlessly. This is where MLOps, or Machine Learning Operations, comes into play. MLOps combines the principles of traditional DevOps with the unique needs of machine learning, aiming to improve the efficiency of model development, deployment, and monitoring through automation and collaboration.</p>
+</section>
+<section>
+<h2>What is MLOps?</h2>
+<p>MLOps is a systematic framework that covers a series of steps from data management and model development to deployment and continuous monitoring. The goal is to accelerate model deployment through automated, standardized processes, ensuring that models perform consistently in production.</p>
+<div class="technical-box">
+<h3>Key Aspects of MLOps</h3>
+<ul>
+<li><strong>Data Management:</strong> Ensures data version control and consistency</li>
+<li><strong>Model Training and Evaluation:</strong> Supports automated model selection and performance tuning</li>
+<li><strong>Model Deployment:</strong> Automates model deployment through CI/CD pipelines</li>
+<li><strong>Model Monitoring:</strong> Continuously tracks model performance to detect issues like model drift</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Why is MLOps Important?</h2>
+<ul>
+<li><strong>Accelerates Model Deployment:</strong> MLOps significantly reduces the time from model development to deployment, enabling organizations to respond quickly to market changes.</li>
+<li><strong>Improves Collaboration:</strong> A unified platform allows data scientists and development teams to collaborate more effectively, reducing duplicated efforts.</li>
+<li><strong>Continuous Monitoring and Improvement:</strong> MLOps enables models to be automatically monitored post-deployment. When model performance degrades, it can trigger retraining, ensuring the model consistently performs at its best.</li>
+</ul>
+</section>
+<section>
+<h2>MLOps Example: Building a Simple ML Pipeline</h2>
+<p>Below is an example of how to create and manage an ML pipeline using both MLflow and Weights &amp; Biases (W&amp;B), two popular tools in MLOps. MLflow is used for tracking and managing model versions and deployments, while Weights &amp; Biases helps visualize and monitor metrics in real time.</p>
+<div class="code-block">
+<pre><code class="language-python">
 import mlflow
 import mlflow.sklearn
-import wandb  # Weights & Biases library
+import wandb  # Weights &amp; Biases library
 from sklearn.datasets import load_iris
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-# Initialize Weights & Biases project
+# Initialize Weights &amp; Biases project
 wandb.init(project="mlops_example", name="random_forest_run")
 
 # Load the dataset
@@ -100,1182 +245,1108 @@ with mlflow.start_run():
     mlflow.log_metric("accuracy", acc)
     mlflow.sklearn.log_model(clf, "random_forest_model")
 
-    # Log metrics and parameters with Weights & Biases
+    # Log metrics and parameters with Weights &amp; Biases
     wandb.log({"accuracy": acc, "n_estimators": 100})
                         </code></pre>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>Code Explanation</h3>
-                        <ul>
-                            <li><strong>MLflow:</strong> Manages the ML experiment and model deployment, allowing you to track performance across experiments and deploy the best-performing model.</li>
-                            <li><strong>Weights & Biases (W&B):</strong> Logs metrics like accuracy and parameters in real time, enabling interactive visualizations of model performance and hyperparameter tuning.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Key MLOps Tools</h2>
-                    <div class="technical-box">
-                        <ul>
-                            <li><strong>MLflow:</strong> An open-source platform for managing the ML lifecycle, including experiment tracking, model management, and deployment.</li>
-                            <li><strong>Weights & Biases:</strong> A powerful tool for tracking, visualizing, and collaborating on ML experiments. It provides interactive dashboards and helps data scientists monitor training metrics and hyperparameters.</li>
-                            <li><strong>Kedro:</strong> A data science project management framework that helps build modular and reproducible ML code.</li>
-                            <li><strong>Kubeflow:</strong> Automates ML workflows on Kubernetes, supporting the entire lifecycle from model training to deployment.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>MLOps Reference Architecture</h2>
-                    <p>A reference architecture serves as a blueprint for designing ML systems, incorporating industry best practices and proven patterns. By following a reference architecture, organizations can build scalable, maintainable ML solutions using consistent and repeatable approaches.</p>
-                    
-                    <div class="technical-box">
-                        <h3>Understanding Reference Architecture</h3>
-                        <p>A reference architecture is more than just a diagram - it's a comprehensive blueprint used to design IT solutions, particularly ML systems. It provides structured approaches for integrating various IT elements and patterns commonly used in solution design. By adopting such architecture, organizations can:</p>
-                        <ul>
-                            <li>Leverage industry best practices</li>
-                            <li>Streamline development processes</li>
-                            <li>Minimize technical debt</li>
-                            <li>Ensure scalability and maintainability</li>
-                        </ul>
-                    </div>
-                    
-                    <img src="img/MLOPs articture.png" alt="MLOps Reference Architecture" class="img-fluid technical-diagram">
-                    
-                    <div class="technical-box">
-                        <h3>Detailed Component Breakdown</h3>
-                        
-                        <h4>1. Development Environment</h4>
-                        <p>The journey begins in the experiment/development environment where data scientists execute orchestrated ML experiments. This environment includes:</p>
-                        <ul>
-                            <li>Orchestrated ML experiments for systematic model development</li>
-                            <li>Source code management and version control</li>
-                            <li>Integration with development tools and notebooks</li>
-                        </ul>
-
-                        <h4>2. CI/CD Pipeline Implementation</h4>
-                        <p>The CI/CD pipeline forms the backbone of automated MLOps:</p>
-                        <ul>
-                            <li><strong>Continuous Integration (CI):</strong>
-                                <ul>
-                                    <li>Automated code testing and validation</li>
-                                    <li>Creation of deployable artifacts</li>
-                                    <li>Package and executable generation</li>
-                                </ul>
-                            </li>
-                            <li><strong>Continuous Delivery (CD):</strong>
-                                <ul>
-                                    <li>Automated deployment to production</li>
-                                    <li>Pipeline deployment automation</li>
-                                    <li>Model deployment orchestration</li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <h4>3. Feature Store</h4>
-                        <p>The feature store is a critical component that:</p>
-                        <ul>
-                            <li>Provides consistent feature serving across development and production</li>
-                            <li>Enables feature reuse and reproducibility</li>
-                            <li>Maintains feature versioning and compatibility</li>
-                            <li>Feeds data to both development experiments and production services</li>
-                        </ul>
-
-                        <h4>4. Model Management</h4>
-                        <p>Comprehensive model management includes:</p>
-                        <ul>
-                            <li><strong>Metadata Store:</strong>
-                                <ul>
-                                    <li>Records pipeline execution logs</li>
-                                    <li>Stores training artifacts and hyperparameters</li>
-                                    <li>Maintains experiment tracking information</li>
-                                </ul>
-                            </li>
-                            <li><strong>Model Registry:</strong>
-                                <ul>
-                                    <li>Centralized model version control</li>
-                                    <li>Model artifact storage and management</li>
-                                    <li>Model lineage tracking</li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <h4>5. Automated Operations</h4>
-                        <p>The automation aspect includes:</p>
-                        <ul>
-                            <li><strong>Continuous Monitoring:</strong>
-                                <ul>
-                                    <li>Real-time performance tracking</li>
-                                    <li>Statistical analysis of predictions</li>
-                                    <li>Data drift detection</li>
-                                </ul>
-                            </li>
-                            <li><strong>Automated Triggers:</strong>
-                                <ul>
-                                    <li>Performance-based pipeline activation</li>
-                                    <li>Scheduled retraining mechanisms</li>
-                                    <li>Data-driven trigger systems</li>
-                                </ul>
-                            </li>
-                            <li><strong>Model Retraining:</strong>
-                                <ul>
-                                    <li>Automated training pipeline execution</li>
-                                    <li>Fallback mechanism implementation</li>
-                                    <li>Backup model management</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Implementation Considerations</h3>
-                        <p>When implementing this reference architecture, organizations should:</p>
-                        <ul>
-                            <li>Start with essential components and gradually expand</li>
-                            <li>Ensure robust testing at each automation stage</li>
-                            <li>Maintain clear documentation and monitoring practices</li>
-                            <li>Consider scalability requirements from the beginning</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Automated Experiment Tracking in MLOps</h2>
-                    <p>Machine Learning is inherently experimental in nature, with data scientists and ML engineers constantly tweaking various aspects of their ML pipelines to find optimal solutions. This experimental nature creates a need for robust tracking systems.</p>
-
-                    <div class="technical-box">
-                        <h3>Why Automated Experiment Tracking?</h3>
-                        <p>Manual tracking becomes impractical due to:</p>
-                        <ul>
-                            <li>Multiple data transformations and algorithms to test</li>
-                            <li>Various model evaluation metrics</li>
-                            <li>Different hyperparameter combinations</li>
-                            <li>Need for reproducibility and transparency</li>
-                        </ul>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>What Should Be Tracked?</h3>
-                        <ul>
-                            <li><strong>Code and Configuration:</strong>
-                                <ul>
-                                    <li>Experiment generation code</li>
-                                    <li>Environment configuration files</li>
-                                    <li>Runtime specifications</li>
-                                </ul>
-                            </li>
-                            <li><strong>Data Specifications:</strong>
-                                <ul>
-                                    <li>Data sources and types</li>
-                                    <li>Data formats</li>
-                                    <li>Cleaning procedures</li>
-                                    <li>Augmentation methods</li>
-                                </ul>
-                            </li>
-                            <li><strong>Model Information:</strong>
-                                <ul>
-                                    <li>Model parameters</li>
-                                    <li>Hyperparameters</li>
-                                    <li>Evaluation metrics</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Benefits of Automated Tracking</h3>
-                        <ul>
-                            <li><strong>Reproducibility:</strong> Ensures experiments can be replicated accurately</li>
-                            <li><strong>Performance Monitoring:</strong> Enables systematic tracking of system performance</li>
-                            <li><strong>Result Comparison:</strong> Facilitates easy comparison between different model versions</li>
-                            <li><strong>Decision Support:</strong> Provides data-driven insights for improvement</li>
-                            <li><strong>Transparency:</strong> Allows others to understand and validate the process</li>
-                        </ul>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>Modern Experiment Tracking Systems</h3>
-                        <p>Contemporary tracking systems offer:</p>
-                        <ul>
-                            <li>Interactive dashboards for visualization</li>
-                            <li>Programmatic access to tracking data</li>
-                            <li>Model registry integration</li>
-                            <li>Automated metadata organization</li>
-                            <li>Run comparison capabilities</li>
-                        </ul>
-                    </div>
-
-                    <div class="market-box">
-                        <h3>Market Solutions</h3>
-                        <p>While custom tracking solutions can be developed, several market options exist:</p>
-                        <ul>
-                            <li><strong>Open-source Solutions:</strong>
-                                <ul>
-                                    <li>MLflow</li>
-                                    <li>DVC (Data Version Control)</li>
-                                    <li>Sacred</li>
-                                </ul>
-                            </li>
-                            <li><strong>Commercial Solutions:</strong>
-                                <ul>
-                                    <li>Weights & Biases</li>
-                                    <li>Neptune.ai</li>
-                                    <li>Comet.ml</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>The Model Registry: Managing ML Model Lifecycle</h2>
-                    <p>The model registry is a crucial component in MLOps architecture that serves as a centralized repository for managing the entire lifecycle of machine learning models, from creation to archiving.</p>
-
-                    <img src="img/model registry.png" alt="Model Registry Architecture" class="technical-diagram">
-
-                    <div class="technical-box">
-                        <h3>Understanding Model Lifecycle Management</h3>
-                        <p>Models transition through different environments in their lifecycle:</p>
-                        <ul>
-                            <li><strong>Development:</strong> Where models are created and initially tested</li>
-                            <li><strong>Staging:</strong> Where models undergo validation and integration testing</li>
-                            <li><strong>Production:</strong> Where models are deployed for actual use</li>
-                        </ul>
-                    </div>
-
-                    <div class="warning-box">
-                        <h3>Moving Beyond "Over the Fence" Deployment</h3>
-                        <p>Traditional model deployment often involves a data scientist simply "throwing the model over the fence" to operations teams through:</p>
-                        <ul>
-                            <li>Email attachments</li>
-                            <li>USB drives</li>
-                            <li>Shared network drives</li>
-                        </ul>
-                        <p>This approach lacks proper versioning, tracking, and automation capabilities.</p>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>Core Functions of the Model Registry</h3>
-                        <ul>
-                            <li><strong>Centralized Storage:</strong>
-                                <ul>
-                                    <li>Model artifacts</li>
-                                    <li>Deployment configurations</li>
-                                    <li>Model dependencies</li>
-                                </ul>
-                            </li>
-                            <li><strong>Lifecycle Management:</strong>
-                                <ul>
-                                    <li>Version control</li>
-                                    <li>Environment transitions</li>
-                                    <li>Deployment history</li>
-                                    <li>Model archiving</li>
-                                </ul>
-                            </li>
-                            <li><strong>Integration Capabilities:</strong>
-                                <ul>
-                                    <li>CI/CD workflow integration</li>
-                                    <li>Automated testing triggers</li>
-                                    <li>Deployment automation</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="process-box">
-                        <h3>Model Registration Process</h3>
-                        <ol>
-                            <li><strong>Experimentation Phase:</strong>
-                                <ul>
-                                    <li>Multiple iterations tracked by experiment tracking system</li>
-                                    <li>Metadata stored in metadata store</li>
-                                </ul>
-                            </li>
-                            <li><strong>Model Selection:</strong>
-                                <ul>
-                                    <li>Best performing model identified</li>
-                                    <li>Model promoted to registry</li>
-                                </ul>
-                            </li>
-                            <li><strong>Validation:</strong>
-                                <ul>
-                                    <li>Automated testing in staging environment</li>
-                                    <li>Integration verification</li>
-                                </ul>
-                            </li>
-                            <li><strong>Deployment:</strong>
-                                <ul>
-                                    <li>CD pipeline triggered</li>
-                                    <li>Prediction services updated</li>
-                                </ul>
-                            </li>
-                            <li><strong>Archival:</strong>
-                                <ul>
-                                    <li>Previous model decommissioned</li>
-                                    <li>Model history maintained</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Design Flexibility</h3>
-                        <p>The model registry can be implemented in different ways:</p>
-                        <ul>
-                            <li><strong>Separated System:</strong> Model registry focuses solely on model storage and lifecycle management, while experiment tracking and metadata storage are handled separately.</li>
-                            <li><strong>Unified System:</strong> Model registry includes experiment tracking and metadata storage capabilities in a single platform.</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Feature Store: The Cornerstone of Enterprise ML</h2>
-                    <p>A feature store serves as a centralized repository for standardizing the definition, storage, and access of features across all stages of the ML lifecycle - from experimentation to production serving.</p>
-
-                    <img src="img/feature_store.png" alt="Feature Store Architecture" class="technical-diagram">
-
-                    <div class="technical-box">
-                        <h3>Understanding Feature Engineering</h3>
-                        <p>Feature engineering involves transforming raw data into meaningful inputs for ML algorithms through:</p>
-                        <ul>
-                            <li>Numerical transformations (standardization, normalization)</li>
-                            <li>Categorical variable encoding</li>
-                            <li>Domain-specific feature creation</li>
-                            <li>Value grouping and aggregation</li>
-                        </ul>
-                    </div>
-
-                    <div class="warning-box">
-                        <h3>Enterprise Challenges Without Feature Store</h3>
-                        <p>Organizations often face these issues:</p>
-                        <ul>
-                            <li>Duplicate feature engineering efforts across teams</li>
-                            <li>Inconsistent feature definitions</li>
-                            <li>Redundant storage infrastructure</li>
-                            <li>Limited feature discovery and reuse</li>
-                            <li>Data skew between training and serving</li>
-                        </ul>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>Feature Store Capabilities</h3>
-                        <ul>
-                            <li><strong>Data Integration:</strong>
-                                <ul>
-                                    <li>Ingests raw data from multiple sources</li>
-                                    <li>Handles both batch and streaming data</li>
-                                    <li>Standardizes transformation processes</li>
-                                </ul>
-                            </li>
-                            <li><strong>Storage and Serving:</strong>
-                                <ul>
-                                    <li>Centralized feature storage</li>
-                                    <li>High-throughput batch serving</li>
-                                    <li>Low-latency real-time serving</li>
-                                    <li>API access for various use cases</li>
-                                </ul>
-                            </li>
-                            <li><strong>Metadata Management:</strong>
-                                <ul>
-                                    <li>Feature versioning</li>
-                                    <li>Data lineage tracking</li>
-                                    <li>Feature documentation</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="benefits-box">
-                        <h3>Key Benefits</h3>
-                        <ul>
-                            <li><strong>Accelerated Experimentation:</strong>
-                                <ul>
-                                    <li>Quick access to curated feature sets</li>
-                                    <li>Feature discovery and reuse</li>
-                                    <li>Consistent feature definitions</li>
-                                </ul>
-                            </li>
-                            <li><strong>Continuous Training:</strong>
-                                <ul>
-                                    <li>Automated feature updates</li>
-                                    <li>Consistent training datasets</li>
-                                    <li>Version-controlled features</li>
-                                </ul>
-                            </li>
-                            <li><strong>Production Serving:</strong>
-                                <ul>
-                                    <li>Batch and real-time prediction support</li>
-                                    <li>Environment symmetry</li>
-                                    <li>Prevention of data skew</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Environment Symmetry</h3>
-                        <p>The feature store ensures environment symmetry by:</p>
-                        <ul>
-                            <li>Providing identical feature computation across all environments</li>
-                            <li>Maintaining consistent feature definitions from development to production</li>
-                            <li>Preventing data skew between training and serving</li>
-                            <li>Centralizing feature access for all ML pipeline stages</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>The Metadata Store: Enabling Automated MLOps Workflows</h2>
-                    <p>The metadata store serves as a centralized repository for managing all information about artifacts created during the execution of ML pipelines, playing a crucial role in enabling fully automated MLOps workflows.</p>
-
-                    <img src="img/meta_database.png" alt="Metadata Store Architecture" class="technical-diagram">
-
-                    <div class="technical-box">
-                        <h3>Understanding MLOps Metadata</h3>
-                        <p>Metadata includes information about:</p>
-                        <ul>
-                            <li>Data source versions and modifications</li>
-                            <li>Model hyperparameters and versions</li>
-                            <li>Training evaluation results</li>
-                            <li>Pipeline execution logs</li>
-                            <li>Hardware utilization metrics</li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Key Aspects of ML Metadata</h3>
-                        <div class="aspect-grid">
-                            <div class="aspect">
-                                <h4>Model Drift Detection and Automated Response</h4>
-                                <img src="img/model_drift.png" alt="Model Drift Detection" class="aspect-image">
-                                <p class="detailed-explanation">
+</div>
+<div class="technical-box">
+<h3>Code Explanation</h3>
+<ul>
+<li><strong>MLflow:</strong> Manages the ML experiment and model deployment, allowing you to track performance across experiments and deploy the best-performing model.</li>
+<li><strong>Weights &amp; Biases (W&amp;B):</strong> Logs metrics like accuracy and parameters in real time, enabling interactive visualizations of model performance and hyperparameter tuning.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Key MLOps Tools</h2>
+<div class="technical-box">
+<ul>
+<li><strong>MLflow:</strong> An open-source platform for managing the ML lifecycle, including experiment tracking, model management, and deployment.</li>
+<li><strong>Weights &amp; Biases:</strong> A powerful tool for tracking, visualizing, and collaborating on ML experiments. It provides interactive dashboards and helps data scientists monitor training metrics and hyperparameters.</li>
+<li><strong>Kedro:</strong> A data science project management framework that helps build modular and reproducible ML code.</li>
+<li><strong>Kubeflow:</strong> Automates ML workflows on Kubernetes, supporting the entire lifecycle from model training to deployment.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>MLOps Reference Architecture</h2>
+<p>A reference architecture serves as a blueprint for designing ML systems, incorporating industry best practices and proven patterns. By following a reference architecture, organizations can build scalable, maintainable ML solutions using consistent and repeatable approaches.</p>
+<div class="technical-box">
+<h3>Understanding Reference Architecture</h3>
+<p>A reference architecture is more than just a diagram - it's a comprehensive blueprint used to design IT solutions, particularly ML systems. It provides structured approaches for integrating various IT elements and patterns commonly used in solution design. By adopting such architecture, organizations can:</p>
+<ul>
+<li>Leverage industry best practices</li>
+<li>Streamline development processes</li>
+<li>Minimize technical debt</li>
+<li>Ensure scalability and maintainability</li>
+</ul>
+</div>
+<img alt="MLOps Reference Architecture" class="img-fluid technical-diagram" src="img/MLOPs articture.png"/>
+<div class="technical-box">
+<h3>Detailed Component Breakdown</h3>
+<h4>1. Development Environment</h4>
+<p>The journey begins in the experiment/development environment where data scientists execute orchestrated ML experiments. This environment includes:</p>
+<ul>
+<li>Orchestrated ML experiments for systematic model development</li>
+<li>Source code management and version control</li>
+<li>Integration with development tools and notebooks</li>
+</ul>
+<h4>2. CI/CD Pipeline Implementation</h4>
+<p>The CI/CD pipeline forms the backbone of automated MLOps:</p>
+<ul>
+<li><strong>Continuous Integration (CI):</strong>
+<ul>
+<li>Automated code testing and validation</li>
+<li>Creation of deployable artifacts</li>
+<li>Package and executable generation</li>
+</ul>
+</li>
+<li><strong>Continuous Delivery (CD):</strong>
+<ul>
+<li>Automated deployment to production</li>
+<li>Pipeline deployment automation</li>
+<li>Model deployment orchestration</li>
+</ul>
+</li>
+</ul>
+<h4>3. Feature Store</h4>
+<p>The feature store is a critical component that:</p>
+<ul>
+<li>Provides consistent feature serving across development and production</li>
+<li>Enables feature reuse and reproducibility</li>
+<li>Maintains feature versioning and compatibility</li>
+<li>Feeds data to both development experiments and production services</li>
+</ul>
+<h4>4. Model Management</h4>
+<p>Comprehensive model management includes:</p>
+<ul>
+<li><strong>Metadata Store:</strong>
+<ul>
+<li>Records pipeline execution logs</li>
+<li>Stores training artifacts and hyperparameters</li>
+<li>Maintains experiment tracking information</li>
+</ul>
+</li>
+<li><strong>Model Registry:</strong>
+<ul>
+<li>Centralized model version control</li>
+<li>Model artifact storage and management</li>
+<li>Model lineage tracking</li>
+</ul>
+</li>
+</ul>
+<h4>5. Automated Operations</h4>
+<p>The automation aspect includes:</p>
+<ul>
+<li><strong>Continuous Monitoring:</strong>
+<ul>
+<li>Real-time performance tracking</li>
+<li>Statistical analysis of predictions</li>
+<li>Data drift detection</li>
+</ul>
+</li>
+<li><strong>Automated Triggers:</strong>
+<ul>
+<li>Performance-based pipeline activation</li>
+<li>Scheduled retraining mechanisms</li>
+<li>Data-driven trigger systems</li>
+</ul>
+</li>
+<li><strong>Model Retraining:</strong>
+<ul>
+<li>Automated training pipeline execution</li>
+<li>Fallback mechanism implementation</li>
+<li>Backup model management</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Implementation Considerations</h3>
+<p>When implementing this reference architecture, organizations should:</p>
+<ul>
+<li>Start with essential components and gradually expand</li>
+<li>Ensure robust testing at each automation stage</li>
+<li>Maintain clear documentation and monitoring practices</li>
+<li>Consider scalability requirements from the beginning</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Automated Experiment Tracking in MLOps</h2>
+<p>Machine Learning is inherently experimental in nature, with data scientists and ML engineers constantly tweaking various aspects of their ML pipelines to find optimal solutions. This experimental nature creates a need for robust tracking systems.</p>
+<div class="technical-box">
+<h3>Why Automated Experiment Tracking?</h3>
+<p>Manual tracking becomes impractical due to:</p>
+<ul>
+<li>Multiple data transformations and algorithms to test</li>
+<li>Various model evaluation metrics</li>
+<li>Different hyperparameter combinations</li>
+<li>Need for reproducibility and transparency</li>
+</ul>
+</div>
+<div class="technical-box">
+<h3>What Should Be Tracked?</h3>
+<ul>
+<li><strong>Code and Configuration:</strong>
+<ul>
+<li>Experiment generation code</li>
+<li>Environment configuration files</li>
+<li>Runtime specifications</li>
+</ul>
+</li>
+<li><strong>Data Specifications:</strong>
+<ul>
+<li>Data sources and types</li>
+<li>Data formats</li>
+<li>Cleaning procedures</li>
+<li>Augmentation methods</li>
+</ul>
+</li>
+<li><strong>Model Information:</strong>
+<ul>
+<li>Model parameters</li>
+<li>Hyperparameters</li>
+<li>Evaluation metrics</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Benefits of Automated Tracking</h3>
+<ul>
+<li><strong>Reproducibility:</strong> Ensures experiments can be replicated accurately</li>
+<li><strong>Performance Monitoring:</strong> Enables systematic tracking of system performance</li>
+<li><strong>Result Comparison:</strong> Facilitates easy comparison between different model versions</li>
+<li><strong>Decision Support:</strong> Provides data-driven insights for improvement</li>
+<li><strong>Transparency:</strong> Allows others to understand and validate the process</li>
+</ul>
+</div>
+<div class="technical-box">
+<h3>Modern Experiment Tracking Systems</h3>
+<p>Contemporary tracking systems offer:</p>
+<ul>
+<li>Interactive dashboards for visualization</li>
+<li>Programmatic access to tracking data</li>
+<li>Model registry integration</li>
+<li>Automated metadata organization</li>
+<li>Run comparison capabilities</li>
+</ul>
+</div>
+<div class="market-box">
+<h3>Market Solutions</h3>
+<p>While custom tracking solutions can be developed, several market options exist:</p>
+<ul>
+<li><strong>Open-source Solutions:</strong>
+<ul>
+<li>MLflow</li>
+<li>DVC (Data Version Control)</li>
+<li>Sacred</li>
+</ul>
+</li>
+<li><strong>Commercial Solutions:</strong>
+<ul>
+<li>Weights &amp; Biases</li>
+<li>Neptune.ai</li>
+<li>Comet.ml</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>The Model Registry: Managing ML Model Lifecycle</h2>
+<p>The model registry is a crucial component in MLOps architecture that serves as a centralized repository for managing the entire lifecycle of machine learning models, from creation to archiving.</p>
+<img alt="Model Registry Architecture" class="technical-diagram" src="img/model registry.png"/>
+<div class="technical-box">
+<h3>Understanding Model Lifecycle Management</h3>
+<p>Models transition through different environments in their lifecycle:</p>
+<ul>
+<li><strong>Development:</strong> Where models are created and initially tested</li>
+<li><strong>Staging:</strong> Where models undergo validation and integration testing</li>
+<li><strong>Production:</strong> Where models are deployed for actual use</li>
+</ul>
+</div>
+<div class="warning-box">
+<h3>Moving Beyond "Over the Fence" Deployment</h3>
+<p>Traditional model deployment often involves a data scientist simply "throwing the model over the fence" to operations teams through:</p>
+<ul>
+<li>Email attachments</li>
+<li>USB drives</li>
+<li>Shared network drives</li>
+</ul>
+<p>This approach lacks proper versioning, tracking, and automation capabilities.</p>
+</div>
+<div class="technical-box">
+<h3>Core Functions of the Model Registry</h3>
+<ul>
+<li><strong>Centralized Storage:</strong>
+<ul>
+<li>Model artifacts</li>
+<li>Deployment configurations</li>
+<li>Model dependencies</li>
+</ul>
+</li>
+<li><strong>Lifecycle Management:</strong>
+<ul>
+<li>Version control</li>
+<li>Environment transitions</li>
+<li>Deployment history</li>
+<li>Model archiving</li>
+</ul>
+</li>
+<li><strong>Integration Capabilities:</strong>
+<ul>
+<li>CI/CD workflow integration</li>
+<li>Automated testing triggers</li>
+<li>Deployment automation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="process-box">
+<h3>Model Registration Process</h3>
+<ol>
+<li><strong>Experimentation Phase:</strong>
+<ul>
+<li>Multiple iterations tracked by experiment tracking system</li>
+<li>Metadata stored in metadata store</li>
+</ul>
+</li>
+<li><strong>Model Selection:</strong>
+<ul>
+<li>Best performing model identified</li>
+<li>Model promoted to registry</li>
+</ul>
+</li>
+<li><strong>Validation:</strong>
+<ul>
+<li>Automated testing in staging environment</li>
+<li>Integration verification</li>
+</ul>
+</li>
+<li><strong>Deployment:</strong>
+<ul>
+<li>CD pipeline triggered</li>
+<li>Prediction services updated</li>
+</ul>
+</li>
+<li><strong>Archival:</strong>
+<ul>
+<li>Previous model decommissioned</li>
+<li>Model history maintained</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="info-box">
+<h3>Design Flexibility</h3>
+<p>The model registry can be implemented in different ways:</p>
+<ul>
+<li><strong>Separated System:</strong> Model registry focuses solely on model storage and lifecycle management, while experiment tracking and metadata storage are handled separately.</li>
+<li><strong>Unified System:</strong> Model registry includes experiment tracking and metadata storage capabilities in a single platform.</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Feature Store: The Cornerstone of Enterprise ML</h2>
+<p>A feature store serves as a centralized repository for standardizing the definition, storage, and access of features across all stages of the ML lifecycle - from experimentation to production serving.</p>
+<img alt="Feature Store Architecture" class="technical-diagram" src="img/feature_store.png"/>
+<div class="technical-box">
+<h3>Understanding Feature Engineering</h3>
+<p>Feature engineering involves transforming raw data into meaningful inputs for ML algorithms through:</p>
+<ul>
+<li>Numerical transformations (standardization, normalization)</li>
+<li>Categorical variable encoding</li>
+<li>Domain-specific feature creation</li>
+<li>Value grouping and aggregation</li>
+</ul>
+</div>
+<div class="warning-box">
+<h3>Enterprise Challenges Without Feature Store</h3>
+<p>Organizations often face these issues:</p>
+<ul>
+<li>Duplicate feature engineering efforts across teams</li>
+<li>Inconsistent feature definitions</li>
+<li>Redundant storage infrastructure</li>
+<li>Limited feature discovery and reuse</li>
+<li>Data skew between training and serving</li>
+</ul>
+</div>
+<div class="technical-box">
+<h3>Feature Store Capabilities</h3>
+<ul>
+<li><strong>Data Integration:</strong>
+<ul>
+<li>Ingests raw data from multiple sources</li>
+<li>Handles both batch and streaming data</li>
+<li>Standardizes transformation processes</li>
+</ul>
+</li>
+<li><strong>Storage and Serving:</strong>
+<ul>
+<li>Centralized feature storage</li>
+<li>High-throughput batch serving</li>
+<li>Low-latency real-time serving</li>
+<li>API access for various use cases</li>
+</ul>
+</li>
+<li><strong>Metadata Management:</strong>
+<ul>
+<li>Feature versioning</li>
+<li>Data lineage tracking</li>
+<li>Feature documentation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="benefits-box">
+<h3>Key Benefits</h3>
+<ul>
+<li><strong>Accelerated Experimentation:</strong>
+<ul>
+<li>Quick access to curated feature sets</li>
+<li>Feature discovery and reuse</li>
+<li>Consistent feature definitions</li>
+</ul>
+</li>
+<li><strong>Continuous Training:</strong>
+<ul>
+<li>Automated feature updates</li>
+<li>Consistent training datasets</li>
+<li>Version-controlled features</li>
+</ul>
+</li>
+<li><strong>Production Serving:</strong>
+<ul>
+<li>Batch and real-time prediction support</li>
+<li>Environment symmetry</li>
+<li>Prevention of data skew</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Environment Symmetry</h3>
+<p>The feature store ensures environment symmetry by:</p>
+<ul>
+<li>Providing identical feature computation across all environments</li>
+<li>Maintaining consistent feature definitions from development to production</li>
+<li>Preventing data skew between training and serving</li>
+<li>Centralizing feature access for all ML pipeline stages</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>The Metadata Store: Enabling Automated MLOps Workflows</h2>
+<p>The metadata store serves as a centralized repository for managing all information about artifacts created during the execution of ML pipelines, playing a crucial role in enabling fully automated MLOps workflows.</p>
+<img alt="Metadata Store Architecture" class="technical-diagram" src="img/meta_database.png"/>
+<div class="technical-box">
+<h3>Understanding MLOps Metadata</h3>
+<p>Metadata includes information about:</p>
+<ul>
+<li>Data source versions and modifications</li>
+<li>Model hyperparameters and versions</li>
+<li>Training evaluation results</li>
+<li>Pipeline execution logs</li>
+<li>Hardware utilization metrics</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Key Aspects of ML Metadata</h3>
+<div class="aspect-grid">
+<div class="aspect">
+<h4>Model Drift Detection and Automated Response</h4>
+<img alt="Model Drift Detection" class="aspect-image" src="img/model_drift.png"/>
+<p class="detailed-explanation">
                                     The metadata store enables automatic monitoring of MLOps pipelines and facilitates automated incident response. When the system detects model drift, it can automatically trigger model retraining. Continuous monitoring of evaluation metrics allows the system to detect performance decay, prompting automated responses:
                                 </p>
-                                <ul class="drift-response">
-                                    <li>Automatic detection of model drift through continuous metric monitoring</li>
-                                    <li>Automated model retraining when performance decay is detected</li>
-                                    <li>Automated rollback capabilities to previous stable versions</li>
-                                    <li>System continuity maintenance during root cause analysis</li>
-                                </ul>
-                            </div>
-                            <div class="aspect">
-                                <h4>Monitoring Tools</h4>
-                                <img src="img/meta_data_monitor_tool.png" alt="Monitoring Dashboard" class="aspect-image">
-                                <p>Enables tracking of pipeline execution status and system health</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="technical-box">
-                        <h3>Metadata Store Functions</h3>
-                        <ul>
-                            <li><strong>Centralized Management:</strong>
-                                <ul>
-                                    <li>Experiment logs</li>
-                                    <li>Artifact metadata</li>
-                                    <li>Model information</li>
-                                    <li>Pipeline execution data</li>
-                                </ul>
-                            </li>
-                            <li><strong>Integration Capabilities:</strong>
-                                <ul>
-                                    <li>User interface for metadata access</li>
-                                    <li>API for automated logging</li>
-                                    <li>Pipeline component interaction</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="benefits-box">
-                        <h3>Automation Benefits</h3>
-                        <ul>
-                            <li><strong>Automated Monitoring:</strong>
-                                <ul>
-                                    <li>Continuous performance tracking</li>
-                                    <li>Automatic incident response</li>
-                                    <li>Model drift detection</li>
-                                </ul>
-                            </li>
-                            <li><strong>Automated Recovery:</strong>
-                                <ul>
-                                    <li>Automated model retraining triggers</li>
-                                    <li>Automatic rollback capabilities</li>
-                                    <li>System resilience</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Reproducibility and Trust</h3>
-                        <p>The metadata store enables:</p>
-                        <ul>
-                            <li>Experiment reproduction for validation</li>
-                            <li>Scientific rigor in ML processes</li>
-                            <li>Transparent decision tracking</li>
-                            <li>Root cause analysis capabilities</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>MLOps Automation Maturity Levels</h2>
-                    <p>The level of automation in an ML system determines its maturity. Organizations typically progress through three distinct levels of automation: manual, semi-automated, and fully automated workflows.</p>
-
-                    <div class="maturity-level">
-                        <h3>1. Manual ML Workflow</h3>
-                        <img src="img/manual ML workflow.png" alt="Manual ML Workflow" class="technical-diagram">
-                        <div class="level-description">
-                            <p>Most teams begin their ML journey with a manual workflow, characterized by:</p>
-                            <ul>
-                                <li>Ad-hoc experimentation without systematic tracking</li>
-                                <li>Limited reproducibility</li>
-                                <li>Manual handover from Development to Operations</li>
-                                <li>No automated pipeline orchestration</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="maturity-level">
-                        <h3>2. Semi-automated ML Workflow</h3>
-                        <img src="img/semi_automate_ML_workflow].png" alt="Semi-automated ML Workflow" class="technical-diagram">
-                        <div class="level-description">
-                            <p>Semi-automated workflows introduce several improvements:</p>
-                            <ul>
-                                <li>Orchestrated ML experiments</li>
-                                <li>Source code version control</li>
-                                <li>Feature store implementation</li>
-                                <li>Automated ML pipeline execution</li>
-                                <li>Metadata storage</li>
-                                <li>Model registry integration</li>
-                                <li>Continuous delivery of prediction services</li>
-                                <li>Continuous monitoring</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="maturity-level">
-                        <h3>3. Fully Automated ML Workflow</h3>
-                        <img src="img/Fully automate.png" alt="Fully Automated ML Workflow" class="technical-diagram">
-                        <div class="level-description">
-                            <p>A fully automated MLOps system represents the highest level of maturity:</p>
-                            <ul>
-                                <li>Complete pipeline automation</li>
-                                <li>Continuous delivery of ML pipelines</li>
-                                <li>Automated model deployment</li>
-                                <li>Streamlined end-to-end workflow</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="automation-phases">
-                        <h3>Automation Across ML Lifecycle Phases</h3>
-                        
-                        <div class="phase">
-                            <h4>Design Phase</h4>
-                            <ul>
-                                <li>Cannot be fully automated</li>
-                                <li>Requires stakeholder input</li>
-                                <li>Uses reproducible processes</li>
-                                <li>Emphasizes thorough documentation</li>
-                            </ul>
-                        </div>
-
-                        <div class="phase">
-                            <h4>Development Phase</h4>
-                            <ul>
-                                <li>Clean code practices</li>
-                                <li>Version control</li>
-                                <li>Automated data preprocessing</li>
-                                <li>Automated model selection</li>
-                                <li>Automated hyperparameter tuning</li>
-                            </ul>
-                        </div>
-
-                        <div class="phase">
-                            <h4>Operations Phase</h4>
-                            <ul>
-                                <li>Automated testing</li>
-                                <li>Continuous Integration</li>
-                                <li>Continuous Deployment</li>
-                                <li>Continuous Training</li>
-                                <li>Continuous Monitoring</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>The Automation, Monitoring, and Incident Response Pattern</h2>
-                    
-                    <div class="pattern-intro">
-                        <h3>Understanding Design Patterns in MLOps</h3>
-                        <p>A design pattern represents a reusable solution to common recurring problems in software development. In MLOps, these patterns provide standardized approaches to address challenges in ML system development and maintenance.</p>
-                    </div>
-
-                    <img src="img/autmate_model_trigger.png" alt="Automation Monitoring Pattern" class="technical-diagram">
-
-                    <div class="pattern-examples">
-                        <h3>Key Implementation Examples</h3>
-
-                        <div class="example-box">
-                            <h4>1. Automated Model Retraining</h4>
-                            <div class="implementation-steps">
-                                <ol>
-                                    <li>Continuous monitoring of prediction service performance</li>
-                                    <li>Automatic trigger activation when performance drops below threshold</li>
-                                    <li>Automated pipeline execution with feature store data</li>
-                                    <li>Model registry update</li>
-                                    <li>Automated deployment of updated model</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <div class="example-box">
-                            <h4>2. Model Rollback Mechanism</h4>
-                            <div class="implementation-steps">
-                                <ul>
-                                    <li>Detection of validation failures or poor performance</li>
-                                    <li>Automatic rollback to last known good model</li>
-                                    <li>Rapid redeployment of stable version</li>
-                                    <li>Continuous system availability maintenance</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="example-box">
-                            <h4>3. Feature Imputation</h4>
-                            <div class="implementation-steps">
-                                <h5>Data Quality Monitoring:</h5>
-                                <ul>
-                                    <li>Continuous monitoring of feature quality</li>
-                                    <li>Threshold-based quality alerts (e.g., >30% missing data)</li>
-                                </ul>
-                                
-                                <h5>Automated Responses:</h5>
-                                <ul>
-                                    <li>Numerical Features:
+<ul class="drift-response">
+<li>Automatic detection of model drift through continuous metric monitoring</li>
+<li>Automated model retraining when performance decay is detected</li>
+<li>Automated rollback capabilities to previous stable versions</li>
+<li>System continuity maintenance during root cause analysis</li>
+</ul>
+</div>
+<div class="aspect">
+<h4>Monitoring Tools</h4>
+<img alt="Monitoring Dashboard" class="aspect-image" src="img/meta_data_monitor_tool.png"/>
+<p>Enables tracking of pipeline execution status and system health</p>
+</div>
+</div>
+</div>
+<div class="technical-box">
+<h3>Metadata Store Functions</h3>
+<ul>
+<li><strong>Centralized Management:</strong>
+<ul>
+<li>Experiment logs</li>
+<li>Artifact metadata</li>
+<li>Model information</li>
+<li>Pipeline execution data</li>
+</ul>
+</li>
+<li><strong>Integration Capabilities:</strong>
+<ul>
+<li>User interface for metadata access</li>
+<li>API for automated logging</li>
+<li>Pipeline component interaction</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="benefits-box">
+<h3>Automation Benefits</h3>
+<ul>
+<li><strong>Automated Monitoring:</strong>
+<ul>
+<li>Continuous performance tracking</li>
+<li>Automatic incident response</li>
+<li>Model drift detection</li>
+</ul>
+</li>
+<li><strong>Automated Recovery:</strong>
+<ul>
+<li>Automated model retraining triggers</li>
+<li>Automatic rollback capabilities</li>
+<li>System resilience</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="info-box">
+<h3>Reproducibility and Trust</h3>
+<p>The metadata store enables:</p>
+<ul>
+<li>Experiment reproduction for validation</li>
+<li>Scientific rigor in ML processes</li>
+<li>Transparent decision tracking</li>
+<li>Root cause analysis capabilities</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>MLOps Automation Maturity Levels</h2>
+<p>The level of automation in an ML system determines its maturity. Organizations typically progress through three distinct levels of automation: manual, semi-automated, and fully automated workflows.</p>
+<div class="maturity-level">
+<h3>1. Manual ML Workflow</h3>
+<img alt="Manual ML Workflow" class="technical-diagram" src="img/manual ML workflow.png"/>
+<div class="level-description">
+<p>Most teams begin their ML journey with a manual workflow, characterized by:</p>
+<ul>
+<li>Ad-hoc experimentation without systematic tracking</li>
+<li>Limited reproducibility</li>
+<li>Manual handover from Development to Operations</li>
+<li>No automated pipeline orchestration</li>
+</ul>
+</div>
+</div>
+<div class="maturity-level">
+<h3>2. Semi-automated ML Workflow</h3>
+<img alt="Semi-automated ML Workflow" class="technical-diagram" src="img/semi_automate_ML_workflow].png"/>
+<div class="level-description">
+<p>Semi-automated workflows introduce several improvements:</p>
+<ul>
+<li>Orchestrated ML experiments</li>
+<li>Source code version control</li>
+<li>Feature store implementation</li>
+<li>Automated ML pipeline execution</li>
+<li>Metadata storage</li>
+<li>Model registry integration</li>
+<li>Continuous delivery of prediction services</li>
+<li>Continuous monitoring</li>
+</ul>
+</div>
+</div>
+<div class="maturity-level">
+<h3>3. Fully Automated ML Workflow</h3>
+<img alt="Fully Automated ML Workflow" class="technical-diagram" src="img/Fully automate.png"/>
+<div class="level-description">
+<p>A fully automated MLOps system represents the highest level of maturity:</p>
+<ul>
+<li>Complete pipeline automation</li>
+<li>Continuous delivery of ML pipelines</li>
+<li>Automated model deployment</li>
+<li>Streamlined end-to-end workflow</li>
+</ul>
+</div>
+</div>
+<div class="automation-phases">
+<h3>Automation Across ML Lifecycle Phases</h3>
+<div class="phase">
+<h4>Design Phase</h4>
+<ul>
+<li>Cannot be fully automated</li>
+<li>Requires stakeholder input</li>
+<li>Uses reproducible processes</li>
+<li>Emphasizes thorough documentation</li>
+</ul>
+</div>
+<div class="phase">
+<h4>Development Phase</h4>
+<ul>
+<li>Clean code practices</li>
+<li>Version control</li>
+<li>Automated data preprocessing</li>
+<li>Automated model selection</li>
+<li>Automated hyperparameter tuning</li>
+</ul>
+</div>
+<div class="phase">
+<h4>Operations Phase</h4>
+<ul>
+<li>Automated testing</li>
+<li>Continuous Integration</li>
+<li>Continuous Deployment</li>
+<li>Continuous Training</li>
+<li>Continuous Monitoring</li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<h2>The Automation, Monitoring, and Incident Response Pattern</h2>
+<div class="pattern-intro">
+<h3>Understanding Design Patterns in MLOps</h3>
+<p>A design pattern represents a reusable solution to common recurring problems in software development. In MLOps, these patterns provide standardized approaches to address challenges in ML system development and maintenance.</p>
+</div>
+<img alt="Automation Monitoring Pattern" class="technical-diagram" src="img/autmate_model_trigger.png"/>
+<div class="pattern-examples">
+<h3>Key Implementation Examples</h3>
+<div class="example-box">
+<h4>1. Automated Model Retraining</h4>
+<div class="implementation-steps">
+<ol>
+<li>Continuous monitoring of prediction service performance</li>
+<li>Automatic trigger activation when performance drops below threshold</li>
+<li>Automated pipeline execution with feature store data</li>
+<li>Model registry update</li>
+<li>Automated deployment of updated model</li>
+</ol>
+</div>
+</div>
+<div class="example-box">
+<h4>2. Model Rollback Mechanism</h4>
+<div class="implementation-steps">
+<ul>
+<li>Detection of validation failures or poor performance</li>
+<li>Automatic rollback to last known good model</li>
+<li>Rapid redeployment of stable version</li>
+<li>Continuous system availability maintenance</li>
+</ul>
+</div>
+</div>
+<div class="example-box">
+<h4>3. Feature Imputation</h4>
+<div class="implementation-steps">
+<h5>Data Quality Monitoring:</h5>
+<ul>
+<li>Continuous monitoring of feature quality</li>
+<li>Threshold-based quality alerts (e.g., &gt;30% missing data)</li>
+</ul>
+<h5>Automated Responses:</h5>
+<ul>
+<li>Numerical Features:
                                         <ul>
-                                            <li>Mean/median imputation</li>
-                                            <li>KNN imputation</li>
-                                        </ul>
-                                    </li>
-                                    <li>Categorical Features:
+<li>Mean/median imputation</li>
+<li>KNN imputation</li>
+</ul>
+</li>
+<li>Categorical Features:
                                         <ul>
-                                            <li>Frequent category imputation</li>
-                                            <li>Missing category addition</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<li>Frequent category imputation</li>
+<li>Missing category addition</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2>Automated Hyperparameter Tuning</h2>
+<div class="intro-box">
+<h3>Understanding Hyperparameters</h3>
+<p>Hyperparameters are tunable values in ML models that are set prior to training and cannot be learned from data. Unlike model parameters (weights and biases), hyperparameters must be configured before the training process begins.</p>
+<div class="examples-box">
+<h4>Common Hyperparameters:</h4>
+<ul>
+<li>Neural network architecture</li>
+<li>Decision tree depth</li>
+<li>Learning rate</li>
+<li>Number of layers/neurons</li>
+</ul>
+</div>
+</div>
+<div class="methods-box">
+<h3>Tuning Methods</h3>
+<div class="method-grid">
+<div class="method">
+<h4>Grid Search</h4>
+<p>Evaluates all combinations in a predefined parameter grid</p>
+</div>
+<div class="method">
+<h4>Random Search</h4>
+<p>Evaluates random combinations from parameter space</p>
+</div>
+<div class="method">
+<h4>Bayesian Search</h4>
+<p>Uses probabilistic model to select most promising parameters</p>
+</div>
+</div>
+</div>
+<div class="automation-steps">
+<h3>Automated Tuning Process</h3>
+<ol>
+<li>
+<strong>Parameter Specification</strong>
+<p>Define which hyperparameters to tune</p>
+</li>
+<li>
+<strong>Search Space Definition</strong>
+<p>Set discrete values or ranges for each parameter</p>
+</li>
+<li>
+<strong>Metric Selection</strong>
+<p>Choose performance metrics to optimize (e.g., recall, precision)</p>
+</li>
+<li>
+<strong>Stopping Criteria</strong>
+<p>Define when to stop the search (e.g., number of trials)</p>
+</li>
+</ol>
+</div>
+<div class="best-practices">
+<h3>Best Practices</h3>
+<div class="practice-grid">
+<div class="practice">
+<h4>Environment Symmetry</h4>
+<p>Maintain consistent hyperparameters across dev, stage, and prod environments</p>
+</div>
+<div class="practice">
+<h4>Experiment Tracking</h4>
+<p>Automate logging of hyperparameter experiments in metadata store</p>
+</div>
+<div class="practice">
+<h4>Visualization</h4>
+<p>Use automated tracking solutions to visualize hyperparameter effects on model performance</p>
+</div>
+</div>
+</div>
+<div class="info-box">
+<h3>Key Benefits</h3>
+<ul>
+<li>Eliminates manual trial and error</li>
+<li>Systematically explores parameter space</li>
+<li>Improves model performance</li>
+<li>Ensures reproducibility</li>
+<li>Facilitates experiment comparison</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Automated Testing in MLOps</h2>
+<div class="intro-box">
+<h3>Beyond Traditional Software Testing</h3>
+<p>While ML systems are software systems, their testing requirements differ fundamentally from traditional applications. ML system behavior is learned from training data rather than explicitly coded, making testing more complex and multifaceted.</p>
+<div class="test-types">
+<h4>Traditional Software Tests</h4>
+<ul>
+<li>Unit tests (individual components)</li>
+<li>Integration tests (component interactions)</li>
+<li>End-to-end tests (complete system functionality)</li>
+</ul>
+</div>
+</div>
+<div class="ml-testing-grid">
+<div class="testing-category">
+<h3>Data Testing</h3>
+<ul>
+<li><strong>Feature Validation:</strong>
+<ul>
+<li>Range checks (deterministic tests)</li>
+<li>Distribution analysis (statistical tests)</li>
+<li>Feature importance evaluation</li>
+</ul>
+</li>
+<li><strong>Data Quality:</strong>
+<ul>
+<li>Privacy controls verification</li>
+<li>Legal compliance checks</li>
+<li>Data consistency validation</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="testing-category">
+<h3>Model Testing</h3>
+<ul>
+<li><strong>Performance Validation:</strong>
+<ul>
+<li>End-user satisfaction metrics</li>
+<li>Statistical performance measures</li>
+<li>Hyperparameter optimization verification</li>
+</ul>
+</li>
+<li><strong>Model Health:</strong>
+<ul>
+<li>Overfitting detection</li>
+<li>Staleness assessment</li>
+<li>Baseline model comparisons</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="testing-category">
+<h3>Pipeline Testing</h3>
+<ul>
+<li><strong>Workflow Validation:</strong>
+<ul>
+<li>End-to-end reproducibility</li>
+<li>Component integration tests</li>
+<li>Step-by-step debugging capability</li>
+</ul>
+</li>
+<li><strong>System Integration:</strong>
+<ul>
+<li>Data pipeline validation</li>
+<li>Model pipeline validation</li>
+<li>Infrastructure testing</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="best-practices-box">
+<h3>Testing Best Practices</h3>
+<ul>
+<li>Implement automated testing at all stages of the ML pipeline</li>
+<li>Maintain comprehensive test coverage across data, models, and infrastructure</li>
+<li>Regular validation against baseline models</li>
+<li>Continuous monitoring of model performance in production</li>
+<li>Documentation of test cases and results</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>CI/CD/CT/CM: The Pillars of Fully Automated MLOps</h2>
+<div class="intro-box">
+<h3>From DevOps to MLOps</h3>
+<p>While DevOps emphasizes collaboration between development and operations through automation, MLOps extends these principles to address the unique challenges of machine learning systems.</p>
+<img alt="DevOps to MLOps Evolution" class="technical-diagram" src="img/CICD_Devop.png"/>
+</div>
+<div class="pipeline-overview">
+<h3>The CI/CD Pipeline in MLOps</h3>
+<img alt="CI/CD Pipeline" class="technical-diagram" src="img/CICD.png"/>
+<p>Traditional CI/CD practices are enhanced in MLOps to include ML-specific requirements:</p>
+<ul>
+<li>Integration of multiple developers' work into a single repository</li>
+<li>Automated testing including ML-specific tests</li>
+<li>Continuous deployment of models and pipelines</li>
+<li>Version control for both code and models</li>
+</ul>
+</div>
+<div class="mlops-extensions">
+<h3>MLOps-Specific Extensions</h3>
+<img alt="CI/CD/CT/CM Framework" class="technical-diagram" src="img/CI_CD_CM.png"/>
+<div class="extension-grid">
+<div class="extension-box">
+<h4>Continuous Training (CT)</h4>
+<ul>
+<li>Automated model retraining</li>
+<li>Schedule-based or event-triggered updates</li>
+<li>Performance decay management</li>
+<li>Data drift adaptation</li>
+</ul>
+</div>
+<div class="extension-box">
+<h4>Continuous Monitoring (CM)</h4>
+<ul>
+<li>Data quality monitoring</li>
+<li>Model performance tracking</li>
+<li>System health checks</li>
+<li>Drift detection</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="automation-benefits">
+<h3>Benefits of Full Automation</h3>
+<ul>
+<li><strong>Faster Development:</strong> Streamlined integration and deployment processes</li>
+<li><strong>Reduced Errors:</strong> Automated testing and validation</li>
+<li><strong>Improved Quality:</strong> Consistent monitoring and maintenance</li>
+<li><strong>Quick Updates:</strong> Rapid response to performance degradation</li>
+<li><strong>Scalability:</strong> Efficient handling of growing data and model complexity</li>
+</ul>
+</div>
+<div class="implementation-notes">
+<h3>Implementation Considerations</h3>
+<ul>
+<li>Think "automation first" throughout the ML lifecycle</li>
+<li>Implement comprehensive testing strategies</li>
+<li>Establish clear triggers for model retraining</li>
+<li>Define monitoring thresholds and alerts</li>
+<li>Maintain environment consistency across stages</li>
+</ul>
+</div>
+</section>
+<section>
+<h2>Deployment Progression and Testing Strategy</h2>
+<div class="warning-box">
+<h3>Testing Before Production</h3>
+<p>Before deploying ML services to end-users, thorough testing across different environments is crucial. This testing focuses on the application infrastructure rather than model performance, including database communication, user authentication, and logging systems.</p>
+</div>
+<div class="environment-progression">
+<h3>Development Environments</h3>
+<div class="env-grid">
+<div class="env-box">
+<h4>Development (Dev)</h4>
+<ul>
+<li>Experimental environment</li>
+<li>Constantly changing</li>
+<li>Used for active development</li>
+</ul>
+</div>
+<div class="env-box">
+<h4>Test</h4>
+<ul>
+<li>Stable, dedicated environment</li>
+<li>Used for unit testing</li>
+<li>Isolated from development changes</li>
+</ul>
+</div>
+<div class="env-box">
+<h4>Staging</h4>
+<ul>
+<li>Mirror of production environment</li>
+<li>Identical software versions</li>
+<li>Representative data subset</li>
+</ul>
+</div>
+<div class="env-box">
+<h4>Production</h4>
+<ul>
+<li>Live environment</li>
+<li>Real user traffic</li>
+<li>Production data</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="testing-hierarchy">
+<h3>Testing Progression</h3>
+<ol class="test-steps">
+<li>
+<strong>Unit Testing</strong>
+<p>Testing individual code components and functions</p>
+<ul>
+<li>Simple and fast execution</li>
+<li>Run in Test environment</li>
+<li>Validates basic functionality</li>
+</ul>
+</li>
+<li>
+<strong>Integration Testing</strong>
+<p>Testing component interactions and external services</p>
+<ul>
+<li>Database connectivity</li>
+<li>API communications</li>
+<li>Run in Staging environment</li>
+</ul>
+</li>
+<li>
+<strong>Smoke Testing</strong>
+<p>Basic deployment validation</p>
+<ul>
+<li>Application startup</li>
+<li>Basic functionality check</li>
+<li>Critical path testing</li>
+</ul>
+</li>
+<li>
+<strong>Load and Stress Testing</strong>
+<p>Performance under various conditions</p>
+<ul>
+<li>Normal load testing</li>
+<li>Extreme condition testing</li>
+<li>Performance benchmarking</li>
+</ul>
+</li>
+<li>
+<strong>User Acceptance Testing (UAT)</strong>
+<p>Final validation with end users</p>
+<ul>
+<li>Real user testing</li>
+<li>Functionality verification</li>
+<li>Final approval gate</li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="best-practices-box">
+<h3>Testing Best Practices</h3>
+<ul>
+<li>Prioritize testing of critical components</li>
+<li>Maintain environment consistency</li>
+<li>Automate testing processes where possible</li>
+<li>Document test cases and results</li>
+<li>Regular testing schedule</li>
+<li>Clear criteria for passing/failing tests</li>
+</ul>
+</div>
+<div class="warning-box">
+<h3>Remember</h3>
+<p>A single weak link can compromise the entire system. While comprehensive testing is important, focus on critical components first and maintain a balanced approach to testing coverage.</p>
+</div>
+</section>
+<section>
+<h2>Model Deployment Strategies</h2>
+<div class="intro-box">
+<h3>Beyond Simple Model Swapping</h3>
+<p>While simply swapping models might work for offline batch predictions, real-time services require more sophisticated deployment strategies to minimize downtime and risk.</p>
+</div>
+<div class="deployment-strategies">
+<div class="strategy-box">
+<h3>Offline Deployment</h3>
+<div class="strategy-details">
+<h4>Best for:</h4>
+<ul>
+<li>Batch prediction services</li>
+<li>Non-time-critical applications</li>
+<li>Systems with maintenance windows</li>
+</ul>
+<p class="strategy-note">Simple but requires service interruption</p>
+</div>
+</div>
+<div class="strategy-box">
+<h3>Blue/Green Deployment</h3>
+<div class="strategy-details">
+<h4>Process:</h4>
+<ul>
+<li>Load new model alongside old one</li>
+<li>Instant switch between versions</li>
+<li>Quick rollback capability</li>
+</ul>
+<div class="pros-cons">
+<div class="pros">
+<h5>Advantages</h5>
+<ul>
+<li>Simple implementation</li>
+<li>Zero downtime</li>
+<li>Quick switching</li>
+</ul>
+</div>
+<div class="cons">
+<h5>Disadvantages</h5>
+<ul>
+<li>All-or-nothing switch</li>
+<li>Higher risk on switch</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="strategy-box">
+<h3>Canary Deployment</h3>
+<div class="strategy-details">
+<h4>Process:</h4>
+<ul>
+<li>Gradual traffic migration</li>
+<li>Start with small percentage</li>
+<li>Incrementally increase traffic</li>
+<li>Monitor performance at each step</li>
+</ul>
+<p class="strategy-note">Safer but more complex to manage</p>
+</div>
+</div>
+<div class="strategy-box">
+<h3>Shadow Deployment</h3>
+<div class="strategy-details">
+<h4>Process:</h4>
+<ul>
+<li>Parallel model execution</li>
+<li>Old model serves responses</li>
+<li>New model predictions logged</li>
+<li>Compare performance offline</li>
+</ul>
+<div class="pros-cons">
+<div class="pros">
+<h5>Advantages</h5>
+<ul>
+<li>Zero risk to users</li>
+<li>Real-world validation</li>
+</ul>
+</div>
+<div class="cons">
+<h5>Disadvantages</h5>
+<ul>
+<li>Resource intensive</li>
+<li>Higher operational costs</li>
+</ul>
+</div>
+</div>
+<p class="optimization-note">Can be optimized by:</p>
+<ul>
+<li>Sampling requests for shadow model</li>
+<li>Running during off-peak hours</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="best-practices-box">
+<h3>Deployment Best Practices</h3>
+<ul>
+<li>Choose strategy based on service requirements</li>
+<li>Implement robust monitoring</li>
+<li>Prepare rollback procedures</li>
+<li>Document deployment processes</li>
+<li>Test deployment procedures in staging</li>
+</ul>
+</div>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>The introduction of MLOps greatly improves the model management process in production environments. By automating deployment and continuous monitoring, MLOps ensures model stability and performance. This not only enhances team collaboration but also ensures that models continuously meet business needs. As more companies adopt MLOps, the future of ML development will become more efficient and automated.</p>
+<p>Using tools like MLflow and Weights &amp; Biases together provides comprehensive tracking, management, and visualization, making MLOps workflows robust and adaptable for scalable ML solutions.</p>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/blogPanel.js"></script>
 
-                <section>
-                    <h2>Automated Hyperparameter Tuning</h2>
-                    
-                    <div class="intro-box">
-                        <h3>Understanding Hyperparameters</h3>
-                        <p>Hyperparameters are tunable values in ML models that are set prior to training and cannot be learned from data. Unlike model parameters (weights and biases), hyperparameters must be configured before the training process begins.</p>
-                        
-                        <div class="examples-box">
-                            <h4>Common Hyperparameters:</h4>
-                            <ul>
-                                <li>Neural network architecture</li>
-                                <li>Decision tree depth</li>
-                                <li>Learning rate</li>
-                                <li>Number of layers/neurons</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="methods-box">
-                        <h3>Tuning Methods</h3>
-                        <div class="method-grid">
-                            <div class="method">
-                                <h4>Grid Search</h4>
-                                <p>Evaluates all combinations in a predefined parameter grid</p>
-                            </div>
-                            <div class="method">
-                                <h4>Random Search</h4>
-                                <p>Evaluates random combinations from parameter space</p>
-                            </div>
-                            <div class="method">
-                                <h4>Bayesian Search</h4>
-                                <p>Uses probabilistic model to select most promising parameters</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="automation-steps">
-                        <h3>Automated Tuning Process</h3>
-                        <ol>
-                            <li>
-                                <strong>Parameter Specification</strong>
-                                <p>Define which hyperparameters to tune</p>
-                            </li>
-                            <li>
-                                <strong>Search Space Definition</strong>
-                                <p>Set discrete values or ranges for each parameter</p>
-                            </li>
-                            <li>
-                                <strong>Metric Selection</strong>
-                                <p>Choose performance metrics to optimize (e.g., recall, precision)</p>
-                            </li>
-                            <li>
-                                <strong>Stopping Criteria</strong>
-                                <p>Define when to stop the search (e.g., number of trials)</p>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="best-practices">
-                        <h3>Best Practices</h3>
-                        <div class="practice-grid">
-                            <div class="practice">
-                                <h4>Environment Symmetry</h4>
-                                <p>Maintain consistent hyperparameters across dev, stage, and prod environments</p>
-                            </div>
-                            <div class="practice">
-                                <h4>Experiment Tracking</h4>
-                                <p>Automate logging of hyperparameter experiments in metadata store</p>
-                            </div>
-                            <div class="practice">
-                                <h4>Visualization</h4>
-                                <p>Use automated tracking solutions to visualize hyperparameter effects on model performance</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="info-box">
-                        <h3>Key Benefits</h3>
-                        <ul>
-                            <li>Eliminates manual trial and error</li>
-                            <li>Systematically explores parameter space</li>
-                            <li>Improves model performance</li>
-                            <li>Ensures reproducibility</li>
-                            <li>Facilitates experiment comparison</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Automated Testing in MLOps</h2>
-                    
-                    <div class="intro-box">
-                        <h3>Beyond Traditional Software Testing</h3>
-                        <p>While ML systems are software systems, their testing requirements differ fundamentally from traditional applications. ML system behavior is learned from training data rather than explicitly coded, making testing more complex and multifaceted.</p>
-                        
-                        <div class="test-types">
-                            <h4>Traditional Software Tests</h4>
-                            <ul>
-                                <li>Unit tests (individual components)</li>
-                                <li>Integration tests (component interactions)</li>
-                                <li>End-to-end tests (complete system functionality)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="ml-testing-grid">
-                        <div class="testing-category">
-                            <h3>Data Testing</h3>
-                            <ul>
-                                <li><strong>Feature Validation:</strong>
-                                    <ul>
-                                        <li>Range checks (deterministic tests)</li>
-                                        <li>Distribution analysis (statistical tests)</li>
-                                        <li>Feature importance evaluation</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Data Quality:</strong>
-                                    <ul>
-                                        <li>Privacy controls verification</li>
-                                        <li>Legal compliance checks</li>
-                                        <li>Data consistency validation</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="testing-category">
-                            <h3>Model Testing</h3>
-                            <ul>
-                                <li><strong>Performance Validation:</strong>
-                                    <ul>
-                                        <li>End-user satisfaction metrics</li>
-                                        <li>Statistical performance measures</li>
-                                        <li>Hyperparameter optimization verification</li>
-                                    </ul>
-                                </li>
-                                <li><strong>Model Health:</strong>
-                                    <ul>
-                                        <li>Overfitting detection</li>
-                                        <li>Staleness assessment</li>
-                                        <li>Baseline model comparisons</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="testing-category">
-                            <h3>Pipeline Testing</h3>
-                            <ul>
-                                <li><strong>Workflow Validation:</strong>
-                                    <ul>
-                                        <li>End-to-end reproducibility</li>
-                                        <li>Component integration tests</li>
-                                        <li>Step-by-step debugging capability</li>
-                                    </ul>
-                                </li>
-                                <li><strong>System Integration:</strong>
-                                    <ul>
-                                        <li>Data pipeline validation</li>
-                                        <li>Model pipeline validation</li>
-                                        <li>Infrastructure testing</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="best-practices-box">
-                        <h3>Testing Best Practices</h3>
-                        <ul>
-                            <li>Implement automated testing at all stages of the ML pipeline</li>
-                            <li>Maintain comprehensive test coverage across data, models, and infrastructure</li>
-                            <li>Regular validation against baseline models</li>
-                            <li>Continuous monitoring of model performance in production</li>
-                            <li>Documentation of test cases and results</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>CI/CD/CT/CM: The Pillars of Fully Automated MLOps</h2>
-                    
-                    <div class="intro-box">
-                        <h3>From DevOps to MLOps</h3>
-                        <p>While DevOps emphasizes collaboration between development and operations through automation, MLOps extends these principles to address the unique challenges of machine learning systems.</p>
-                        <img src="img/CICD_Devop.png" alt="DevOps to MLOps Evolution" class="technical-diagram">
-                    </div>
-
-                    <div class="pipeline-overview">
-                        <h3>The CI/CD Pipeline in MLOps</h3>
-                        <img src="img/CICD.png" alt="CI/CD Pipeline" class="technical-diagram">
-                        <p>Traditional CI/CD practices are enhanced in MLOps to include ML-specific requirements:</p>
-                        <ul>
-                            <li>Integration of multiple developers' work into a single repository</li>
-                            <li>Automated testing including ML-specific tests</li>
-                            <li>Continuous deployment of models and pipelines</li>
-                            <li>Version control for both code and models</li>
-                        </ul>
-                    </div>
-
-                    <div class="mlops-extensions">
-                        <h3>MLOps-Specific Extensions</h3>
-                        <img src="img/CI_CD_CM.png" alt="CI/CD/CT/CM Framework" class="technical-diagram">
-                        
-                        <div class="extension-grid">
-                            <div class="extension-box">
-                                <h4>Continuous Training (CT)</h4>
-                                <ul>
-                                    <li>Automated model retraining</li>
-                                    <li>Schedule-based or event-triggered updates</li>
-                                    <li>Performance decay management</li>
-                                    <li>Data drift adaptation</li>
-                                </ul>
-                            </div>
-
-                            <div class="extension-box">
-                                <h4>Continuous Monitoring (CM)</h4>
-                                <ul>
-                                    <li>Data quality monitoring</li>
-                                    <li>Model performance tracking</li>
-                                    <li>System health checks</li>
-                                    <li>Drift detection</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="automation-benefits">
-                        <h3>Benefits of Full Automation</h3>
-                        <ul>
-                            <li><strong>Faster Development:</strong> Streamlined integration and deployment processes</li>
-                            <li><strong>Reduced Errors:</strong> Automated testing and validation</li>
-                            <li><strong>Improved Quality:</strong> Consistent monitoring and maintenance</li>
-                            <li><strong>Quick Updates:</strong> Rapid response to performance degradation</li>
-                            <li><strong>Scalability:</strong> Efficient handling of growing data and model complexity</li>
-                        </ul>
-                    </div>
-
-                    <div class="implementation-notes">
-                        <h3>Implementation Considerations</h3>
-                        <ul>
-                            <li>Think "automation first" throughout the ML lifecycle</li>
-                            <li>Implement comprehensive testing strategies</li>
-                            <li>Establish clear triggers for model retraining</li>
-                            <li>Define monitoring thresholds and alerts</li>
-                            <li>Maintain environment consistency across stages</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Deployment Progression and Testing Strategy</h2>
-                    
-                    <div class="warning-box">
-                        <h3>Testing Before Production</h3>
-                        <p>Before deploying ML services to end-users, thorough testing across different environments is crucial. This testing focuses on the application infrastructure rather than model performance, including database communication, user authentication, and logging systems.</p>
-                    </div>
-
-                    <div class="environment-progression">
-                        <h3>Development Environments</h3>
-                        <div class="env-grid">
-                            <div class="env-box">
-                                <h4>Development (Dev)</h4>
-                                <ul>
-                                    <li>Experimental environment</li>
-                                    <li>Constantly changing</li>
-                                    <li>Used for active development</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="env-box">
-                                <h4>Test</h4>
-                                <ul>
-                                    <li>Stable, dedicated environment</li>
-                                    <li>Used for unit testing</li>
-                                    <li>Isolated from development changes</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="env-box">
-                                <h4>Staging</h4>
-                                <ul>
-                                    <li>Mirror of production environment</li>
-                                    <li>Identical software versions</li>
-                                    <li>Representative data subset</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="env-box">
-                                <h4>Production</h4>
-                                <ul>
-                                    <li>Live environment</li>
-                                    <li>Real user traffic</li>
-                                    <li>Production data</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testing-hierarchy">
-                        <h3>Testing Progression</h3>
-                        <ol class="test-steps">
-                            <li>
-                                <strong>Unit Testing</strong>
-                                <p>Testing individual code components and functions</p>
-                                <ul>
-                                    <li>Simple and fast execution</li>
-                                    <li>Run in Test environment</li>
-                                    <li>Validates basic functionality</li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <strong>Integration Testing</strong>
-                                <p>Testing component interactions and external services</p>
-                                <ul>
-                                    <li>Database connectivity</li>
-                                    <li>API communications</li>
-                                    <li>Run in Staging environment</li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <strong>Smoke Testing</strong>
-                                <p>Basic deployment validation</p>
-                                <ul>
-                                    <li>Application startup</li>
-                                    <li>Basic functionality check</li>
-                                    <li>Critical path testing</li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <strong>Load and Stress Testing</strong>
-                                <p>Performance under various conditions</p>
-                                <ul>
-                                    <li>Normal load testing</li>
-                                    <li>Extreme condition testing</li>
-                                    <li>Performance benchmarking</li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <strong>User Acceptance Testing (UAT)</strong>
-                                <p>Final validation with end users</p>
-                                <ul>
-                                    <li>Real user testing</li>
-                                    <li>Functionality verification</li>
-                                    <li>Final approval gate</li>
-                                </ul>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="best-practices-box">
-                        <h3>Testing Best Practices</h3>
-                        <ul>
-                            <li>Prioritize testing of critical components</li>
-                            <li>Maintain environment consistency</li>
-                            <li>Automate testing processes where possible</li>
-                            <li>Document test cases and results</li>
-                            <li>Regular testing schedule</li>
-                            <li>Clear criteria for passing/failing tests</li>
-                        </ul>
-                    </div>
-
-                    <div class="warning-box">
-                        <h3>Remember</h3>
-                        <p>A single weak link can compromise the entire system. While comprehensive testing is important, focus on critical components first and maintain a balanced approach to testing coverage.</p>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Model Deployment Strategies</h2>
-                    
-                    <div class="intro-box">
-                        <h3>Beyond Simple Model Swapping</h3>
-                        <p>While simply swapping models might work for offline batch predictions, real-time services require more sophisticated deployment strategies to minimize downtime and risk.</p>
-                    </div>
-
-                    <div class="deployment-strategies">
-                        <div class="strategy-box">
-                            <h3>Offline Deployment</h3>
-                            <div class="strategy-details">
-                                <h4>Best for:</h4>
-                                <ul>
-                                    <li>Batch prediction services</li>
-                                    <li>Non-time-critical applications</li>
-                                    <li>Systems with maintenance windows</li>
-                                </ul>
-                                <p class="strategy-note">Simple but requires service interruption</p>
-                            </div>
-                        </div>
-
-                        <div class="strategy-box">
-                            <h3>Blue/Green Deployment</h3>
-                            <div class="strategy-details">
-                                <h4>Process:</h4>
-                                <ul>
-                                    <li>Load new model alongside old one</li>
-                                    <li>Instant switch between versions</li>
-                                    <li>Quick rollback capability</li>
-                                </ul>
-                                <div class="pros-cons">
-                                    <div class="pros">
-                                        <h5>Advantages</h5>
-                                        <ul>
-                                            <li>Simple implementation</li>
-                                            <li>Zero downtime</li>
-                                            <li>Quick switching</li>
-                                        </ul>
-                                    </div>
-                                    <div class="cons">
-                                        <h5>Disadvantages</h5>
-                                        <ul>
-                                            <li>All-or-nothing switch</li>
-                                            <li>Higher risk on switch</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="strategy-box">
-                            <h3>Canary Deployment</h3>
-                            <div class="strategy-details">
-                                <h4>Process:</h4>
-                                <ul>
-                                    <li>Gradual traffic migration</li>
-                                    <li>Start with small percentage</li>
-                                    <li>Incrementally increase traffic</li>
-                                    <li>Monitor performance at each step</li>
-                                </ul>
-                                <p class="strategy-note">Safer but more complex to manage</p>
-                            </div>
-                        </div>
-
-                        <div class="strategy-box">
-                            <h3>Shadow Deployment</h3>
-                            <div class="strategy-details">
-                                <h4>Process:</h4>
-                                <ul>
-                                    <li>Parallel model execution</li>
-                                    <li>Old model serves responses</li>
-                                    <li>New model predictions logged</li>
-                                    <li>Compare performance offline</li>
-                                </ul>
-                                <div class="pros-cons">
-                                    <div class="pros">
-                                        <h5>Advantages</h5>
-                                        <ul>
-                                            <li>Zero risk to users</li>
-                                            <li>Real-world validation</li>
-                                        </ul>
-                                    </div>
-                                    <div class="cons">
-                                        <h5>Disadvantages</h5>
-                                        <ul>
-                                            <li>Resource intensive</li>
-                                            <li>Higher operational costs</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <p class="optimization-note">Can be optimized by:</p>
-                                <ul>
-                                    <li>Sampling requests for shadow model</li>
-                                    <li>Running during off-peak hours</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="best-practices-box">
-                        <h3>Deployment Best Practices</h3>
-                        <ul>
-                            <li>Choose strategy based on service requirements</li>
-                            <li>Implement robust monitoring</li>
-                            <li>Prepare rollback procedures</li>
-                            <li>Document deployment processes</li>
-                            <li>Test deployment procedures in staging</li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section class="conclusion">
-                    <h2>Conclusion</h2>
-                    <p>The introduction of MLOps greatly improves the model management process in production environments. By automating deployment and continuous monitoring, MLOps ensures model stability and performance. This not only enhances team collaboration but also ensures that models continuously meet business needs. As more companies adopt MLOps, the future of ML development will become more efficient and automated.</p>
-                    <p>Using tools like MLflow and Weights & Biases together provides comprehensive tracking, management, and visualization, making MLOps workflows robust and adaptable for scalable ML solutions.</p>
-                </section>
-            </main>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
             
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/prism.js"></script>
-    <script src="js/blogPanel.js"></script>
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 

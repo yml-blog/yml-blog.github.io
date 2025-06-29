@@ -661,6 +661,53 @@
             background: #fffbe9;
             z-index: 2;
         }
+        
+        /* 统一所有博客列表的样式 */
+        .blog-section-content ul li {
+            opacity: 1;
+            transition: opacity 0.35s, box-shadow 0.2s;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            background: #fff;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+            padding: 12px 18px 10px 18px;
+            position: relative;
+        }
+        .blog-section-content ul li:hover {
+            box-shadow: 0 4px 18px rgba(241,120,14,0.13), 0 1.5px 8px rgba(0,0,0,0.07);
+            background: #fffbe9;
+            z-index: 2;
+        }
+        
+        /* 统一所有博客列表的暗色模式样式 */
+        body.dark-mode .blog-section-content ul li {
+            background-color: #333;
+            box-shadow: 0 1px 6px rgba(255,255,255,0.1);
+        }
+        body.dark-mode .blog-section-content ul li:hover {
+            background-color: #444;
+            box-shadow: 0 4px 18px rgba(241,120,14,0.2), 0 1.5px 8px rgba(255,255,255,0.1);
+        }
+        body.dark-mode .blog-section-content h3 a {
+            color: #f1780e;
+        }
+        body.dark-mode .blog-section-content p {
+            color: #cccccc;
+        }
+        body.dark-mode .section-title {
+            color: #f5f5f5;
+        }
+        body.dark-mode .blog-section-title {
+            color: #f1780e;
+        }
+        body.dark-mode .tab-pane {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .message-content {
+            color: #f5f5f5;
+        }
+        
         @media (max-width: 600px) {
             #aiml-search-box { width: 100%; margin-bottom: 10px; }
             #aiml-reset-btn { width: 100%; margin: 10px 0 10px 0; }

@@ -1,143 +1,274 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sentiment Analysis Fine-Tuning with BERT</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Sentiment Analysis Fine-Tuning with BERT</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="By Yangming Li..." name="description"/></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Sentiment Analysis Fine-Tuning with BERT</h1>
-                    <p class="lead">By Yangming Li</p>
-                </div>
-            </header>
-            
-            <!-- Add metadata section -->
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2400 words</span>
-                <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3500 tokens</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning, Peft, Lora
-                </div>
-            </div>
-            
-            <main>
-                <section class="intro">
-                    <h2>Introduction</h2>
-                    <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
-                </section>
-                
-                <section class="imports">
-                    <h2>Import Libraries</h2>
-                    <p>First, we import the necessary libraries for handling data, models, and evaluation.</p>
-                    <pre><code>import argparse
-import os</code></pre>
-                    <p>The <code>argparse</code> and <code>os</code> modules are used for handling command-line arguments and file operations.</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Sentiment Analysis Fine-Tuning with BERT</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<!-- Add metadata section -->
 
-                    <pre><code>import torch
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2400 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3500 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning, Peft, Lora
+                </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+
+<main>
+<section class="intro">
+<h2>Introduction</h2>
+<p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
+</section>
+<section class="imports">
+<h2>Import Libraries</h2>
+<p>First, we import the necessary libraries for handling data, models, and evaluation.</p>
+<pre><code>import argparse
+import os</code></pre>
+<p>The <code>argparse</code> and <code>os</code> modules are used for handling command-line arguments and file operations.</p>
+<pre><code>import torch
 from torch.optim import AdamW
 from torch.utils.data import DataLoader</code></pre>
-                    <p>These modules from PyTorch are used for model training, optimization, and data loading.</p>
-
-                    <pre><code>from peft import (get_peft_config, get_peft_model, get_peft_model_state_dict,
+<p>These modules from PyTorch are used for model training, optimization, and data loading.</p>
+<pre><code>from peft import (get_peft_config, get_peft_model, get_peft_model_state_dict,
     set_peft_model_state_dict, PeftType, PrefixTuningConfig, PromptEncoderConfig, 
     PromptTuningConfig, LoraConfig)</code></pre>
-                    <p>PEFT is used to implement parameter-efficient fine-tuning techniques such as Prefix Tuning, Prompt Tuning, and LoRA (Low-Rank Adaptation).</p>
-
-                    <pre><code>import evaluate
+<p>PEFT is used to implement parameter-efficient fine-tuning techniques such as Prefix Tuning, Prompt Tuning, and LoRA (Low-Rank Adaptation).</p>
+<pre><code>import evaluate
 from datasets import load_dataset
 from transformers import AutoModelForSequenceClassification, AutoTokenizer,
     get_linear_schedule_with_warmup, set_seed
 from tqdm import tqdm</code></pre>
-                    <p>The <code>evaluate</code> library is used for metrics, <code>datasets</code> for loading data, <code>transformers</code> for handling BERT models, and <code>tqdm</code> for progress bars.</p>
-                </section>
-
-                <section class="load-data">
-                    <h2>Load and Prepare Dataset</h2>
-                    <pre><code>#!wget https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/ChnSentiCorp_htl_all/ChnSentiCorp_htl_all.csv</code></pre>
-                    <p>Use wget to download the dataset (commented out, assuming the file is downloaded separately).</p>
-
-                    <pre><code>data_file = "./ChnSentiCorp_htl_all.csv"
+<p>The <code>evaluate</code> library is used for metrics, <code>datasets</code> for loading data, <code>transformers</code> for handling BERT models, and <code>tqdm</code> for progress bars.</p>
+</section>
+<section class="load-data">
+<h2>Load and Prepare Dataset</h2>
+<pre><code>#!wget https://raw.githubusercontent.com/SophonPlus/ChineseNlpCorpus/master/datasets/ChnSentiCorp_htl_all/ChnSentiCorp_htl_all.csv</code></pre>
+<p>Use wget to download the dataset (commented out, assuming the file is downloaded separately).</p>
+<pre><code>data_file = "./ChnSentiCorp_htl_all.csv"
 dataset = load_dataset("csv", data_files=data_file)</code></pre>
-                    <p>The dataset is loaded from a CSV file using the <code>datasets</code> library.</p>
-
-                    <pre><code>dataset = dataset.filter(lambda x: x["review"] is not None)
+<p>The dataset is loaded from a CSV file using the <code>datasets</code> library.</p>
+<pre><code>dataset = dataset.filter(lambda x: x["review"] is not None)
 datasets = dataset["train"].train_test_split(0.2, seed=123)</code></pre>
-                    <p>Filter out entries without reviews and split the data into training and test sets (80/20 split).</p>
-                </section>
-
-                <section class="tokenizer">
-                    <h2>Tokenizer Setup</h2>
-                    <pre><code>model_name_or_path = "/data/pretrained_models/bert/bert-base-uncased"</code></pre>
-                    <p>Specify the path to the pre-trained BERT model.</p>
-
-                    <pre><code>if any(k in model_name_or_path for k in ("gpt", "opt", "bloom")):
+<p>Filter out entries without reviews and split the data into training and test sets (80/20 split).</p>
+</section>
+<section class="tokenizer">
+<h2>Tokenizer Setup</h2>
+<pre><code>model_name_or_path = "/data/pretrained_models/bert/bert-base-uncased"</code></pre>
+<p>Specify the path to the pre-trained BERT model.</p>
+<pre><code>if any(k in model_name_or_path for k in ("gpt", "opt", "bloom")):
     padding_side = "left"
 else:
     padding_side = "right"</code></pre>
-                    <p>Determine the padding side based on the model type.</p>
-
-                    <pre><code>tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, padding_side=padding_side)
+<p>Determine the padding side based on the model type.</p>
+<pre><code>tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, padding_side=padding_side)
 if getattr(tokenizer, "pad_token_id") is None:
     tokenizer.pad_token_id = tokenizer.eos_token_id</code></pre>
-                    <p>Load the tokenizer with the specified padding side and set the padding token ID if it is not already defined.</p>
-                </section>
-
-                <section class="tokenization">
-                    <h2>Tokenization and Dataset Preparation</h2>
-                    <pre><code>def process_function(examples):
+<p>Load the tokenizer with the specified padding side and set the padding token ID if it is not already defined.</p>
+</section>
+<section class="tokenization">
+<h2>Tokenization and Dataset Preparation</h2>
+<pre><code>def process_function(examples):
     tokenized_examples = tokenizer(examples["review"], truncation=True, max_length=max_length)
     tokenized_examples["labels"] = examples["label"]
     return tokenized_examples</code></pre>
-                    <p>Define a function to tokenize the review text and map the labels.</p>
-
-                    <pre><code>tokenized_datasets = datasets.map(process_function, batched=True, remove_columns=datasets["train"].column_names)</code></pre>
-                    <p>Tokenize the dataset using the defined function and remove unnecessary columns.</p>
-                </section>
-
-                <section class="metrics">
-                    <h2>Define Metrics</h2>
-                    <pre><code>accuracy_metric = evaluate.load("accuracy")</code></pre>
-                    <p>Load the accuracy metric from the <code>evaluate</code> library.</p>
-
-                    <pre><code>def compute_metrics(eval_pred):
+<p>Define a function to tokenize the review text and map the labels.</p>
+<pre><code>tokenized_datasets = datasets.map(process_function, batched=True, remove_columns=datasets["train"].column_names)</code></pre>
+<p>Tokenize the dataset using the defined function and remove unnecessary columns.</p>
+</section>
+<section class="metrics">
+<h2>Define Metrics</h2>
+<pre><code>accuracy_metric = evaluate.load("accuracy")</code></pre>
+<p>Load the accuracy metric from the <code>evaluate</code> library.</p>
+<pre><code>def compute_metrics(eval_pred):
     predictions, labels = eval_pred
     predictions = predictions.argmax(axis=-1)
     return accuracy_metric.compute(predictions=predictions, references=labels)</code></pre>
-                    <p>Define a function to compute accuracy using predictions and reference labels.</p>
-                </section>
-
-                <section class="dataloaders">
-                    <h2>Dataloader Preparation</h2>
-                    <pre><code>def collate_fn(examples):
+<p>Define a function to compute accuracy using predictions and reference labels.</p>
+</section>
+<section class="dataloaders">
+<h2>Dataloader Preparation</h2>
+<pre><code>def collate_fn(examples):
     return tokenizer.pad(examples, padding="longest", return_tensors="pt")</code></pre>
-                    <p>Define a collation function to pad the tokenized inputs for batching.</p>
-
-                    <pre><code>batch_size = 64
+<p>Define a collation function to pad the tokenized inputs for batching.</p>
+<pre><code>batch_size = 64
 train_dataloader = DataLoader(tokenized_datasets["train"], shuffle=True, collate_fn=collate_fn, batch_size=batch_size)
 eval_dataloader = DataLoader(tokenized_datasets["test"], shuffle=False, collate_fn=collate_fn, batch_size=batch_size)</code></pre>
-                    <p>Create training and evaluation data loaders with the specified batch size.</p>
-                </section>
-
-                <section class="peft">
-                    <h2>PEFT Configuration and Model Setup</h2>
-                    <pre><code>p_type = "lora"</code></pre>
-                    <p>Specify the PEFT type (LoRA in this case).</p>
-
-                    <pre><code>if p_type == "prefix-tuning":
+<p>Create training and evaluation data loaders with the specified batch size.</p>
+</section>
+<section class="peft">
+<h2>PEFT Configuration and Model Setup</h2>
+<pre><code>p_type = "lora"</code></pre>
+<p>Specify the PEFT type (LoRA in this case).</p>
+<pre><code>if p_type == "prefix-tuning":
     peft_type = PeftType.PREFIX_TUNING
     peft_config = PrefixTuningConfig(task_type="SEQ_CLS", num_virtual_tokens=20)
 elif p_type == "prompt-tuning":
@@ -149,20 +280,17 @@ elif p_type == "p-tuning":
 elif p_type == "lora":
     peft_type = PeftType.LORA
     peft_config = LoraConfig(task_type="SEQ_CLS", inference_mode=False, r=8, lora_alpha=16, lora_dropout=0.1)</code></pre>
-                    <p>Configure the PEFT type and parameters based on the chosen <code>p_type</code>.</p>
-
-                    <pre><code>model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path, num_labels=2)</code></pre>
-                    <p>Load the pre-trained BERT model for sequence classification with two labels.</p>
-                </section>
-
-                <section class="model-setup">
-                    <h2>Model Setup and Parameter Printing</h2>
-                    <pre><code>if p_type is not None:
+<p>Configure the PEFT type and parameters based on the chosen <code>p_type</code>.</p>
+<pre><code>model = AutoModelForSequenceClassification.from_pretrained(model_name_or_path, num_labels=2)</code></pre>
+<p>Load the pre-trained BERT model for sequence classification with two labels.</p>
+</section>
+<section class="model-setup">
+<h2>Model Setup and Parameter Printing</h2>
+<pre><code>if p_type is not None:
     model = get_peft_model(model, peft_config)
     model.print_trainable_parameters()</code></pre>
-                    <p>If PEFT is enabled, wrap the model with PEFT configuration and print trainable parameters.</p>
-
-                    <pre><code>else:
+<p>If PEFT is enabled, wrap the model with PEFT configuration and print trainable parameters.</p>
+<pre><code>else:
     def print_trainable_parameters(model):
         trainable_params = 0
         all_param = 0
@@ -175,28 +303,24 @@ elif p_type == "lora":
                 trainable_params += num_params
         print(f"trainable params: {trainable_params} || all params: {all_param} || trainable%: {100 * trainable_params / all_param}")
     print_trainable_parameters(model)</code></pre>
-                    <p>Define a custom function to print the count of trainable parameters if PEFT is not used.</p>
-                </section>
-
-                <section class="optimization">
-                    <h2>Optimizer and Scheduler Setup</h2>
-                    <pre><code>lr = 3e-4
+<p>Define a custom function to print the count of trainable parameters if PEFT is not used.</p>
+</section>
+<section class="optimization">
+<h2>Optimizer and Scheduler Setup</h2>
+<pre><code>lr = 3e-4
 num_epochs = 3
 optimizer = AdamW(params=model.parameters(), lr=lr)</code></pre>
-                    <p>Instantiate an <code>AdamW</code> optimizer with the specified learning rate.</p>
-
-                    <pre><code>lr_scheduler = get_linear_schedule_with_warmup(optimizer=optimizer, num_warmup_steps=0.06 * (len(train_dataloader) * num_epochs), num_training_steps=(len(train_dataloader) * num_epochs))</code></pre>
-                    <p>Create a linear learning rate scheduler with warmup to adjust learning rates during training.</p>
-                </section>
-
-                <section class="training">
-                    <h2>Training and Evaluation Loop</h2>
-                    <pre><code>device = "cuda"
+<p>Instantiate an <code>AdamW</code> optimizer with the specified learning rate.</p>
+<pre><code>lr_scheduler = get_linear_schedule_with_warmup(optimizer=optimizer, num_warmup_steps=0.06 * (len(train_dataloader) * num_epochs), num_training_steps=(len(train_dataloader) * num_epochs))</code></pre>
+<p>Create a linear learning rate scheduler with warmup to adjust learning rates during training.</p>
+</section>
+<section class="training">
+<h2>Training and Evaluation Loop</h2>
+<pre><code>device = "cuda"
 model.to(device)
 metric = evaluate.load("accuracy")</code></pre>
-                    <p>Move the model to the GPU for faster computation and load the accuracy metric.</p>
-
-                    <pre><code>for epoch in range(num_epochs):
+<p>Move the model to the GPU for faster computation and load the accuracy metric.</p>
+<pre><code>for epoch in range(num_epochs):
     model.train()
     for step, batch in enumerate(tqdm(train_dataloader)):
         batch.to(device)
@@ -206,9 +330,8 @@ metric = evaluate.load("accuracy")</code></pre>
         optimizer.step()
         lr_scheduler.step()
         optimizer.zero_grad()</code></pre>
-                    <p>Perform forward and backward passes, optimizer steps, and scheduler updates for each epoch.</p>
-
-                    <pre><code>    model.eval()
+<p>Perform forward and backward passes, optimizer steps, and scheduler updates for each epoch.</p>
+<pre><code>    model.eval()
     total_loss = 0.
     for step, batch in enumerate(tqdm(eval_dataloader)):
         batch.to(device)
@@ -219,35 +342,56 @@ metric = evaluate.load("accuracy")</code></pre>
         predictions = outputs.logits.argmax(dim=-1)
         predictions, references = predictions, batch["labels"]
         metric.add_batch(predictions=predictions, references=references)</code></pre>
-                    <p>Evaluate the model by calculating loss and accuracy for the test set after each epoch.</p>
-
-                    <pre><code>    eval_metric = metric.compute()
+<p>Evaluate the model by calculating loss and accuracy for the test set after each epoch.</p>
+<pre><code>    eval_metric = metric.compute()
     print(f"epoch {epoch} loss {total_loss}:", eval_metric)</code></pre>
-                    <p>Compute and print the evaluation metric (accuracy) for each epoch.</p>
-                </section>
-
-                <section class="timing">
-                    <h2>Timing and Output</h2>
-                    <pre><code>import time
+<p>Compute and print the evaluation metric (accuracy) for each epoch.</p>
+</section>
+<section class="timing">
+<h2>Timing and Output</h2>
+<pre><code>import time
 start = time.time()
 end = time.time()
 print("耗时：{}分钟".format((end-start) / 60))</code></pre>
-                    <p>Calculate and print the time taken for the entire training and evaluation process.</p>
-                </section>
-                
-            </main>
-            
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
+<p>Calculate and print the time taken for the entire training and evaluation process.</p>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
 
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html>

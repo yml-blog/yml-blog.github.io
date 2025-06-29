@@ -1,77 +1,218 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sentiment Analysis Fine-Tuning with BERT</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <!-- Add this line to include the new CSS file -->
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-</head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Fine-tune BERT for Sentiment Analysis with Peft and LoRA | Yangming Li</title>
+<meta content="Step-by-step guide to fine-tune BERT models for sentiment analysis using Peft library and LoRA technique. Includes code examples, data preparation, and practical implementation tips." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<!-- Add this line to include the new CSS file -->
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Sentiment Analysis Fine-Tuning with BERT</h1>
-                    <p class="lead">By Yangming Li</p>
-                </div>
-            </header>
-            
-            <main>
-                <!-- Add the metadata section here, just after the header -->
-                <div class="article-metadata">
-                    <span class="read-time"><i class="fa fa-clock-o"></i> 10 min read</span>
-                    <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-                    <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
-                    <div class="keywords">
-                        <strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning
-                    </div>
-                </div>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Sentiment Analysis Fine-Tuning with BERT</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<main>
+<!-- Add the metadata section here, just after the header -->
 
-                <section class="intro">
-                    <h2>Introduction</h2>
-                    <p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
-                </section>
-                
-                <section class="key-points">
-                    <h2>Understanding Peft and Lora</h2>
-                    <h3>1. Peft Library</h3>
-                    <p>The Peft library (Parameter-Efficient Fine-Tuning) is designed for efficient parameter tuning in deep learning. It enables fine-tuning of pre-trained models with minimal data and computational resources.</p>
-                    
-                    <h3>2. Lora Technique</h3>
-                    <p>Lora (Low-Rank Adaptation) is a fine-tuning method that introduces low-rank matrices to expand the parameter space of pre-trained models, enhancing their representation and generalization abilities without increasing complexity.</p>
-                </section>
-                
-                <section class="practical-steps">
-                    <h2>Practical Steps for Implementation</h2>
-                    
-                    <h3>Data Preparation</h3>
-                    <p>First, prepare a dataset for text sentiment classification. It should contain text content and corresponding sentiment labels (e.g., positive, negative). Divide the dataset into training, validation, and test sets.</p>
-                    
-                    <h3>Model Loading</h3>
-                    <p>Load the pre-trained BERT model and tokenizer using the Hugging Face Transformers library. This serves as the foundation for our fine-tuning process.</p>
-                    
-                    <h3>Define Lora Fine-Tuning Layer</h3>
-                    <p>Define the Lora fine-tuning layer using the Peft library. This involves introducing low-rank matrices to the pre-trained model's output layer.</p>
-                    
-                    <h3>Configure Training Parameters</h3>
-                    <p>Set hyperparameters such as learning rate, batch size, and epochs. The Peft library provides methods for efficient parameter optimization.</p>
-                    
-                    <h3>Training and Evaluation</h3>
-                    <p>Train the model using the training dataset and evaluate its performance on the validation set. Fine-tune the model parameters using gradient descent.</p>
-                </section>
-                
-                <section class="code-example">
-                    <h2>Code Example</h2>
-                    <pre><code class="python">
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 10 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> BERT, Sentiment Analysis, Fine-tuning, NLP, Machine Learning
+                    </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+
+<section class="intro">
+<h2>Introduction</h2>
+<p>In this article, we explore the process of fine-tuning a BERT model for sentiment analysis using the Peft library and Lora technique. We will discuss the practical steps and provide a detailed code example.</p>
+</section>
+<section class="key-points">
+<h2>Understanding Peft and Lora</h2>
+<h3>1. Peft Library</h3>
+<p>The Peft library (Parameter-Efficient Fine-Tuning) is designed for efficient parameter tuning in deep learning. It enables fine-tuning of pre-trained models with minimal data and computational resources.</p>
+<h3>2. Lora Technique</h3>
+<p>Lora (Low-Rank Adaptation) is a fine-tuning method that introduces low-rank matrices to expand the parameter space of pre-trained models, enhancing their representation and generalization abilities without increasing complexity.</p>
+</section>
+<section class="practical-steps">
+<h2>Practical Steps for Implementation</h2>
+<h3>Data Preparation</h3>
+<p>First, prepare a dataset for text sentiment classification. It should contain text content and corresponding sentiment labels (e.g., positive, negative). Divide the dataset into training, validation, and test sets.</p>
+<h3>Model Loading</h3>
+<p>Load the pre-trained BERT model and tokenizer using the Hugging Face Transformers library. This serves as the foundation for our fine-tuning process.</p>
+<h3>Define Lora Fine-Tuning Layer</h3>
+<p>Define the Lora fine-tuning layer using the Peft library. This involves introducing low-rank matrices to the pre-trained model's output layer.</p>
+<h3>Configure Training Parameters</h3>
+<p>Set hyperparameters such as learning rate, batch size, and epochs. The Peft library provides methods for efficient parameter optimization.</p>
+<h3>Training and Evaluation</h3>
+<p>Train the model using the training dataset and evaluate its performance on the validation set. Fine-tune the model parameters using gradient descent.</p>
+</section>
+<section class="code-example">
+<h2>Code Example</h2>
+<pre><code class="python">
 import torch
 from torch.utils.data import DataLoader, Dataset
 from transformers import BertForSequenceClassification, BertTokenizer
@@ -157,22 +298,45 @@ with torch.no_grad():
 accuracy = correct / total
 print(f"Validation Accuracy: {accuracy * 100:.2f}%")
                     </code></pre>
-                </section>
-                
-            </main>
-            
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Add this line -->
+<script src="js/blogPanel.js"></script>
 
-    <!-- jquery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <!-- Add this line -->
-    <script src="js/blogPanel.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html>

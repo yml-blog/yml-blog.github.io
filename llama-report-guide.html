@@ -1,19 +1,21 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Building an Enterprise-Level AI Agent for Document Transformation</title>
-    <link href="favicon.png" rel="icon">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    <script src="js/loadHeader.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>How to Build Enterprise AI Document Agents with LlamaReport | Developer Guide</title>
+<meta content="Step-by-step guide to creating powerful document processing AI agents with LlamaReport and LlamaCloud. Learn template design, API integration, and document transformation for enterprise applications." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
         .feature-box {
             background: #f8f9fa;
             padding: 20px;
@@ -46,32 +48,179 @@
             padding: 15px;
         }
     </style>
-</head>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style></head>
 <body>
-    <div class="main-content">
-        <div class="container">
-            <header class="header">
-                <div class="content text-center">
-                    <h1>Building an Enterprise-Level AI Agent for Document Transformation</h1>
-                    <p class="lead">By Yangming Li</p>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Building an Enterprise-Level AI Agent for Document Transformation</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+<div class="keywords">
+<strong>Keywords:</strong> LlamaReport, LlamaCloud, Document Processing, AI Agent, Enterprise Solutions, LLM
                 </div>
-            </header>
-            
-            <div class="article-metadata">
-                <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-                <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-                <div class="keywords">
-                    <strong>Keywords:</strong> LlamaReport, LlamaCloud, Document Processing, AI Agent, Enterprise Solutions, LLM
-                </div>
-            </div>
-            
-            <main>
-                <section class="intro">
-                    <h2>Introduction to LlamaReport and LlamaCloud</h2>
-                    <p>LlamaReport is an API-first solution designed to automate the transformation of unstructured documents into structured, organization-ready reports. It offers a flexible templating system and intelligent document processing capabilities, enabling enterprises to generate comprehensive reports efficiently.</p>
-                    
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+
+<main>
+<section class="intro">
+<h2>Introduction to LlamaReport and LlamaCloud</h2>
+<p>LlamaReport is an API-first solution designed to automate the transformation of unstructured documents into structured, organization-ready reports. It offers a flexible templating system and intelligent document processing capabilities, enabling enterprises to generate comprehensive reports efficiently.</p>
+<div class="code-block">
+<pre><code class="python">
 from llama_index import LlamaReport, LlamaCloud
 
 # Initialize LlamaReport with your API key
@@ -83,15 +232,13 @@ cloud_config = LlamaCloud.Config(
     supported_formats=["pdf", "pptx", "xlsx"]
 )
                         </code></pre>
-                    </div>
-                </section>
-
-                <section class="key-features">
-                    <h2>Key Features and Technical Components</h2>
-                    
-                    <h3>1. Intelligent Document Processing</h3>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+</section>
+<section class="key-features">
+<h2>Key Features and Technical Components</h2>
+<h3>1. Intelligent Document Processing</h3>
+<div class="code-block">
+<pre><code class="python">
 # Document ingestion and parsing
 document_processor = LlamaCloud.DocumentProcessor(config=cloud_config)
 
@@ -102,11 +249,10 @@ processed_docs = document_processor.batch_process([
     "data.xlsx"
 ])
                         </code></pre>
-                    </div>
-
-                    <h3>2. Template Design and Plan Generation</h3>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<h3>2. Template Design and Plan Generation</h3>
+<div class="code-block">
+<pre><code class="python">
 # Define report template
 template = LlamaReport.Template.from_markdown("template.md")
 
@@ -117,11 +263,10 @@ plan = report_agent.create_plan(
     allow_human_review=True
 )
                         </code></pre>
-                    </div>
-
-                    <h3>3. Report Generation and AI-Assisted Editing</h3>
-                    <div class="code-block">
-                        <pre><code class="python">
+</div>
+<h3>3. Report Generation and AI-Assisted Editing</h3>
+<div class="code-block">
+<pre><code class="python">
 # Generate initial report
 report = report_agent.generate_report(plan=plan)
 
@@ -132,23 +277,21 @@ edited_report = report_agent.apply_edits(
     review_required=True
 )
                         </code></pre>
-                    </div>
-                </section>
-
-                <section class="workflow">
-                    <h2>How LlamaReport Works</h2>
-                    
-                    <h3>1. Document Upload & Template Definition</h3>
-                    <div class="feature-box">
-                        <p>Source documents serve as the knowledge base for report generation. Templates can take various forms:</p>
-                        <ul>
-                            <li>Markdown templates with section-specific instructions</li>
-                            <li>Questionnaires with blank fields to fill in</li>
-                            <li>Example blog posts with template parsing instructions</li>
-                            <li>Python docstring-style comments for field extraction</li>
-                        </ul>
-                        <div class="code-block">
-                            <pre><code class="python">
+</div>
+</section>
+<section class="workflow">
+<h2>How LlamaReport Works</h2>
+<h3>1. Document Upload &amp; Template Definition</h3>
+<div class="feature-box">
+<p>Source documents serve as the knowledge base for report generation. Templates can take various forms:</p>
+<ul>
+<li>Markdown templates with section-specific instructions</li>
+<li>Questionnaires with blank fields to fill in</li>
+<li>Example blog posts with template parsing instructions</li>
+<li>Python docstring-style comments for field extraction</li>
+</ul>
+<div class="code-block">
+<pre><code class="python">
 # Example template definition
 template = LlamaReport.Template.from_markdown("""
 # Company Analysis Report
@@ -163,14 +306,13 @@ template = LlamaReport.Template.from_markdown("""
 {financial_metrics}
 """)
                             </code></pre>
-                        </div>
-                    </div>
-
-                    <h3>2. Plan Generation</h3>
-                    <div class="feature-box">
-                        <p>The system constructs a plan with dependencies to ensure logical report generation:</p>
-                        <div class="code-block">
-                            <pre><code class="python">
+</div>
+</div>
+<h3>2. Plan Generation</h3>
+<div class="feature-box">
+<p>The system constructs a plan with dependencies to ensure logical report generation:</p>
+<div class="code-block">
+<pre><code class="python">
 # Generate plan with dependencies
 plan = report_agent.create_plan(
     template=template,
@@ -181,14 +323,13 @@ plan = report_agent.create_plan(
     }
 )
                             </code></pre>
-                        </div>
-                    </div>
-
-                    <h3>3. Report Generation</h3>
-                    <div class="feature-box">
-                        <p>Reports are generated with maximum parallelization where possible:</p>
-                        <div class="code-block">
-                            <pre><code class="python">
+</div>
+</div>
+<h3>3. Report Generation</h3>
+<div class="feature-box">
+<p>Reports are generated with maximum parallelization where possible:</p>
+<div class="code-block">
+<pre><code class="python">
 # Configure parallel processing
 config = LlamaReport.Config(
     max_parallel_blocks=4,
@@ -202,14 +343,13 @@ report = report_agent.generate_report(
     progress_callback=lambda x: print(f"Progress: {x}%")
 )
                             </code></pre>
-                        </div>
-                    </div>
-
-                    <h3>4. AI-Assisted Editing</h3>
-                    <div class="feature-box">
-                        <p>The system can suggest and apply intelligent edits to the generated report:</p>
-                        <div class="code-block">
-                            <pre><code class="python">
+</div>
+</div>
+<h3>4. AI-Assisted Editing</h3>
+<div class="feature-box">
+<p>The system can suggest and apply intelligent edits to the generated report:</p>
+<div class="code-block">
+<pre><code class="python">
 # Request and apply edits
 edits = report_agent.suggest_edits(
     report=report,
@@ -224,16 +364,15 @@ final_report = report_agent.apply_edits(
     require_approval=True
 )
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="developer-api">
-                    <h2>Developer API Integration</h2>
-                    <div class="feature-box">
-                        <p>LlamaReport offers a comprehensive API for seamless integration:</p>
-                        <div class="code-block">
-                            <pre><code class="python">
+</div>
+</div>
+</section>
+<section class="developer-api">
+<h2>Developer API Integration</h2>
+<div class="feature-box">
+<p>LlamaReport offers a comprehensive API for seamless integration:</p>
+<div class="code-block">
+<pre><code class="python">
 from llama_index.report import ReportAPI
 
 # Initialize API client
@@ -246,34 +385,57 @@ async for event in api.stream_report_generation(plan_id):
     elif event.type == "completion":
         report = event.data.report
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+</div>
+</div>
+</section>
+<section class="future-roadmap">
+<h2>Coming Soon</h2>
+<div class="feature-box">
+<ul>
+<li>Enhanced report generation quality</li>
+<li>Token-level streaming API options</li>
+<li>Expanded template library</li>
+<li>Comprehensive documentation</li>
+<li>Example notebooks and tutorials</li>
+</ul>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/blogPanel.js"></script>
 
-                <section class="future-roadmap">
-                    <h2>Coming Soon</h2>
-                    <div class="feature-box">
-                        <ul>
-                            <li>Enhanced report generation quality</li>
-                            <li>Token-level streaming API options</li>
-                            <li>Expanded template library</li>
-                            <li>Comprehensive documentation</li>
-                            <li>Example notebooks and tutorials</li>
-                        </ul>
-                    </div>
-                </section>
-            </main>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
             
-            <footer class="footer text-center">
-                <p>&copy; 2024 Yangming Li. All rights reserved.</p>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/blogPanel.js"></script>
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
 </body>
 </html> 
