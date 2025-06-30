@@ -271,3 +271,64 @@ body.dark-mode .copy-code-button {
 body.dark-mode .copy-code-button:hover {
     background-color: #555;
 }
+
+/* Email subscription form */
+.subscription-box {
+    background: linear-gradient(135deg, rgba(241, 120, 14, 0.05) 0%, rgba(241, 120, 14, 0.1) 100%);
+    border-radius: 8px;
+    padding: 25px;
+    margin: 40px 0;
+    border-top: 4px solid #f1780e;
+}
+
+.subscription-box h3 {
+    margin-top: 0;
+    color: #f1780e;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.subscription-box p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.subscription-form {
+    display: flex;
+    gap: 10px;
+}
+
+.subscription-form input[type="email"] {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.subscription-form button {
+    background-color: #f1780e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.subscription-form button:hover {
+    background-color: #d96b0b;
+}
+
+/* Dark mode styles for subscription box */
+body.dark-mode .subscription-box {
+    background: linear-gradient(135deg, rgba(241, 120, 14, 0.1) 0%, rgba(241, 120, 14, 0.15) 100%);
+}
+
+body.dark-mode .subscription-form input[type="email"] {
+    background-color: #333;
+    border-color: #444;
+    color: #f5f5f5;
+}

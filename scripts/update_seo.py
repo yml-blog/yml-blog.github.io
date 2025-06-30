@@ -10,6 +10,9 @@ This script updates all blog HTML files with proper SEO elements:
 5. Canonical URLs
 
 The script ensures all blog posts follow SEO best practices.
+
+This script also updates the sitemap.xml file with current dates
+and ensures all blog posts are properly included.
 """
 
 import os
@@ -17,6 +20,9 @@ import glob
 import re
 import json
 from bs4 import BeautifulSoup
+from datetime import datetime
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
 # Blog post files to update
 BLOG_FILES_PATTERN = "*.html"
@@ -187,6 +193,115 @@ def update_blog_seo(file_path):
     except Exception as e:
         print(f"Error processing {file_path}: {str(e)}")
 
+def find_all_html_files():
+    """Find all HTML files in the root directory excluding certain folders."""
+    excluded_dirs = ['templates', 'email-templates']
+    html_files = []
+    
+    for file in glob.glob('*.html'):
+        html_files.append(file)
+    
+    return html_files
+
+def extract_metadata_from_html(filepath):
+    """Extract title, description, and other metadata from HTML files."""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+            
+        soup = BeautifulSoup(content, 'html.parser')
+        
+        # Get title
+        title_tag = soup.find('title')
+        title = title_tag.text if title_tag else os.path.basename(filepath)
+        
+        # Get description
+        meta_desc = soup.find('meta', {'name': 'description'})
+        description = meta_desc.get('content') if meta_desc else ''
+        
+        # Get priority based on filepath
+        if filepath == 'index.html':
+            priority = '1.0'
+        elif any(keyword in filepath for keyword in ['ml', 'ai', 'machine-learning']):
+            priority = '0.8'
+        else:
+            priority = '0.7'
+            
+        # Get category
+        category = 'AI/ML'
+        if any(keyword in filepath for keyword in ['product', 'jira']):
+            category = 'Product'
+        elif any(keyword in filepath for keyword in ['kubernetes', 'docker', 'databricks']):
+            category = 'Engineering'
+            
+        return {
+            'loc': f'https://yangmingli.com/{filepath}',
+            'lastmod': datetime.now().strftime('%Y-%m-%d'),
+            'changefreq': 'monthly',
+            'priority': priority,
+            'title': title,
+            'description': description,
+            'category': category
+        }
+    except Exception as e:
+        print(f"Error processing {filepath}: {e}")
+        return None
+
+def update_sitemap():
+    """Update the sitemap.xml file with current content."""
+    html_files = find_all_html_files()
+    
+    # Create root element
+    urlset = ET.Element('urlset')
+    urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+    
+    # Process files by category
+    files_by_category = {}
+    
+    for html_file in html_files:
+        metadata = extract_metadata_from_html(html_file)
+        if metadata:
+            category = metadata.pop('category')
+            if category not in files_by_category:
+                files_by_category[category] = []
+            files_by_category[category].append((html_file, metadata))
+    
+    # Add index.html first
+    for html_file, metadata in files_by_category.get('', []):
+        if html_file == 'index.html':
+            url = ET.SubElement(urlset, 'url')
+            for key, value in metadata.items():
+                if key in ['loc', 'lastmod', 'changefreq', 'priority']:
+                    ET.SubElement(url, key).text = value
+    
+    # Add all other files by category
+    for category, files in files_by_category.items():
+        if category:
+            # Add category comment
+            urlset.append(ET.Comment(f' {category} Blogs '))
+            
+        for html_file, metadata in files:
+            if html_file != 'index.html':
+                url = ET.SubElement(urlset, 'url')
+                for key, value in metadata.items():
+                    if key in ['loc', 'lastmod', 'changefreq', 'priority']:
+                        ET.SubElement(url, key).text = value
+    
+    # Convert to pretty XML
+    rough_string = ET.tostring(urlset, 'utf-8')
+    reparsed = minidom.parseString(rough_string)
+    pretty_xml = reparsed.toprettyxml(indent="   ")
+    
+    # Remove extra blank lines
+    pretty_xml = os.linesep.join([s for s in pretty_xml.splitlines() if s.strip()])
+    
+    # Write to file
+    with open('sitemap.xml', 'w', encoding='utf-8') as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+        f.write(pretty_xml)
+    
+    print(f"Sitemap updated with {len(html_files)} URLs")
+
 def main():
     """Process all blog posts in the directory."""
     # Get the script's directory
@@ -210,4 +325,6 @@ def main():
     print(f"Process completed. Updated SEO for {len(blog_files)} blog posts.")
 
 if __name__ == "__main__":
-    main() 
+    main()
+    update_sitemap()
+    print("SEO update completed successfully!") 

@@ -1,31 +1,37 @@
 const blogList = [
     {
-        title: "Decoder-Only Architectures in LLMs",
+        title: "Why Decoder-Only Architectures Dominate Modern LLMs",
+        displayTitle: "Why Are Decoder-Only Architectures Taking Over the LLM World?",
         url: "decoder-only-architectures.html",
         category: "Machine Learning"
     },
     {
         title: "Sentiment Analysis with BERT (Part 1)",
+        displayTitle: "5-Step Guide to Fine-tuning BERT for Sentiment Analysis",
         url: "sentiment-analysis-fine-tune-with-bert.html",
         category: "NLP"
     },
     {
         title: "Sentiment Analysis with BERT (Part 2)",
+        displayTitle: "Advanced BERT Fine-tuning: Beyond the Basics",
         url: "sentiment-analysis-fine-tune-with-bert2.html",
         category: "NLP"
     },
     {
         title: "Trustworthy Machine Learning",
+        displayTitle: "7 Principles for Building Trustworthy Machine Learning Systems",
         url: "trust-worth-machine-learning-1.html",
         category: "Machine Learning"
     },
     {
         title: "Choosing the Right Statistical Test for Survey Analysis",
+        displayTitle: "How to Choose the Perfect Statistical Test for Your Survey Data",
         url: "key-statistical-tests-survey-analysis.html",
         category: "Statistics"
     },
     {
         title: "Deep Learning Engineering with JAX",
+        displayTitle: "JAX: The Future of High-Performance Deep Learning?",
         url: "jax-guide.html",
         category: "Machine Learning"
     }
@@ -35,7 +41,8 @@ const blogList = [
 function filterBlogs(searchQuery, category) {
     const query = searchQuery.toLowerCase();
     return blogList.filter(blog => {
-        const matchesSearch = blog.title.toLowerCase().includes(query);
+        const matchesSearch = blog.title.toLowerCase().includes(query) || 
+                             (blog.displayTitle && blog.displayTitle.toLowerCase().includes(query));
         const matchesCategory = category === 'all' || blog.category === category;
         return matchesSearch && matchesCategory;
     });
@@ -68,7 +75,7 @@ function initSearchAndFilter() {
                 <li>
                     <a href="${blog.url}">
                         <span class="blog-category">${blog.category}</span>
-                        <span class="blog-title">${blog.title}</span>
+                        <span class="blog-title">${blog.displayTitle || blog.title}</span>
                     </a>
                 </li>
             `).join('');
@@ -102,7 +109,7 @@ function createBlogPanel() {
                     <li>
                         <a href="${blog.url}">
                             <span class="blog-category">${blog.category}</span>
-                            <span class="blog-title">${blog.title}</span>
+                            <span class="blog-title">${blog.displayTitle || blog.title}</span>
                         </a>
                     </li>
                 `).join('')}

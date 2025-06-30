@@ -206,9 +206,12 @@
       "headline": "{{TITLE}}",
       "description": "{{DESCRIPTION}}",
       "image": "https://yangmingli.com/img/Logo.png",
+      "datePublished": "{{PUBLISH_DATE}}",
+      "dateModified": "{{MODIFIED_DATE}}",
       "author": {
         "@type": "Person",
-        "name": "Yangming Li"
+        "name": "Yangming Li",
+        "url": "https://yangmingli.com/about.html"
       },
       "publisher": {
         "@type": "Organization",
@@ -221,7 +224,38 @@
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "https://yangmingli.com/{{URL}}"
-      }
+      },
+      "keywords": "{{KEYWORDS}}",
+      "articleSection": "{{CATEGORY}}",
+      "wordCount": "{{WORD_COUNT}}"
+    }
+    </script>
+    
+    <!-- Breadcrumb structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://yangmingli.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "{{CATEGORY}}",
+          "item": "https://yangmingli.com/category/{{CATEGORY_URL}}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{TITLE}}",
+          "item": "https://yangmingli.com/{{URL}}"
+        }
+      ]
     }
     </script>
 </head>
@@ -262,8 +296,52 @@
         </div>
         
         <main>
-            <!-- Content goes here -->
+            <!-- Key Points box - Add this at the beginning of your content -->
+            <div class="key-points">
+                <h4>Article Highlights</h4>
+                <ul>
+                    <li>Key point 1 about this article</li>
+                    <li>Key point 2 that summarizes an important aspect</li>
+                    <li>Key point 3 with a key takeaway</li>
+                    <li>Key point 4 with practical application</li>
+                </ul>
+            </div>
+            
+            <!-- Main content with improved structure -->
+            <article class="article-content">
+                <!-- Your content goes here. Use this structure: -->
+                <!-- 
+                <h2>First Main Section</h2>
+                <p>Introduction paragraph with context and importance.</p>
+                
+                <h3>First Sub-Section</h3>
+                <p>Detailed explanation with examples.</p>
+                
+                <div class="technical-box">
+                    <h4>Technical Note</h4>
+                    <p>Additional technical information or implementation details.</p>
+                </div>
+                
+                <h3>Second Sub-Section</h3>
+                <p>Another detailed explanation.</p>
+                
+                <h2>Second Main Section</h2>
+                <p>Introduction to another major topic.</p>
+                -->
+                
+                <!-- Content goes here -->
+            </article>
         </main>
+        
+        <!-- Email Subscription -->
+        <div class="subscription-box">
+            <h3>Subscribe for AI/ML Updates</h3>
+            <p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
+            <form class="subscription-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="email" name="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
         
         <footer class="footer text-center">
             <p>&copy; 2024 Yangming Li. All rights reserved.</p>
