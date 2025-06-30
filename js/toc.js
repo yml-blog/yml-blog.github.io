@@ -4,22 +4,16 @@
  */
 document.addEventListener('DOMContentLoaded', function() {
     const articleContent = document.querySelector('.article-content');
-    const keyPoints = document.querySelector('.key-points');
+    const tocDiv = document.getElementById('toc');
     
-    // Only generate TOC if we have an article with headings
-    if (articleContent) {
+    // Only generate TOC if we have an article with headings and a TOC container
+    if (articleContent && tocDiv) {
         const headings = articleContent.querySelectorAll('h2, h3, h4');
         
         // Only create TOC if we have headings
         if (headings.length > 0) {
-            // Create TOC container
-            const tocContainer = document.createElement('div');
-            tocContainer.className = 'toc-container';
-            tocContainer.innerHTML = '<div class="toc-title">Table of Contents</div>';
-            
             // Create TOC list
             const tocList = document.createElement('ul');
-            tocList.className = 'toc-list';
             
             // Process each heading
             headings.forEach((heading, index) => {
@@ -43,14 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             // Add list to container
-            tocContainer.appendChild(tocList);
-            
-            // Insert after key points or at the beginning of article
-            if (keyPoints) {
-                keyPoints.after(tocContainer);
-            } else {
-                articleContent.prepend(tocContainer);
-            }
+            tocDiv.appendChild(tocList);
             
             // Add scroll highlight functionality
             window.addEventListener('scroll', highlightTOC);
@@ -63,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get all headings with IDs
         const headings = document.querySelectorAll('.article-content h2[id], .article-content h3[id], .article-content h4[id]');
-        const tocLinks = document.querySelectorAll('.toc-list a');
+        const tocLinks = document.querySelectorAll('#toc a');
         
         // Reset all TOC links
-        tocLinks.forEach(link => link.classList.remove('toc-active'));
+        tocLinks.forEach(link => link.classList.remove('active'));
         
         // Find the current heading
         for (let i = 0; i < headings.length; i++) {
@@ -78,9 +65,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (scrollPosition >= headingTop && scrollPosition < nextHeadingTop) {
                 // Find and highlight corresponding TOC link
-                const correspondingLink = document.querySelector(`.toc-list a[href="#${heading.id}"]`);
+                const correspondingLink = document.querySelector(`#toc a[href="#${heading.id}"]`);
                 if (correspondingLink) {
-                    correspondingLink.classList.add('toc-active');
+                    correspondingLink.classList.add('active');
                 }
                 break;
             }

@@ -23,6 +23,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from typing import List, Dict, Optional
 
 # Blog post files to update
 BLOG_FILES_PATTERN = "*.html"
@@ -247,84 +248,262 @@ def extract_metadata_from_html(filepath):
         print(f"Error processing {filepath}: {e}")
         return None
 
-def update_sitemap():
-    """Update the sitemap.xml file with current content."""
-    html_files = find_all_html_files()
+def update_sitemap(root_dir: str) -> None:
+    """
+    Update sitemap.xml with all HTML files and their last modification dates
+    """
+    # Define base URL
+    base_url = "https://yangmingli.com/"
     
-    # Create root element
-    urlset = ET.Element('urlset')
-    urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+    # Create urlset element
+    urlset = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     
-    # Process files by category
-    files_by_category = {}
+    # Add homepage
+    homepage_url = ET.SubElement(urlset, "url")
+    ET.SubElement(homepage_url, "loc").text = base_url
+    ET.SubElement(homepage_url, "lastmod").text = datetime.now().strftime("%Y-%m-%d")
+    ET.SubElement(homepage_url, "changefreq").text = "weekly"
+    ET.SubElement(homepage_url, "priority").text = "1.0"
     
-    for html_file in html_files:
-        metadata = extract_metadata_from_html(html_file)
-        if metadata:
-            category = metadata.pop('category')
-            if category not in files_by_category:
-                files_by_category[category] = []
-            files_by_category[category].append((html_file, metadata))
+    # Categorize pages
+    ai_ml_pages = []
+    product_pages = []
+    engineering_pages = []
+    other_pages = []
     
-    # Add index.html first
-    for html_file, metadata in files_by_category.get('', []):
-        if html_file == 'index.html':
-            url = ET.SubElement(urlset, 'url')
-            for key, value in metadata.items():
-                if key in ['loc', 'lastmod', 'changefreq', 'priority']:
-                    ET.SubElement(url, key).text = value
-    
-    # Add all other files by category
-    for category, files in files_by_category.items():
-        if category:
-            # Add category comment
-            urlset.append(ET.Comment(f' {category} Blogs '))
+    # Find all HTML files
+    for file in os.listdir(root_dir):
+        if file.endswith(".html") and file != "index.html" and not file.startswith("email-templates/"):
+            file_path = os.path.join(root_dir, file)
+            last_mod = datetime.fromtimestamp(os.path.getmtime(file_path)).strftime("%Y-%m-%d")
             
-        for html_file, metadata in files:
-            if html_file != 'index.html':
-                url = ET.SubElement(urlset, 'url')
-                for key, value in metadata.items():
-                    if key in ['loc', 'lastmod', 'changefreq', 'priority']:
-                        ET.SubElement(url, key).text = value
+            # Categorize by content if possible
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                    
+                soup = BeautifulSoup(content, "html.parser")
+                title = soup.title.string if soup.title else file
+                
+                page_info = {
+                    "file": file,
+                    "lastmod": last_mod,
+                    "title": title
+                }
+                
+                # Categorize based on filename or content
+                if any(x in file.lower() for x in ["ml", "ai", "bert", "ray", "llm", "llama", "model"]):
+                    ai_ml_pages.append(page_info)
+                elif any(x in file.lower() for x in ["product", "jira", "management"]):
+                    product_pages.append(page_info)
+                elif any(x in file.lower() for x in ["engineering", "data", "kubernetes", "statistical", "databricks"]):
+                    engineering_pages.append(page_info)
+                else:
+                    other_pages.append(page_info)
+                    
+            except Exception as e:
+                print(f"Error processing {file}: {e}")
+                other_pages.append({
+                    "file": file,
+                    "lastmod": last_mod,
+                    "title": file
+                })
     
-    # Convert to pretty XML
+    # Add pages to sitemap by category
+    add_category_to_sitemap(urlset, ai_ml_pages, "AI/ML Blogs", base_url)
+    add_category_to_sitemap(urlset, product_pages, "Product Blogs", base_url)
+    add_category_to_sitemap(urlset, engineering_pages, "Engineering Blogs", base_url)
+    add_category_to_sitemap(urlset, other_pages, "Self-Learning", base_url)
+    
+    # Create XML tree and write to file
+    tree = ET.ElementTree(urlset)
+    
+    # Add XML declaration and format
+    xml_declaration = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    
+    # Convert to string with proper formatting
     rough_string = ET.tostring(urlset, 'utf-8')
-    reparsed = minidom.parseString(rough_string)
-    pretty_xml = reparsed.toprettyxml(indent="   ")
     
-    # Remove extra blank lines
-    pretty_xml = os.linesep.join([s for s in pretty_xml.splitlines() if s.strip()])
+    # Format XML with newlines and indentation
+    import xml.dom.minidom
+    pretty_xml = xml.dom.minidom.parseString(rough_string).toprettyxml(indent="   ")
     
     # Write to file
-    with open('sitemap.xml', 'w', encoding='utf-8') as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        f.write(pretty_xml)
+    sitemap_path = os.path.join(root_dir, "sitemap.xml")
+    with open(sitemap_path, "w", encoding="utf-8") as f:
+        f.write(xml_declaration + pretty_xml.split('<?xml version="1.0" ?>')[1])
     
-    print(f"Sitemap updated with {len(html_files)} URLs")
+    print(f"Sitemap updated at {sitemap_path}")
+
+def add_category_to_sitemap(urlset: ET.Element, pages: List[Dict[str, str]], 
+                          category_name: str, base_url: str) -> None:
+    """Add a category of pages to the sitemap with a comment header"""
+    
+    # Sort pages by lastmod date, newest first
+    pages.sort(key=lambda x: x["lastmod"], reverse=True)
+    
+    # Add category comment
+    urlset.append(ET.Comment(f" {category_name} "))
+    
+    # Add each page in the category
+    for page in pages:
+        url_element = ET.SubElement(urlset, "url")
+        ET.SubElement(url_element, "loc").text = f"{base_url}{page['file']}"
+        ET.SubElement(url_element, "lastmod").text = page["lastmod"]
+        ET.SubElement(url_element, "changefreq").text = "monthly"
+        ET.SubElement(url_element, "priority").text = "0.8"
+
+def update_meta_tags(root_dir: str, html_file: str) -> None:
+    """
+    Update meta tags in an HTML file for better SEO
+    """
+    file_path = os.path.join(root_dir, html_file)
+    
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        soup = BeautifulSoup(content, "html.parser")
+        
+        # Get existing meta values
+        title_tag = soup.title.string if soup.title else ""
+        desc_meta = soup.find("meta", attrs={"name": "description"})
+        desc_content = desc_meta["content"] if desc_meta else ""
+        
+        # Ensure canonical link exists
+        canonical = soup.find("link", attrs={"rel": "canonical"})
+        if not canonical:
+            canonical = soup.new_tag("link", rel="canonical")
+            canonical["href"] = f"https://yangmingli.com/{html_file}"
+            soup.head.append(canonical)
+        
+        # Ensure Open Graph tags exist
+        og_tags = {
+            "og:title": title_tag,
+            "og:description": desc_content,
+            "og:url": f"https://yangmingli.com/{html_file}",
+            "og:type": "article",
+            "og:image": "https://yangmingli.com/img/Logo.png"
+        }
+        
+        for og_prop, og_content in og_tags.items():
+            og_meta = soup.find("meta", attrs={"property": og_prop})
+            if not og_meta:
+                og_meta = soup.new_tag("meta", property=og_prop)
+                og_meta["content"] = og_content
+                soup.head.append(og_meta)
+        
+        # Add Twitter Card tags if missing
+        twitter_tags = {
+            "twitter:card": "summary_large_image",
+            "twitter:title": title_tag,
+            "twitter:description": desc_content,
+            "twitter:image": "https://yangmingli.com/img/Logo.png"
+        }
+        
+        for tw_prop, tw_content in twitter_tags.items():
+            tw_meta = soup.find("meta", attrs={"name": tw_prop})
+            if not tw_meta:
+                tw_meta = soup.new_tag("meta", name=tw_prop)
+                tw_meta["content"] = tw_content
+                soup.head.append(tw_meta)
+        
+        # Write updated HTML back to file
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(str(soup))
+        
+        print(f"Updated meta tags for {html_file}")
+    
+    except Exception as e:
+        print(f"Error updating meta tags for {html_file}: {e}")
+
+def update_all_meta_tags(root_dir: str) -> None:
+    """
+    Update meta tags for all HTML files in the directory
+    """
+    for file in os.listdir(root_dir):
+        if file.endswith(".html") and not file.startswith("email-templates/"):
+            update_meta_tags(root_dir, file)
+
+def ensure_alt_text_for_images(root_dir: str) -> None:
+    """
+    Ensure all images have alt text for better accessibility and SEO
+    """
+    for file in os.listdir(root_dir):
+        if file.endswith(".html") and not file.startswith("email-templates/"):
+            file_path = os.path.join(root_dir, file)
+            
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                
+                soup = BeautifulSoup(content, "html.parser")
+                images = soup.find_all("img")
+                
+                changes_made = False
+                for img in images:
+                    if not img.get("alt") or img["alt"].strip() == "":
+                        # Generate alt text from surrounding context or filename
+                        parent_heading = img.find_previous(["h1", "h2", "h3", "h4", "h5", "h6"])
+                        if parent_heading and parent_heading.text.strip():
+                            alt_text = f"Image related to {parent_heading.text.strip()}"
+                        elif img.get("src"):
+                            file_name = os.path.basename(img["src"]).split(".")[0]
+                            alt_text = " ".join(file_name.split("_")).title()
+                        else:
+                            alt_text = "Descriptive image"
+                        
+                        img["alt"] = alt_text
+                        changes_made = True
+                
+                if changes_made:
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(str(soup))
+                    
+                    print(f"Added missing alt text to images in {file}")
+            
+            except Exception as e:
+                print(f"Error processing images in {file}: {e}")
+
+def ping_search_engines(sitemap_url: str) -> None:
+    """
+    Ping search engines to notify them of sitemap updates
+    """
+    import requests
+    
+    search_engines = {
+        "Google": f"https://www.google.com/ping?sitemap={sitemap_url}",
+        "Bing": f"https://www.bing.com/ping?sitemap={sitemap_url}"
+    }
+    
+    for engine, ping_url in search_engines.items():
+        try:
+            response = requests.get(ping_url)
+            if response.status_code == 200:
+                print(f"Successfully pinged {engine}")
+            else:
+                print(f"Failed to ping {engine}: {response.status_code}")
+        except Exception as e:
+            print(f"Error pinging {engine}: {e}")
 
 def main():
-    """Process all blog posts in the directory."""
-    # Get the script's directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Get the project root directory
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
-    # Change to the parent directory (project root)
-    os.chdir(os.path.join(script_dir, '..'))
+    # Update sitemap
+    update_sitemap(root_dir)
     
-    # Find all HTML files in the root directory
-    blog_files = glob.glob(BLOG_FILES_PATTERN)
+    # Update meta tags
+    update_all_meta_tags(root_dir)
     
-    # Filter out files to exclude
-    blog_files = [f for f in blog_files if f not in EXCLUDE_FILES]
+    # Ensure all images have alt text
+    ensure_alt_text_for_images(root_dir)
     
-    print(f"Found {len(blog_files)} blog files to process.")
+    # Ping search engines
+    sitemap_url = "https://yangmingli.com/sitemap.xml"
+    ping_search_engines(sitemap_url)
     
-    # Update each blog file
-    for file in blog_files:
-        update_blog_seo(file)
-    
-    print(f"Process completed. Updated SEO for {len(blog_files)} blog posts.")
+    print("SEO update complete!")
 
 if __name__ == "__main__":
-    main()
-    update_sitemap()
-    print("SEO update completed successfully!") 
+    main() 
