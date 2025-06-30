@@ -1,118 +1,141 @@
 #!/usr/bin/env python3
 """
-Image Optimization Script
-
-This script optimizes all images in HTML files by:
-1. Adding loading="lazy" attribute for better performance
-2. Adding alt attributes for accessibility
-3. Ensuring proper width and height attributes where possible
-
-The script processes all blog HTML files in the root directory.
+Image Optimization Script for Better SEO
+This script optimizes images by:
+1. Compressing them to reduce file size
+2. Converting to WebP format
+3. Adding proper dimensions for HTML
+4. Generating responsive versions
 """
 
 import os
 import glob
-import re
-from bs4 import BeautifulSoup
-import mimetypes
+from PIL import Image
+import argparse
 
-# Blog post files to update
-BLOG_FILES_PATTERN = "*.html"
-EXCLUDE_FILES = ["readme.htm"]
-
-def generate_alt_text(img_src, page_title=""):
-    """Generate alt text based on image filename and page context"""
-    # Extract filename without extension
-    filename = os.path.basename(img_src).split('.')[0]
-    
-    # Replace underscores and hyphens with spaces
-    alt_text = re.sub(r'[-_]', ' ', filename)
-    
-    # Capitalize first letter of each word
-    alt_text = ' '.join(word.capitalize() for word in alt_text.split())
-    
-    # If page title is available, add context
-    if page_title:
-        if not alt_text.lower() in page_title.lower():
-            alt_text = f"{alt_text} - {page_title}"
-    
-    return alt_text
-
-def optimize_images(file_path):
-    """Optimize images in a single HTML file"""
-    print(f"Processing images in {file_path}...")
-    
+def optimize_image(image_path, output_dir=None, quality=85, convert_to_webp=True):
+    """Optimize a single image."""
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            
-        # Parse HTML with BeautifulSoup
-        soup = BeautifulSoup(content, 'html.parser')
+        # Open the image
+        img = Image.open(image_path)
         
-        # Get page title for context
-        title_tag = soup.find('title')
-        page_title = title_tag.string if title_tag else ""
+        # Get the file name and extension
+        file_name = os.path.basename(image_path)
+        file_base = os.path.splitext(file_name)[0]
         
-        # Find all images
-        images = soup.find_all('img')
-        modified = False
+        # Set output directory
+        if output_dir is None:
+            output_dir = os.path.dirname(image_path)
         
-        for img in images:
-            # Add loading="lazy" if not present
-            if not img.get('loading'):
-                img['loading'] = 'lazy'
-                modified = True
-            
-            # Add alt text if missing
-            if not img.get('alt') or img['alt'].strip() == '':
-                img_src = img.get('src', '')
-                img['alt'] = generate_alt_text(img_src, page_title)
-                modified = True
-            
-            # Ensure width and height attributes if possible
-            # This helps prevent layout shifts during page load
-            if not (img.get('width') and img.get('height')):
-                # We can't determine actual dimensions here without loading the image
-                # But we can add placeholder attributes for certain common images
-                if 'logo' in img.get('src', '').lower():
-                    if not img.get('width'):
-                        img['width'] = '200'
-                    if not img.get('height'):
-                        img['height'] = '60'
-                    modified = True
+        os.makedirs(output_dir, exist_ok=True)
         
-        # Save changes if modified
-        if modified:
-            with open(file_path, 'w', encoding='utf-8') as f:
-                f.write(str(soup))
-            print(f"✓ Optimized images in {file_path}")
-        else:
-            print(f"✓ No image optimizations needed for {file_path}")
+        # Get original dimensions
+        width, height = img.size
+        
+        # Convert to WebP if requested
+        if convert_to_webp:
+            webp_path = os.path.join(output_dir, f"{file_base}.webp")
+            img.save(webp_path, "WEBP", quality=quality)
+            print(f"Saved WebP image: {webp_path}")
+            print(f"Original size: {os.path.getsize(image_path)}, WebP size: {os.path.getsize(webp_path)}")
+            print(f"HTML tag: <img src=\"{webp_path}\" alt=\"{file_base}\" width=\"{width}\" height=\"{height}\" loading=\"lazy\">")
             
+            # Calculate size reduction percentage
+            original_size = os.path.getsize(image_path)
+            webp_size = os.path.getsize(webp_path)
+            reduction = ((original_size - webp_size) / original_size) * 100
+            print(f"Size reduction: {reduction:.2f}%")
+        
+        # Always save an optimized version of the original format
+        optimized_path = os.path.join(output_dir, f"{file_base}_optimized{os.path.splitext(file_name)[1]}")
+        img.save(optimized_path, quality=quality, optimize=True)
+        print(f"Saved optimized image: {optimized_path}")
+        
+        # If image is large, create a smaller version for mobile
+        if width > 800:
+            ratio = height / width
+            new_width = 800
+            new_height = int(new_width * ratio)
+            img_resized = img.resize((new_width, new_height), Image.LANCZOS)
+            
+            # Save resized image
+            resized_path = os.path.join(output_dir, f"{file_base}_800{os.path.splitext(file_name)[1]}")
+            img_resized.save(resized_path, quality=quality, optimize=True)
+            print(f"Saved resized image: {resized_path}")
+            
+            # Save WebP version of resized image
+            if convert_to_webp:
+                webp_resized_path = os.path.join(output_dir, f"{file_base}_800.webp")
+                img_resized.save(webp_resized_path, "WEBP", quality=quality)
+                print(f"Saved resized WebP image: {webp_resized_path}")
+        
+        return True
+    
     except Exception as e:
-        print(f"Error processing {file_path}: {str(e)}")
+        print(f"Error optimizing {image_path}: {e}")
+        return False
+
+def get_html_tag_for_responsive_image(image_path, convert_to_webp=True):
+    """Generate HTML tag for responsive image."""
+    try:
+        img = Image.open(image_path)
+        width, height = img.size
+        file_name = os.path.basename(image_path)
+        file_base = os.path.splitext(file_name)[0]
+        file_ext = os.path.splitext(file_name)[1]
+        
+        # For simplicity, assuming files are saved in the same structure
+        output_dir = os.path.dirname(image_path)
+        
+        if convert_to_webp:
+            html = f"""<picture>
+    <source srcset="{file_base}.webp" type="image/webp">
+    <source srcset="{file_base}{file_ext}" type="image/{file_ext[1:]}">
+    <img src="{file_base}{file_ext}" alt="{file_base}" width="{width}" height="{height}" loading="lazy">
+</picture>"""
+        else:
+            html = f'<img src="{file_name}" alt="{file_base}" width="{width}" height="{height}" loading="lazy">'
+        
+        return html
+    
+    except Exception as e:
+        print(f"Error generating HTML tag for {image_path}: {e}")
+        return ""
+
+def process_all_images(image_dir, output_dir=None, quality=85, convert_to_webp=True):
+    """Process all images in a directory."""
+    # Get all image files
+    image_files = []
+    for ext in ['*.jpg', '*.jpeg', '*.png', '*.gif']:
+        image_files.extend(glob.glob(os.path.join(image_dir, ext)))
+    
+    print(f"Found {len(image_files)} images to process")
+    
+    # Process each image
+    success_count = 0
+    for image_path in image_files:
+        print(f"Processing: {image_path}")
+        if optimize_image(image_path, output_dir, quality, convert_to_webp):
+            success_count += 1
+    
+    print(f"Successfully processed {success_count} of {len(image_files)} images")
 
 def main():
-    """Process all blog posts in the directory."""
-    # Get the script's directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    """Main function."""
+    parser = argparse.ArgumentParser(description="Optimize images for web and SEO.")
+    parser.add_argument("--input", "-i", help="Input directory or file", required=True)
+    parser.add_argument("--output", "-o", help="Output directory", default=None)
+    parser.add_argument("--quality", "-q", help="JPEG/WebP quality (1-100)", type=int, default=85)
+    parser.add_argument("--no-webp", help="Don't convert to WebP format", action="store_true")
     
-    # Change to the parent directory (project root)
-    os.chdir(os.path.join(script_dir, '..'))
+    args = parser.parse_args()
     
-    # Find all HTML files in the root directory
-    blog_files = glob.glob(BLOG_FILES_PATTERN)
-    
-    # Filter out files to exclude
-    blog_files = [f for f in blog_files if f not in EXCLUDE_FILES]
-    
-    print(f"Found {len(blog_files)} files to process.")
-    
-    # Update each file
-    for file in blog_files:
-        optimize_images(file)
-    
-    print(f"Process completed. Optimized images in {len(blog_files)} files.")
+    if os.path.isdir(args.input):
+        process_all_images(args.input, args.output, args.quality, not args.no_webp)
+    elif os.path.isfile(args.input):
+        optimize_image(args.input, args.output, args.quality, not args.no_webp)
+    else:
+        print(f"Error: {args.input} is not a valid file or directory")
 
 if __name__ == "__main__":
     main() 
