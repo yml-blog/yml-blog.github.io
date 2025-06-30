@@ -1,46 +1,50 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Key Statistical Tests for Survey Analysis</title>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." name="description"/>
-<meta content="statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression, AI, machine learning, deep learning, data science, Yangming Li" name="keywords"/>
-<link href="favicon.png" rel="icon"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-<link href="https://yangmingli.com/key-statistical-tests-survey-analysis.html" rel="canonical"/>
-<!-- Open Graph -->
-<meta content="article" property="og:type"/>
-<meta content="Key Statistical Tests for Survey Analysis" property="og:title"/>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." property="og:description"/>
-<meta content="https://yangmingli.com/key-statistical-tests-survey-analysis.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li - AI/ML Blog" property="og:site_name"/>
-<meta content="en_US" property="og:locale"/>
-<meta content="Yangming Li" property="article:author"/>
-<meta content="2023-11-15" property="article:published_time"/>
-<meta content="2024-04-08" property="article:modified_time"/>
-<meta content="Data Science" property="article:section"/>
-<meta content="statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression" property="article:tag"/>
-<!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Key Statistical Tests for Survey Analysis" name="twitter:title"/>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
-<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="css/font-awesome.min.css" rel="stylesheet"/>
-<link href="css/bootstrap.min.css" rel="stylesheet"/>
-<link href="css/style_blog.css" rel="stylesheet"/>
-<link href="css/blog_post.css" rel="stylesheet"/>
-<link href="css/nav.css" rel="stylesheet"/>
-<!-- Prism.js for code highlighting -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
-<style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Key Statistical Tests for Survey Analysis</title>
+    <meta name="description" content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis.">
+    <meta name="keywords" content="statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression, AI, machine learning, deep learning, data science, Yangming Li">
+    <link href="favicon.png" rel="icon">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link href="https://yangmingli.com/key-statistical-tests-survey-analysis.html" rel="canonical">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Key Statistical Tests for Survey Analysis">
+    <meta property="og:description" content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis.">
+    <meta property="og:url" content="https://yangmingli.com/key-statistical-tests-survey-analysis.html">
+    <meta property="og:image" content="https://yangmingli.com/img/Logo.png">
+    <meta property="og:site_name" content="Yangming Li - AI/ML Blog">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:author" content="Yangming Li">
+    <meta property="article:published_time" content="2023-11-15">
+    <meta property="article:modified_time" content="2024-04-08">
+    <meta property="article:section" content="Data Science">
+    <meta property="article:tag" content="statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Key Statistical Tests for Survey Analysis">
+    <meta name="twitter:description" content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis.">
+    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png">
+    
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet">
+    
+    <script src="js/loadHeader.js"></script>
+    <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
             display: flex;
@@ -338,9 +342,63 @@
         body.dark-mode .related-article p {
             color: #adb5bd;
         }
+        
+        /* 双语支持样式 */
+        .en-sub-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        body.dark-mode .en-sub-text {
+            color: #adb5bd;
+        }
+        
+        .subscription-box {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        body.dark-mode .subscription-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        
+        .subscription-form {
+            display: flex;
+            max-width: 500px;
+            margin: 20px auto 0;
+        }
+        
+        .subscription-form input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .subscription-form button {
+            background-color: #f1780e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscription-form button:hover {
+            background-color: #e26c00;
+        }
     </style>
-<!-- JSON-LD structured data -->
-<script type="application/ld+json">
+    
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -388,8 +446,9 @@
       "abstract": "This guide covers essential statistical tests for survey analysis, helping you choose the right method based on your data type and research questions."
     }
     </script>
-<!-- Breadcrumb structured data -->
-<script type="application/ld+json">
+    
+    <!-- Breadcrumb structured data -->
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -417,333 +476,142 @@
     </script>
 </head>
 <body>
-<div class="container">
-<header class="header">
-<div class="content text-center">
-<h1>Key Statistical Tests for Survey Analysis</h1>
-<p class="lead">By Yangming Li</p>
-</div>
-</header>
-<!-- Dark mode toggle -->
-<div class="theme-switch-wrapper">
-<span>Light</span>
-<label class="theme-switch" for="checkbox">
-<input id="checkbox" type="checkbox"/>
-<div class="slider round"></div>
-</label>
-<span>Dark</span>
-</div>
-<div class="article-metadata">
-<!-- ... metadata content ... -->
-</div>
-<!-- Social sharing buttons -->
-<div class="blog-share-buttons">
-<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
-<i class="fa fa-twitter"></i> Share on Twitter
+    <div class="container">
+        <header class="header">
+            <div class="content text-center">
+                <h1>Key Statistical Tests for Survey Analysis</h1>
+                <p class="lead">By Yangming Li</p>
+            </div>
+        </header>
+        
+        <!-- Dark mode toggle -->
+        <div class="theme-switch-wrapper">
+            <span>Light</span>
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <span>Dark</span>
+        </div>
+        
+        <div class="article-metadata">
+            <!-- ... metadata content ... -->
+        </div>
+        
+        <!-- Social sharing buttons -->
+        <div class="blog-share-buttons">
+            <a href="#" class="twitter" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+                <i class="fa fa-twitter"></i> Share on Twitter
             </a>
-<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
-<i class="fa fa-linkedin"></i> Share on LinkedIn
+            <a href="#" class="linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+                <i class="fa fa-linkedin"></i> Share on LinkedIn
             </a>
-<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
-<i class="fa fa-envelope"></i> Share via Email
+            <a href="#" class="email" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+                <i class="fa fa-envelope"></i> Share via Email
             </a>
-</div>
-<main>
-<!-- Bilingual TL;DR section with reading time -->
-<div class="tldr-container">
-<div class="tldr-box">
-<h4><i class="fa fa-clock-o"></i> Reading time: 5 min</h4>
-<div class="tldr-en">
-<h5>TL;DR (English)</h5>
-<p>This guide covers essential statistical tests for survey analysis, helping you choose the right method based on your data type and research questions.</p>
-</div>
-<div class="tldr-zh">
-<h5>简述 (中文)</h5>
-<p>本指南涵盖了调查分析中的基本统计测试，帮助您根据数据类型和研究问题选择合适的方法。</p>
-</div>
-</div>
-</div>
-<!-- Table of Contents -->
-<div class="toc-container">
-<h4>Contents</h4>
-<div id="toc"></div>
-</div>
-<!-- Key Points box - Add this at the beginning of your content -->
-<div class="key-points">
-<h4>Article Highlights</h4>
-<ul>
-<li>Learn which statistical test to use based on your data type and research questions</li>
-<li>Understand practical applications of chi-square, t-tests, and ANOVA for survey data</li>
-<li>Master regression analysis techniques for identifying relationships between variables</li>
-<li>Follow step-by-step examples using Python and R for real-world survey analysis</li>
-</ul>
-</div>
-<!-- Main content with improved structure -->
-<article class="article-content">
-<!-- Your content goes here. Use this structure: -->
-<!-- 
-                <h2>First Main Section</h2>
-                <p>Introduction paragraph with context and importance.</p>
-                
-                <h3>First Sub-Section</h3>
-                <p>Detailed explanation with examples.</p>
-                
-                <div class="technical-box">
-                    <h4>Technical Note</h4>
-                    <p>Additional technical information or implementation details.</p>
+        </div>
+        
+        <main>
+            <!-- Bilingual TL;DR section with reading time -->
+            <div class="tldr-container">
+                <div class="tldr-box">
+                    <h4><i class="fa fa-clock-o"></i> 阅读时间: 5 分钟</h4>
+                    <div class="tldr-en">
+                        <h5>TL;DR (Too Long; Didn't Read) - 内容概要</h5>
+                        <p>This guide covers essential statistical tests for survey analysis, helping you choose the right method based on your data type and research questions.</p>
+                    </div>
+                    <div class="tldr-zh">
+                        <h5>简述 (中文)</h5>
+                        <p>本指南涵盖了调查分析中的基本统计测试，帮助您根据数据类型和研究问题选择合适的方法。</p>
+                    </div>
                 </div>
-                
-                <!-- For images, use lazy loading for better performance:
-                <img src="path/to/image.jpg" alt="Descriptive alt text" loading="lazy" width="800" height="450">
-                -->
-<h3>Second Sub-Section</h3>
-<p>Another detailed explanation.</p>
-<h2>Second Main Section</h2>
-<p>Introduction to another major topic.</p>
-                --&gt;
-                
-                <h2>Introduction to Statistical Tests for Surveys</h2>
-<p>Survey data provides valuable insights into opinions, behaviors, and characteristics of populations. However, raw survey results often need statistical analysis to draw meaningful conclusions. This guide covers the key statistical tests used in survey analysis.</p>
-<h3>Why Statistical Tests Matter in Survey Research</h3>
-<p>Statistical tests help determine whether observed differences or relationships in your survey data are statistically significant or merely due to random chance. They provide a framework for making inferences about populations based on sample data.</p>
-<div class="technical-box">
-<h4>Statistical Significance</h4>
-<p>Statistical significance is typically measured using p-values. A p-value less than 0.05 (5%) is commonly used as the threshold to reject the null hypothesis, indicating that the observed result is unlikely to have occurred by chance.</p>
-</div>
-<h2>Choosing the Right Statistical Test</h2>
-<p>The appropriate statistical test depends on your research question and the type of data you've collected. Here's a framework to help you decide:</p>
-<h3>Based on Data Type</h3>
-<ul>
-<li><strong>Categorical data</strong>: Chi-square tests, Fisher's exact test, McNemar's test</li>
-<li><strong>Numerical data</strong>: t-tests, ANOVA, correlation, regression analysis</li>
-<li><strong>Ordinal data</strong>: Non-parametric tests like Mann-Whitney U, Kruskal-Wallis</li>
-</ul>
-<h3>Based on Research Question</h3>
-<ul>
-<li><strong>Comparing groups</strong>: t-tests, ANOVA, chi-square</li>
-<li><strong>Examining relationships</strong>: Correlation, regression</li>
-<li><strong>Predicting outcomes</strong>: Regression, logistic regression</li>
-</ul>
-<h2>Chi-Square Test for Independence</h2>
-<p>The chi-square test examines whether there is a relationship between two categorical variables. It's commonly used in survey analysis to determine if responses to different questions are related.</p>
-<h3>When to Use Chi-Square</h3>
-<p>Use chi-square when you want to know if there's an association between two categorical variables, such as:</p>
-<ul>
-<li>Is product preference related to gender?</li>
-<li>Is satisfaction level associated with age group?</li>
-<li>Does education level relate to political affiliation?</li>
-</ul>
-<h3>Example in Python</h3>
-<pre><code class="language-python">
-import pandas as pd
-import scipy.stats as stats
-import numpy as np
+            </div>
+            
+            <!-- Table of Contents -->
+            <div class="toc-container">
+                <h4>目录 (Contents)</h4>
+                <div id="toc"></div>
+            </div>
+            
+            <!-- Key Points box - Add this at the beginning of your content -->
+            <div class="key-points">
+                <h4>文章亮点 (Article Highlights)</h4>
+                <ul>
+                    <li>Learn which statistical test to use based on your data type and research questions</li>
+                    <li>Understand practical applications of chi-square, t-tests, and ANOVA for survey data</li>
+                    <li>Master regression analysis techniques for identifying relationships between variables</li>
+                    <li>Follow step-by-step examples using Python and R for real-world survey analysis</li>
+                </ul>
+            </div>
+            
+            <!-- Main content with improved structure -->
+            <article class="article-content">
+                {{CONTENT}}
+            </article>
+            
+            <!-- Related Reading section -->
+            <div class="related-reading">
+                <h3>相关阅读 (Related Reading)</h3>
+                <div class="related-articles">
+                    
+            <div class="related-article">
+                <img src="img/data_graph_profile.webp" alt="Generalized Linear Models: An Overview" loading="lazy">
+                <div class="related-article-content">
+                    <h4><a href="glm-overview.html">Generalized Linear Models: An Overview</a></h4>
+                    <p>Understanding the theory and applications of GLMs in modern statistical analysis</p>
+                </div>
+            </div>
+            
+            <div class="related-article">
+                <img src="img/sd7.png" alt="Key Statistical Tests for Survey Analysis" loading="lazy">
+                <div class="related-article-content">
+                    <h4><a href="key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h4>
+                    <p>A comprehensive guide to statistical tests for analyzing survey data</p>
+                </div>
+            </div>
+            
+            <div class="related-article">
+                <img src="img/sd1.png" alt="Building an Enterprise-Level AI Agent" loading="lazy">
+                <div class="related-article-content">
+                    <h4><a href="llama-report-guide.html">Building an Enterprise-Level AI Agent</a></h4>
+                    <p>A guide to building document processing AI agents</p>
+                </div>
+            </div>
+            
+                </div>
+            </div>
+        </main>
+        
+        <!-- Email Subscription -->
+        <div class="subscription-box">
+            <h3>订阅 AI/ML 更新 (Subscribe for Updates)</h3>
+            <p>获取最新的人工智能、机器学习和数据科学文章、教程和见解，直接发送到您的收件箱。</p>
+            <p class="en-sub-text">Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
+            <form class="subscription-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="email" name="email" placeholder="您的电子邮箱地址 (Your email address)" required>
+                <button type="submit">订阅 (Subscribe)</button>
+            </form>
+        </div>
+        
+        <footer class="footer text-center">
+            <p>&copy; 2025 Yangming Li. All rights reserved. | <a href="/">首页 (Home)</a></p>
+        </footer>
+    </div>
 
-# Create a contingency table from survey data
-contingency_table = pd.crosstab(df['gender'], df['product_preference'])
-
-# Perform chi-square test
-chi2, p, dof, expected = stats.chi2_contingency(contingency_table)
-
-print(f"Chi-square statistic: {chi2}")
-print(f"p-value: {p}")
-print(f"Degrees of freedom: {dof}")
-
-# Interpret the result
-alpha = 0.05
-print("Result:", "Significant association" if p &lt; alpha else "No significant association")
-</code></pre>
-<h2>T-Tests for Comparing Means</h2>
-<p>T-tests are used to determine if there's a significant difference between the means of two groups. They're useful when analyzing Likert scale responses or other numerical survey data.</p>
-<h3>Types of T-Tests</h3>
-<ul>
-<li><strong>Independent samples t-test</strong>: Compares means between two unrelated groups</li>
-<li><strong>Paired samples t-test</strong>: Compares means between two related measurements (e.g., before/after)</li>
-<li><strong>One-sample t-test</strong>: Compares a sample mean to a known or hypothesized population mean</li>
-</ul>
-<h3>Example in R</h3>
-<pre><code class="language-r">
-# Independent samples t-test
-# Comparing satisfaction scores between two customer segments
-t_result &lt;- t.test(satisfaction ~ customer_segment, data = survey_data)
-print(t_result)
-
-# Paired samples t-test
-# Comparing ratings before and after an intervention
-paired_result &lt;- t.test(survey_data$rating_before, survey_data$rating_after, paired = TRUE)
-print(paired_result)
-
-# Effect size (Cohen's d) for independent t-test
-library(effsize)
-cohen_d &lt;- cohen.d(satisfaction ~ customer_segment, data = survey_data)
-print(cohen_d)
-</code></pre>
-<h2>ANOVA for Comparing Multiple Groups</h2>
-<p>Analysis of Variance (ANOVA) extends the t-test concept to compare means across three or more groups. It's particularly useful for survey questions with multiple response categories.</p>
-<h3>Types of ANOVA</h3>
-<ul>
-<li><strong>One-way ANOVA</strong>: Compares means across one factor with multiple levels</li>
-<li><strong>Two-way ANOVA</strong>: Examines the influence of two different categorical independent variables</li>
-<li><strong>Repeated measures ANOVA</strong>: Used when the same participants are measured multiple times</li>
-</ul>
-<h3>Post-hoc Tests</h3>
-<p>If ANOVA indicates significant differences, post-hoc tests like Tukey's HSD help determine which specific groups differ from each other.</p>
-<h3>Example in Python</h3>
-<pre><code class="language-python">
-import statsmodels.api as sm
-from statsmodels.formula.api import ols
-
-# One-way ANOVA
-model = ols('satisfaction ~ C(age_group)', data=df).fit()
-anova_table = sm.stats.anova_lm(model, typ=2)
-print(anova_table)
-
-# If significant, perform Tukey's HSD post-hoc test
-from statsmodels.stats.multicomp import pairwise_tukeyhsd
-tukey = pairwise_tukeyhsd(endog=df['satisfaction'], groups=df['age_group'], alpha=0.05)
-print(tukey)
-</code></pre>
-<h2>Correlation Analysis</h2>
-<p>Correlation analysis measures the strength and direction of the relationship between two numerical variables. In survey analysis, it helps identify which factors might be related to each other.</p>
-<h3>Types of Correlation</h3>
-<ul>
-<li><strong>Pearson correlation</strong>: For linear relationships between normally distributed variables</li>
-<li><strong>Spearman's rank correlation</strong>: For ordinal data or when the relationship is monotonic but not necessarily linear</li>
-<li><strong>Kendall's tau</strong>: Another non-parametric measure, useful for small sample sizes with tied ranks</li>
-</ul>
-<h3>Example in R</h3>
-<pre><code class="language-r">
-# Pearson correlation
-cor_pearson &lt;- cor.test(survey_data$customer_satisfaction, survey_data$likelihood_to_recommend, 
-                       method = "pearson")
-print(cor_pearson)
-
-# Spearman correlation for ordinal data
-cor_spearman &lt;- cor.test(survey_data$service_rating, survey_data$overall_experience, 
-                        method = "spearman")
-print(cor_spearman)
-
-# Correlation matrix for multiple variables
-library(corrplot)
-cor_matrix &lt;- cor(survey_data[, c("var1", "var2", "var3", "var4")], use = "complete.obs")
-corrplot(cor_matrix, method = "circle")
-</code></pre>
-<h2>Regression Analysis</h2>
-<p>Regression analysis examines the relationship between dependent and independent variables, allowing you to predict outcomes and identify influential factors in survey responses.</p>
-<h3>Types of Regression for Survey Data</h3>
-<ul>
-<li><strong>Linear regression</strong>: For continuous outcome variables</li>
-<li><strong>Logistic regression</strong>: For binary outcomes (yes/no, agree/disagree)</li>
-<li><strong>Ordinal regression</strong>: For ordinal outcomes (Likert scales)</li>
-<li><strong>Multinomial regression</strong>: For categorical outcomes with more than two categories</li>
-</ul>
-<h3>Example: Multiple Linear Regression in Python</h3>
-<pre><code class="language-python">
-import statsmodels.api as sm
-
-# Add constant for intercept
-X = sm.add_constant(df[['age', 'income', 'education_years']])
-Y = df['satisfaction_score']
-
-# Fit regression model
-model = sm.OLS(Y, X).fit()
-
-# Print summary
-print(model.summary())
-
-# Get predictions
-predictions = model.predict(X)
-
-# Calculate R-squared
-print(f"R-squared: {model.rsquared}")
-</code></pre>
-<h3>Example: Logistic Regression in R</h3>
-<pre><code class="language-r">
-# Logistic regression for binary outcome
-logit_model &lt;- glm(purchase_decision ~ age + income + previous_customer, 
-                   data = survey_data, family = "binomial")
-
-summary(logit_model)
-
-# Odds ratios
-exp(coef(logit_model))
-
-# Predicted probabilities
-predicted_probs &lt;- predict(logit_model, type = "response")
-head(predicted_probs)
-</code></pre>
-<h2>Non-parametric Tests</h2>
-<p>When survey data doesn't meet the assumptions of parametric tests (like normality), non-parametric alternatives can be used.</p>
-<h3>Common Non-parametric Tests</h3>
-<ul>
-<li><strong>Mann-Whitney U test</strong>: Non-parametric alternative to independent t-test</li>
-<li><strong>Wilcoxon signed-rank test</strong>: Non-parametric alternative to paired t-test</li>
-<li><strong>Kruskal-Wallis test</strong>: Non-parametric alternative to one-way ANOVA</li>
-<li><strong>Friedman test</strong>: Non-parametric alternative to repeated measures ANOVA</li>
-</ul>
-<h2>Conclusion: Selecting the Right Test</h2>
-<p>Choosing the appropriate statistical test is crucial for drawing valid conclusions from your survey data. Consider these factors when selecting a test:</p>
-<ul>
-<li>The type of variables (categorical, ordinal, or numerical)</li>
-<li>The number of groups or variables being compared</li>
-<li>Whether the data meets assumptions like normality</li>
-<li>The specific research question you're trying to answer</li>
-</ul>
-<p>By applying the right statistical tests to your survey data, you can uncover meaningful patterns, relationships, and differences that help inform decision-making and address your research objectives.</p>
-</article>
-<!-- Related Reading section -->
-<div class="related-reading">
-<h3>Related Reading</h3>
-<div class="related-articles">
-<div class="related-article">
-<img alt="Generalized Linear Models: An Overview" loading="lazy" src="img/data_graph_profile.webp"/>
-<div class="related-article-content">
-<h4><a href="glm-overview.html">Generalized Linear Models: An Overview</a></h4>
-<p>Understanding the theory and applications of GLMs in modern statistical analysis</p>
-</div>
-</div>
-<div class="related-article">
-<img alt="Key Statistical Tests for Survey Analysis" loading="lazy" src="img/sd7.png"/>
-<div class="related-article-content">
-<h4><a href="key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h4>
-<p>A comprehensive guide to statistical tests for analyzing survey data</p>
-</div>
-</div>
-<div class="related-article">
-<img alt="Building an Enterprise-Level AI Agent" loading="lazy" src="img/sd1.png"/>
-<div class="related-article-content">
-<h4><a href="llama-report-guide.html">Building an Enterprise-Level AI Agent</a></h4>
-<p>A guide to building document processing AI agents</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-<!-- Email Subscription -->
-<div class="subscription-box">
-<h3>Subscribe for AI/ML Updates</h3>
-<p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
-<form action="https://formspree.io/f/YOUR_FORM_ID" class="subscription-form" method="POST">
-<input name="email" placeholder="Your email address" required="" type="email"/>
-<button type="submit">Subscribe</button>
-</form>
-</div>
-<footer class="footer text-center">
-<p>© 2024 Yangming Li. All rights reserved.</p>
-</footer>
-</div>
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/blogPanel.js"></script>
-<script src="js/toc.js"></script>
-<!-- Prism.js for code highlighting -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="js/copyCodeButton.js"></script>
-<script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/blogPanel.js"></script>
+    <script src="js/toc.js"></script>
+    
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script src="js/copyCodeButton.js"></script>
+    
+    <script>
         // Add code language headers to code blocks
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {

@@ -342,6 +342,59 @@
         body.dark-mode .related-article p {
             color: #adb5bd;
         }
+        
+        /* 双语支持样式 */
+        .en-sub-text {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        body.dark-mode .en-sub-text {
+            color: #adb5bd;
+        }
+        
+        .subscription-box {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        body.dark-mode .subscription-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        
+        .subscription-form {
+            display: flex;
+            max-width: 500px;
+            margin: 20px auto 0;
+        }
+        
+        .subscription-form input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .subscription-form button {
+            background-color: #f1780e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .subscription-form button:hover {
+            background-color: #e26c00;
+        }
     </style>
     
     <!-- JSON-LD structured data -->
@@ -462,9 +515,9 @@
             <!-- Bilingual TL;DR section with reading time -->
             <div class="tldr-container">
                 <div class="tldr-box">
-                    <h4><i class="fa fa-clock-o"></i> Reading time: {{READING_TIME}} min</h4>
+                    <h4><i class="fa fa-clock-o"></i> 阅读时间: {{READING_TIME}} 分钟</h4>
                     <div class="tldr-en">
-                        <h5>TL;DR (English)</h5>
+                        <h5>TL;DR (Too Long; Didn't Read) - 内容概要</h5>
                         <p>{{TLDR_EN}}</p>
                     </div>
                     <div class="tldr-zh">
@@ -476,13 +529,13 @@
             
             <!-- Table of Contents -->
             <div class="toc-container">
-                <h4>Contents</h4>
+                <h4>目录 (Contents)</h4>
                 <div id="toc"></div>
             </div>
             
             <!-- Key Points box - Add this at the beginning of your content -->
             <div class="key-points">
-                <h4>Article Highlights</h4>
+                <h4>文章亮点 (Article Highlights)</h4>
                 <ul>
                     <li>{{HIGHLIGHT_1}}</li>
                     <li>{{HIGHLIGHT_2}}</li>
@@ -493,36 +546,12 @@
             
             <!-- Main content with improved structure -->
             <article class="article-content">
-                <!-- Your content goes here. Use this structure: -->
-                <!-- 
-                <h2>First Main Section</h2>
-                <p>Introduction paragraph with context and importance.</p>
-                
-                <h3>First Sub-Section</h3>
-                <p>Detailed explanation with examples.</p>
-                
-                <div class="technical-box">
-                    <h4>Technical Note</h4>
-                    <p>Additional technical information or implementation details.</p>
-                </div>
-                
-                <!-- For images, use lazy loading for better performance:
-                <img src="path/to/image.jpg" alt="Descriptive alt text" loading="lazy" width="800" height="450">
-                -->
-                
-                <h3>Second Sub-Section</h3>
-                <p>Another detailed explanation.</p>
-                
-                <h2>Second Main Section</h2>
-                <p>Introduction to another major topic.</p>
-                -->
-                
-                <!-- Content goes here -->
+                {{CONTENT}}
             </article>
             
             <!-- Related Reading section -->
             <div class="related-reading">
-                <h3>Related Reading</h3>
+                <h3>相关阅读 (Related Reading)</h3>
                 <div class="related-articles">
                     {{RELATED_ARTICLES}}
                 </div>
@@ -531,16 +560,17 @@
         
         <!-- Email Subscription -->
         <div class="subscription-box">
-            <h3>Subscribe for AI/ML Updates</h3>
-            <p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
+            <h3>订阅 AI/ML 更新 (Subscribe for Updates)</h3>
+            <p>获取最新的人工智能、机器学习和数据科学文章、教程和见解，直接发送到您的收件箱。</p>
+            <p class="en-sub-text">Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
             <form class="subscription-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <input type="email" name="email" placeholder="Your email address" required>
-                <button type="submit">Subscribe</button>
+                <input type="email" name="email" placeholder="您的电子邮箱地址 (Your email address)" required>
+                <button type="submit">订阅 (Subscribe)</button>
             </form>
         </div>
         
         <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved.</p>
+            <p>&copy; {{YEAR}} Yangming Li. All rights reserved. | <a href="/">首页 (Home)</a></p>
         </footer>
     </div>
 

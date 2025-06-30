@@ -137,6 +137,7 @@ def generate_blog_html(
     template = template.replace("{{HIGHLIGHT_3}}", highlights[2])
     template = template.replace("{{HIGHLIGHT_4}}", highlights[3])
     template = template.replace("{{RELATED_ARTICLES}}", related_html)
+    template = template.replace("{{YEAR}}", datetime.now().strftime("%Y"))
     
     # Place content
     content_marker = "<!-- Content goes here -->"
