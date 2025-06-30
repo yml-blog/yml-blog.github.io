@@ -2,50 +2,50 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
   <title>Yangming Li's Blog</title>
-  <link>https://yml-blog.github.io/</link>
+  <link>https://yangmingli.com/</link>
   <description>AI/ML, Product and Engineering insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 01 May 2023 12:00:00 GMT</lastBuildDate>
-  <atom:link href="https://yml-blog.github.io/rss.xml" rel="self" type="application/rss+xml" />
+  <lastBuildDate>Mon, 01 Jul 2024 12:00:00 GMT</lastBuildDate>
+  <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
   
   <item>
-    <title>[MLOP] Leveraging Docker in Machine Learning and Data Science</title>
-    <link>https://yml-blog.github.io/docker-in-ml.html</link>
-    <description>A comprehensive guide to using Docker for ML/DS projects - from development to deployment</description>
-    <pubDate>Mon, 01 May 2023 12:00:00 GMT</pubDate>
-    <guid>https://yml-blog.github.io/docker-in-ml.html</guid>
+    <title>Docker in Machine Learning: Ensuring Reproducibility and Seamless Deployment</title>
+    <link>https://yangmingli.com/docker-in-ml.html</link>
+    <description>A comprehensive guide to using Docker for ML/DS projects - from environment setup to reproducible experiments and production deployment pipelines.</description>
+    <pubDate>Mon, 01 Jul 2024 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/docker-in-ml.html</guid>
   </item>
   
   <item>
-    <title>[MLOP] A Must-Have Skill for Efficient Model Management and Deployment</title>
-    <link>https://yml-blog.github.io/mlops-essential-skills.html</link>
-    <description>Understanding MLOP principles and implementation with MLflow and Weights &amp; Biases</description>
-    <pubDate>Sun, 30 Apr 2023 12:00:00 GMT</pubDate>
-    <guid>https://yml-blog.github.io/mlops-essential-skills.html</guid>
+    <title>MLOps Essential Skills: Streamlining ML Workflows</title>
+    <link>https://yangmingli.com/mlops-essential-skills.html</link>
+    <description>Master MLOps principles and implementation with practical examples using MLflow and Weights &amp; Biases for efficient model lifecycle management and automated deployments.</description>
+    <pubDate>Sun, 30 Jun 2024 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/mlops-essential-skills.html</guid>
   </item>
   
   <item>
     <title>The Essence of a Successful Product: Insights for Product Managers</title>
-    <link>https://yml-blog.github.io/product-success-essence.html</link>
-    <description>A deep dive into what truly makes a product successful from a product manager's perspective.</description>
-    <pubDate>Sat, 29 Apr 2023 12:00:00 GMT</pubDate>
-    <guid>https://yml-blog.github.io/product-success-essence.html</guid>
+    <link>https://yangmingli.com/product-success-essence.html</link>
+    <description>A deep dive into what truly makes a product successful from a product manager's perspective - balancing user needs, business goals, and technical constraints.</description>
+    <pubDate>Sat, 29 Jun 2024 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/product-success-essence.html</guid>
   </item>
   
   <item>
-    <title>[ML]Why Have Decoder-Only Architectures Become the Standard in LLMs?</title>
-    <link>https://yml-blog.github.io/decoder-only-architectures.html</link>
-    <description>Understanding the dominance of decoder-only architectures in modern LLMs</description>
-    <pubDate>Fri, 28 Apr 2023 12:00:00 GMT</pubDate>
-    <guid>https://yml-blog.github.io/decoder-only-architectures.html</guid>
+    <title>Decoder-Only Architecture Dominance in Modern LLMs</title>
+    <link>https://yangmingli.com/decoder-only-architectures.html</link>
+    <description>Why decoder-only architectures have become the standard in LLMs - technical analysis of efficiency, training dynamics, and architectural advantages over encoder-decoder approaches.</description>
+    <pubDate>Fri, 28 Jun 2024 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/decoder-only-architectures.html</guid>
   </item>
   
   <item>
-    <title>[Engineering] Understanding Kubernetes: A Comprehensive Guide</title>
-    <link>https://yml-blog.github.io/kubernetes-guide.html</link>
-    <description>A deep dive into Kubernetes architecture, components, and practical implementation</description>
-    <pubDate>Thu, 27 Apr 2023 12:00:00 GMT</pubDate>
-    <guid>https://yml-blog.github.io/kubernetes-guide.html</guid>
+    <title>Understanding Kubernetes: A Comprehensive Guide</title>
+    <link>https://yangmingli.com/kubernetes-guide.html</link>
+    <description>A deep dive into Kubernetes architecture, components, and practical implementation for container orchestration at scale with hands-on examples.</description>
+    <pubDate>Thu, 27 Jun 2024 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/kubernetes-guide.html</guid>
   </item>
 </channel>
 </rss> 

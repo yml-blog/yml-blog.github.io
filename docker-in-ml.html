@@ -25,8 +25,8 @@ h1 {
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Docker for ML &amp; Data Science: From Development to De... | Yangming Li</title>
-<meta content="Learn how Docker revolutionizes machine learning workflows through environment management, reproducibility, and seamless deployment. Practical examples ..." name="description"/>
+<title>Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li</title>
+<meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." name="description"/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -163,7 +163,51 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><link href="https://yangmingli.com/docker-in-ml.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Docker for ML &amp; Data Science: From Development to De... | Yangming Li" property="og:title"/><meta content="Learn how Docker revolutionizes machine learning workflows through environment management, reproducibility, and seamless deployment. Practical examples ..." property="og:description"/><meta content="https://yangmingli.com/docker-in-ml.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Docker for ML &amp; Data Science: From Development to De... | Yangming Li" name="twitter:title"/><meta content="Learn how Docker revolutionizes machine learning workflows through environment management, reproducibility, and seamless deployment. Practical examples ..." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Docker for ML & Data Science: From Development to De... | Yangming Li", "description": "Learn how Docker revolutionizes machine learning workflows through environment management, reproducibility, and seamless deployment. Practical examples ...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/docker-in-ml.html"}}</script></head>
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            display: flex;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .breadcrumbs a {
+            color: #f1780e;
+            text-decoration: none;
+        }
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumbs .separator {
+            margin: 0 8px;
+            color: #888;
+        }
+        
+        /* CTA Button */
+        .cta-container {
+            position: sticky;
+            bottom: 20px;
+            margin-top: 40px;
+            text-align: center;
+            z-index: 100;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: #f1780e;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(241, 120, 14, 0.3);
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(241, 120, 14, 0.4);
+            color: white;
+        }
+</style><link href="https://yangmingli.com/docker-in-ml.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li" property="og:title"/><meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." property="og:description"/><meta content="https://yangmingli.com/docker-in-ml.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li" name="twitter:title"/><meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Docker for ML: Reproducible Environments and Seamless Deployment", "description": "Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "datePublished": "2024-07-01T12:00:00+00:00", "dateModified": "2024-07-01T12:00:00+00:00", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/docker-in-ml.html"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yangmingli.com/"}, {"@type": "ListItem", "position": 2, "name": "AI/ML", "item": "https://yangmingli.com/#aiml"}, {"@type": "ListItem", "position": 3, "name": "Docker for ML", "item": "https://yangmingli.com/docker-in-ml.html"}]}</script></head>
 <body>
 <div class="main-content">
 <div class="container">
@@ -173,6 +217,16 @@ h1 {
 <p class="lead">By Yangming Li</p>
 </div>
 </header>
+
+<!-- Breadcrumbs -->
+<div class="breadcrumbs">
+    <a href="index.html">Home</a>
+    <span class="separator">/</span>
+    <a href="index.html#aiml">AI/ML</a>
+    <span class="separator">/</span>
+    <span>Docker for ML</span>
+</div>
+
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -312,6 +366,13 @@ CMD ["python", "serve.py"]</code></pre>
 <h2>Conclusion</h2>
 <p>Docker has transformed how machine learning and data science teams manage environments, collaborate, and deploy models. By providing reproducible and isolated environments, Docker ensures consistency across different stages of the machine learning lifecycle, from development to production. Whether you're prototyping a model, collaborating across teams, or deploying a model at scale, Docker can be a powerful tool in your ML and data science toolkit. Embracing Docker not only improves productivity but also reduces the complexity associated with managing dependencies and configurations, ultimately accelerating the path to delivering insights and value.</p>
 </section>
+
+<!-- CTA Button -->
+<div class="cta-container">
+  <a href="mailto:yangmingml@yahoo.com" class="cta-button">
+    <i class="fa fa-paper-plane"></i> Schedule a Free Consultation
+  </a>
+</div>
 </main>
 <footer class="footer text-center">
 <p>© 2024 Yangming Li. All rights reserved.</p>
