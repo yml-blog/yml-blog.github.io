@@ -801,8 +801,8 @@ h1 {
                             I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong>.
                             <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
 <br/><br/>
-<div class="visitor-counter">
-<p>Welcome! <span id="visitorCount"><i class="fa fa-spinner fa-spin"></i></span> visitors so far</p>
+<div class="visitor-stats">
+  <i class="fa fa-users"></i> 访客计数: <span id="visitorCount">--</span>
 </div>
 <div class="theme-switch-wrapper">
 <span>🌙</span>
@@ -1775,6 +1775,14 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var visitorCountElement = document.getElementById('visitorCount');
+        
+        // 确保元素存在
+        if (!visitorCountElement) return;
+        
+        // 设置加载状态
+        visitorCountElement.textContent = '...';
+        
         fetch('counter.php')
             .then(response => {
                 if (!response.ok) {
@@ -1783,11 +1791,17 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 return response.json();
             })
             .then(data => {
-                document.getElementById('visitorCount').innerHTML = data.count;
+                if (data && typeof data.count !== 'undefined') {
+                    // 成功接收到数据
+                    visitorCountElement.textContent = data.count;
+                } else {
+                    // 数据格式错误
+                    throw new Error('Invalid response format');
+                }
             })
             .catch(error => {
                 console.error('Error fetching visitor count:', error);
-                document.getElementById('visitorCount').innerHTML = '<span title="Unable to retrieve visitor count">0</span>';
+                visitorCountElement.textContent = '0';
             });
     });
     </script>
