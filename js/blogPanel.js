@@ -31,6 +31,58 @@ const blogList = [
     }
 ];
 
+// Filter blogs based on search query and category
+function filterBlogs(searchQuery, category) {
+    const query = searchQuery.toLowerCase();
+    return blogList.filter(blog => {
+        const matchesSearch = blog.title.toLowerCase().includes(query);
+        const matchesCategory = category === 'all' || blog.category === category;
+        return matchesSearch && matchesCategory;
+    });
+}
+
+// Initialize search and filter functionality
+function initSearchAndFilter() {
+    const searchBox = document.getElementById('aiml-search-box');
+    const filterSelect = document.getElementById('aiml-filter');
+    const blogListElement = document.getElementById('aiml-blog-list');
+    
+    if (!searchBox || !filterSelect || !blogListElement) return;
+    
+    // Populate filter dropdown with unique categories
+    const categories = ['all', ...new Set(blogList.map(blog => blog.category))];
+    filterSelect.innerHTML = categories.map(cat => 
+        `<option value="${cat === 'all' ? 'all' : cat}">${cat === 'all' ? 'All Categories' : cat}</option>`
+    ).join('');
+    
+    // Function to update the displayed blog list
+    function updateBlogList() {
+        const query = searchBox.value;
+        const category = filterSelect.value;
+        const filteredBlogs = filterBlogs(query, category);
+        
+        if (filteredBlogs.length === 0) {
+            blogListElement.innerHTML = '<li class="no-results">No blogs match your search criteria</li>';
+        } else {
+            blogListElement.innerHTML = filteredBlogs.map(blog => `
+                <li>
+                    <a href="${blog.url}">
+                        <span class="blog-category">${blog.category}</span>
+                        <span class="blog-title">${blog.title}</span>
+                    </a>
+                </li>
+            `).join('');
+        }
+    }
+    
+    // Add event listeners for real-time filtering
+    searchBox.addEventListener('input', updateBlogList);
+    filterSelect.addEventListener('change', updateBlogList);
+    
+    // Initial display
+    updateBlogList();
+}
+
 function createBlogPanel() {
     // Get current page URL
     const currentPage = window.location.pathname.split('/').pop();
@@ -174,4 +226,7 @@ styleSheet.textContent = styles;
 document.head.appendChild(styleSheet);
 
 // Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', createBlogPanel);
+document.addEventListener('DOMContentLoaded', function() {
+    createBlogPanel();
+    initSearchAndFilter();
+});
