@@ -801,9 +801,6 @@ h1 {
                             I got my Master of Science in Statistics degree from the <a href="https://www.uvic.ca/">University of Victoria</a></strong>.
                             <strong>I got my Bachelor of Honor Mathematics degree from the <a href="https://uwaterloo.ca/">University of Waterloo</a>.</strong>
 <br/><br/>
-<div class="visitor-stats">
-  <i class="fa fa-users"></i> 访客计数: <span id="visitorCount">--</span>
-</div>
 <div class="theme-switch-wrapper">
 <span>🌙</span>
 <label class="theme-switch" for="checkbox">
@@ -1773,38 +1770,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         }
     });
     </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var visitorCountElement = document.getElementById('visitorCount');
-        
-        // 确保元素存在
-        if (!visitorCountElement) return;
-        
-        // 设置加载状态
-        visitorCountElement.textContent = '...';
-        
-        fetch('counter.php')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && typeof data.count !== 'undefined') {
-                    // 成功接收到数据
-                    visitorCountElement.textContent = data.count;
-                } else {
-                    // 数据格式错误
-                    throw new Error('Invalid response format');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching visitor count:', error);
-                visitorCountElement.textContent = '0';
-            });
-    });
-    </script>
+
 <!-- Add Modal for image preview -->
 <div class="modal" id="imageModal">
 <span class="close" onclick="closeModal()">×</span>
