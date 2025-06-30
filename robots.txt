@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin/
 Disallow: /private/
 
-Sitemap: https://www.yangmingli.com/sitemap.xml 
+Sitemap: https://yangmingli.com/sitemap.xml
