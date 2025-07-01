@@ -804,9 +804,54 @@ h1 {
             color: #f5f5f5;
         }
         
+        /* Roulette wheel dark mode styles */
+        body.dark-mode #fun .section-title {
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode #fun p {
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode #fun div[style*="background-color: #f8f9fa"] {
+            background-color: #333 !important;
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode #fun h3 {
+            color: #f1780e;
+        }
+        
+        body.dark-mode #slot-display {
+            background-color: #333 !important;
+            border-color: #f1780e !important;
+        }
+        
+        body.dark-mode .slot-column {
+            border-color: #555 !important;
+        }
+        
+        body.dark-mode .slot-machine-container {
+            background: linear-gradient(135deg, #4a1a70, #933600) !important;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+        }
+        
+        body.dark-mode #slot-display {
+            background-color: rgba(40, 40, 40, 0.9) !important;
+        }
+        
+        body.dark-mode .slot-cell {
+            border-color: #444 !important;
+        }
+        
+        body.dark-mode .slot-row {
+            border-color: #444 !important;
+        }
+        
         @media (max-width: 600px) {
             #aiml-search-box { width: 100%; margin-bottom: 10px; }
             #aiml-reset-btn { width: 100%; margin: 10px 0 10px 0; }
+            #roulette-canvas { width: 100%; height: auto; }
         }
     </style>
 </head>
@@ -871,6 +916,9 @@ h1 {
 </li>
 <li class="nav-item">
 <a aria-controls="thoughts" aria-selected="false" class="nav-link" data-toggle="tab" href="#thoughts" id="thoughts-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Thoughts</a>
+</li>
+<li class="nav-item">
+<a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Play Ground</a>
 </li>
 <li class="nav-item">
 <a aria-controls="contact" aria-selected="false" class="nav-link" data-toggle="tab" href="#contact" id="contact-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Contact</a>
@@ -1426,6 +1474,174 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 </div>
 </section>
 </div>
+<div aria-labelledby="fun-tab" class="tab-pane fade" id="fun" role="tabpanel" style="padding: 0; margin: 0;">
+<section class="intro section-wrapper" style="padding: 20px; margin: 0;">
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-12">
+<div class="section-title blog-section-title">
+<h1>Play Ground - AI Slot Machine</h1>
+</div>
+<p>Try your luck with our AI-themed slot machine! Match three symbols to win!</p>
+
+<div class="slot-machine-container" style="max-width: 900px; margin: 0 auto; text-align: center; padding: 20px; background: linear-gradient(135deg, #7d3ec1, #f1780e); border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; color: white;">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; background-color: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+            <div style="font-size: 16px;">CREDITS</div>
+            <div id="credits-display" style="font-size: 24px; font-weight: bold;">1000</div>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-end; background-color: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+            <div style="font-size: 16px;">WINS</div>
+            <div id="win-display" style="font-size: 24px; font-weight: bold;">0</div>
+        </div>
+    </div>
+    
+    <div id="slot-display" style="display: flex; flex-direction: column; margin: 10px auto; width: 100%; max-width: 700px; background-color: rgba(255,255,255,0.9); border: 8px solid gold; border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+        <!-- Row 1 -->
+        <div class="slot-row" style="display: flex; justify-content: space-around; border-bottom: 2px solid #ddd;">
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot1-1" class="slot-symbol" src="img/slots/hinton.jpg" alt="Geoffrey Hinton" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot1-2" class="slot-symbol" src="img/slots/lecun.jpg" alt="Yann LeCun" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot1-3" class="slot-symbol" src="img/slots/Andreg.jpg" alt="Andrew Ng" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot1-4" class="slot-symbol" src="img/slots/bengio.jpg" alt="Yoshua Bengio" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px;">
+                <img id="slot1-5" class="slot-symbol" src="img/slots/kmh2024fall.jpg" alt="AI Research" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+        
+        <!-- Row 2 -->
+        <div class="slot-row" style="display: flex; justify-content: space-around; border-bottom: 2px solid #ddd;">
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot2-1" class="slot-symbol" src="img/slots/bengio.jpg" alt="Yoshua Bengio" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot2-2" class="slot-symbol" src="img/slots/hinton.jpg" alt="Geoffrey Hinton" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot2-3" class="slot-symbol" src="img/slots/lecun.jpg" alt="Yann LeCun" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot2-4" class="slot-symbol" src="img/slots/Andreg.jpg" alt="Andrew Ng" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px;">
+                <img id="slot2-5" class="slot-symbol" src="img/slots/Jensen_Huang_(cropped).jpg" alt="Jensen Huang" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+        
+        <!-- Row 3 -->
+        <div class="slot-row" style="display: flex; justify-content: space-around;">
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot3-1" class="slot-symbol" src="img/slots/Andreg.jpg" alt="Andrew Ng" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot3-2" class="slot-symbol" src="img/slots/bengio.jpg" alt="Yoshua Bengio" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot3-3" class="slot-symbol" src="img/slots/hinton.jpg" alt="Geoffrey Hinton" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px; border-right: 2px solid #ddd;">
+                <img id="slot3-4" class="slot-symbol" src="img/slots/lecun.jpg" alt="Yann LeCun" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+            <div class="slot-cell" style="width: 20%; padding: 8px;">
+                <img id="slot3-5" class="slot-symbol" src="img/slots/Steve_Jobs_Headshot_2010-CROP_(cropped_2).jpg" alt="Steve Jobs" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px;">
+            </div>
+        </div>
+    </div>
+    
+    <div style="display: flex; justify-content: space-between; margin: 20px auto; max-width: 600px;">
+        <div class="bet-controls" style="display: flex; align-items: center;">
+            <button id="bet-down" class="btn" style="background-color: #333; color: white; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; margin-right: 10px;">-</button>
+            <div style="display: flex; flex-direction: column; align-items: center; background-color: rgba(0,0,0,0.3); padding: 5px 15px; border-radius: 10px; color: white;">
+                <div style="font-size: 14px;">BET</div>
+                <div id="bet-amount" style="font-size: 22px; font-weight: bold;">10</div>
+            </div>
+            <button id="bet-up" class="btn" style="background-color: #333; color: white; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; margin-left: 10px;">+</button>
+        </div>
+        
+        <div>
+            <button id="max-bet" class="btn" style="background-color: #9C27B0; color: white; padding: 8px 15px; border-radius: 8px; font-weight: bold; margin-right: 10px;">MAX BET</button>
+            <button id="slot-spin-button" class="btn" style="background-color: #f1780e; color: white; padding: 8px 20px; border-radius: 8px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">SPIN</button>
+        </div>
+    </div>
+    
+    <div id="slot-result" style="margin-top: 10px; font-size: 24px; font-weight: bold; height: 40px; color: white; text-shadow: 0 0 10px rgba(255,255,255,0.5);"></div>
+    
+    <div id="win-lines" style="display: flex; justify-content: space-around; margin-top: 15px;">
+        <div class="win-line" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; width: 100px;">
+            <div style="font-size: 14px; color: white;">PAYLINES</div>
+            <div style="font-size: 18px; font-weight: bold; color: gold;">8</div>
+        </div>
+        <div class="win-line" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; width: 100px;">
+            <div style="font-size: 14px; color: white;">MULTIPLIER</div>
+            <div id="multiplier-display" style="font-size: 18px; font-weight: bold; color: gold;">x1</div>
+        </div>
+        <div class="win-line" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; width: 100px;">
+            <div style="font-size: 14px; color: white;">FREE SPINS</div>
+            <div id="free-spins" style="font-size: 18px; font-weight: bold; color: gold;">0</div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 20px; font-size: 16px; background-color: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; color: white; text-align: left;">
+        <p><strong>AI Pioneers & Payouts:</strong></p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/hinton.jpg" alt="Geoffrey Hinton" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Geoffrey Hinton<br>"Godfather of AI"<br>x5 = 50</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/lecun.jpg" alt="Yann LeCun" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Yann LeCun<br>Facebook AI<br>x5 = 75</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/Andreg.jpg" alt="Andrew Ng" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Andrew Ng<br>ML Educator<br>x5 = 100</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/bengio.jpg" alt="Yoshua Bengio" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Yoshua Bengio<br>Deep Learning Pioneer<br>x5 = 150</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/kmh2024fall.jpg" alt="AI Research" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>AI Research<br>Innovation<br>x5 = 200</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/Jensen_Huang_(cropped).jpg" alt="Jensen Huang" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Jensen Huang<br>NVIDIA CEO<br>WILD</div>
+            </div>
+            <div style="margin: 10px; text-align: center; width: 140px;">
+                <div style="width: 70px; height: 70px; border-radius: 50%; overflow: hidden; margin: 0 auto; border: 2px solid gold;">
+                    <img src="img/slots/Steve_Jobs_Headshot_2010-CROP_(cropped_2).jpg" alt="Steve Jobs" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div>Steve Jobs<br>BONUS</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
 <div aria-labelledby="contact-tab" class="tab-pane fade" id="contact" role="tabpanel" style="padding: 0; margin: 0;">
 <section class="intro section-wrapper" style="padding: 0; margin: 0;">
 <div class="container-fluid" style="padding: 0; margin: 0;">
@@ -1600,6 +1816,23 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 
                 // Hide the About Me tab content
                 $('#about-me').removeClass('show active');
+            });
+            
+            $('#myTab a[href="#fun"]').on('shown.bs.tab', function () {
+                // Ensure the blog CSS is loaded when the fun tab is shown
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css'; // Load the new CSS file
+                document.getElementsByTagName('head')[0].appendChild(link);
+                
+                // Hide the About Me tab content
+                $('#about-me').removeClass('show active');
+                
+                // Redraw the roulette wheel if it exists
+                if (window.redrawRouletteWheel && typeof window.redrawRouletteWheel === 'function') {
+                    window.redrawRouletteWheel();
+                }
             });
 
             // Debug: Check which images are loading
@@ -1913,6 +2146,453 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     function handleMapError() {
         document.getElementById('map').innerHTML = '<div class="map-error">Google Maps could not be loaded. Please check your internet connection or try again later.</div>';
     }
+    </script>
+<script>
+    // Slot Machine Implementation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only initialize if the slot machine elements exist
+        const slotSpinButton = document.getElementById('slot-spin-button');
+        if (slotSpinButton) {
+            // Game state
+            let credits = 1000;
+            let bet = 10;
+            let wins = 0;
+            let freeSpins = 0;
+            let multiplier = 1;
+            let isSpinning = false;
+            
+                         // Slot symbols - using AI researcher images based on available files
+            const symbols = [
+                { name: 'hinton', value: 50, imgPath: 'img/slots/hinton.jpg', title: 'Geoffrey Hinton' },
+                { name: 'lecun', value: 75, imgPath: 'img/slots/lecun.jpg', title: 'Yann LeCun' },
+                { name: 'andreg', value: 100, imgPath: 'img/slots/Andreg.jpg', title: 'Andrew Ng' },
+                { name: 'bengio', value: 150, imgPath: 'img/slots/bengio.jpg', title: 'Yoshua Bengio' },
+                { name: 'kmh', value: 200, imgPath: 'img/slots/kmh2024fall.jpg', title: 'AI Research' },
+                { name: 'huang', value: 300, imgPath: 'img/slots/Jensen_Huang_(cropped).jpg', title: 'Jensen Huang', isWild: true },
+                { name: 'jobs', value: 0, imgPath: 'img/slots/Steve_Jobs_Headshot_2010-CROP_(cropped_2).jpg', title: 'Steve Jobs', isBonus: true }
+            ];
+            
+            // Reference all UI elements
+            const slotResult = document.getElementById('slot-result');
+            const creditsDisplay = document.getElementById('credits-display');
+            const winsDisplay = document.getElementById('win-display');
+            const betDisplay = document.getElementById('bet-amount');
+            const freeSpinsDisplay = document.getElementById('free-spins');
+            const multiplierDisplay = document.getElementById('multiplier-display');
+            const betUpButton = document.getElementById('bet-up');
+            const betDownButton = document.getElementById('bet-down');
+            const maxBetButton = document.getElementById('max-bet');
+            
+            // Generate 2D array to hold all slot cells
+            const slotCells = [];
+            for (let row = 1; row <= 3; row++) {
+                const rowCells = [];
+                for (let col = 1; col <= 5; col++) {
+                    rowCells.push(document.getElementById(`slot${row}-${col}`));
+                }
+                slotCells.push(rowCells);
+            }
+            
+            // Initialize game
+            updateDisplay();
+            
+            // Add event listeners for betting controls
+            betUpButton.addEventListener('click', function() {
+                if (bet < 100 && bet < credits) {
+                    bet += 10;
+                    updateDisplay();
+                }
+            });
+            
+            betDownButton.addEventListener('click', function() {
+                if (bet > 10) {
+                    bet -= 10;
+                    updateDisplay();
+                }
+            });
+            
+            maxBetButton.addEventListener('click', function() {
+                bet = Math.min(100, credits);
+                updateDisplay();
+            });
+            
+            slotSpinButton.addEventListener('click', function() {
+                if (isSpinning) return;
+                
+                // Check if using free spins or deducting credits
+                if (freeSpins > 0) {
+                    freeSpins--;
+                } else if (credits >= bet) {
+                    credits -= bet;
+                } else {
+                    slotResult.textContent = 'Not enough credits!';
+                    slotResult.style.color = '#FF5252';
+                    return;
+                }
+                
+                spin();
+                updateDisplay();
+            });
+            
+            function spin() {
+                isSpinning = true;
+                slotSpinButton.disabled = true;
+                slotResult.textContent = '';
+                
+                // Store final symbols for each position - randomly selected at start
+                const finalSymbols = [];
+                for (let row = 0; row < 3; row++) {
+                    const rowSymbols = [];
+                    for (let col = 0; col < 5; col++) {
+                        rowSymbols.push(symbols[Math.floor(Math.random() * symbols.length)]);
+                    }
+                    finalSymbols.push(rowSymbols);
+                }
+                
+                // Animation timings - each column stops sequentially
+                const startTime = Date.now();
+                const baseDuration = 1000; // Base duration for first column
+                const columnDelay = 300; // Each column takes this much longer
+                
+                // Animation function
+                function animateSpinning() {
+                    const now = Date.now();
+                    
+                    // Update each slot
+                    for (let row = 0; row < 3; row++) {
+                        for (let col = 0; col < 5; col++) {
+                            const elapsed = now - startTime;
+                            const duration = baseDuration + (col * columnDelay);
+                            
+                            if (elapsed < duration) {
+                                // Still spinning this column, show random symbols
+                                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                                updateSlotCell(slotCells[row][col], randomSymbol);
+                            } else if (elapsed < duration + 100) {
+                                // Just stopped, show final symbol
+                                updateSlotCell(slotCells[row][col], finalSymbols[row][col]);
+                            }
+                            // After stopped, keep showing final symbol
+                        }
+                    }
+                    
+                    // Check if all animations are complete
+                    const totalDuration = baseDuration + (4 * columnDelay); // Last column duration
+                    if (now - startTime < totalDuration + 500) { // Add a little extra time at the end
+                        requestAnimationFrame(animateSpinning);
+                    } else {
+                        // All animations complete
+                        isSpinning = false;
+                        slotSpinButton.disabled = false;
+                        
+                        // Check results
+                        checkResults(finalSymbols);
+                    }
+                }
+                
+                // Start animation
+                requestAnimationFrame(animateSpinning);
+            }
+            
+            function updateSlotCell(cell, symbol) {
+                // Update image with researcher photo
+                cell.src = symbol.imgPath;
+                cell.alt = symbol.title;
+                cell.title = symbol.title; // Add tooltip
+            }
+            
+            function updateDisplay() {
+                creditsDisplay.textContent = credits;
+                winsDisplay.textContent = wins;
+                betDisplay.textContent = bet;
+                freeSpinsDisplay.textContent = freeSpins;
+                multiplierDisplay.textContent = `x${multiplier}`;
+            }
+            
+            function checkResults(finalSymbols) {
+                // Define winning patterns (horizontal, diagonal, etc)
+                const winPatterns = [
+                    // Horizontal lines
+                    [{row: 0, col: 0}, {row: 0, col: 1}, {row: 0, col: 2}, {row: 0, col: 3}, {row: 0, col: 4}],
+                    [{row: 1, col: 0}, {row: 1, col: 1}, {row: 1, col: 2}, {row: 1, col: 3}, {row: 1, col: 4}],
+                    [{row: 2, col: 0}, {row: 2, col: 1}, {row: 2, col: 2}, {row: 2, col: 3}, {row: 2, col: 4}],
+                    
+                    // V-shapes
+                    [{row: 0, col: 0}, {row: 1, col: 1}, {row: 2, col: 2}, {row: 1, col: 3}, {row: 0, col: 4}],
+                    [{row: 2, col: 0}, {row: 1, col: 1}, {row: 0, col: 2}, {row: 1, col: 3}, {row: 2, col: 4}],
+                    
+                    // Zigzags
+                    [{row: 0, col: 0}, {row: 0, col: 1}, {row: 1, col: 2}, {row: 2, col: 3}, {row: 2, col: 4}],
+                    [{row: 2, col: 0}, {row: 2, col: 1}, {row: 1, col: 2}, {row: 0, col: 3}, {row: 0, col: 4}],
+                    
+                    // W-shape
+                    [{row: 0, col: 0}, {row: 1, col: 1}, {row: 0, col: 2}, {row: 1, col: 3}, {row: 0, col: 4}]
+                ];
+                
+                let totalWin = 0;
+                let winningLines = 0;
+                let hasBonus = false;
+                
+                // Check each pattern
+                winPatterns.forEach(pattern => {
+                    // Get symbols in this pattern
+                    const lineSymbols = pattern.map(pos => finalSymbols[pos.row][pos.col]);
+                    
+                    // Count each type of symbol in the line
+                    const symbolCounts = {};
+                    let wildCount = 0;
+                    
+                    lineSymbols.forEach(symbol => {
+                        if (symbol.isWild) {
+                            wildCount++;
+                        } else {
+                            symbolCounts[symbol.name] = (symbolCounts[symbol.name] || 0) + 1;
+                        }
+                        
+                        // Check for bonus
+                        if (symbol.isBonus) hasBonus = true;
+                    });
+                    
+                    // Find the most common symbol
+                    let bestSymbol = null;
+                    let bestCount = 0;
+                    
+                    for (const [name, count] of Object.entries(symbolCounts)) {
+                        if (count > bestCount) {
+                            const symbol = symbols.find(s => s.name === name);
+                            bestSymbol = symbol;
+                            bestCount = count;
+                        }
+                    }
+                    
+                    // Add wilds to best symbol count
+                    if (bestSymbol && wildCount > 0) {
+                        bestCount += wildCount;
+                    }
+                    
+                    // Calculate win for this line
+                    if (bestCount >= 3) {
+                        const winAmount = bestSymbol.value * (bestCount / 5) * bet / 10 * multiplier;
+                        totalWin += winAmount;
+                        winningLines++;
+                    }
+                });
+                
+                // Update game state based on results
+                if (totalWin > 0) {
+                    // Win!
+                    credits += totalWin;
+                    wins++;
+                    
+                    slotResult.textContent = `Win! ${winningLines} lines - ${totalWin} credits`;
+                    slotResult.style.color = 'gold';
+                    
+                    // Apply bonus if present
+                    if (hasBonus) {
+                        handleBonus();
+                    }
+                } else if (hasBonus) {
+                    // No win but got bonus
+                    slotResult.textContent = 'Bonus activated!';
+                    slotResult.style.color = '#03A9F4';
+                    handleBonus();
+                } else {
+                    // No win
+                    slotResult.textContent = 'No win. Try again!';
+                    slotResult.style.color = 'white';
+                }
+                
+                updateDisplay();
+            }
+            
+            function handleBonus() {
+                // Choose a random bonus
+                const bonusType = Math.floor(Math.random() * 3);
+                
+                switch (bonusType) {
+                    case 0: // Free spins
+                        const newFreeSpins = Math.floor(Math.random() * 5) + 3; // 3-7 free spins
+                        freeSpins += newFreeSpins;
+                        slotResult.textContent += ` ${newFreeSpins} Free Spins!`;
+                        break;
+                    case 1: // Multiplier increase
+                        multiplier = Math.min(multiplier + 1, 5);
+                        slotResult.textContent += ` Multiplier x${multiplier}!`;
+                        break;
+                    case 2: // Instant credits
+                        const instantWin = bet * 5;
+                        credits += instantWin;
+                        slotResult.textContent += ` Instant ${instantWin} credits!`;
+                        break;
+                }
+            }
+        }
+    });
+    
+    // Roulette Wheel Implementation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Only initialize if the canvas element exists
+        const canvas = document.getElementById('roulette-canvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        const spinButton = document.getElementById('spin-button');
+        const resultMessage = document.getElementById('result-message');
+        
+        // Make canvas responsive
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            const containerWidth = container.clientWidth;
+            
+            if (containerWidth < 500) {
+                canvas.width = containerWidth - 20;
+                canvas.height = containerWidth - 20;
+            } else {
+                canvas.width = 500;
+                canvas.height = 500;
+            }
+            
+            // Redraw the wheel after resize
+            drawWheel();
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Initial resize
+        resizeCanvas();
+        
+        // Export redraw function to window object
+        window.redrawRouletteWheel = function() {
+            resizeCanvas();
+            drawWheel();
+        };
+        
+        // AI/ML themed wheel segments
+        const segments = [
+            { text: "Neural Networks", color: "#FF5252" },
+            { text: "Deep Learning", color: "#FF7B25" },
+            { text: "Computer Vision", color: "#FFC107" },
+            { text: "NLP", color: "#8BC34A" },
+            { text: "Reinforcement Learning", color: "#00BCD4" },
+            { text: "Data Science", color: "#2196F3" },
+            { text: "MLOps", color: "#9C27B0" },
+            { text: "AI Ethics", color: "#673AB7" }
+        ];
+        
+        const wheelRadius = 200;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        let rotationAngle = 0;
+        let isSpinning = false;
+        let spinSpeed = 0;
+        let slowdownRate = 0;
+        let selectedSegment = null;
+        
+        // Draw the initial wheel
+        drawWheel();
+        
+        // Handle spin button click
+        spinButton.addEventListener('click', function() {
+            if (isSpinning) return;
+            
+            // Reset
+            resultMessage.textContent = "";
+            
+            // Generate random spin parameters
+            spinSpeed = 0.2 + Math.random() * 0.2; // Random speed
+            slowdownRate = 0.0005 + Math.random() * 0.0002; // Random slowdown rate
+            isSpinning = true;
+            spinButton.disabled = true;
+            
+            // Start animation
+            requestAnimationFrame(animateWheel);
+        });
+        
+        function drawWheel() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw segments
+            const segmentAngle = (2 * Math.PI) / segments.length;
+            
+            for (let i = 0; i < segments.length; i++) {
+                const segment = segments[i];
+                const startAngle = i * segmentAngle + rotationAngle;
+                const endAngle = (i + 1) * segmentAngle + rotationAngle;
+                
+                // Draw segment
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, wheelRadius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                ctx.stroke();
+                
+                // Draw text
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + segmentAngle / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#fff";
+                ctx.font = "bold 16px Hind, sans-serif";
+                ctx.fillText(segment.text, wheelRadius - 20, 5);
+                ctx.restore();
+            }
+            
+            // Draw center circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 20, 0, 2 * Math.PI);
+            ctx.fillStyle = "#333";
+            ctx.fill();
+            
+            // Draw pointer
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY - wheelRadius - 20);
+            ctx.lineTo(centerX - 15, centerY - wheelRadius + 10);
+            ctx.lineTo(centerX + 15, centerY - wheelRadius + 10);
+            ctx.closePath();
+            ctx.fillStyle = "#f1780e";
+            ctx.fill();
+        }
+        
+        function animateWheel() {
+            // Update rotation
+            rotationAngle += spinSpeed;
+            
+            // Reduce speed
+            if (spinSpeed > 0) {
+                spinSpeed -= slowdownRate;
+            } else {
+                // Stop spinning
+                spinSpeed = 0;
+                isSpinning = false;
+                spinButton.disabled = false;
+                
+                // Determine selected segment
+                const segmentAngle = (2 * Math.PI) / segments.length;
+                let normalizedAngle = rotationAngle % (2 * Math.PI);
+                if (normalizedAngle < 0) normalizedAngle += 2 * Math.PI;
+                
+                // The segment at the top is the winner
+                const topSegmentIndex = segments.length - Math.floor(normalizedAngle / segmentAngle) - 1;
+                const modIndex = topSegmentIndex % segments.length;
+                const winningSegment = segments[modIndex >= 0 ? modIndex : modIndex + segments.length];
+                
+                // Display result
+                resultMessage.textContent = `You landed on: ${winningSegment.text}!`;
+                resultMessage.style.color = winningSegment.color;
+                return;
+            }
+            
+            // Draw updated wheel
+            drawWheel();
+            
+            // Continue animation
+            requestAnimationFrame(animateWheel);
+        }
+    });
     </script>
 <script>
     // Dark mode functionality
