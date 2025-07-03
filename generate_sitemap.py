@@ -15,8 +15,8 @@ def is_excluded(path):
 
 def get_lastmod(file_path):
     mtime = os.path.getmtime(file_path)
-    # 转为 ISO 8601 格式
-    return datetime.fromtimestamp(mtime, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%S%z")
+    dt = datetime.fromtimestamp(mtime, tz=timezone.utc)
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 def main():
     urls = []
