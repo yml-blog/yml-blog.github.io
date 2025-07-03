@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="zh-CN">
 <head><style>
 body {
   margin: 0;
@@ -31,6 +31,8 @@ h1 {
       content="Yangming Li（位于温哥华）的技术博客：深入探讨 AI/ML、产品管理与工程实践，分享落地数据产品的实战经验。"/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://yangmingli.com/" rel="canonical"/>
+<link rel="alternate" hreflang="zh-CN" href="https://yangmingli.com/" />
+<link rel="alternate" hreflang="en-CA" href="https://yangmingli.com/en/" />
 <meta name="robots" content="index,follow,max-image-preview:large"/>
 <link href="rss.xml" rel="alternate" title="Yangming's Blog RSS Feed" type="application/rss+xml"/>
 <!-- Open Graph -->
@@ -48,6 +50,8 @@ h1 {
 <meta name="twitter:description"
       content="技术博客：AI/ML、产品与工程实战，助力数据产品快速落地。"/>
 <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png"/>
+<meta name="theme-color" content="#f1780e"/>
+<link rel="manifest" href="/manifest.json"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -101,7 +105,7 @@ h1 {
       "image": "https://yangmingli.com/img/sd1.jpg",
       "sameAs": [
         "https://www.linkedin.com/in/yangming-l-9a964791/",
-        "https://github.com/",
+        "https://github.com/yml-blog",
         "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en"
       ],
       "jobTitle": "Data Product Scientist",
@@ -148,6 +152,25 @@ h1 {
         }
         body, td, th {
             font-family: Hind, sans-serif;
+        }
+        
+        /* Accessibility - skip link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 1em;
+            z-index: 999;
+            background: #f1780e;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            transform: translateY(-100%);
+            transition: transform 0.3s;
+        }
+        .skip-link:focus {
+            left: 1em;
+            transform: translateY(0);
         }
         
         /* Dark mode toggle styles */
@@ -888,6 +911,7 @@ h1 {
     </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" id="page-top">
+<a href="#myTabContent" class="skip-link">跳到主要内容</a>
 <div id="main-wrapper" style="padding: 0; margin: 0;">
 <div class="columns-block" style="padding: 0; margin: 0;">
 <div class="left-col-block blocks">
@@ -920,10 +944,10 @@ h1 {
 </div>
 <div class="profile-img">
 <img alt="Yangming Li – product data scientist" class="active" loading="lazy" src="img/sd1.jpg" width="1200" height="800"/>
-<img alt="Yangming Li – AI/ML 专家" loading="lazy" src="img/sd2.jpg"/>
-<img alt="Yangming Li – 产品设计专家" loading="lazy" src="img/sd3.png"/>
-<img alt="Yangming Li - Data Science Expert" loading="lazy" src="img/sd4.png"/>
-<img alt="Yangming Li - Machine Learning Engineer" loading="lazy" src="img/sd13.png"/>
+<img alt="Yangming Li – AI/ML 专家" loading="lazy" src="img/sd2.jpg" width="1200" height="800"/>
+<img alt="Yangming Li – 产品设计专家" loading="lazy" src="img/sd3.png" width="1200" height="800"/>
+<img alt="Yangming Li - Data Science Expert" loading="lazy" src="img/sd4.png" width="1200" height="800"/>
+<img alt="Yangming Li - Machine Learning Engineer" loading="lazy" src="img/sd13.png" width="1200" height="800"/>
 <img alt="Yangming Li - Information Visualization Researcher" loading="lazy" src="img/sd6.jpg"/>
 <img alt="Yangming Li - Technology Professional" loading="lazy" src="img/sd7.jpg"/>
 <img alt="Yangming Li - AI Product Manager" loading="lazy" src="img/sd8.png"/>
@@ -937,6 +961,7 @@ h1 {
 </div>
 </div>
 <div class="right-col-block blocks" style="padding: 0; margin: 0;">
+<nav aria-label="Main navigation">
 <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #000000;">
 <li class="nav-item" role="presentation">
 <a aria-controls="about-me" aria-selected="true" class="nav-link active" data-toggle="tab" href="#about-me" id="about-me-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">About Me &amp; Philosophy</a>
@@ -966,7 +991,8 @@ h1 {
 <a aria-controls="contact" aria-selected="false" class="nav-link" data-toggle="tab" href="#contact" id="contact-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Contact</a>
 </li>
 </ul>
-<div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;">
+</nav>
+<div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;" role="main">
 <div aria-labelledby="about-me-tab" class="tab-pane fade show active" id="about-me" role="tabpanel">
 <section class="intro section-wrapper" style="padding: 20px; margin: 0;">
 <div class="container-fluid">
