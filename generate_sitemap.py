@@ -27,6 +27,8 @@ def main():
         rel_path = file_path.relative_to(ROOT).as_posix()
         if rel_path == "index.html":
             url = f"{BASE_URL}/"
+        elif rel_path == "product.html":
+            url = f"{BASE_URL}/product/"
         elif rel_path.endswith("/index.html"):
             url = f"{BASE_URL}/{rel_path[:-len('index.html')]}"
         else:
