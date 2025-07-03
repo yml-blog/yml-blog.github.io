@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://yangmingli.com/</loc>
+    <lastmod>2025-07-03T22:03:02Z</lastmod>
+  </url>
+  <url>
     <loc>https://yangmingli.com/building-product-scales-company.html</loc>
     <lastmod>2025-06-30T07:25:36Z</lastmod>
   </url>
@@ -27,10 +31,6 @@
   <url>
     <loc>https://yangmingli.com/glm-overview.html</loc>
     <lastmod>2025-06-30T07:25:36Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yangmingli.com/index.html</loc>
-    <lastmod>2025-07-03T22:03:02Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/jax-guide.html</loc>

@@ -23,9 +23,14 @@ def main():
     for file_path in ROOT.rglob("*.html"):
         if is_excluded(file_path):
             continue
-        # 生成相对URL
+        # 生成相对URL，并把 index.html 转为目录形式
         rel_path = file_path.relative_to(ROOT).as_posix()
-        url = f"{BASE_URL}/{rel_path}"
+        if rel_path == "index.html":
+            url = f"{BASE_URL}/"
+        elif rel_path.endswith("/index.html"):
+            url = f"{BASE_URL}/{rel_path[:-len('index.html')]}"
+        else:
+            url = f"{BASE_URL}/{rel_path}"
         lastmod = get_lastmod(file_path)
         urls.append((url, lastmod))
 
