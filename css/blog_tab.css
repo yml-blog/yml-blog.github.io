@@ -127,3 +127,110 @@
     text-decoration: none !important;
     color: #ffffff !important;
 }
+
+/* Tag filtering styles */
+.tag-filter {
+  padding: 15px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.tag-filter span {
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.tag-btn {
+  background-color: #eee;
+  border: none;
+  padding: 5px 12px;
+  margin-right: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+}
+
+.tag-btn:hover {
+  background-color: #ddd;
+}
+
+.tag-btn.active {
+  background-color: #333;
+  color: white;
+}
+
+/* Blog post tags */
+.post-tags {
+  margin-top: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  padding: 3px 10px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Newsletter signup */
+.newsletter-signup {
+  background-color: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 30px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.newsletter-signup h4 {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+/* Social sharing buttons */
+.social-sharing {
+  margin-top: 15px;
+}
+
+.share-btn {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 8px;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.share-btn:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.share-btn.twitter {
+  background-color: #1da1f2;
+}
+
+.share-btn.linkedin {
+  background-color: #0077b5;
+}
+
+.share-btn.facebook {
+  background-color: #3b5998;
+}
+
+/* Blog item styling */
+.blog-item {
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.blog-item:last-child {
+  border-bottom: none;
+}

@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 ROOT = Path('.')
 # 站点基础URL（请根据实际情况修改）
 BASE_URL = "https://yangmingli.com"
+WWW_BASE_URL = "https://www.yangmingli.com"
 
 # 需要排除的目录
 EXCLUDE_DIRS = {"admin", "private"}
@@ -25,16 +26,29 @@ def main():
             continue
         # 生成相对URL，并把 index.html 转为目录形式
         rel_path = file_path.relative_to(ROOT).as_posix()
-        if rel_path == "index.html":
-            url = f"{BASE_URL}/"
-        elif rel_path == "product.html":
-            url = f"{BASE_URL}/product/"
-        elif rel_path.endswith("/index.html"):
-            url = f"{BASE_URL}/{rel_path[:-len('index.html')]}"
-        else:
-            url = f"{BASE_URL}/{rel_path}"
         lastmod = get_lastmod(file_path)
-        urls.append((url, lastmod))
+        
+        # 生成非www版本URL
+        if rel_path == "index.html":
+            non_www_url = f"{BASE_URL}/"
+        elif rel_path == "product.html":
+            non_www_url = f"{BASE_URL}/product/"
+        elif rel_path.endswith("/index.html"):
+            non_www_url = f"{BASE_URL}/{rel_path[:-len('index.html')]}"
+        else:
+            non_www_url = f"{BASE_URL}/{rel_path}"
+        urls.append((non_www_url, lastmod))
+        
+        # 生成www版本URL
+        if rel_path == "index.html":
+            www_url = f"{WWW_BASE_URL}/"
+        elif rel_path == "product.html":
+            www_url = f"{WWW_BASE_URL}/product/"
+        elif rel_path.endswith("/index.html"):
+            www_url = f"{WWW_BASE_URL}/{rel_path[:-len('index.html')]}"
+        else:
+            www_url = f"{WWW_BASE_URL}/{rel_path}"
+        urls.append((www_url, lastmod))
 
     # 生成 sitemap.xml 内容
     sitemap = [

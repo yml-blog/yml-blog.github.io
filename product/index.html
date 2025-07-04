@@ -6,10 +6,30 @@
     /* …（在这里粘入原来的 CSS 样式）… */
   </style>
 
-  <!-- 如果 index.html 里有其他 <meta>、<link> 或者第三方脚本，也一并粘过来 -->
+  <!-- SEO Improvements -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Yangming Li's product management blog covering product development, strategy, and agile methodologies. Insights for product managers and tech leaders.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Yangming's Product Blog">
+  <meta property="og:description" content="Insights on product development, strategy and agile methodologies by Yangming Li">
+  <meta property="og:image" content="https://yml-blog.github.io/Logo.png">
+  <meta property="og:url" content="https://yml-blog.github.io/product/">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Yangming's Product Blog">
+  <meta name="twitter:description" content="Insights on product development, strategy and agile methodologies by Yangming Li">
+  <meta name="twitter:image" content="https://yml-blog.github.io/Logo.png">
+  
   <title>Yangming's Product Blog</title>
+  <link rel="stylesheet" href="/css/blog_tab.css">
+  <link rel="stylesheet" href="/css/blog_post.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body data-spy="scroll" data-target=".navbar" id="page-top">
   <a href="#product" class="skip-link">跳到主要内容</a>
@@ -26,6 +46,17 @@
               I am interested in AI/ML &amp; product design &amp; information visualization.</strong>
             </p>
             <!-- … 其他你首页里 header 的简介、图片等 … -->
+            
+            <!-- Newsletter Signup -->
+            <div class="newsletter-signup">
+              <h4>Subscribe to my Newsletter</h4>
+              <form id="newsletter-form" action="#" method="post">
+                <div class="form-group">
+                  <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+              </form>
+            </div>
           </div>
         </header>
       </div>
@@ -52,6 +83,15 @@
           </ul>
         </nav>
 
+        <!-- Tag filtering -->
+        <div class="tag-filter">
+          <span>Filter by tag:</span>
+          <button class="tag-btn active" data-tag="all">All</button>
+          <button class="tag-btn" data-tag="strategy">Strategy</button>
+          <button class="tag-btn" data-tag="agile">Agile</button>
+          <button class="tag-btn" data-tag="frameworks">Frameworks</button>
+        </div>
+
         <!-- Tab 内容区：只保留 Product 部分 -->
         <div class="tab-content" id="myTabContent" role="main" style="padding:0; margin:0;">
           <div class="tab-pane fade show active" id="product" role="tabpanel" style="padding:0; margin:0;">
@@ -65,7 +105,7 @@
                   </div>
                   <div class="col-md-12 blog-section-content" style="padding:0; margin:0;">
                     <ul>
-                      <li>
+                      <li class="blog-item" data-tags="strategy,frameworks">
                         <h3>
                           <a href="/building-product-scales-company.html">
                             Building a Product That Scales into a Company: Lessons from the 4U Framework
@@ -74,9 +114,25 @@
                         <p>
                           A comprehensive guide to scaling products into successful companies using the 4U Framework and other strategic approaches.
                         </p>
-                        <!-- 分享按钮（复制原来的实现） -->
+                        <!-- Social Sharing Buttons -->
+                        <div class="social-sharing">
+                          <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/building-product-scales-company.html&text=Building a Product That Scales into a Company" class="share-btn twitter" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                          </a>
+                          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/building-product-scales-company.html&title=Building a Product That Scales into a Company" class="share-btn linkedin" target="_blank">
+                            <i class="fa fa-linkedin"></i>
+                          </a>
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/building-product-scales-company.html" class="share-btn facebook" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </div>
+                        <!-- Tags -->
+                        <div class="post-tags">
+                          <span class="tag">strategy</span>
+                          <span class="tag">frameworks</span>
+                        </div>
                       </li>
-                      <li>
+                      <li class="blog-item" data-tags="strategy">
                         <h3>
                           <a href="/product-success-essence.html">
                             The Essence of a Successful Product: Insights for Product Managers
@@ -85,8 +141,24 @@
                         <p>
                           A deep dive into what truly makes a product successful from a product manager's perspective.
                         </p>
+                        <!-- Social Sharing Buttons -->
+                        <div class="social-sharing">
+                          <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/product-success-essence.html&text=The Essence of a Successful Product" class="share-btn twitter" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                          </a>
+                          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/product-success-essence.html&title=The Essence of a Successful Product" class="share-btn linkedin" target="_blank">
+                            <i class="fa fa-linkedin"></i>
+                          </a>
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/product-success-essence.html" class="share-btn facebook" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </div>
+                        <!-- Tags -->
+                        <div class="post-tags">
+                          <span class="tag">strategy</span>
+                        </div>
                       </li>
-                      <li>
+                      <li class="blog-item" data-tags="agile,frameworks">
                         <h3>
                           <a href="/jira-guide.html">
                             A Deep Dive into Jira: Agile Project Management for the Modern Team
@@ -95,6 +167,23 @@
                         <p>
                           A comprehensive guide to using Jira for agile project management and team collaboration.
                         </p>
+                        <!-- Social Sharing Buttons -->
+                        <div class="social-sharing">
+                          <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/jira-guide.html&text=A Deep Dive into Jira" class="share-btn twitter" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                          </a>
+                          <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/jira-guide.html&title=A Deep Dive into Jira" class="share-btn linkedin" target="_blank">
+                            <i class="fa fa-linkedin"></i>
+                          </a>
+                          <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/jira-guide.html" class="share-btn facebook" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                          </a>
+                        </div>
+                        <!-- Tags -->
+                        <div class="post-tags">
+                          <span class="tag">agile</span>
+                          <span class="tag">frameworks</span>
+                        </div>
                       </li>
                       <!-- … 如有更多 Product 文章，按同样格式添加 … -->
                     </ul>
@@ -109,9 +198,93 @@
     </div>
   </div>
 
+  <!-- Schema.org Structured Data for Blog Posts -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "headline": "Yangming's Product Blog",
+    "description": "Insights on product development, strategy and agile methodologies",
+    "url": "https://yml-blog.github.io/product/",
+    "author": {
+      "@type": "Person",
+      "name": "Yangming Li"
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Building a Product That Scales into a Company: Lessons from the 4U Framework",
+        "description": "A comprehensive guide to scaling products into successful companies using the 4U Framework and other strategic approaches.",
+        "url": "https://yml-blog.github.io/building-product-scales-company.html",
+        "keywords": "product strategy, scaling, 4U Framework",
+        "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "The Essence of a Successful Product: Insights for Product Managers",
+        "description": "A deep dive into what truly makes a product successful from a product manager's perspective.",
+        "url": "https://yml-blog.github.io/product-success-essence.html",
+        "keywords": "product management, product success",
+        "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "A Deep Dive into Jira: Agile Project Management for the Modern Team",
+        "description": "A comprehensive guide to using Jira for agile project management and team collaboration.",
+        "url": "https://yml-blog.github.io/jira-guide.html",
+        "keywords": "Jira, agile, project management",
+        "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- —— 把你原 index.html 最后所有 <script>…</script> 粘到这里 —— -->
+  <script src="/js/jquery-2.1.4.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
   <script>
     /* …（原文件中的所有 JavaScript，包括主题切换、轮盘动画等）… */
+  </script>
+  
+  <!-- Tag filtering functionality -->
+  <script>
+    $(document).ready(function() {
+      $('.tag-btn').click(function() {
+        $('.tag-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        var selectedTag = $(this).data('tag');
+        
+        if (selectedTag === 'all') {
+          $('.blog-item').show();
+        } else {
+          $('.blog-item').each(function() {
+            var tags = $(this).data('tags').split(',');
+            if (tags.indexOf(selectedTag) > -1) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
+      });
+      
+      // Newsletter form submission
+      $('#newsletter-form').submit(function(e) {
+        e.preventDefault();
+        alert('Thanks for subscribing! This is a demo - in a real implementation, this would send your email to a server.');
+        $('#email').val('');
+      });
+    });
   </script>
 
   <!-- 原来的页脚版权 -->
