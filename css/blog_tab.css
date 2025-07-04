@@ -68,6 +68,16 @@
 /* Styling for the tab navigation */
 .nav-tabs {
     border-bottom: none;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.nav-tabs .nav-item {
+    flex: 0 0 auto;
+    min-width: 90px; /* 减小最小宽度 */
+    text-align: center;
+    margin-right: 2px; /* 减少标签间距 */
 }
 
 .nav-tabs .nav-link {
@@ -75,9 +85,13 @@
     background-color: transparent;
     border: none;
     border-radius: 0;
-    padding: 15px 20px;
+    padding: 10px 12px; /* 减小内边距 */
     transition: all 0.3s;
     font-weight: 500;
+    font-size: 14px; /* 缩小字体大小 */
+    width: 100%;
+    display: block;
+    text-align: center;
 }
 
 .nav-tabs .nav-link:hover {
@@ -244,5 +258,91 @@
     
     .blog-item {
         padding: 20px 15px;
+    }
+    
+    /* 移动设备上导航标签的优化 */
+    .nav-tabs .nav-item {
+        min-width: 70px;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+}
+
+/* 紧凑型导航标签样式 */
+.compact-tabs {
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.compact-tabs .nav-item {
+    flex: 1 1 auto;
+    min-width: 60px;
+    text-align: center;
+    margin-right: 1px;
+}
+
+.compact-tabs .nav-link {
+    color: #fff !important;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 10px 5px;
+    transition: all 0.3s;
+    font-weight: 500;
+    font-size: 13px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.compact-tabs .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.compact-tabs .nav-link.active {
+    color: #fff !important;
+    background-color: rgba(255,255,255,0.2);
+    border: none;
+    border-bottom: 3px solid #1da1f2;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .tag-btn {
+        padding: 6px 12px;
+        margin-bottom: 8px;
+    }
+    
+    .blog-item {
+        padding: 20px 15px;
+    }
+    
+    /* 移动设备上导航标签的优化 */
+    .nav-tabs .nav-item {
+        min-width: 70px;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+    
+    /* 移动设备上紧凑型导航标签的优化 */
+    .compact-tabs .nav-item {
+        min-width: 50px;
+    }
+    
+    .compact-tabs .nav-link {
+        padding: 8px 3px;
+        font-size: 12px;
     }
 }
