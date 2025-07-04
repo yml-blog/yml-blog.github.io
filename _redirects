@@ -1,1 +1,2 @@
-/nha-cai/10439/08249712.shtml    /product/    301
+# 旧 .shtml 文件重定向到 .html
+/nha-cai/10439/08249712.shtml  /nha-cai/10439/08249712.html  301!
