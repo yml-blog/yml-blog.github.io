@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Yangming Li's product management blog covering product development, strategy, and agile methodologies. Insights for product managers and tech leaders.">
+  <meta name="description" content="Yangming Li的产品管理博客 - 深入探讨产品策略、敏捷方法论、产品设计框架和成功产品案例分析。为产品经理、技术领导者和创业者提供实用指南和专业见解。">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://yangmingli.com/product/">
   
   <!-- Open Graph Tags -->
-  <meta property="og:title" content="Yangming's Product Blog">
-  <meta property="og:description" content="Insights on product development, strategy and agile methodologies by Yangming Li">
-  <meta property="og:image" content="https://yml-blog.github.io/Logo.png">
-  <meta property="og:url" content="https://yml-blog.github.io/product/">
+  <meta property="og:title" content="产品管理与产品策略 | Yangming Li产品博客">
+  <meta property="og:description" content="探索产品开发策略、敏捷方法论和产品框架。Yangming Li分享如何构建成功的产品和扩展业务的实用指南。">
+  <meta property="og:image" content="https://yangmingli.com/Logo.png">
+  <meta property="og:url" content="https://yangmingli.com/product/">
   <meta property="og:type" content="website">
   
   <!-- Twitter Card Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Yangming's Product Blog">
-  <meta name="twitter:description" content="Insights on product development, strategy and agile methodologies by Yangming Li">
-  <meta name="twitter:image" content="https://yml-blog.github.io/Logo.png">
+  <meta name="twitter:title" content="产品管理与产品策略 | Yangming Li产品博客">
+  <meta name="twitter:description" content="探索产品开发策略、敏捷方法论和产品框架。Yangming Li分享如何构建成功的产品和扩展业务的实用指南。">
+  <meta property="twitter:image" content="https://yangmingli.com/Logo.png">
   
-  <title>Yangming's Product Blog</title>
+  <!-- 关键词优化 -->
+  <meta name="keywords" content="产品管理, 产品策略, 敏捷开发, 产品设计, 4U框架, Jira教程, 产品经理, 产品成功, 商业策略, 产品扩展">
+  
+  <title>产品管理与产品策略 | Yangming Li的产品博客</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/style.css">
@@ -112,6 +118,122 @@
       background-color: #fff;
     }
     
+    .intro-section {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .featured-topics {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .topic-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .topic-card:hover {
+      border-color: #1da1f2;
+      transform: translateY(-3px);
+    }
+    
+    .topic-card h4 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    
+    .topic-card p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+    
+    .cta-section {
+      background-color: #1da1f2;
+      color: white;
+      border-radius: 8px;
+      padding: 40px;
+      text-align: center;
+      margin: 40px 0;
+    }
+    
+    .cta-section h3 {
+      margin-bottom: 20px;
+    }
+    
+    .cta-btn {
+      background-color: white;
+      color: #1da1f2;
+      border: none;
+      padding: 12px 30px;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: all 0.3s;
+    }
+    
+    .cta-btn:hover {
+      background-color: #f1f1f1;
+      transform: scale(1.05);
+    }
+    
+    .author-section {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 30px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    .author-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+    
+    .author-image img {
+      width: 100%;
+      height: auto;
+    }
+    
+    .author-bio {
+      flex: 1;
+    }
+    
+    .social-links a {
+      display: inline-block;
+      margin-right: 10px;
+      color: #1da1f2;
+    }
+    
+    .related-articles {
+      margin-top: 40px;
+    }
+    
+    .related-articles h3 {
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+    
     @media (max-width: 992px) {
       .page-container {
         flex-direction: column;
@@ -121,6 +243,10 @@
         width: 100%;
         height: auto;
         position: relative;
+      }
+      
+      .topic-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -142,12 +268,13 @@
         
         <!-- 订阅表单 -->
         <div class="newsletter-signup">
-          <h4>Subscribe to my Newsletter</h4>
+          <h4>订阅产品管理干货</h4>
+          <p>定期获取产品管理最新见解、工具和方法</p>
           <form id="newsletter-form" action="#" method="post">
             <div class="form-group">
-              <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+              <input type="email" class="form-control" id="email" placeholder="您的邮箱地址" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Subscribe</button>
+            <button type="submit" class="btn btn-primary btn-block">订阅</button>
           </form>
         </div>
       </header>
@@ -160,16 +287,16 @@
         <nav aria-label="Main navigation">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link" href="/">About Me &amp; Philosophy</a>
+              <a class="nav-link" href="/">关于我</a>
             </li>
             <li class="nav-item" role="presentation">
               <a class="nav-link" href="/aiml/">AI/ML</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" href="/product/">Product</a>
+              <a class="nav-link active" href="/product/">产品管理</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" href="/engineering/">Engineering</a>
+              <a class="nav-link" href="/engineering/">工程实践</a>
             </li>
           </ul>
         </nav>
@@ -179,17 +306,24 @@
       <div class="content-area">
         <div class="tab-content" id="myTabContent" role="main">
           <div class="tab-pane fade show active" id="product" role="tabpanel">
-            <div class="section-title blog-section-title">
-              <h1>Product Management Blog</h1>
-            </div>
             
+            <!-- 介绍部分 -->
+            <section class="intro-section">
+              <div class="section-title blog-section-title">
+                <h1>产品管理与产品策略</h1>
+              </div>
+              <p>欢迎来到我的产品管理专栏！这里汇集了关于产品开发、策略制定和敏捷方法论的深入见解。我分享如何打造成功产品、扩展业务规模以及使用现代工具提高团队效率的实用经验。</p>
+              <p>无论您是产品经理、创业者还是对产品领域感兴趣的专业人士，这里都能找到对您有价值的内容。我结合多年在产品管理领域的实践经验，提供真实案例分析和实用工具介绍。</p>
+              <p>探索下面的文章，发现如何应用 <strong>4U框架</strong> 构建可扩展的产品、掌握 <strong>成功产品的核心要素</strong>，以及如何使用 <strong>Jira进行敏捷项目管理</strong>。</p>
+            </section>
+
             <!-- 标签过滤 -->
             <div class="tag-filter">
-              <span>Filter by tag:</span>
-              <button class="tag-btn active" data-tag="all">All</button>
-              <button class="tag-btn" data-tag="strategy">Strategy</button>
-              <button class="tag-btn" data-tag="agile">Agile</button>
-              <button class="tag-btn" data-tag="frameworks">Frameworks</button>
+              <span>按主题筛选:</span>
+              <button class="tag-btn active" data-tag="all">全部</button>
+              <button class="tag-btn" data-tag="strategy">产品策略</button>
+              <button class="tag-btn" data-tag="agile">敏捷方法</button>
+              <button class="tag-btn" data-tag="frameworks">产品框架</button>
             </div>
             
             <!-- 博客列表 -->
@@ -197,26 +331,27 @@
               <li class="blog-item" data-tags="strategy,frameworks">
                 <h3>
                   <a href="/building-product-scales-company.html">
-                    Building a Product That Scales into a Company: Lessons from the 4U Framework
+                    构建可扩展的产品：4U框架实战指南
                   </a>
                 </h3>
                 <p>
-                  A comprehensive guide to scaling products into successful companies using the 4U Framework and other strategic approaches.
+                  深入剖析如何利用4U框架构建可扩展为公司的产品。探讨从产品到公司的扩展路径、常见挑战及解决方案。对于创业者和产品经理，这里提供了评估产品潜力和制定成长策略的实用框架。
                 </p>
                 <!-- 标签 -->
                 <div class="post-tags">
-                  <span class="tag">strategy</span>
-                  <span class="tag">frameworks</span>
+                  <span class="tag">产品策略</span>
+                  <span class="tag">产品框架</span>
+                  <span class="tag">创业扩展</span>
                 </div>
                 <!-- 社交分享按钮 -->
                 <div class="social-sharing">
-                  <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/building-product-scales-company.html&text=Building a Product That Scales into a Company" class="share-btn twitter" target="_blank">
+                  <a href="https://twitter.com/intent/tweet?url=https://yangmingli.com/building-product-scales-company.html&text=构建可扩展的产品：4U框架实战指南" class="share-btn twitter" target="_blank">
                     <i class="fa fa-twitter"></i>
                   </a>
-                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/building-product-scales-company.html&title=Building a Product That Scales into a Company" class="share-btn linkedin" target="_blank">
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yangmingli.com/building-product-scales-company.html&title=构建可扩展的产品：4U框架实战指南" class="share-btn linkedin" target="_blank">
                     <i class="fa fa-linkedin"></i>
                   </a>
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/building-product-scales-company.html" class="share-btn facebook" target="_blank">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yangmingli.com/building-product-scales-company.html" class="share-btn facebook" target="_blank">
                     <i class="fa fa-facebook"></i>
                   </a>
                 </div>
@@ -225,25 +360,27 @@
               <li class="blog-item" data-tags="strategy">
                 <h3>
                   <a href="/product-success-essence.html">
-                    The Essence of a Successful Product: Insights for Product Managers
+                    成功产品的核心要素：产品经理指南
                   </a>
                 </h3>
                 <p>
-                  A deep dive into what truly makes a product successful from a product manager's perspective.
+                  本文深入探讨从产品经理角度看什么才是真正成功的产品。从市场契合度、用户体验到盈利模式，全面分析产品成功的关键因素。文章包含多个成功和失败的产品案例研究，提供实用的评估清单和战略框架，帮助您构建和优化自己的产品策略。
                 </p>
                 <!-- 标签 -->
                 <div class="post-tags">
-                  <span class="tag">strategy</span>
+                  <span class="tag">产品策略</span>
+                  <span class="tag">用户体验</span>
+                  <span class="tag">产品管理</span>
                 </div>
                 <!-- 社交分享按钮 -->
                 <div class="social-sharing">
-                  <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/product-success-essence.html&text=The Essence of a Successful Product" class="share-btn twitter" target="_blank">
+                  <a href="https://twitter.com/intent/tweet?url=https://yangmingli.com/product-success-essence.html&text=成功产品的核心要素：产品经理指南" class="share-btn twitter" target="_blank">
                     <i class="fa fa-twitter"></i>
                   </a>
-                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/product-success-essence.html&title=The Essence of a Successful Product" class="share-btn linkedin" target="_blank">
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yangmingli.com/product-success-essence.html&title=成功产品的核心要素：产品经理指南" class="share-btn linkedin" target="_blank">
                     <i class="fa fa-linkedin"></i>
                   </a>
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/product-success-essence.html" class="share-btn facebook" target="_blank">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yangmingli.com/product-success-essence.html" class="share-btn facebook" target="_blank">
                     <i class="fa fa-facebook"></i>
                   </a>
                 </div>
@@ -252,37 +389,153 @@
               <li class="blog-item" data-tags="agile,frameworks">
                 <h3>
                   <a href="/jira-guide.html">
-                    A Deep Dive into Jira: Agile Project Management for the Modern Team
+                    Jira深度指南：现代团队的敏捷项目管理
                   </a>
                 </h3>
                 <p>
-                  A comprehensive guide to using Jira for agile project management and team collaboration.
+                  这是一份关于如何使用Jira进行敏捷项目管理和团队协作的全面指南。从基础设置到高级工作流配置，从看板使用到冲刺规划，本文涵盖了Jira在现代团队中的各种应用场景。您将学习如何通过Jira提高团队透明度、优化任务分配并有效跟踪项目进度。
                 </p>
                 <!-- 标签 -->
                 <div class="post-tags">
-                  <span class="tag">agile</span>
-                  <span class="tag">frameworks</span>
+                  <span class="tag">敏捷方法</span>
+                  <span class="tag">项目管理</span>
+                  <span class="tag">团队协作</span>
                 </div>
                 <!-- 社交分享按钮 -->
                 <div class="social-sharing">
-                  <a href="https://twitter.com/intent/tweet?url=https://yml-blog.github.io/jira-guide.html&text=A Deep Dive into Jira" class="share-btn twitter" target="_blank">
+                  <a href="https://twitter.com/intent/tweet?url=https://yangmingli.com/jira-guide.html&text=Jira深度指南：现代团队的敏捷项目管理" class="share-btn twitter" target="_blank">
                     <i class="fa fa-twitter"></i>
                   </a>
-                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yml-blog.github.io/jira-guide.html&title=A Deep Dive into Jira" class="share-btn linkedin" target="_blank">
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yangmingli.com/jira-guide.html&title=Jira深度指南：现代团队的敏捷项目管理" class="share-btn linkedin" target="_blank">
                     <i class="fa fa-linkedin"></i>
                   </a>
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yml-blog.github.io/jira-guide.html" class="share-btn facebook" target="_blank">
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=https://yangmingli.com/jira-guide.html" class="share-btn facebook" target="_blank">
                     <i class="fa fa-facebook"></i>
                   </a>
                 </div>
               </li>
             </ul>
+            
+            <!-- 主题分类部分 -->
+            <section class="featured-topics">
+              <h2>产品管理核心主题</h2>
+              <p>探索产品管理中最重要的几个领域，获取实用知识和专业见解</p>
+              
+              <div class="topic-grid">
+                <div class="topic-card">
+                  <h4>产品策略制定</h4>
+                  <p>学习如何创建有效的产品策略，包括市场定位、竞争分析、产品路线图规划等关键环节。</p>
+                  <a href="/tags/product-strategy/">查看相关文章 →</a>
+                </div>
+                
+                <div class="topic-card">
+                  <h4>用户研究与洞察</h4>
+                  <p>深入了解用户需求的方法，如何收集和分析用户反馈，以及将数据转化为产品决策的技巧。</p>
+                  <a href="/tags/user-research/">查看相关文章 →</a>
+                </div>
+                
+                <div class="topic-card">
+                  <h4>敏捷产品管理</h4>
+                  <p>探索敏捷框架下的产品管理实践，包括Scrum、看板方法，以及如何进行有效的产品迭代。</p>
+                  <a href="/tags/agile-product/">查看相关文章 →</a>
+                </div>
+                
+                <div class="topic-card">
+                  <h4>产品分析与度量</h4>
+                  <p>学习如何设定关键产品指标、构建分析框架，以及利用数据驱动产品决策的方法。</p>
+                  <a href="/tags/product-metrics/">查看相关文章 →</a>
+                </div>
+              </div>
+            </section>
+            
+            <!-- 号召性动作部分 -->
+            <section class="cta-section">
+              <h3>想获取更多产品管理资源和案例研究？</h3>
+              <p>订阅我的产品管理专题，获取独家内容、实用工具和行业见解</p>
+              <button class="cta-btn" onclick="document.getElementById('email').focus()">立即订阅</button>
+            </section>
+            
+            <!-- 作者介绍部分 -->
+            <section class="author-section">
+              <div class="author-image">
+                <img src="/img/bot.jpg" alt="Yangming Li">
+              </div>
+              <div class="author-bio">
+                <h3>关于作者</h3>
+                <p>Yangming Li是一位资深产品管理专家，专注于数据驱动的产品开发和AI/ML产品应用。多年来，他帮助多家公司构建和优化产品策略，在产品管理和数据科学领域拥有丰富经验。</p>
+                <div class="social-links">
+                  <a href="https://linkedin.com" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a>
+                  <a href="https://github.com/yml-blog" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+                  <a href="mailto:contact@yangmingli.com"><i class="fa fa-envelope"></i> Email</a>
+                </div>
+              </div>
+            </section>
+            
+            <!-- 相关文章推荐 -->
+            <section class="related-articles">
+              <h3>推荐阅读</h3>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/mlops-essential-skills.html">MLOps必备技能</a></h5>
+                      <p class="card-text">探索将ML模型部署到生产环境的最佳实践和工具链。</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/ray_explanation.html">Ray框架深度解析</a></h5>
+                      <p class="card-text">了解如何使用Ray构建分布式AI应用和系统。</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/docker-in-ml.html">数据科学中的Docker应用</a></h5>
+                      <p class="card-text">掌握Docker在ML项目中的最佳实践和实用技巧。</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
           </div>
         </div>
       </div>
       
       <!-- 页脚 -->
       <footer class="footer">
+        <div class="row">
+          <div class="col-md-4">
+            <h5>快速链接</h5>
+            <ul class="list-unstyled">
+              <li><a href="/">首页</a></li>
+              <li><a href="/aiml/">AI/ML专栏</a></li>
+              <li><a href="/product/">产品管理</a></li>
+              <li><a href="/engineering/">工程实践</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5>资源</h5>
+            <ul class="list-unstyled">
+              <li><a href="/sitemap.xml">网站地图</a></li>
+              <li><a href="/rss.xml">RSS订阅</a></li>
+              <li><a href="mailto:contact@yangmingli.com">联系我</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h5>关注我</h5>
+            <div class="social-links">
+              <a href="https://linkedin.com" target="_blank"><i class="fa fa-linkedin"></i></a>
+              <a href="https://github.com/yml-blog" target="_blank"><i class="fa fa-github"></i></a>
+              <a href="https://twitter.com" target="_blank"><i class="fa fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr>
         <p>&copy; 2024 Yangming Li. All rights reserved.</p>
       </footer>
     </div>
@@ -293,43 +546,68 @@
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "headline": "Yangming's Product Blog",
-    "description": "Insights on product development, strategy and agile methodologies",
-    "url": "https://yml-blog.github.io/product/",
+    "headline": "产品管理与产品策略",
+    "description": "探索产品开发策略、敏捷方法论和产品框架。Yangming Li分享如何构建成功的产品和扩展业务的实用指南。",
+    "url": "https://yangmingli.com/product/",
     "author": {
       "@type": "Person",
       "name": "Yangming Li"
     },
+    "publisher": {
+      "@type": "Person",
+      "name": "Yangming Li",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yangmingli.com/Logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yangmingli.com/product/"
+    },
+    "keywords": "产品管理, 产品策略, 敏捷开发, 产品设计, 4U框架, Jira教程, 产品经理, 产品成功, 商业策略, 产品扩展",
     "blogPost": [
       {
         "@type": "BlogPosting",
-        "headline": "Building a Product That Scales into a Company: Lessons from the 4U Framework",
-        "description": "A comprehensive guide to scaling products into successful companies using the 4U Framework and other strategic approaches.",
-        "url": "https://yml-blog.github.io/building-product-scales-company.html",
-        "keywords": "product strategy, scaling, 4U Framework",
+        "headline": "构建可扩展的产品：4U框架实战指南",
+        "description": "深入剖析如何利用4U框架构建可扩展为公司的产品。探讨从产品到公司的扩展路径、常见挑战及解决方案。",
+        "url": "https://yangmingli.com/building-product-scales-company.html",
+        "keywords": "产品策略, 产品扩展, 4U框架, 创业",
         "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        },
+        "publisher": {
           "@type": "Person",
           "name": "Yangming Li"
         }
       },
       {
         "@type": "BlogPosting",
-        "headline": "The Essence of a Successful Product: Insights for Product Managers",
-        "description": "A deep dive into what truly makes a product successful from a product manager's perspective.",
-        "url": "https://yml-blog.github.io/product-success-essence.html",
-        "keywords": "product management, product success",
+        "headline": "成功产品的核心要素：产品经理指南",
+        "description": "深入探讨从产品经理角度看什么才是真正成功的产品。分析产品成功的关键因素与评估方法。",
+        "url": "https://yangmingli.com/product-success-essence.html",
+        "keywords": "产品管理, 产品成功, 用户体验, 产品策略",
         "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        },
+        "publisher": {
           "@type": "Person",
           "name": "Yangming Li"
         }
       },
       {
         "@type": "BlogPosting",
-        "headline": "A Deep Dive into Jira: Agile Project Management for the Modern Team",
-        "description": "A comprehensive guide to using Jira for agile project management and team collaboration.",
-        "url": "https://yml-blog.github.io/jira-guide.html",
-        "keywords": "Jira, agile, project management",
+        "headline": "Jira深度指南：现代团队的敏捷项目管理",
+        "description": "全面介绍如何使用Jira进行敏捷项目管理和团队协作。从基础设置到高级工作流，助您提高团队效率。",
+        "url": "https://yangmingli.com/jira-guide.html",
+        "keywords": "Jira, 敏捷, 项目管理, 团队协作, 工作流",
         "author": {
+          "@type": "Person",
+          "name": "Yangming Li"
+        },
+        "publisher": {
           "@type": "Person",
           "name": "Yangming Li"
         }
@@ -368,7 +646,7 @@
       // Newsletter form submission
       $('#newsletter-form').submit(function(e) {
         e.preventDefault();
-        alert('Thanks for subscribing! This is a demo - in a real implementation, this would send your email to a server.');
+        alert('感谢订阅！这是一个演示 - 在实际实现中，这将把您的电子邮件发送到服务器。');
         $('#email').val('');
       });
     });
