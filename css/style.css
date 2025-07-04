@@ -348,17 +348,37 @@ ul {
 }
 
 .footer {
-    padding: 30px 50px;
+    clear: both;
+    padding: 25px 0;
+    text-align: center;
+    margin-top: 30px;
+    position: relative;
 }
 
 .footer .copyright-section {
-    font-size: 13px;
-    color: #090707;
+    font-size: 0.9em;
+    color: #777;
 }
 
 .footer .copyright-section .copytext {
     font-weight: 400;
     display: block;
+}
+
+/* 防止页脚在顶部显示的修复 */
+.right-col-block .footer,
+.right-col-block [style*="text-align: center; padding: 20px"] {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: none; /* 隐藏右侧栏中的页脚 */
+}
+
+/* 只在页面底部显示页脚 */
+body > .footer,
+body > [style*="text-align: center; padding: 20px"] {
+    display: block;
+    margin-top: auto;
 }
 
 @media (max-width: 480px) {
