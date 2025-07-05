@@ -91,6 +91,8 @@ function initSearchAndFilter() {
 }
 
 function createBlogPanel() {
+    console.log("Creating blog panel...");
+
     // Get current page URL
     const currentPage = window.location.pathname.split('/').pop();
     
@@ -119,88 +121,113 @@ function createBlogPanel() {
     
     // Create wrapper for content
     const container = document.querySelector('.container');
-    if (!container) return; // Exit if container not found
-    
-    const contentWrapper = document.createElement('div');
-    contentWrapper.className = 'content-wrapper';
-    
-    // Save the footer to reposition it later
-    const footer = container.querySelector('footer.footer');
-    let savedFooter = null;
-    if (footer) {
-        savedFooter = footer.cloneNode(true);
-        footer.parentNode.removeChild(footer);
+    if (!container) {
+        console.error("Container not found");
+        return; // Exit if container not found
     }
     
-    // Move all content except the panel into the wrapper
-    while (container.firstChild) {
-        contentWrapper.appendChild(container.firstChild);
+    console.log("Container found:", container);
+    
+    // Don't use flexbox layout which causes spacing issues
+    // Instead, insert the panel directly into the page structure
+    
+    // Find the header and main content section
+    const header = container.querySelector('.header');
+    const main = container.querySelector('main');
+    
+    console.log("Header:", header);
+    console.log("Main content:", main);
+    
+    if (!main) {
+        console.error("Main content not found");
+        return;
     }
     
-    // Create flex container
-    const flexContainer = document.createElement('div');
-    flexContainer.className = 'flex-container';
+    // Create a wrapper div for our layout
+    const layoutWrapper = document.createElement('div');
+    layoutWrapper.className = 'blog-layout-wrapper';
+    layoutWrapper.style.display = 'flex';
+    layoutWrapper.style.gap = '30px';
+    layoutWrapper.style.marginTop = '20px';
     
-    // Add panel and content wrapper to flex container
-    flexContainer.innerHTML = panelHTML;
-    flexContainer.appendChild(contentWrapper);
+    // Create panel element
+    const panelElement = document.createElement('div');
+    panelElement.className = 'blog-panel-container';
+    panelElement.innerHTML = panelHTML;
     
-    // Add flex container to main container
-    container.appendChild(flexContainer);
+    // Add panel first (left side)
+    layoutWrapper.appendChild(panelElement);
     
-    // Add the footer back at the container level
-    if (savedFooter) {
-        container.appendChild(savedFooter);
+    // Create content container
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'blog-content-container';
+    contentContainer.style.flex = '1';
+    
+    // Move the main content to our container
+    contentContainer.appendChild(main);
+    
+    // Add content container second (right side)
+    layoutWrapper.appendChild(contentContainer);
+    
+    // Find where to insert our layout
+    const breadcrumbs = container.querySelector('.breadcrumbs');
+    const themeSwitch = container.querySelector('.theme-switch-wrapper');
+    const metadata = container.querySelector('.article-metadata');
+    const shareButtons = container.querySelector('.blog-share-buttons');
+    
+    console.log("Breadcrumbs:", breadcrumbs);
+    console.log("Theme switch:", themeSwitch);
+    console.log("Metadata:", metadata);
+    console.log("Share buttons:", shareButtons);
+    
+    // Insert our layout at the appropriate position
+    if (shareButtons) {
+        shareButtons.after(layoutWrapper);
+    } else if (metadata) {
+        metadata.after(layoutWrapper);
+    } else if (themeSwitch) {
+        themeSwitch.after(layoutWrapper);
+    } else if (breadcrumbs) {
+        breadcrumbs.after(layoutWrapper);
+    } else if (header) {
+        header.after(layoutWrapper);
+    } else {
+        container.appendChild(layoutWrapper);
     }
+    
+    console.log("Blog panel layout created");
 }
 
 // Add CSS styles
 const styles = `
-    .container {
-        max-width: 1400px !important;
-        padding: 20px !important;
-    }
-
-    .flex-container {
-        display: flex;
-        gap: 30px;
-        position: relative;
-    }
-
+    /* Blog panel styles */
     .blog-panel {
-        flex: 0 0 300px;
         background: #f8f9fa;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         position: sticky;
         top: 20px;
-        height: fit-content;
-        margin-top: 20px;
+        width: 300px;
     }
-
-    .content-wrapper {
-        flex: 1;
-        max-width: 800px;
-    }
-
+    
     .blog-panel h3 {
         color: #333;
         margin-bottom: 15px;
         padding-bottom: 10px;
         border-bottom: 2px solid #e9ecef;
     }
-
+    
     .blog-links {
         list-style: none;
         padding: 0;
         margin: 0;
     }
-
+    
     .blog-links li {
         margin-bottom: 15px;
     }
-
+    
     .blog-links a {
         display: block;
         text-decoration: none;
@@ -208,35 +235,65 @@ const styles = `
         border-radius: 4px;
         transition: background-color 0.3s;
     }
-
+    
     .blog-links a:hover {
         background-color: #e9ecef;
     }
-
+    
     .blog-category {
         display: block;
         color: #6c757d;
         font-size: 0.9em;
         margin-bottom: 5px;
     }
-
+    
     .blog-title {
         display: block;
         color: #2a54f5;
         font-weight: 500;
     }
-
+    
+    /* Dark mode compatibility */
+    body.dark-mode .blog-panel {
+        background-color: #2d2d2d;
+        border-color: #3d3d3d;
+    }
+    
+    body.dark-mode .blog-panel h3 {
+        color: #f5f5f5;
+        border-color: #444;
+    }
+    
+    body.dark-mode .blog-links a:hover {
+        background-color: #3d3d3d;
+    }
+    
+    body.dark-mode .blog-title {
+        color: #f1780e;
+    }
+    
+    body.dark-mode .blog-category {
+        color: #aaa;
+    }
+    
+    /* Ensure blog title color is correct */
+    h1 {
+        color: #f1780e !important;
+    }
+    
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
-        .flex-container {
+        .blog-layout-wrapper {
             flex-direction: column;
+        }
+        
+        .blog-panel-container {
+            width: 100%;
+            margin-bottom: 20px;
         }
         
         .blog-panel {
             position: static;
-            width: 100%;
-        }
-        
-        .content-wrapper {
             width: 100%;
         }
     }
@@ -249,6 +306,7 @@ document.head.appendChild(styleSheet);
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM fully loaded, creating blog panel");
     createBlogPanel();
     initSearchAndFilter();
 });

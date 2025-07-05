@@ -1,42 +1,49 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head><style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Hind', sans-serif;
-  line-height: 1.6;
-}
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-.header {
-  text-align: center;
-  padding: 2rem 0;
-}
-h1 {
-  margin-top: 0;
-}
-</style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li</title>
-<meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." name="description"/>
-<link href="favicon.png" rel="icon"/>
-<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
-<link href="css/font-awesome.min.css" rel="stylesheet"/>
-<link href="css/bootstrap.min.css" rel="stylesheet"/>
-<link href="css/style_blog.css" rel="stylesheet"/>
-<link href="css/blog_post.css" rel="stylesheet"/>
-<link href="css/nav.css" rel="stylesheet"/>
-<link href="css/prism.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
-<style>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li</title>
+    <meta name="description" content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.">
+    <meta name="keywords" content="Docker, Machine Learning, MLOps, Containerization, DevOps, Model Deployment">
+    <link href="favicon.png" rel="icon">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link href="https://yangmingli.com/docker-in-ml.html" rel="canonical">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li">
+    <meta property="og:description" content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.">
+    <meta property="og:url" content="https://yangmingli.com/docker-in-ml.html">
+    <meta property="og:image" content="https://yangmingli.com/img/Logo.png">
+    <meta property="og:site_name" content="Yangming Li - AI/ML Blog">
+    <meta property="og:locale" content="en_US">
+    <meta property="article:author" content="Yangming Li">
+    <meta property="article:published_time" content="2024-07-01T12:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-01T12:00:00+00:00">
+    <meta property="article:section" content="AI/ML">
+    <meta property="article:tag" content="Docker, Machine Learning, MLOps, Containerization, DevOps">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li">
+    <meta name="twitter:description" content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.">
+    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png">
+    
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    
+    <!-- Prism.js for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet">
+    
+    <script src="js/loadHeader.js"></script>
+    <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
             display: flex;
@@ -128,7 +135,7 @@ h1 {
         body.dark-mode .nav-menu {
             background-color: #252525;
         }
-        
+
         /* Social sharing buttons */
         .blog-share-buttons {
             margin-top: 20px;
@@ -207,75 +214,192 @@ h1 {
             box-shadow: 0 6px 16px rgba(241, 120, 14, 0.4);
             color: white;
         }
-</style><link href="https://yangmingli.com/docker-in-ml.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li" property="og:title"/><meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." property="og:description"/><meta content="https://yangmingli.com/docker-in-ml.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Docker for ML: Reproducible Environments and Seamless Deployment | Yangming Li" name="twitter:title"/><meta content="Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Docker for ML: Reproducible Environments and Seamless Deployment", "description": "Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "datePublished": "2024-07-01T12:00:00+00:00", "dateModified": "2024-07-01T12:00:00+00:00", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/docker-in-ml.html"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yangmingli.com/"}, {"@type": "ListItem", "position": 2, "name": "AI/ML", "item": "https://yangmingli.com/#aiml"}, {"@type": "ListItem", "position": 3, "name": "Docker for ML", "item": "https://yangmingli.com/docker-in-ml.html"}]}</script>  <!-- Canonical URL -->
-  <link rel="canonical" href="https://yangmingli.com/docker-in-ml.html">
-  </head>
+        
+        /* Code block styling */
+        pre[class*="language-"] {
+            border-radius: 6px;
+            margin: 1.5em 0;
+        }
+        
+        .code-block {
+            position: relative;
+            margin: 2em 0;
+        }
+        
+        .code-header {
+            display: flex;
+            align-items: center;
+            background: #343a40;
+            color: #f8f9fa;
+            padding: 0.5em 1em;
+            font-size: 0.85em;
+            border-radius: 6px 6px 0 0;
+            border-bottom: 1px solid #495057;
+        }
+        
+        .code-header + pre[class*="language-"] {
+            margin-top: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        
+        /* Technical box styling */
+        .technical-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid #f1780e;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #f1780e;
+        }
+        
+        /* Add padding to the container to fix spacing issue with fixed navbar */
+        .container {
+            padding-top: 70px;
+        }
+    </style>
+    
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Docker for ML: Reproducible Environments and Seamless Deployment",
+      "description": "Docker streamlines machine learning workflows by ensuring reproducible environments, consistent dependencies, and scalable deployments. Learn step-by-step containerization for data science projects with practical examples.",
+      "image": "https://yangmingli.com/img/Logo.png",
+      "datePublished": "2024-07-01T12:00:00+00:00",
+      "dateModified": "2024-07-01T12:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Yangming Li",
+        "url": "https://yangmingli.com/",
+        "jobTitle": "AI Engineer & Product Manager"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Yangming Li Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yangmingli.com/img/Logo.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yangmingli.com/docker-in-ml.html"
+      },
+      "keywords": "Docker, Machine Learning, MLOps, Containerization, DevOps, Model Deployment",
+      "articleSection": "AI/ML",
+      "inLanguage": ["en-US"]
+    }
+    </script>
+    
+    <!-- Breadcrumb structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://yangmingli.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI/ML",
+          "item": "https://yangmingli.com/#aiml"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Docker for ML",
+          "item": "https://yangmingli.com/docker-in-ml.html"
+        }
+      ]
+    }
+    </script>
+</head>
 <body>
-<div class="main-content">
-<div class="container">
-<header class="header">
-<div class="content text-center">
-<h1>Leveraging Docker in Machine Learning and Data Science</h1>
-<p class="lead">By Yangming Li</p>
-</div>
-</header>
-<!-- Breadcrumbs -->
-<div class="breadcrumbs">
-<a href="index.html">Home</a>
-<span class="separator">/</span>
-<a href="index.html#aiml">AI/ML</a>
-<span class="separator">/</span>
-<span>Docker for ML</span>
-</div>
-<!-- Dark mode toggle -->
-<div class="theme-switch-wrapper">
-<span>Light</span>
-<label class="theme-switch" for="checkbox">
-<input id="checkbox" type="checkbox"/>
-<div class="slider round"></div>
-</label>
-<span>Dark</span>
-</div>
-<div class="article-metadata">
-<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
-<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
-<div class="keywords">
-<strong>Keywords:</strong> Docker, Machine Learning, MLOps, Containerization, DevOps, Model Deployment
-                </div>
-</div>
-<!-- Social sharing buttons -->
-<div class="blog-share-buttons">
-<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
-<i class="fa fa-twitter"></i> Share on Twitter
-                </a>
-<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
-<i class="fa fa-linkedin"></i> Share on LinkedIn
-                </a>
-<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
-<i class="fa fa-envelope"></i> Share via Email
-                </a>
-</div>
-<main>
-<section class="intro">
-<p>Machine learning and data science projects often require complex software environments with various libraries, dependencies, and specific version requirements. Managing and reproducing these environments can be challenging, especially when collaborating across teams or deploying models to production. This is where Docker shines as a tool for containerization, enabling reproducible, scalable, and consistent environments. In this blog, we'll explore how Docker is used in machine learning and data science, from local development to large-scale deployments.</p>
-</section>
-<section>
-<h2>Why Docker?</h2>
-<p>Docker allows you to package an application and its dependencies into a "container," a standardized unit of software. Containers bundle code, runtime, libraries, and configurations into a single, isolated environment that runs consistently across different computing environments. This approach offers several advantages for machine learning and data science:</p>
-<ul>
-<li><strong>Reproducibility:</strong> Docker ensures that an application will behave the same regardless of where it is run, from local development to cloud environments.</li>
-<li><strong>Scalability:</strong> Docker makes it easy to scale applications, especially when combined with orchestration tools like Kubernetes.</li>
-<li><strong>Isolation:</strong> Each container runs in its own environment, preventing conflicts between different projects or dependencies.</li>
-<li><strong>Ease of Deployment:</strong> Docker simplifies deployment to various environments, including cloud platforms, by bundling dependencies and configurations into a single image.</li>
-</ul>
-</section>
-<section>
-<h2>Key Use Cases for Docker in Machine Learning and Data Science</h2>
-<h3>Environment Management and Reproducibility</h3>
-<p>Machine learning experiments require specific versions of libraries, which can cause compatibility issues. By defining these requirements in a Dockerfile, you create a version-controlled and reproducible environment. This environment can be shared with other team members or even across different machines without worrying about installation issues.</p>
-<div class="code-block">
-<h4>Example Dockerfile for a Python-based ML project:</h4>
-<pre><code class="language-dockerfile">FROM python:3.9-slim
+    <div class="container">
+        <header class="header">
+            <div class="content text-center">
+                <h1>Leveraging Docker in Machine Learning and Data Science</h1>
+                <p class="lead">By Yangming Li</p>
+            </div>
+        </header>
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <a href="index.html">Home</a>
+            <span class="separator">/</span>
+            <a href="index.html#aiml">AI/ML</a>
+            <span class="separator">/</span>
+            <span>Docker for ML</span>
+        </div>
+        
+        <!-- Dark mode toggle -->
+        <div class="theme-switch-wrapper">
+            <span>Light</span>
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <span>Dark</span>
+        </div>
+        
+        <div class="article-metadata">
+            <span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+            <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+            <div class="keywords">
+                <strong>Keywords:</strong> Docker, Machine Learning, MLOps, Containerization, DevOps, Model Deployment
+            </div>
+        </div>
+        
+        <!-- Social sharing buttons -->
+        <div class="blog-share-buttons">
+            <a href="#" class="twitter" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+                <i class="fa fa-twitter"></i> Share on Twitter
+            </a>
+            <a href="#" class="linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+                <i class="fa fa-linkedin"></i> Share on LinkedIn
+            </a>
+            <a href="#" class="email" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+                <i class="fa fa-envelope"></i> Share via Email
+            </a>
+        </div>
+        
+        <main>
+            <section class="intro">
+                <p>Machine learning and data science projects often require complex software environments with various libraries, dependencies, and specific version requirements. Managing and reproducing these environments can be challenging, especially when collaborating across teams or deploying models to production. This is where Docker shines as a tool for containerization, enabling reproducible, scalable, and consistent environments. In this blog, we'll explore how Docker is used in machine learning and data science, from local development to large-scale deployments.</p>
+            </section>
+            
+            <section>
+                <h2>Why Docker?</h2>
+                <p>Docker allows you to package an application and its dependencies into a "container," a standardized unit of software. Containers bundle code, runtime, libraries, and configurations into a single, isolated environment that runs consistently across different computing environments. This approach offers several advantages for machine learning and data science:</p>
+                <ul>
+                    <li><strong>Reproducibility:</strong> Docker ensures that an application will behave the same regardless of where it is run, from local development to cloud environments.</li>
+                    <li><strong>Scalability:</strong> Docker makes it easy to scale applications, especially when combined with orchestration tools like Kubernetes.</li>
+                    <li><strong>Isolation:</strong> Each container runs in its own environment, preventing conflicts between different projects or dependencies.</li>
+                    <li><strong>Ease of Deployment:</strong> Docker simplifies deployment to various environments, including cloud platforms, by bundling dependencies and configurations into a single image.</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h2>Key Use Cases for Docker in Machine Learning and Data Science</h2>
+                <h3>Environment Management and Reproducibility</h3>
+                <p>Machine learning experiments require specific versions of libraries, which can cause compatibility issues. By defining these requirements in a Dockerfile, you create a version-controlled and reproducible environment. This environment can be shared with other team members or even across different machines without worrying about installation issues.</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">Dockerfile</span>
+                    </div>
+                    <pre><code class="language-dockerfile">FROM python:3.9-slim
 
 WORKDIR /app
 COPY . /app
@@ -283,16 +407,21 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "train.py"]</code></pre>
-</div>
-<h3>Model Training and Experimentation</h3>
-<p>Docker enables you to isolate different versions of your training scripts and experiment configurations. By using Docker images, you can quickly switch between different environments and ensure that each experiment is executed in a controlled setup.</p>
-<p>For example, if you want to run experiments with different versions of TensorFlow, you can build separate Docker images with each version and run them in parallel.</p>
-<h3>Collaboration Across Teams</h3>
-<p>Docker allows you to share your work easily. By sharing Docker images or Dockerfiles, team members can reproduce each other's work without setting up the environment from scratch. This is particularly helpful in multi-disciplinary teams where data scientists, machine learning engineers, and software developers collaborate.</p>
-<h3>Deployment and Scaling of ML Models</h3>
-<div class="code-block">
-<h4>A typical setup might look like this:</h4>
-<pre><code class="language-dockerfile">FROM python:3.9
+                </div>
+                
+                <h3>Model Training and Experimentation</h3>
+                <p>Docker enables you to isolate different versions of your training scripts and experiment configurations. By using Docker images, you can quickly switch between different environments and ensure that each experiment is executed in a controlled setup.</p>
+                <p>For example, if you want to run experiments with different versions of TensorFlow, you can build separate Docker images with each version and run them in parallel.</p>
+                
+                <h3>Collaboration Across Teams</h3>
+                <p>Docker allows you to share your work easily. By sharing Docker images or Dockerfiles, team members can reproduce each other's work without setting up the environment from scratch. This is particularly helpful in multi-disciplinary teams where data scientists, machine learning engineers, and software developers collaborate.</p>
+                
+                <h3>Deployment and Scaling of ML Models</h3>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-language">Dockerfile</span>
+                    </div>
+                    <pre><code class="language-dockerfile">FROM python:3.9
 
 WORKDIR /app
 COPY . /app
@@ -301,32 +430,37 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 80
 CMD ["python", "serve.py"]</code></pre>
-</div>
-</section>
-<section>
-<h2>Using Docker for Continuous Integration (CI) and Continuous Deployment (CD)</h2>
-<p>Docker simplifies the CI/CD process by ensuring that the same environment is used in development, testing, and production. Using Docker images, you can standardize and automate the testing of machine learning models, ensuring that they perform consistently before deployment.</p>
-<div class="technical-box">
-<h3>Example CI/CD workflow with Docker:</h3>
-<ul>
-<li><strong>Build:</strong> Create a Docker image with the latest code and dependencies.</li>
-<li><strong>Test:</strong> Run tests inside the container to validate the model's performance.</li>
-<li><strong>Deploy:</strong> Deploy the container to a production environment, or push the image to a registry like Docker Hub.</li>
-</ul>
-</div>
-</section>
-<section>
-<h2>Real-World Example: Deploying an ML Model with Docker</h2>
-<p>Suppose we've trained a sentiment analysis model and want to serve it as an API. Here's a step-by-step guide to deploying it with Docker:</p>
-<ol>
-<li>
-<h4>Prepare the Model and Code:</h4>
-<p>Save the trained model and create a Python script, serve.py, that loads the model and processes requests.</p>
-</li>
-<li>
-<h4>Create the Dockerfile:</h4>
-<div class="code-block">
-<pre><code class="language-dockerfile">FROM python:3.9-slim
+                </div>
+            </section>
+            
+            <section>
+                <h2>Using Docker for Continuous Integration (CI) and Continuous Deployment (CD)</h2>
+                <p>Docker simplifies the CI/CD process by ensuring that the same environment is used in development, testing, and production. Using Docker images, you can standardize and automate the testing of machine learning models, ensuring that they perform consistently before deployment.</p>
+                <div class="technical-box">
+                    <h3>Example CI/CD workflow with Docker:</h3>
+                    <ul>
+                        <li><strong>Build:</strong> Create a Docker image with the latest code and dependencies.</li>
+                        <li><strong>Test:</strong> Run tests inside the container to validate the model's performance.</li>
+                        <li><strong>Deploy:</strong> Deploy the container to a production environment, or push the image to a registry like Docker Hub.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Real-World Example: Deploying an ML Model with Docker</h2>
+                <p>Suppose we've trained a sentiment analysis model and want to serve it as an API. Here's a step-by-step guide to deploying it with Docker:</p>
+                <ol>
+                    <li>
+                        <h4>Prepare the Model and Code:</h4>
+                        <p>Save the trained model and create a Python script, serve.py, that loads the model and processes requests.</p>
+                    </li>
+                    <li>
+                        <h4>Create the Dockerfile:</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Dockerfile</span>
+                            </div>
+                            <pre><code class="language-dockerfile">FROM python:3.9-slim
 
 WORKDIR /app
 COPY . /app
@@ -335,56 +469,71 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 CMD ["python", "serve.py"]</code></pre>
-</div>
-</li>
-<li>
-<h4>Build the Docker Image:</h4>
-<div class="code-block">
-<pre><code class="language-bash">docker build -t sentiment-analysis-api .</code></pre>
-</div>
-</li>
-<li>
-<h4>Run the Docker Container:</h4>
-<div class="code-block">
-<pre><code class="language-bash">docker run -p 5000:5000 sentiment-analysis-api</code></pre>
-</div>
-</li>
-</ol>
-</section>
-<section>
-<h2>Best Practices for Using Docker in Machine Learning</h2>
-<div class="technical-box">
-<ul>
-<li><strong>Use Docker Compose:</strong> For complex applications with multiple services (e.g., databases, web servers, ML models), Docker Compose can simplify the setup by managing multiple containers.</li>
-<li><strong>Leverage Multi-Stage Builds:</strong> Use multi-stage builds in your Dockerfile to separate the training and deployment stages, minimizing the final image size.</li>
-<li><strong>Optimize Image Size:</strong> Minimize the final image size by using lightweight base images (e.g., python:3.9-slim), removing unnecessary files, and using --no-cache-dir for package installations.</li>
-<li><strong>Version Control Your Dockerfile:</strong> Keep the Dockerfile in version control to ensure a record of the environment and dependency changes over time.</li>
-</ul>
-</div>
-</section>
-<section class="conclusion">
-<h2>Conclusion</h2>
-<p>Docker has transformed how machine learning and data science teams manage environments, collaborate, and deploy models. By providing reproducible and isolated environments, Docker ensures consistency across different stages of the machine learning lifecycle, from development to production. Whether you're prototyping a model, collaborating across teams, or deploying a model at scale, Docker can be a powerful tool in your ML and data science toolkit. Embracing Docker not only improves productivity but also reduces the complexity associated with managing dependencies and configurations, ultimately accelerating the path to delivering insights and value.</p>
-</section>
-<!-- CTA Button -->
-<div class="cta-container">
-<a class="cta-button" href="mailto:yangmingml@yahoo.com">
-<i class="fa fa-paper-plane"></i> Schedule a Free Consultation
-  </a>
-</div>
-</main>
-<footer class="footer text-center">
-<p>© 2024 Yangming Li. All rights reserved.</p>
-</footer>
-</div>
-</div>
-<!-- Scripts -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<script defer="" src="js/bootstrap.min.js"></script>
-<script defer="" src="js/scripts.js"></script>
-<script defer="" src="js/prism.js"></script>
-<script defer="" src="js/blogPanel.js"></script>
-<script>
+                        </div>
+                    </li>
+                    <li>
+                        <h4>Build the Docker Image:</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Bash</span>
+                            </div>
+                            <pre><code class="language-bash">docker build -t sentiment-analysis-api .</code></pre>
+                        </div>
+                    </li>
+                    <li>
+                        <h4>Run the Docker Container:</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Bash</span>
+                            </div>
+                            <pre><code class="language-bash">docker run -p 5000:5000 sentiment-analysis-api</code></pre>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+            
+            <section>
+                <h2>Best Practices for Using Docker in Machine Learning</h2>
+                <div class="technical-box">
+                    <ul>
+                        <li><strong>Use Docker Compose:</strong> For complex applications with multiple services (e.g., databases, web servers, ML models), Docker Compose can simplify the setup by managing multiple containers.</li>
+                        <li><strong>Leverage Multi-Stage Builds:</strong> Use multi-stage builds in your Dockerfile to separate the training and deployment stages, minimizing the final image size.</li>
+                        <li><strong>Optimize Image Size:</strong> Minimize the final image size by using lightweight base images (e.g., python:3.9-slim), removing unnecessary files, and using --no-cache-dir for package installations.</li>
+                        <li><strong>Version Control Your Dockerfile:</strong> Keep the Dockerfile in version control to ensure a record of the environment and dependency changes over time.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="conclusion">
+                <h2>Conclusion</h2>
+                <p>Docker has transformed how machine learning and data science teams manage environments, collaborate, and deploy models. By providing reproducible and isolated environments, Docker ensures consistency across different stages of the machine learning lifecycle, from development to production. Whether you're prototyping a model, collaborating across teams, or deploying a model at scale, Docker can be a powerful tool in your ML and data science toolkit. Embracing Docker not only improves productivity but also reduces the complexity associated with managing dependencies and configurations, ultimately accelerating the path to delivering insights and value.</p>
+            </section>
+            
+            <!-- CTA Button -->
+            <div class="cta-container">
+                <a class="cta-button" href="mailto:yangmingml@yahoo.com">
+                    <i class="fa fa-paper-plane"></i> Schedule a Free Consultation
+                </a>
+            </div>
+        </main>
+        
+        <footer class="footer text-center">
+            <p>&copy; 2024 Yangming Li. All rights reserved. | <a href="/">Home</a></p>
+        </footer>
+    </div>
+
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script defer src="js/bootstrap.min.js"></script>
+    <script defer src="js/scripts.js"></script>
+    
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-docker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-bash.min.js"></script>
+    <script src="js/toc.js"></script>
+    
+    <script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
         
@@ -410,4 +559,4 @@ CMD ["python", "serve.py"]</code></pre>
         });
     </script>
 </body>
-</html>
+</html> 
