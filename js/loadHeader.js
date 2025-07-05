@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="decoder-only-architectures.html">Decoder Architectures in LLMs</a></li>
                         <li><a href="mlops-essential-skills.html">MLOps Essential Skills</a></li>
                         <li><a href="docker-in-ml.html">Docker for ML</a></li>
+                        <li><a href="random-forest-guide.html">Random Forest Guide</a></li>
+                        <li><a href="llama-report-guide.html">LlamaReport AI Agent</a></li>
+                        <li><a href="n8n-ai-workflows.html">n8n AI Workflows</a></li>
+                        <li><a href="uqlm-teaching-guide.html">LLM Uncertainty Quantification</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -28,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="product-success-essence.html">Product Success Essence</a></li>
                         <li><a href="building-product-scales-company.html">Building Products That Scale</a></li>
                         <li><a href="jira-guide.html">Jira for Product Teams</a></li>
+                        <li><a href="building-high-impact-value-propositions.html">Value Propositions</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -38,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="kubernetes-guide.html">Kubernetes Guide</a></li>
                         <li><a href="polars-guide.html">Polars Guide</a></li>
                         <li><a href="jax-guide.html">JAX Guide</a></li>
+                        <li><a href="glm-overview.html">GLM Overview</a></li>
                     </ul>
                 </li>
                 <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
@@ -57,6 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="decoder-only-architectures.html">Decoder Architectures in LLMs</a></li>
                             <li><a href="mlops-essential-skills.html">MLOps Essential Skills</a></li>
                             <li><a href="docker-in-ml.html">Docker for ML</a></li>
+                            <li><a href="random-forest-guide.html">Random Forest Guide</a></li>
+                            <li><a href="llama-report-guide.html">LlamaReport AI Agent</a></li>
+                            <li><a href="n8n-ai-workflows.html">n8n AI Workflows</a></li>
+                            <li><a href="uqlm-teaching-guide.html">LLM Uncertainty Quantification</a></li>
                         </ul>
                     </li>
                     <li class="mobile-dropdown">
@@ -65,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="product-success-essence.html">Product Success Essence</a></li>
                             <li><a href="building-product-scales-company.html">Building Products That Scale</a></li>
                             <li><a href="jira-guide.html">Jira for Product Teams</a></li>
+                            <li><a href="building-high-impact-value-propositions.html">Value Propositions</a></li>
                         </ul>
                     </li>
                     <li class="mobile-dropdown">
@@ -75,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="kubernetes-guide.html">Kubernetes Guide</a></li>
                             <li><a href="polars-guide.html">Polars Guide</a></li>
                             <li><a href="jax-guide.html">JAX Guide</a></li>
+                            <li><a href="glm-overview.html">GLM Overview</a></li>
                         </ul>
                     </li>
                     <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
