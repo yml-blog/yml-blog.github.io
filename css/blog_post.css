@@ -20,6 +20,18 @@
 
 ... other sidebar styles ... */ 
 
+/* Fix for duplicate footers in blog panel */
+.content-wrapper footer.footer,
+.blog-panel footer.footer,
+.flex-container > footer.footer {
+    display: none;
+}
+
+/* Only show footer at the bottom of the container */
+.container > footer.footer {
+    display: block;
+}
+
 /* Code block styling */
 pre {
     background: #1e1e1e;  /* Dark background like VS Code */

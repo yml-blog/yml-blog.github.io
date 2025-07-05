@@ -119,8 +119,18 @@ function createBlogPanel() {
     
     // Create wrapper for content
     const container = document.querySelector('.container');
+    if (!container) return; // Exit if container not found
+    
     const contentWrapper = document.createElement('div');
     contentWrapper.className = 'content-wrapper';
+    
+    // Save the footer to reposition it later
+    const footer = container.querySelector('footer.footer');
+    let savedFooter = null;
+    if (footer) {
+        savedFooter = footer.cloneNode(true);
+        footer.parentNode.removeChild(footer);
+    }
     
     // Move all content except the panel into the wrapper
     while (container.firstChild) {
@@ -137,6 +147,11 @@ function createBlogPanel() {
     
     // Add flex container to main container
     container.appendChild(flexContainer);
+    
+    // Add the footer back at the container level
+    if (savedFooter) {
+        container.appendChild(savedFooter);
+    }
 }
 
 // Add CSS styles
