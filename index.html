@@ -1064,6 +1064,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <option value="all">All</option>
 <option value="MLOP">MLOP</option>
 <option value="ML">ML</option>
+<option value="Classical ML">Classical ML</option>
 </select>
 <button id="aiml-reset-btn" type="button">Reset</button>
 <ul id="aiml-blog-list">
@@ -1228,6 +1229,21 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <i class="fa fa-linkedin"></i>
 </a>
 <a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('[ML] Build Autonomous AI Workflows with n8n: A Technical Introduction to Agentic Automation')+'&amp;body='+encodeURIComponent('Check out this article: '+window.location.origin+'/n8n-ai-workflows.html'),'_blank')" title="Share via Email">
+<i class="fa fa-envelope"></i>
+</a>
+</div>
+</li>
+<li data-tag="Classical ML">
+<h3><a href="random-forest-guide.html">[Classical ML] Exploring Random Forest: A Powerful Ensemble Learning Algorithm</a></h3>
+<p>[Classical ML] Dive into the mechanics, advantages, and applications of Random Forest - an ensemble learning algorithm that combines multiple decision trees for robust classification and regression tasks.</p>
+<div class="blog-share-buttons">
+<a class="share-btn twitter" href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.origin+'/random-forest-guide.html')+'&amp;text='+encodeURIComponent('[Classical ML] Exploring Random Forest: A Powerful Ensemble Learning Algorithm'),'_blank')" title="Share on Twitter">
+<i class="fa fa-twitter"></i>
+</a>
+<a class="share-btn linkedin" href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&amp;url='+encodeURIComponent(window.location.origin+'/random-forest-guide.html')+'&amp;title='+encodeURIComponent('[Classical ML] Exploring Random Forest: A Powerful Ensemble Learning Algorithm'),'_blank')" title="Share on LinkedIn">
+<i class="fa fa-linkedin"></i>
+</a>
+<a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('[Classical ML] Exploring Random Forest: A Powerful Ensemble Learning Algorithm')+'&amp;body='+encodeURIComponent('Check out this article: '+window.location.origin+'/random-forest-guide.html'),'_blank')" title="Share via Email">
 <i class="fa fa-envelope"></i>
 </a>
 </div>
@@ -2154,7 +2170,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
     function updateAIMLTagBadges() {
         var blogList = document.getElementById('aiml-blog-list');
         var items = blogList.querySelectorAll('li');
-        var tagCounts = { 'MLOP': 0, 'ML': 0 };
+        var tagCounts = { 'MLOP': 0, 'ML': 0, 'Classical ML': 0 };
         items.forEach(function(li) {
             if (li.style.display !== 'none') {
                 var tag = li.getAttribute('data-tag');
@@ -2165,7 +2181,7 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         for (var i = 0; i < filter.options.length; i++) {
             var opt = filter.options[i];
             if (opt.value === 'all') {
-                var total = tagCounts['MLOP'] + tagCounts['ML'];
+                var total = tagCounts['MLOP'] + tagCounts['ML'] + tagCounts['Classical ML'];
                 opt.textContent = 'All (' + total + ')';
             } else if (tagCounts[opt.value] !== undefined) {
                 opt.textContent = opt.value + ' (' + tagCounts[opt.value] + ')';
