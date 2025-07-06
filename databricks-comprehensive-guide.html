@@ -25,7 +25,7 @@ h1 {
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Understanding Databricks: A Comprehensive Guide with... | Yangming Li</title>
+<title>Understanding Databricks: A Comprehensive Guide with Real-World Examples | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -162,7 +162,106 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="By Yangming Li..." name="description"/><link href="https://yangmingli.com/databricks-comprehensive-guide.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Understanding Databricks: A Comprehensive Guide with... | Yangming Li" property="og:title"/><meta content="By Yangming Li..." property="og:description"/><meta content="https://yangmingli.com/databricks-comprehensive-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Understanding Databricks: A Comprehensive Guide with... | Yangming Li" name="twitter:title"/><meta content="By Yangming Li..." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Understanding Databricks: A Comprehensive Guide with... | Yangming Li", "description": "By Yangming Li...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/databricks-comprehensive-guide.html"}}</script>  <!-- Canonical URL -->
+
+        /* Related Content Section */
+        .related-content {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .related-content {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+        }
+
+        .related-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .related-article {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .related-article:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .related-article {
+            background-color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .related-article h4 {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+
+        .related-article a {
+            color: #f1780e;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .related-article p {
+            margin: 8px 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        body.dark-mode .related-article p {
+            color: #bbb;
+        }
+
+        /* Breadcrumb Navigation */
+        .breadcrumb-nav {
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0;
+            margin-bottom: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            display: inline-block;
+            font-size: 0.9em;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "/";
+            display: inline-block;
+            padding: 0 8px;
+            color: #6c757d;
+        }
+
+        .breadcrumb-item a {
+            color: #f1780e;
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: #6c757d;
+        }
+
+        body.dark-mode .breadcrumb-item.active {
+            color: #aaa;
+        }
+</style><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists." name="description"/><link href="https://yangmingli.com/databricks-comprehensive-guide.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Understanding Databricks: A Comprehensive Guide with Real-World Examples | Yangming Li" property="og:title"/><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation." property="og:description"/><meta content="https://yangmingli.com/databricks-comprehensive-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Understanding Databricks: A Comprehensive Guide with Real-World Examples | Yangming Li" name="twitter:title"/><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Understanding Databricks: A Comprehensive Guide with Real-World Examples | Yangming Li", "description": "Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/databricks-comprehensive-guide.html"}}</script>  <!-- Canonical URL -->
   <link rel="canonical" href="https://yangmingli.com/databricks-comprehensive-guide.html">
   </head>
 <body>
@@ -353,6 +452,76 @@ job_id = jobs_api.create_job(job_config)</code></pre>
 <h2>Conclusion</h2>
 <p>Databricks has emerged as a powerful platform for modern data analytics and machine learning workflows. Its unified approach to data management, combined with robust features for collaboration, security, and scalability, makes it an ideal choice for organizations looking to build sophisticated data solutions. By following the best practices and examples outlined in this guide, teams can effectively leverage Databricks to accelerate their data and AI initiatives while maintaining governance and control.</p>
 </section>
+
+<!-- Related Content Section for SEO and User Navigation -->
+<section class="related-content">
+    <h2>Related Articles</h2>
+    <p>Explore more articles about data engineering and machine learning tools:</p>
+    <div class="related-articles-grid">
+        <div class="related-article">
+            <h4><a href="mlops-essential-skills.html">MLOps: Essential Skills for Efficient Model Management</a></h4>
+            <p>Learn about MLOps principles and implementation with MLflow and Weights & Biases.</p>
+        </div>
+        <div class="related-article">
+            <a href="docker-in-ml.html">Leveraging Docker in Machine Learning and Data Science</a>
+            <p>A comprehensive guide to using Docker for ML/DS projects - from development to deployment.</p>
+        </div>
+        <div class="related-article">
+            <a href="ray_explanation.html">Understanding Ray for Distributed Computing</a>
+            <p>Explore how Ray enables scalable and distributed Python applications.</p>
+        </div>
+        <div class="related-article">
+            <a href="kubernetes-guide.html">Kubernetes Guide for Data Scientists</a>
+            <p>Learn how to orchestrate containerized applications for ML workflows.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Structured Data for Article Series -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/databricks-comprehensive-guide.html"
+  },
+  "headline": "Understanding Databricks: A Comprehensive Guide with Real-World Examples",
+  "description": "A detailed guide to Databricks platform features including Delta Lake, MLflow, Unity Catalog with practical code examples and best practices for implementation.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2024-07-01",
+  "dateModified": "2024-07-15",
+  "isPartOf": {
+    "@type": "Series",
+    "name": "Data Engineering Tools",
+    "url": "https://yangmingli.com/#engineering"
+  },
+  "keywords": "Databricks, Delta Lake, MLflow, Unity Catalog, Data Engineering, Machine Learning, Lakehouse Architecture"
+}
+</script>
+
+<!-- Breadcrumb Navigation -->
+<nav aria-label="breadcrumb" class="breadcrumb-nav">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="index.html#engineering">Engineering</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Databricks Guide</li>
+    </ol>
+</nav>
+
 </main>
 <footer class="footer text-center">
 <p>© 2024 Yangming Li. All rights reserved.</p>
