@@ -262,6 +262,68 @@
         .container {
             padding-top: 70px;
         }
+
+        /* External References Section */
+        .external-references {
+            background-color: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid #0565dc;
+        }
+        
+        body.dark-mode .external-references {
+            background-color: #1a2638;
+            box-shadow: 0 2px 5px rgba(255,255,255,0.05);
+        }
+        
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .reference-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 3px solid #0565dc;
+        }
+        
+        .reference-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        body.dark-mode .reference-item {
+            background-color: #2a3a50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .reference-item h4 {
+            margin-top: 0;
+            font-size: 1.1em;
+        }
+        
+        .reference-item a {
+            color: #0565dc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .reference-item p {
+            margin: 8px 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        body.dark-mode .reference-item p {
+            color: #bbb;
+        }
     </style>
     
     <!-- JSON-LD structured data -->
@@ -503,6 +565,38 @@ CMD ["python", "serve.py"]</code></pre>
                         <li><strong>Optimize Image Size:</strong> Minimize the final image size by using lightweight base images (e.g., python:3.9-slim), removing unnecessary files, and using --no-cache-dir for package installations.</li>
                         <li><strong>Version Control Your Dockerfile:</strong> Keep the Dockerfile in version control to ensure a record of the environment and dependency changes over time.</li>
                     </ul>
+                </div>
+            </section>
+            
+            <!-- External References Section -->
+            <section class="external-references">
+                <h2>External Resources & References</h2>
+                <p>For more information about Docker and its applications in machine learning, check out these official resources:</p>
+                <div class="references-grid">
+                    <div class="reference-item">
+                        <h4><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker Official Website</a></h4>
+                        <p>The official Docker platform website with documentation, tutorials, and resources.</p>
+                    </div>
+                    <div class="reference-item">
+                        <h4><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Docker Documentation</a></h4>
+                        <p>Comprehensive guides and reference documentation for Docker.</p>
+                    </div>
+                    <div class="reference-item">
+                        <h4><a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a></h4>
+                        <p>Repository of Docker images, including many pre-built ML and data science environments.</p>
+                    </div>
+                    <div class="reference-item">
+                        <h4><a href="https://github.com/docker/awesome-compose" target="_blank" rel="noopener">Awesome Docker Compose</a></h4>
+                        <p>Collection of Docker Compose samples for various applications including ML services.</p>
+                    </div>
+                    <div class="reference-item">
+                        <h4><a href="https://jupyter-docker-stacks.readthedocs.io/" target="_blank" rel="noopener">Jupyter Docker Stacks</a></h4>
+                        <p>Ready-to-run Docker images containing Jupyter applications and scientific computing packages.</p>
+                    </div>
+                    <div class="reference-item">
+                        <h4><a href="https://www.tensorflow.org/install/docker" target="_blank" rel="noopener">TensorFlow Docker</a></h4>
+                        <p>Official TensorFlow Docker images for machine learning development.</p>
+                    </div>
                 </div>
             </section>
             
