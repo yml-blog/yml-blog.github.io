@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 ROOT = Path('.')
 # 站点基础URL（请根据实际情况修改）
 BASE_URL = "https://yangmingli.com"
-WWW_BASE_URL = "https://www.yangmingli.com"
+# WWW_BASE_URL = "https://www.yangmingli.com"  # Commented out as we only want non-www version
 
 # 需要排除的目录
 EXCLUDE_DIRS = {"admin", "private"}
@@ -39,16 +39,16 @@ def main():
             non_www_url = f"{BASE_URL}/{rel_path}"
         urls.append((non_www_url, lastmod))
         
-        # 生成www版本URL
-        if rel_path == "index.html":
-            www_url = f"{WWW_BASE_URL}/"
-        elif rel_path == "product.html":
-            www_url = f"{WWW_BASE_URL}/product/"
-        elif rel_path.endswith("/index.html"):
-            www_url = f"{WWW_BASE_URL}/{rel_path[:-len('index.html')]}"
-        else:
-            www_url = f"{WWW_BASE_URL}/{rel_path}"
-        urls.append((www_url, lastmod))
+        # 生成www版本URL - Removed to only include non-www version
+        # if rel_path == "index.html":
+        #     www_url = f"{WWW_BASE_URL}/"
+        # elif rel_path == "product.html":
+        #     www_url = f"{WWW_BASE_URL}/product/"
+        # elif rel_path.endswith("/index.html"):
+        #     www_url = f"{WWW_BASE_URL}/{rel_path[:-len('index.html')]}"
+        # else:
+        #     www_url = f"{WWW_BASE_URL}/{rel_path}"
+        # urls.append((www_url, lastmod))
 
     # 生成 sitemap.xml 内容
     sitemap = [

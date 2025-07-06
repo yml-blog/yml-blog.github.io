@@ -11,7 +11,7 @@ from urllib.parse import urljoin
 
 # 站点基础URL
 BASE_URL = "https://yangmingli.com"
-WWW_BASE_URL = "https://www.yangmingli.com"  # 如果也需要支持www域名
+# WWW_BASE_URL = "https://www.yangmingli.com"  # Removed as we only want non-www version
 
 # 需要排除的目录
 EXCLUDE_DIRS = {"admin", "private", ".git"}
