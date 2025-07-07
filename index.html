@@ -776,6 +776,17 @@ body.dark-mode .slot-row {
     #aiml-reset-btn { width: 100%; margin: 10px 0 10px 0; }
     #roulette-canvas { width: 100%; height: auto; }
 }
+
+section[id], h2[id], h3[id] {
+  scroll-margin-top: 80px;
+}
+
+.nav-tabs {
+  position: fixed; /* 或 sticky */
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
@@ -2812,20 +2823,78 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         const messageForm = document.getElementById('messageForm');
         const messagesList = document.getElementById('messagesList');
         
-        // Load existing messages from localStorage
-        loadMessages();
-        
-        messageForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('visitorName').value.trim() || 'Anonymous';
-            const content = document.getElementById('messageContent').value.trim();
-            
-            if (content) {
-                addMessage(name, content);
-                messageForm.reset();
-            }
+        // Initialize message board functionality only when the Contact tab is shown
+        $('#myTab a[href="#contact"]').on('shown.bs.tab', function() {
+            initializeMessageBoard();
         });
+
+        // Initialize message board if the contact tab is already active on page load
+        if (document.getElementById('contact').classList.contains('active')) {
+            initializeMessageBoard();
+        }
+
+        function initializeMessageBoard() {
+            const messageForm = document.getElementById('messageForm');
+            const messagesList = document.getElementById('messagesList');
+            
+            if (!messageForm || !messagesList) return; // Exit if elements not found
+            
+            // Remove existing listeners to prevent duplicates
+            const newMessageForm = messageForm.cloneNode(true);
+            messageForm.parentNode.replaceChild(newMessageForm, messageForm);
+            
+            // Load existing messages from localStorage
+            try {
+                loadMessages();
+            } catch (error) {
+                console.error("Error loading messages:", error);
+                messagesList.innerHTML = "<div class='message'>Unable to load messages. Please try again later.</div>";
+            }
+            
+            // Add new event listener
+            newMessageForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('visitorName').value.trim() || 'Anonymous';
+                const contentEl = document.getElementById('messageContent');
+                const content = contentEl ? contentEl.value.trim() : '';
+                
+                if (content) {
+                    try {
+                        addMessage(name, content);
+                        newMessageForm.reset();
+                        
+                        // Show success message
+                        const successAlert = document.createElement('div');
+                        successAlert.className = 'alert alert-success mt-2';
+                        successAlert.textContent = 'Message sent successfully!';
+                        newMessageForm.appendChild(successAlert);
+                        
+                        // Remove success message after 3 seconds
+                        setTimeout(() => {
+                            if (successAlert.parentNode) {
+                                successAlert.parentNode.removeChild(successAlert);
+                            }
+                        }, 3000);
+                    } catch (error) {
+                        console.error("Error sending message:", error);
+                        
+                        // Show error message
+                        const errorAlert = document.createElement('div');
+                        errorAlert.className = 'alert alert-danger mt-2';
+                        errorAlert.textContent = 'Failed to send message. Please try again.';
+                        newMessageForm.appendChild(errorAlert);
+                        
+                        // Remove error message after 3 seconds
+                        setTimeout(() => {
+                            if (errorAlert.parentNode) {
+                                errorAlert.parentNode.removeChild(errorAlert);
+                            }
+                        }, 3000);
+                    }
+                }
+            });
+        }
         
         function addMessage(name, content) {
             const date = new Date().toLocaleString();
@@ -2835,23 +2904,30 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 date: date
             };
             
-            // Save to localStorage
-            const messages = JSON.parse(localStorage.getItem('messages') || '[]');
-            messages.unshift(message);
-            localStorage.setItem('messages', JSON.stringify(messages.slice(0, 50))); // Keep only last 50 messages
-            
-            // Add to DOM
-            displayMessage(message);
+            try {
+                // Save to localStorage
+                const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+                messages.unshift(message);
+                localStorage.setItem('messages', JSON.stringify(messages.slice(0, 50))); // Keep only last 50 messages
+                
+                // Add to DOM
+                displayMessage(message);
+            } catch (error) {
+                throw new Error("Failed to save message: " + error.message);
+            }
         }
         
         function displayMessage(message) {
+            const messagesList = document.getElementById('messagesList');
+            if (!messagesList) return;
+            
             const messageElement = document.createElement('div');
             messageElement.className = 'message';
             messageElement.innerHTML = `
                 <div class="message-header">
                     <strong>${escapeHtml(message.name)}</strong>
                     <span class="message-date">${message.date}</span>
-</div>
+                </div>
                 <div class="message-content">${escapeHtml(message.content)}</div>
             `;
             
@@ -2859,11 +2935,25 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         }
         
         function loadMessages() {
-            const messages = JSON.parse(localStorage.getItem('messages') || '[]');
-            messages.forEach(message => displayMessage(message));
+            const messagesList = document.getElementById('messagesList');
+            if (!messagesList) return;
+            
+            try {
+                const messages = JSON.parse(localStorage.getItem('messages') || '[]');
+                
+                if (messages.length === 0) {
+                    messagesList.innerHTML = "<div class='message'><div class='message-content'>No messages yet. Be the first to leave a message!</div></div>";
+                } else {
+                    messagesList.innerHTML = ''; // Clear any existing messages
+                    messages.forEach(message => displayMessage(message));
+                }
+            } catch (error) {
+                throw new Error("Failed to load messages: " + error.message);
+            }
         }
         
         function escapeHtml(unsafe) {
+            if (!unsafe) return '';
             return unsafe
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")

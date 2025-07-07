@@ -450,6 +450,15 @@
         body.dark-mode .reference-item p {
             color: #bbb;
         }
+        
+        /* Fix for header being hidden behind navigation */
+        .header {
+            padding-top: 100px; /* Add padding to push content below fixed navigation */
+        }
+        
+        .header .content {
+            padding-top: 20px; /* Extra padding for the content itself */
+        }
     </style>
     
     <!-- JSON-LD structured data -->
@@ -582,119 +591,86 @@
                 <h4>Contents</h4>
                 <div id="toc">
                     <ul>
-                        <li><a href="#introduction">What is Random Forest?</a></li>
-                        <li><a href="#key-aspects">Key Aspects of Randomness in Random Forest</a></li>
-                        <li><a href="#how-it-works">How Random Forest Works</a></li>
-                        <li><a href="#advantages">Key Advantages of Random Forest</a></li>
-                        <li><a href="#regression">Random Forest for Regression Tasks</a></li>
-                        <li><a href="#challenges">Challenges and Disadvantages</a></li>
-                        <li><a href="#code-example">Random Forest in Action: Code Example</a></li>
-                        <li><a href="#best-practices">Best Practices</a></li>
-                        <li><a href="#conclusion">Conclusion</a></li>
+                        <li><a href="#introduction-core-concepts">Introduction & Core Concepts</a></li>
+                        <li><a href="#how-it-works-python">How Random Forest Works (with Python Example)</a></li>
+                        <li><a href="#practical-tips-applications-limitations">Practical Tips, Applications & Limitations</a></li>
+                        <li><a href="#further-reading-references">Further Reading & References</a></li>
                     </ul>
                 </div>
             </div>
             
             <!-- Main content with improved structure -->
             <article class="article-content">
-                <section id="introduction">
-                    <p>In the vast field of machine learning, Random Forest (RF) stands out as one of the most powerful and versatile ensemble learning algorithms. It has earned its reputation for being effective at both classification and regression tasks while dealing with complex, high-dimensional datasets. Let's dive deep into the mechanics, advantages, and challenges of this fascinating algorithm.</p>
-                    
-                    <h2>What is Random Forest?</h2>
-                    <p>Random Forest is an ensemble learning method that builds multiple decision trees and combines their predictions. Each individual tree in the forest is trained on a different subset of the data, and during prediction, the majority vote of all trees determines the final classification. If the task is regression, the average of the predictions from all trees is used.</p>
-                    
-                    <div class="experience-box">
-                        <h4><i class="fa fa-lightbulb-o"></i> My Experience</h4>
-                        <p>During my time at Provincial Health Authority, we deployed Random Forest models to predict patient readmission risk. While more complex models like XGBoost were available, Random Forest provided the perfect balance of accuracy and interpretability that our healthcare stakeholders required. The ability to explain feature importance to doctors was crucial for adoption.</p>
-                    </div>
-                    
-                    <p>Random Forest is a supervised machine learning algorithm built using decision trees, often used by data scientists to solve both regression and classification problems. The algorithm utilizes ensemble learning, combining multiple classifiers to offer solutions for complex problems. Today, Random Forest is applied in various industries, including banking and e-commerce, to predict behaviors and outcomes.</p>
+                <section id="introduction-core-concepts">
+                    <h2>Introduction & Core Concepts</h2>
+                    <p>Random Forest is a powerful and versatile ensemble learning algorithm that builds multiple decision trees and combines their predictions to achieve higher accuracy and prevent overfitting. It is widely used for both classification and regression tasks, and is known for its robustness, ability to handle high-dimensional data, and feature importance ranking. The core idea is to aggregate the predictions of many de-correlated decision trees, each trained on a different random subset of the data and features, to produce a more accurate and stable result.</p>
+                    <p>Key strengths include high accuracy, resilience to missing values, and the ability to provide feature importance scores. Random Forest is used in a variety of industries, including healthcare (patient risk prediction), finance (fraud detection), e-commerce (recommendation systems), and more.</p>
                 </section>
-                
-                <section id="key-aspects">
-                    <h2>Key Aspects of Randomness in Random Forest</h2>
-                    <p>Random Forest introduces randomness in two key areas:</p>
-                    
-                    <h3>Bootstrap Sampling (Random Sampling with Replacement):</h3>
-                    <p>When training each decision tree, the algorithm randomly selects a subset of data points from the training set. This selection process is done with replacement, meaning that some data points may appear multiple times, while others may not appear at all in a given subset. This technique ensures that each tree sees a slightly different version of the data.</p>
-                    
-                    <h3>Random Feature Selection at Each Split:</h3>
-                    <p>In contrast to traditional decision trees, where each node split is determined by considering all the available features, Random Forest introduces randomness at the feature selection level. At each decision node, only a random subset of features is considered to find the best split. This reduces correlation between trees, leading to a more robust ensemble model.</p>
-                    
-                    <div class="visualization-container">
-                        <img src="img/optimized/random_forest_visualization.webp" alt="Random Forest Visualization showing bootstrap sampling and feature selection" class="img-fluid">
-                        <p class="caption">Figure 1: Visualization of how Random Forest creates diverse trees through bootstrap sampling and random feature selection. Created for a client project in 2023.</p>
+
+                <section id="how-it-works-python">
+                    <h2>How Random Forest Works (with Python Example)</h2>
+                    <p>Random Forest introduces randomness in two key areas: <strong>bootstrap sampling</strong> (bagging) and <strong>random feature selection</strong> at each split. Each tree is trained on a random subset of the data (with replacement), and at each node, a random subset of features is considered for splitting. For classification, the final prediction is the majority vote of all trees; for regression, it is the average of all tree predictions.</p>
+                    <p>Here is a concise Python example using scikit-learn:</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-language">Python</span>
+                        </div>
+                        <pre><code>from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+
+X, y = load_iris(return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+print("Accuracy:", rf.score(X_test, y_test))</code></pre>
                     </div>
+                    <p>For regression tasks, simply use <code>RandomForestRegressor</code> instead of <code>RandomForestClassifier</code>.</p>
                 </section>
-                
-                <section id="how-it-works">
-                    <h2>How Random Forest Works</h2>
-                    <p>Here's a breakdown of the typical process for building and using a Random Forest model:</p>
-                    
-                    <h3>Bootstrap Sampling:</h3>
+
+                <section id="practical-tips-applications-limitations">
+                    <h2>Practical Tips, Applications & Limitations</h2>
+                    <p><strong>Best Practices:</strong> Start with a higher number of trees (100-500), tune <code>max_depth</code> and <code>max_features</code> using cross-validation, and use out-of-bag (OOB) error for internal validation. Feature engineering often has a bigger impact than hyperparameter tuning. Always separate your training and test data to avoid data leakage.</p>
                     <ul>
-                        <li>Randomly select N samples (with replacement) from the training dataset to create a subset.</li>
-                        <li>Repeat this process to create as many subsets as the number of decision trees in the forest.</li>
+                        <li><strong>Advanced Hyperparameter Tuning:</strong> Beyond the basics, consider tuning <code>min_samples_leaf</code> and <code>min_samples_split</code> for better probability calibration, especially in probability estimation tasks. Research shows that shallower trees (higher <code>min_samples_leaf</code>) can improve calibration and generalization (<a href="https://diagnprognres.biomedcentral.com/articles/10.1186/s41512-024-00177-1" target="_blank">BMC 2024</a>).</li>
+                        <li><strong>Model Size and Speed:</strong> After training, you can prune underperforming trees to reduce model size and speed up inference, sometimes even improving accuracy (<a href="https://medium.datadriveninvestor.com/your-random-forest-model-is-never-the-best-random-forest-model-you-can-build-e3d0b79080dc" target="_blank">DataDrivenInvestor, 2023</a>). Random Forests are highly parallelizable—use all available CPU cores for training and prediction.</li>
+                        <li><strong>Interpretability:</strong> Use permutation-based feature importance (less biased than impurity-based), partial dependence plots (PDPs), and SHAP values for both global and local interpretability. This is especially important in regulated industries.</li>
+                        <li><strong>Probability Estimation & Calibration:</strong> Random Forests can produce overconfident probability estimates, especially with deep trees. For probability estimation, tune <code>min_samples_leaf</code> or use calibration methods (Platt scaling, isotonic regression). Always check calibration plots if you use predicted probabilities for decision-making.</li>
+                        <li><strong>Real-World Case Studies:</strong> 
+                            <ul>
+                                <li><strong>Healthcare:</strong> Used for disease risk prediction (e.g., ovarian cancer, stroke prognosis). Studies show RFs can overfit on training data (AUC near 1), but test performance remains competitive if validated properly (<a href="https://diagnprognres.biomedcentral.com/articles/10.1186/s41512-024-00177-1" target="_blank">BMC 2024</a>).</li>
+                                <li><strong>Marketing:</strong> Used for customer segmentation, churn prediction, and lead scoring. Feature importance helps marketers identify key drivers of customer behavior (<a href="https://www.linkedin.com/pulse/mastering-random-forests-marketing-analytics-amar-sankar-kar-utj7e" target="_blank">LinkedIn, 2024</a>).</li>
+                                <li><strong>Finance:</strong> Credit scoring, fraud detection, and risk assessment.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Common Pitfalls:</strong> 
+                            <ul>
+                                <li>Ignoring data leakage: Always separate training and test data. Leakage can make RFs look "perfect" in training but fail in production.</li>
+                                <li>Not validating on external data: RFs can look great on training data but may not generalize. Always validate on a holdout or external dataset.</li>
+                                <li>Misinterpreting feature importance: High importance does not always mean causality. Correlated features can "share" importance.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Research Insights (2024):</strong> 
+                            <ul>
+                                <li>Recent simulation studies show that RFs can have near-perfect discrimination on training data (AUC ≈ 1) but still perform well on test data, especially with enough data and proper tuning. For probability estimation, avoid fully grown trees and tune for calibration (<a href="https://arxiv.org/abs/2402.18612" target="_blank">arXiv:2402.18612</a>).</li>
+                                <li>Calibration slope: In RFs, calibration slopes in training are often >1 (underconfident), and do not always converge to 1 on test data. Use calibration techniques if well-calibrated probabilities are needed.</li>
+                            </ul>
+                        </li>
                     </ul>
-                    
-                    <h3>Building Decision Trees:</h3>
-                    <ul>
-                        <li>For each subset, a decision tree is constructed. At each node of the tree, a random subset of features is selected to determine the best split.</li>
-                        <li>The tree is built until the stopping criteria are met, such as reaching a certain depth or when further splitting no longer improves the model.</li>
-                    </ul>
-                    
-                    <h3>Voting Mechanism:</h3>
-                    <ul>
-                        <li>For classification problems, once all trees are built, each tree makes a classification prediction for new data. The final prediction is determined by a majority vote across all trees.</li>
-                        <li>For regression tasks, the average of all tree predictions is taken as the final output.</li>
-                    </ul>
-                    
-                    <h3>Out-of-Bag (OOB) Error Estimation:</h3>
-                    <ul>
-                        <li>The data points that were not selected in a particular tree's bootstrap sample are called out-of-bag samples. These can be used to estimate the model's generalization error without the need for a separate validation set.</li>
-                    </ul>
-                    
-                    <div class="case-study">
-                        <h4>Case Study: Customer Churn Prediction</h4>
-                        <p>In a recent project for a subscription-based service, we needed to predict which customers were likely to cancel their subscriptions. We compared several models including logistic regression, SVM, and neural networks.</p>
-                        
-                        <p>Random Forest outperformed the others with 87% accuracy while providing actionable insights through feature importance. The top three factors influencing churn were:</p>
-                        <ol>
-                            <li>Days since last login (31% importance)</li>
-                            <li>Subscription tier (24% importance)</li>
-                            <li>Customer support interactions (18% importance)</li>
-                        </ol>
-                        
-                        <p>This allowed the business team to implement targeted retention strategies, reducing churn by 14% in the following quarter.</p>
-                        
-                        <p><a href="https://github.com/yml-blog/churn-prediction-example" target="_blank"><i class="fa fa-github"></i> View the code repository</a></p>
-                    </div>
-                </section>
-                
-                <section id="advantages">
-                    <h2>Key Advantages of Random Forest</h2>
-                    <p>Random Forest has numerous advantages that make it a go-to algorithm for many machine learning tasks:</p>
-                    
-                    <h3>1. High Accuracy and Robustness</h3>
-                    <p>Random Forest often outperforms other algorithms due to its ensemble nature and randomness, which reduce the risk of overfitting. While individual decision trees may easily overfit the data, the averaging mechanism in Random Forest significantly reduces overfitting, making it highly effective even for noisy datasets.</p>
-                    
-                    <h3>2. Handles High-Dimensional Data Well</h3>
-                    <p>Random Forest can handle datasets with many features without requiring explicit feature selection. The random selection of features for each split ensures that the algorithm is not biased towards any particular set of features.</p>
-                    
-                    <h3>3. Feature Importance</h3>
-                    <p>After training, Random Forest can provide a ranking of feature importance, which is useful for understanding which variables have the most influence on the predictions. This can be an essential tool for feature selection and for gaining insights into the data.</p>
-                    
+                    <p><strong>Applications:</strong> Random Forest is used for disease prediction, credit scoring, customer segmentation, and more. Its ability to handle both categorical and continuous variables, as well as missing data, makes it a go-to model for many real-world problems.</p>
+                    <p><strong>Limitations:</strong> Random Forest models can be memory-intensive and less interpretable than single decision trees. They may be slower to train on very large datasets. For highly regulated industries, supplement with tools like SHAP or LIME for model explainability.</p>
                     <div class="practical-tip">
                         <h4><i class="fa fa-wrench"></i> Practical Tip</h4>
-                        <p>When working with stakeholders who need to understand your model, I've found that Random Forest's feature importance plots are much more convincing than abstract metrics. In a recent healthcare project, showing doctors which patient metrics most influenced readmission risk led to immediate buy-in and adoption of our prediction system.</p>
-                        
+                        <p>Use feature importance plots to communicate model insights to stakeholders. In healthcare projects, showing which features most influence predictions can drive adoption and trust. For probability estimation, always check calibration plots and consider post-hoc calibration if needed.</p>
                         <div class="code-block">
                             <div class="code-header">
                                 <span class="code-language">Python</span>
                             </div>
-                            <pre><code class="language-python"># My go-to code for visualizing feature importance
+                            <pre><code># My go-to code for visualizing feature importance
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pandas as pd
 
 def plot_feature_importance(model, feature_names, top_n=10):
     """Plot feature importance for stakeholder presentations"""
@@ -713,160 +689,20 @@ def plot_feature_importance(model, feature_names, top_n=10):
     plt.title('Top Features by Importance')
     plt.tight_layout()
     
-    return feature_imp, plt.gcf()</code></pre>
+    return feature_imp, plt.gcf()
+</code></pre>
                         </div>
                     </div>
-                    
-                    <h3>4. Handles Missing Data</h3>
-                    <p>Random Forest can still maintain high accuracy even when a significant portion of the dataset is missing. This robustness makes it an excellent choice for real-world applications where data is often incomplete.</p>
-                    
-                    <h3>5. Parallelizable</h3>
-                    <p>Since the individual trees are independent of each other, training a Random Forest can be parallelized, resulting in faster training times, especially with large datasets. This feature makes Random Forest scalable for big data problems.</p>
-                    
-                    <h3>6. Versatility</h3>
-                    <p>Random Forest can be applied to both classification and regression tasks. While it is primarily used for classification, it has also shown good performance on regression tasks where the goal is to predict continuous values.</p>
-                    
-                    <h3>7. Model Interpretation</h3>
-                    <p>The model is interpretable in the sense that we can estimate the contribution of each feature towards the decision-making process. Through metrics like Gini Impurity or Information Gain, the impact of each feature on the model's performance can be understood.</p>
-                    
-                    <h3>8. Applicable to Class Imbalance</h3>
-                    <p>Random Forest is effective when handling imbalanced datasets. For example, in scenarios where the data class distribution is uneven, it can balance errors by adjusting weights and using certain sampling techniques.</p>
-                    
-                    <h3>9. Generalization</h3>
-                    <p>Random Forest has excellent generalization capabilities, and the OOB error estimation provides an unbiased estimate of model performance, helping the model generalize better to unseen data.</p>
-                </section>
-                
-                <section id="regression">
-                    <h2>Random Forest for Regression Tasks</h2>
-                    <p>Although Random Forest is often discussed in the context of classification problems, it is also a powerful tool for regression tasks. In regression, instead of predicting categorical labels, Random Forest predicts continuous values by averaging the outputs of individual trees.</p>
-                    
-                    <div class="real-world-example">
-                        <h4>Real-World Example: Housing Price Prediction</h4>
-                        <p>In a recent housing price prediction project, I compared several regression models including Linear Regression, SVR, and Random Forest. The dataset included 78 features describing various aspects of residential properties.</p>
-                        
-                        <p>Random Forest Regression achieved an R² score of 0.91, outperforming Linear Regression (0.76) and SVR (0.83). The model was particularly effective at capturing non-linear relationships between features like neighborhood demographics and property values.</p>
-                        
-                        <div class="comparison-table">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Model</th>
-                                        <th>R² Score</th>
-                                        <th>RMSE</th>
-                                        <th>Training Time (s)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Linear Regression</td>
-                                        <td>0.76</td>
-                                        <td>45,230</td>
-                                        <td>0.8</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Support Vector Regression</td>
-                                        <td>0.83</td>
-                                        <td>32,150</td>
-                                        <td>12.4</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Random Forest Regression</td>
-                                        <td>0.91</td>
-                                        <td>23,780</td>
-                                        <td>5.2</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <h3>Limitation in Regression Tasks</h3>
-                    <p>However, there are limitations when applying Random Forest to regression problems:</p>
-                    
-                    <ul>
-                        <li><strong>Extrapolation:</strong> Random Forest is not ideal for tasks that involve extrapolation beyond the range of the training data. If you're working with time-series data or data that exhibits a trend, the model may struggle to predict values outside of the training data's range.</li>
-                        
-                        <li><strong>Linear Patterns:</strong> If the underlying relationship between the features and the target is linear, simpler models such as linear regression might perform better than Random Forest.</li>
-                    </ul>
-                    
-                    <p>Despite these challenges, Random Forest is still effective for many regression tasks, especially when dealing with nonlinear relationships or complex datasets.</p>
-                </section>
-                
-                <section id="challenges">
-                    <h2>Challenges and Disadvantages of Random Forest</h2>
-                    <p>Despite its advantages, Random Forest is not without its limitations. It is essential to understand these drawbacks before applying the algorithm in specific scenarios.</p>
-                    
-                    <h3>1. Overfitting with Noisy Data</h3>
-                    <p>While Random Forest is resistant to overfitting, it can still suffer from it if the data contains too much noise. Additionally, increasing the number of trees doesn't guarantee perfect performance, especially if the data is extremely noisy.</p>
-                    
-                    <h3>2. Complexity and Interpretability</h3>
-                    <p>Random Forest is often considered a "black box" because it is challenging to interpret the behavior of individual trees, especially in large forests. This lack of transparency can be an issue in industries where model interpretability is crucial, such as healthcare and finance.</p>
-                    
-                    <div class="lesson-learned">
-                        <h4><i class="fa fa-exclamation-triangle"></i> Lesson Learned</h4>
-                        <p>In a financial risk assessment project, we initially built a highly accurate Random Forest model to predict loan defaults. However, regulatory requirements demanded full model explainability. We had to supplement our model with SHAP values and partial dependence plots to satisfy compliance officers.</p>
-                        <p>If you're working in regulated industries, plan for explainability from the beginning rather than trying to retrofit it later. Tools like LIME and SHAP are essential companions to Random Forest in these contexts.</p>
-                    </div>
-                    
-                    <h3>3. Training Time</h3>
-                    <p>Random Forest can be slow to train compared to simpler models like a single decision tree, particularly if there are many trees or high-dimensional data. However, it is faster than boosting algorithms such as Gradient Boosting.</p>
-                    
-                    <h3>4. Memory Consumption</h3>
-                    <p>Due to the large number of trees and the need to store them during training and prediction, Random Forest can be memory-intensive. This can be problematic when working with very large datasets.</p>
-                    
-                    <h3>5. Difficulty with Regression Tasks</h3>
-                    <p>While Random Forest is a solid performer for classification tasks, it doesn't always perform as well on regression tasks, especially when predictions fall outside the range of the training data. Additionally, since it predicts discrete values (through majority voting or averaging), it may not always capture the underlying relationships as well as some regression algorithms.</p>
-                </section>
-                
-                <section id="code-example">
-                    <h2>Random Forest in Action: Code Example Using Scikit-Learn</h2>
-                    <p>To implement Random Forest in Python, the RandomForestClassifier from the popular Scikit-learn library is used. Below is a simple code snippet to demonstrate how to apply Random Forest to a classification task.</p>
-                    
-                    <div class="github-repo">
-                        <p><i class="fa fa-github"></i> <strong>Full Implementation:</strong> Check out my complete Random Forest implementation with hyperparameter tuning, cross-validation, and visualization in this <a href="https://github.com/yml-blog/random-forest-examples" target="_blank">GitHub repository</a>.</p>
-                    </div>
-                    
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-language">Python</span>
-                        </div>
-                        <pre><code class="language-python">from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_iris
-from sklearn.metrics import accuracy_score
-
-# Load dataset
-iris = load_iris()
-X = iris.data
-y = iris.target
-
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-# Initialize the Random Forest Classifier
-rf = RandomForestClassifier(n_estimators=100, random_state=42)
-
-# Train the model
-rf.fit(X_train, y_train)
-
-# Make predictions
-y_pred = rf.predict(X_test)
-
-# Evaluate the model
-print(f"Accuracy: {accuracy_score(y_test, y_pred)}")</code></pre>
-                    </div>
-                    
-                    <p>In this example, we use the Iris dataset to build and evaluate a Random Forest classifier. The n_estimators parameter specifies the number of trees in the forest, and the random_state ensures reproducibility.</p>
-                    
-                    <h3>Random Forest for Regression Problems</h3>
-                    <p>Random Forest can also be used for regression tasks. In such cases, RandomForestRegressor from the Scikit-learn library is used instead of RandomForestClassifier. For regression tasks, Random Forest uses the mean squared error (MSE) to evaluate the splits at each node.</p>
-                    
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="code-language">Python</span>
-                        </div>
-                        <pre><code class="language-python">from sklearn.ensemble import RandomForestRegressor
+                    <div class="practical-tip">
+                        <h4><i class="fa fa-cogs"></i> Regression Example</h4>
+                        <p>Random Forest can also be used for regression tasks. Here is a concise example using <code>RandomForestRegressor</code>:</p>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-language">Python</span>
+                            </div>
+                            <pre><code>from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
 
 # Generate synthetic regression dataset
 X, y = make_regression(n_samples=1000, n_features=5, noise=0.1, random_state=42)
@@ -884,78 +720,25 @@ rf_reg.fit(X_train, y_train)
 y_pred_reg = rf_reg.predict(X_test)
 
 # Evaluate the model
-print(f"R^2 Score: {rf_reg.score(X_test, y_test)}")</code></pre>
-                    </div>
-                    
-                    <p>This example demonstrates how to use Random Forest for regression. It generates synthetic data and splits it into training and testing sets. The model is evaluated using the R² score.</p>
-                </section>
-                
-                <section id="best-practices">
-                    <h2>Best Practices When Using Random Forest</h2>
-                    <div class="technical-box">
-                        <h3>Hyperparameter Tuning Tips:</h3>
-                        <ul>
-                            <li><strong>n_estimators:</strong> Start with a higher number of trees (100-500) and tune based on performance vs. computational cost.</li>
-                            <li><strong>max_depth:</strong> Limit tree depth to control overfitting. Use cross-validation to find the optimal depth.</li>
-                            <li><strong>min_samples_split/min_samples_leaf:</strong> Increase these values for smoother decision boundaries and to prevent overfitting.</li>
-                            <li><strong>max_features:</strong> Try different values such as 'sqrt', 'log2', or specific integers based on your feature count.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="team-experience">
-                        <h4><i class="fa fa-users"></i> Team Best Practices</h4>
-                        <p>In our data science team at BC Public Service, we developed a standardized Random Forest workflow that saved us countless hours of experimentation:</p>
-                        <ol>
-                            <li><strong>Feature Engineering First:</strong> We found that good feature engineering often outperformed complex hyperparameter tuning. Focus on domain-specific feature creation before diving into model optimization.</li>
-                            <li><strong>Start Simple:</strong> Begin with default parameters and establish a baseline before optimizing.</li>
-                            <li><strong>Grid Search Strategy:</strong> Use a coarse-to-fine approach for hyperparameter tuning - first with wide parameter ranges, then narrow down to promising areas.</li>
-                            <li><strong>Cross-Validation:</strong> Always use stratified k-fold cross-validation (k=5) for classification tasks to ensure stable performance estimates.</li>
-                            <li><strong>Ensemble Approach:</strong> For critical projects, we often combined Random Forest with other models (like Gradient Boosting) in a voting ensemble for even better performance.</li>
-                        </ol>
-                    </div>
-                </section>
-                
-                <!-- External References Section -->
-                <section class="external-references">
-                    <h2>External Resources & References</h2>
-                    <p>For more information about Random Forest and ensemble learning, check out these authoritative resources:</p>
-                    <div class="references-grid">
-                        <div class="reference-item">
-                            <h4><a href="https://scikit-learn.org/stable/modules/ensemble.html#forest" target="_blank" rel="noopener">Scikit-learn Random Forest Documentation</a></h4>
-                            <p>Official documentation for Random Forest implementation in scikit-learn with API references and examples.</p>
-                        </div>
-                        <div class="reference-item">
-                            <h4><a href="https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm" target="_blank" rel="noopener">Leo Breiman's Random Forest Page</a></h4>
-                            <p>Original resources from Leo Breiman, the inventor of Random Forest algorithm.</p>
-                        </div>
-                        <div class="reference-item">
-                            <h4><a href="https://arxiv.org/abs/1201.0490" target="_blank" rel="noopener">Random Forests Research Paper</a></h4>
-                            <p>Academic paper "Consistency of Random Forests and Other Averaging Classifiers" on the mathematical foundations.</p>
-                        </div>
-                        <div class="reference-item">
-                            <h4><a href="https://www.kaggle.com/learn/intermediate-machine-learning" target="_blank" rel="noopener">Kaggle Intermediate Machine Learning</a></h4>
-                            <p>Free course with practical Random Forest tutorials and real-world applications.</p>
-                        </div>
-                        <div class="reference-item">
-                            <h4><a href="https://towardsdatascience.com/random-forest-in-python-24d0893d51c0" target="_blank" rel="noopener">Towards Data Science: Random Forest Guide</a></h4>
-                            <p>Comprehensive tutorial with visualizations and implementation details.</p>
-                        </div>
-                        <div class="reference-item">
-                            <h4><a href="https://www.tensorflow.org/decision_forests" target="_blank" rel="noopener">TensorFlow Decision Forests</a></h4>
-                            <p>Google's implementation of Random Forest and other decision tree based algorithms.</p>
+print(f"R^2 Score: {rf_reg.score(X_test, y_test)}")
+</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="conclusion">
-                    <h2>Conclusion</h2>
-                    <p>Random Forest is one of the most powerful tools available in machine learning, offering flexibility, robustness, and high performance in many real-world problems. It is especially suitable for high-dimensional datasets, missing data, and situations where model accuracy is crucial. However, it's essential to weigh the trade-offs of complexity, interpretability, and resource consumption, especially when dealing with large-scale or noisy datasets.</p>
-                    
-                    <p>In summary, Random Forest strikes an excellent balance between complexity and performance, making it a staple in the data scientist's toolbox. Whether you're working with classification or regression tasks, Random Forest is a reliable and effective choice for many machine learning challenges.</p>
-                    
-                    <div class="contact-info">
-                        <p>Have questions about implementing Random Forest for your specific use case? Feel free to <a href="mailto:yangmingml@yahoo.com">email me</a> or connect on <a href="https://www.linkedin.com/in/yangming-l-9a964791/" target="_blank">LinkedIn</a>.</p>
-                    </div>
+                <section id="further-reading-references">
+                    <h2>Further Reading & References</h2>
+                    <ul>
+                        <li><a href="https://randomresearchai.medium.com/unleashing-random-forest-in-python-a-deep-dive-609750c6a638" target="_blank">Unleashing Random Forest in Python: A Deep Dive (Medium, 2025)</a></li>
+                        <li><a href="https://www.numberanalytics.com/blog/beginners-guide-random-forests-effective-use" target="_blank">A Beginner's Guide to Random Forests and Their Effective Use (Number Analytics, 2025)</a></li>
+                        <li><a href="https://medium.com/@adeevmardia/random-forest-the-ultimate-guide-to-regression-and-classification-33506d6cf865" target="_blank">Random Forest: The Ultimate Guide to Regression and Classification (Medium, 2024)</a></li>
+                        <li><a href="https://scikit-learn.org/stable/modules/ensemble.html#forest" target="_blank">Scikit-learn Official Documentation: Random Forest</a></li>
+                        <li><a href="https://www.kaggle.com/learn/intermediate-machine-learning" target="_blank">Kaggle Intermediate Machine Learning (Random Forest practicals)</a></li>
+                        <li><a href="https://diagnprognres.biomedcentral.com/articles/10.1186/s41512-024-00177-1" target="_blank">Understanding overfitting in random forest for probability estimation: a visualization and simulation study (BMC, 2024)</a></li>
+                        <li><a href="https://medium.datadriveninvestor.com/your-random-forest-model-is-never-the-best-random-forest-model-you-can-build-e3d0b79080dc" target="_blank">Your Random Forest Model is Never the Best Random Forest Model You Can Build (DataDrivenInvestor, 2023)</a></li>
+                        <li><a href="https://www.linkedin.com/pulse/mastering-random-forests-marketing-analytics-amar-sankar-kar-utj7e" target="_blank">Mastering Random Forests for Marketing Analytics (LinkedIn, 2024)</a></li>
+                        <li><a href="https://arxiv.org/abs/2402.18612" target="_blank">arXiv:2402.18612 - Understanding overfitting in random forest for probability estimation (2024)</a></li>
+                    </ul>
                 </section>
             </article>
             
