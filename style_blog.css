@@ -348,3 +348,9 @@ button:focus,
     }
 
 .header .profile-
+
+.pdf-container {
+    width: 100%; /* 标准宽度 */
+    margin: 20px auto; /* 标准居中边距 */
+    ...
+}
