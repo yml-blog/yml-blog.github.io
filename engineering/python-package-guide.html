@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>From Zero to One: Building and Publishing a Python Package | Yangming Li</title>
+    <meta name="description" content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation.">
+    <meta name="keywords" content="Python, packaging, PyPI, setuptools, pyproject.toml, CI/CD, open source, Yangming Li, engineering">
+    <link href="favicon.png" rel="icon">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link href="https://yangmingli.com/python-package-guide.html" rel="canonical">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style_blog.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind', sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px; /* 控制内容区域宽度 */
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        body.dark-mode .step-box {
+            background-color: #2a2a2a;
+            border-color: #3d3d3d;
+        }
+
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+        
+        .code-box { 
+            background: #2d2d2d; 
+            color: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin: 20px 0; 
+            overflow-x: auto; /* 确保代码可以滚动而不是溢出 */
+        }
+        .code-box pre { 
+            margin: 0; 
+            padding: 15px; 
+            overflow-x: auto; 
+            white-space: pre-wrap; /* 允许长行自动换行 */
+            word-wrap: break-word; /* 确保长单词也能换行 */
+        }
+        .code-box code { 
+            font-family: 'Courier New', Courier, monospace; 
+            font-size: 14px; 
+        }
+        .step-box { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 8px; 
+            margin: 20px 0; 
+            border: 1px solid #e9ecef; 
+        }
+        h2, h3 { 
+            color: #f1780e;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+        }
+        
+        .references {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #f1780e;
+        }
+        
+        body.dark-mode .references {
+            background-color: #2a2a2a;
+            border-left-color: #f1780e;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+            .blog-share-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .blog-share-buttons a {
+                width: 100%;
+            }
+        }
+        
+        /* 主内容区域样式 */
+        .main-content {
+            padding: 20px 0;
+        }
+        
+        /* 文章元数据样式 */
+        .article-metadata {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .article-metadata span {
+            margin-right: 15px;
+        }
+        
+        .keywords {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>From Zero to One: Building and Publishing a Python Package</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 15 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2500 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 3500 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> Python, packaging, PyPI, setuptools, pyproject.toml, CI/CD, open source, engineering
+</div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+</div>
+<main>
+<section class="intro">
+<h2>Introduction</h2>
+<p>Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and publishing a modern Python package, following best practices and official recommendations.</p>
+</section>
+<section class="step-box">
+<h2>1. Project Structure & Initialization</h2>
+<p>Start with a clean directory layout. The recommended structure is:</p>
+<div class="code-box"><pre><code>my_package/
+├── src/
+│   └── my_package/
+│       ├── __init__.py
+│       └── core.py
+├── tests/
+├── pyproject.toml
+├── setup.py         # optional but helpful
+├── README.md
+└── LICENSE
+</code></pre></div>
+<p>This structure ensures your package is importable, testable, and future-proof.</p>
+</section>
+<section class="step-box">
+<h2>2. Writing Core Functionality</h2>
+<p>In <code>core.py</code>, define your main functions:</p>
+<div class="code-box"><pre><code>def add(a, b):
+    return a + b
+</code></pre></div>
+<p>Expose them in <code>__init__.py</code>:</p>
+<div class="code-box"><pre><code>from .core import add
+__all__ = ["add"]
+</code></pre></div>
+<p>This allows users to import directly: <code>from my_package import add</code></p>
+</section>
+<section class="step-box">
+<h2>3. Configuration: setup.py vs pyproject.toml</h2>
+<p><strong>Modern (recommended):</strong></p>
+<div class="code-box"><pre><code class="language-toml">[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-package"
+version = "0.1.0"
+description = "Example Python package"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = []
+</code></pre></div>
+<p><strong>Legacy (setup.py):</strong></p>
+<div class="code-box"><pre><code class="language-python">from setuptools import setup, find_packages
+
+setup(
+    name="my_package",
+    version="0.1.0",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    install_requires=[],
+)
+</code></pre></div>
+<p>Use <code>pyproject.toml</code> for modern, future-proof packaging.</p>
+</section>
+<section class="step-box">
+<h2>4. Testing</h2>
+<p>Add tests in <code>tests/</code> using <code>pytest</code> or <code>unittest</code>:</p>
+<div class="code-box"><pre><code class="language-python">def test_add():
+    from my_package import add
+    assert add(2, 3) == 5
+</code></pre></div>
+<p>Testing ensures your package works as expected and is essential for CI/CD.</p>
+</section>
+<section class="step-box">
+<h2>5. Documentation & Licensing</h2>
+<ul>
+<li><strong>README.md</strong>: Explain installation, usage, and examples.</li>
+<li><strong>LICENSE</strong>: Choose a license (MIT, Apache, etc.).</li>
+<li><strong>.gitignore</strong>: Ignore build artifacts (<code>dist/</code>, <code>*.egg-info/</code>).</li>
+</ul>
+</section>
+<section class="step-box">
+<h2>6. Build & Deploy</h2>
+<p>Install build tools and create a distribution:</p>
+<div class="code-box"><pre><code class="language-bash">pip install wheel build twine
+python -m build
+</code></pre></div>
+<p>Upload to PyPI or TestPyPI:</p>
+<div class="code-box"><pre><code class="language-bash"># Test PyPI
+python -m twine upload --repository testpypi dist/*
+# Production
+python -m twine upload dist/*
+</code></pre></div>
+<p>Once published, users can install with <code>pip install my-package</code>.</p>
+</section>
+<section class="step-box">
+<h2>7. Versioning & Automation</h2>
+<ul>
+<li>Use Git and tag-based versioning.</li>
+<li>Maintain a <code>CHANGELOG.md</code>.</li>
+<li>Set up CI/CD (e.g., GitHub Actions) for linting, testing, building, and publishing.</li>
+</ul>
+<p>A simple GitHub Actions workflow for testing and publishing:</p>
+<div class="code-box"><pre><code class="language-yaml"># .github/workflows/python-package.yml
+name: Python Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        pip install -e .
+    - name: Test with pytest
+      run: pytest
+      
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    - name: Build and publish
+      env:
+        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+      run: |
+        python -m build
+        twine upload dist/*
+</code></pre></div>
+</section>
+<section class="step-box">
+<h2>8. Recommended Resources</h2>
+<ul>
+<li><a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank">Packaging Python Projects (official tutorial)</a></li>
+<li><a href="https://py-pkgs.org/" target="_blank">Python Packages by Beuzen & Timbers</a></li>
+<li><a href="https://pyopensci.org/python-package-guide/" target="_blank">pyOpenSci Python Packaging 101</a></li>
+<li><a href="https://blog.datatraininglab.com/how-to-create-and-publish-python-package/" target="_blank">Datatraininglab step-by-step guide</a></li>
+</ul>
+</section>
+<section class="conclusion">
+<h2>Conclusion</h2>
+<p>By following these steps and referencing the official guides, you can confidently create, test, document, and release a Python package from scratch. Happy packaging!</p>
+</section>
+<section class="references">
+<h2>References</h2>
+<ol>
+<li>Python Packaging Authority. (2023). <i>Packaging Python Projects</i>. Python Packaging User Guide. <a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank">https://packaging.python.org/tutorials/packaging-projects/</a></li>
+<li>Beuzen, T., & Timbers, T. (2022). <i>Python Packages</i>. <a href="https://py-pkgs.org/" target="_blank">https://py-pkgs.org/</a></li>
+<li>pyOpenSci. (2023). <i>Python Packaging Guide</i>. <a href="https://pyopensci.org/python-package-guide/" target="_blank">https://pyopensci.org/python-package-guide/</a></li>
+<li>Hillard, D. (2022). <i>Publishing Python Packages</i>. Manning Publications.</li>
+<li>PyPA. (2023). <i>PEP 518 -- Specifying Minimum Build System Requirements for Python Projects</i>. <a href="https://peps.python.org/pep-0518/" target="_blank">https://peps.python.org/pep-0518/</a></li>
+</ol>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- jquery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap -->
+<script defer src="js/bootstrap.min.js"></script>
+<script defer src="js/scripts.js"></script>
+<script defer src="js/blogPanel.js"></script>
+<script>
+    // Check for saved theme preference
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+    
+    // Apply saved theme on page load
+    if (currentTheme) {
+        document.body.classList.add(currentTheme);
+        
+        // Update toggle position if dark mode
+        if (currentTheme === 'dark-mode') {
+            document.getElementById('checkbox').checked = true;
+        }
+    }
+    
+    // Toggle theme when switch is clicked
+    document.getElementById('checkbox').addEventListener('change', function(e) {
+        if (e.target.checked) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', '');
+        }
+    });
+</script>
+</body>
+</html> 
