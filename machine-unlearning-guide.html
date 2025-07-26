@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- SEO metadata -->
+    <title>Machine Unlearning: A Complete Technical Guide | Yangming Li Tech Blog</title>
+    <meta name="description"
+          content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers."/>
+    <link href="favicon.png" rel="icon"/>
+    <link href="https://yangmingli.com/machine-unlearning-guide.html" rel="canonical"/>
+    <meta name="robots" content="index,follow,max-image-preview:large"/>
+    <meta name="keywords" content="machine unlearning, SISA, influence functions, certified removal, data privacy, machine learning, AI ethics"/>
+    <meta name="author" content="Yangming Li"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:locale" content="en_CA"/>
+    <meta property="og:title" content="Machine Unlearning: A Complete Technical Guide | Yangming Li Tech Blog"/>
+    <meta property="og:description"
+          content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers."/>
+    <meta property="og:url" content="https://yangmingli.com/machine-unlearning-guide.html"/>
+    <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
+    <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Machine Unlearning: A Complete Technical Guide | Yangming Li Tech Blog"/>
+    <meta name="twitter:description"
+          content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers."/>
+    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
+    <link href="css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link href="css/blog_post.css" rel="stylesheet"/>
+    
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Machine Unlearning: A Complete Technical Guide",
+      "description": "A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers.",
+      "author": {
+        "@type": "Person",
+        "name": "Yangming Li"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Yangming Li Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yangmingli.com/img/Logo.png"
+        }
+      },
+      "datePublished": "2023-07-15",
+      "dateModified": "2023-07-15",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yangmingli.com/machine-unlearning-guide.html"
+      },
+      "keywords": "machine unlearning, SISA, influence functions, certified removal"
+    }
+    </script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="blog-header">
+                    <a href="index.html" class="back-button"><i class="fa fa-arrow-left"></i> Back to Home</a>
+                    <h1>Machine Unlearning: A Complete Technical Guide</h1>
+                    <div class="blog-meta">
+                        <span><i class="fa fa-calendar"></i> July 15, 2023</span>
+                        <span><i class="fa fa-tag"></i> ML</span>
+                    </div>
+                </div>
+
+                <div class="blog-content">
+                    <h2>Summary</h2>
+                    <p>We present a step-by-step system for machine unlearning, covering: (1) data sharding and provenance tracking; (2) three core unlearning algorithms (SISA, influence-based corrections, certified removal); (3) a RESTful unlearning API; (4) certification and monitoring procedures. Each component is linked to its original reference so you can dive straight into the implementation details.</p>
+
+                    <h2>1. Data Ingestion & Sharding</h2>
+                    <ol>
+                        <li>
+                            <strong>Data Provenance Registry</strong>
+                            <ul>
+                                <li>Record for every training sample: unique ID, shard assignment, slice order (<a href="https://arxiv.org/abs/1912.03817" target="_blank" rel="noopener">arXiv</a>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Sharded Training Pipeline</strong>
+                            <ul>
+                                <li>Split dataset into <em>N</em> disjoint shards, each further sliced into <em>M</em> sequential versions.</li>
+                                <li>Train one child model per slice, aggregating via ensembling or distillation (<a href="https://arxiv.org/abs/1912.03817" target="_blank" rel="noopener">arXiv</a>).</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <blockquote>
+                        <strong>Link:</strong> <a href="https://arxiv.org/abs/1912.03817" target="_blank" rel="noopener">Machine Unlearning (SISA) – arXiv:1912.03817</a>
+                    </blockquote>
+
+                    <div class="diagram-container">
+                        <h3>SISA Architecture</h3>
+                        <img src="https://yangmingli.com/img/machine-unlearning-diagram.png" alt="SISA Architecture Diagram" class="img-fluid"/>
+                    </div>
+
+                    <h2>2. Unlearning Algorithms</h2>
+                    
+                    <h3>2.1 Exact Shard-Isolation (SISA)</h3>
+                    <ul>
+                        <li><strong>Mechanism</strong>: Only the shard containing the "forget" sample is retrained; other shards remain unchanged (<a href="https://arxiv.org/abs/1912.03817" target="_blank" rel="noopener">arXiv</a>).</li>
+                        <li><strong>Cost</strong>: <em>O</em>(1/<em>N</em>) of full retrain, with slice granularity controlling replay depth.</li>
+                        <li><strong>Code Reference:</strong> see Appendix A for PyTorch SISA loop.</li>
+                    </ul>
+
+                    <h3>2.2 Influence-Function Corrections</h3>
+                    <ul>
+                        <li><strong>Principle</strong>: Use influence functions to estimate the parameter delta from deleting one sample via Hessian-vector products (<a href="https://proceedings.mlr.press/v70/koh17a/koh17a.pdf" target="_blank" rel="noopener">Proceedings of Machine Learning Research</a>).</li>
+                        <li><strong>Trade-Off</strong>: Fast for convex or shallow models; approximation degrades on deep nets.</li>
+                        <li><strong>Paper:</strong> <a href="https://proceedings.mlr.press/v70/koh17a/koh17a.pdf" target="_blank" rel="noopener">Understanding Black-box Predictions via Influence Functions (ICML 2017)</a></li>
+                    </ul>
+
+                    <h3>2.3 Certified Removal</h3>
+                    <ul>
+                        <li><strong>Guarantee</strong>: Formal bound that the unlearned model is indistinguishable from one retrained from scratch without the forgotten data (<a href="https://proceedings.mlr.press/v119/guo20c.html" target="_blank" rel="noopener">Proceedings of Machine Learning Research</a>).</li>
+                        <li><strong>Approach</strong>: For linear models, apply a "removal mechanism" that perturbs parameters and certifies statistical closeness.</li>
+                        <li><strong>Advanced:</strong> Newer methods extend to non-convex models via privacy amplification by post-processing (<a href="https://www.arxiv.org/pdf/2506.06486" target="_blank" rel="noopener">arXiv</a>).</li>
+                    </ul>
+                    <blockquote>
+                        <strong>Link:</strong> <a href="https://proceedings.mlr.press/v119/guo20c.html" target="_blank" rel="noopener">Certified Data Removal (ICML 2020)</a>
+                    </blockquote>
+
+                    <h2>3. Unlearning API & Integration</h2>
+                    <ol>
+                        <li>
+                            <strong>REST Endpoint</strong> <code>/unlearn</code>
+                            <div class="code-block">
+                                <pre><code>POST /unlearn
+Content-Type: application/json
+
+{
+  "sample_id": "UUID-1234",
+  "method": "sisa" | "influence" | "certified"
+}</code></pre>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>Dispatcher</strong>
+                            <ul>
+                                <li>Look up <code>sample_id</code> → shard <em>s</em> and slice <em>k</em>.</li>
+                                <li>Trigger chosen algorithm on model(s):
+                                    <ul>
+                                        <li><strong>SISA</strong>: retrain slice <em>k</em> of shard <em>s</em>.</li>
+                                        <li><strong>Influence</strong>: compute gradient and Hessian corrections on global model.</li>
+                                        <li><strong>Certified</strong>: apply certified removal mechanism.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Async Queue</strong>
+                            <ul>
+                                <li>Use a job queue (e.g. RabbitMQ) to manage heavy retraining tasks.</li>
+                                <li>Provide immediate 202 Accepted and polling URL for status.</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h2>4. Certification & Monitoring</h2>
+                    <ol>
+                        <li>
+                            <strong>Gold Standard Comparison</strong>
+                            <ul>
+                                <li>Periodically retrain full model offline; compare key metrics (accuracy, loss) against unlearned model within ε-tolerances (<a href="https://www.ijcai.org/proceedings/2022/0556.pdf" target="_blank" rel="noopener">IJCAI</a>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Immutable Audit Logs</strong>
+                            <ul>
+                                <li>Append every unlearning request and parameter-update hash to a tamper-evident ledger (<a href="https://www.usenix.org/system/files/sec22-thudi.pdf" target="_blank" rel="noopener">USENIX</a>).</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Performance Dashboards</strong>
+                            <ul>
+                                <li>Track per-shard retrain latency and system throughput.</li>
+                                <li>Alert if average unlearning time > SLA threshold.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <blockquote>
+                        <strong>Link:</strong> <a href="https://www.ijcai.org/proceedings/2022/0556.pdf" target="_blank" rel="noopener">ARCANE: Exact Unlearning Architecture (IJCAI 2022)</a>
+                    </blockquote>
+
+                    <h2>5. End-to-End Example (PyTorch Snippet)</h2>
+                    <div class="code-block">
+                        <pre><code># Appendix A: SISA Retrain Loop
+from torch.utils.data import DataLoader, Subset
+def sisa_unlearn(model_class, full_dataset, shard_idx, slice_idx, epochs):
+    # 1. Identify shard and slice
+    shard_size = len(full_dataset) // N
+    slice_size = shard_size // M
+    start = shard_idx * shard_size + slice_idx * slice_size
+    end   = start + slice_size
+
+    # 2. Prepare data
+    retrain_data = Subset(full_dataset, list(range(start, end)))
+    loader = DataLoader(retrain_data, batch_size=64, shuffle=True)
+
+    # 3. Retrain child model
+    model = model_class()  
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+    for _ in range(epochs):
+        for x, y in loader:
+            loss = F.cross_entropy(model(x), y)
+            optimizer.zero_grad(); loss.backward(); optimizer.step()
+    return model</code></pre>
+                    </div>
+
+                    <h2>Key Challenges in Machine Unlearning</h2>
+
+                    <p>While the methods above provide a foundation for machine unlearning, several practical challenges remain:</p>
+
+                    <h3>Computational Efficiency</h3>
+                    <p>Even with optimized approaches like SISA, unlearning at scale remains computationally expensive. For large-scale models and datasets, carefully balancing shard size with retraining cost is essential.</p>
+
+                    <h3>Verification Metrics</h3>
+                    <p>Determining when a model has truly "forgotten" data is complex. Empirical validation requires developing rigorous verification protocols that measure information leakage without compromising system performance.</p>
+
+                    <h3>Adversarial Considerations</h3>
+                    <p>The presence of malicious actors attempting to extract supposedly forgotten information presents additional security challenges, requiring robust defense mechanisms beyond basic unlearning procedures.</p>
+
+                    <h2>References</h2>
+                    <ol class="references">
+                        <li>Bourtoule <em>et al.</em>, "Machine Unlearning (SISA)," arXiv:1912.03817 (<a href="https://arxiv.org/abs/1912.03817" target="_blank" rel="noopener">arXiv</a>)</li>
+                        <li>Koh & Liang, "Influence Functions," ICML 2017 (<a href="https://proceedings.mlr.press/v70/koh17a.html" target="_blank" rel="noopener">Proceedings of Machine Learning Research</a>)</li>
+                        <li>Guo <em>et al.</em>, "Certified Data Removal," ICML 2020 (<a href="https://proceedings.mlr.press/v119/guo20c.html" target="_blank" rel="noopener">Proceedings of Machine Learning Research</a>)</li>
+                        <li>Thudi <em>et al.</em>, "Auditable Definitions for Unlearning," USENIX Sec '22 (<a href="https://www.usenix.org/system/files/sec22-thudi.pdf" target="_blank" rel="noopener">USENIX</a>)</li>
+                        <li>ARCANE: "An Efficient Architecture for Exact Unlearning," IJCAI 2022 (<a href="https://www.ijcai.org/proceedings/2022/0556.pdf" target="_blank" rel="noopener">IJCAI</a>)</li>
+                        <li>Cao & Yang, "Summation-Form Unlearning," arXiv 2024 (<a href="https://arxiv.org/html/2405.07406v2" target="_blank" rel="noopener">arXiv</a>)</li>
+                        <li>Li <em>et al.</em>, "Zero-Shot Unlearning via Noise Perturbations," OpenReview 2025 (<a href="https://openreview.net/forum?id=3rWQlV3s1I" target="_blank" rel="noopener">OpenReview</a>)</li>
+                        <li>Arora <em>et al.</em>, "Unlearning Challenge Insights," NeurIPS 2023 (<a href="https://unlearning-challenge.github.io/unlearning-challenge.github.io/" target="_blank" rel="noopener">unlearning-challenge.github.io</a>)</li>
+                        <li>Borji, "Real-World Machine Unlearning," Medium 2023 (<a href="https://medium.com/@aliborji/a-fresh-perspective-on-machine-unlearning-with-a-real-world-solution-203821dd01c0" target="_blank" rel="noopener">Medium</a>)</li>
+                        <li>Zhang <em>et al.</em>, "Certified Unlearning without Data," arXiv 2025 (<a href="https://www.arxiv.org/pdf/2506.06486" target="_blank" rel="noopener">arXiv</a>)</li>
+                    </ol>
+                </div>
+
+                <div class="blog-share-buttons">
+                    <a class="share-btn twitter" href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent('Machine Unlearning: A Complete Technical Guide'),'_blank')" title="Share on Twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="share-btn linkedin" href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent('Machine Unlearning: A Complete Technical Guide'),'_blank')" title="Share on LinkedIn">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('Machine Unlearning: A Complete Technical Guide')+'&body='+encodeURIComponent('Check out this article: '+window.location.href),'_blank')" title="Share via Email">
+                        <i class="fa fa-envelope"></i>
+                    </a>
+                </div>
+
+                <div class="related-posts">
+                    <h3>Related Posts</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="trust-worth-machine-learning-1.html">Trustworthy Machine Learning</a></h5>
+                                    <p class="card-text">What is trustworthy machine learning and why it's important.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="mlops-essential-skills.html">MLOps: Essential Skills</a></h5>
+                                    <p class="card-text">Understanding MLOps principles and implementation.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="deep-neural-networks-explained.html">Deep Neural Networks Explained</a></h5>
+                                    <p class="card-text">Core principles and implementation of DNNs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comments-section">
+                    <h3>Comments</h3>
+                    <div class="comment-form">
+                        <form>
+                            <div class="form-group">
+                                <label for="commenter-name">Name</label>
+                                <input type="text" class="form-control" id="commenter-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment-text">Comment</label>
+                                <textarea class="form-control" id="comment-text" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div id="comment-list">
+                        <!-- Comments will appear here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="blog-footer">
+        <div class="container">
+            <p>© 2023 Yangming Li. All rights reserved.</p>
+            <p>
+                <a href="#">Back to top</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/copyCodeButton.js"></script>
+    <script src="js/toc.js"></script>
+</body>
+</html> 

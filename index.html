@@ -100,6 +100,69 @@ body.dark-mode .header .content h1,
 body.dark-mode .header .content p {
     color: #f5f5f5;
 }
+
+/* Certificate section styles */
+.certificate-section {
+    margin-top: 20px;
+}
+
+.certificate-section h4 {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+}
+
+.certificate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.certificate-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.certificate-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.certificate-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.certificate-details {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+body.dark-mode .certificate-item {
+    background-color: #2d2d2d;
+    border-color: #444;
+}
+
+body.dark-mode .certificate-name {
+    color: #e0e0e0;
+}
+
+body.dark-mode .certificate-details {
+    color: #aaa;
+}
 body.dark-mode #myTabContent {
     background-color: #2a2a2a;
 }
@@ -1857,6 +1920,25 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                                             <footer style="margin-top: 10px; font-size: 0.9em; text-align: right;">― Steve Jobs</footer>
 </blockquote>
 </div>
+
+<div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #4682B4; border-radius: 5px;">
+    <h3 style="color: #333; margin-bottom: 15px;">
+        <a href="courses.html" style="color: #333; text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
+            Courses Learned
+            <span style="font-size: 0.8em; background-color: #4682B4; color: white; padding: 5px 10px; border-radius: 20px; margin-left: 15px;">View All Certificates</span>
+        </a>
+    </h3>
+    <p>I've completed over 15 courses in programming, machine learning, MLOps, and data science from platforms like DataCamp and Coursera. <a href="courses.html" style="color: #4682B4;">Click here</a> to view all certificates.</p>
+    
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Python Programming</span>
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Deep Learning</span>
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">SQL</span>
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">MLOps</span>
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Docker</span>
+        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Git & GitHub</span>
+    </div>
+</div>
 </div>
 </div>
 </div>
@@ -2058,6 +2140,21 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <i class="fa fa-linkedin"></i>
 </a>
 <a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('[Classical ML] Exploring Random Forest: A Powerful Ensemble Learning Algorithm')+'&amp;body='+encodeURIComponent('Check out this article: '+window.location.origin+'/random-forest-guide.html'),'_blank')" title="Share via Email">
+<i class="fa fa-envelope"></i>
+</a>
+</div>
+</li>
+<li data-tag="ML">
+<h3><a href="machine-unlearning-guide.html">[ML] Machine Unlearning: A Complete Technical Guide</a></h3>
+<p>[ML] A step-by-step guide to implementing machine unlearning systems with algorithms, APIs, and monitoring processes.</p>
+<div class="blog-share-buttons">
+<a class="share-btn twitter" href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.origin+'/machine-unlearning-guide.html')+'&amp;text='+encodeURIComponent('[ML] Machine Unlearning: A Complete Technical Guide'),'_blank')" title="Share on Twitter">
+<i class="fa fa-twitter"></i>
+</a>
+<a class="share-btn linkedin" href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&amp;url='+encodeURIComponent(window.location.origin+'/machine-unlearning-guide.html')+'&amp;title='+encodeURIComponent('[ML] Machine Unlearning: A Complete Technical Guide'),'_blank')" title="Share on LinkedIn">
+<i class="fa fa-linkedin"></i>
+</a>
+<a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent('[ML] Machine Unlearning: A Complete Technical Guide')+'&amp;body='+encodeURIComponent('Check out this article: '+window.location.origin+'/machine-unlearning-guide.html'),'_blank')" title="Share via Email">
 <i class="fa fa-envelope"></i>
 </a>
 </div>
