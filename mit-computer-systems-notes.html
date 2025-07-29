@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  line-height: 1.6;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.header {
+  text-align: center;
+  padding: 2rem 0;
+}
+h1 {
+  margin-top: 0;
+}
+</style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>MIT Principles of Computer Systems Course Notes - Yangming's Blog | Yangming Li</title>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        .main-content .container {
+            max-width: 98%;
+            width: 98%;
+            padding: 0;
+            margin: 0 auto;
+        }
+
+        .pdf-container {
+            width: 100%;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .pdf-viewer {
+            width: 100%;
+            height: 1000px;
+            border: none;
+        }
+
+        /* Other centered elements */
+        .header .content,
+        .article-metadata,
+        .intro {
+            max-width: 100%;
+            padding: 0 20px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .pdf-container {
+                width: 100%;
+                margin: 20px 0;
+            }
+        }
+
+        /* Remove related articles sidebar */
+        .blog-panel {
+            display: none;
+        }
+    </style>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        
+        /* Dark mode colors */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        body.dark-mode .header .content h1,
+        body.dark-mode .header .content p {
+            color: #f5f5f5;
+        }
+        body.dark-mode .article-metadata {
+            color: #dddddd;
+        }
+        body.dark-mode h2, 
+        body.dark-mode h3, 
+        body.dark-mode h4 {
+            color: #f1780e;
+        }
+        body.dark-mode pre code {
+            background-color: #2d2d2d;
+            color: #f5f5f5;
+        }
+        body.dark-mode .technical-box {
+            background-color: #2d2d2d;
+            border-color: #3d3d3d;
+        }
+        body.dark-mode .key-aspects-table .table {
+            color: #f5f5f5;
+            background-color: #2a2a2a;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table th {
+            background-color: #333;
+            color: #f5f5f5;
+            border-color: #444;
+        }
+        body.dark-mode .key-aspects-table td {
+            border-color: #444;
+        }
+        body.dark-mode .nav-menu {
+            background-color: #252525;
+        }
+        
+        /* Social sharing buttons */
+        .blog-share-buttons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1DA1F2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0A66C2;
+        }
+        .blog-share-buttons .email {
+            background-color: #D44638;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." name="description"/><link href="https://yangmingli.com/mit-computer-systems-notes.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="MIT Principles of Computer Systems Course Notes - Yangming's Blog | Yangming Li" property="og:title"/><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." property="og:description"/><meta content="https://yangmingli.com/mit-computer-systems-notes.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="MIT Principles of Computer Systems Course Notes - Yangming's Blog | Yangming Li" name="twitter:title"/><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MIT Principles of Computer Systems Course Notes - Yangming's Blog | Yangming Li", "description": "My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/mit-computer-systems-notes.html"}}</script>  <!-- Canonical URL -->
+  <link rel="canonical" href="https://yangmingli.com/mit-computer-systems-notes.html">
+  </head>
+<body>
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>MIT Principles of Computer Systems (6.826) Course Notes</h1>
+</div>
+</header>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<div class="keywords">
+<strong>Keywords:</strong> Computer Systems, Distributed Systems, Operating Systems, System Design, MIT
+                </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+<main>
+<section class="intro">
+<p>My study notes from MIT's Principles of Computer Systems (6.826) course, covering distributed systems, concurrency, fault tolerance, and system design principles.</p>
+</section>
+<section>
+<div class="pdf-container">
+<object class="pdf-viewer" data="img/MIT_system.pdf" type="application/pdf">
+<p>It appears you don't have a PDF plugin for this browser. 
+                            You can <a href="img/MIT_system.pdf">click here to download the PDF file.</a></p>
+</object>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved.</p>
+</footer>
+</div>
+</div>
+<!-- Scripts -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // Apply saved theme on page load
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update toggle position if dark mode
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when switch is clicked
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
+</body>
+</html> 
