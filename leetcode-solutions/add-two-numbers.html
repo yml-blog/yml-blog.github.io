@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- SEO metadata -->
+    <title>2. Add Two Numbers | LeetCode Solutions | Yangming Li Tech Blog</title>
+    <meta name="description"
+          content="Detailed solution and explanation for LeetCode problem: Add Two Numbers"/>
+    <link href="../favicon.png" rel="icon"/>
+    <link href="https://yangmingli.com/leetcode-solutions/add-two-numbers.html" rel="canonical"/>
+    <meta name="robots" content="index,follow,max-image-preview:large"/>
+    <meta name="keywords" content="leetcode, coding interview, algorithms, data structures, programming, python, linked list, add two numbers"/>
+    <meta name="author" content="Yangming Li"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article"/>
+    <meta property="og:locale" content="en_CA"/>
+    <meta property="og:title" content="2. Add Two Numbers | LeetCode Solutions | Yangming Li Tech Blog"/>
+    <meta property="og:description"
+          content="Detailed solution and explanation for LeetCode problem: Add Two Numbers"/>
+    <meta property="og:url" content="https://yangmingli.com/leetcode-solutions/add-two-numbers.html"/>
+    <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
+    <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
+    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/style.css" rel="stylesheet"/>
+    <link href="../css/blog_post.css" rel="stylesheet"/>
+    
+    <style>
+        body {
+            font-family: 'Hind', sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        
+        .header-section {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-section h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #007bff;
+            font-size: 1.1rem;
+        }
+        
+        .back-button:hover {
+            text-decoration: none;
+            color: #0056b3;
+        }
+        
+        .solution-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .solution-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            font-weight: 600;
+        }
+        
+        pre {
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            padding: 12px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border: 1px solid #e0e0e0;
+        }
+        
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        
+        .complexity {
+            background-color: #f8f9fa;
+            border-left: 4px solid #4285f4;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+        
+        /* Dark mode toggle */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        
+        .theme-switch input {
+            display: none;
+        }
+        
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        
+        body.dark-mode .solution-section {
+            background-color: #2a2a2a;
+        }
+        
+        body.dark-mode .solution-section h2 {
+            color: #e0e0e0;
+            border-bottom-color: #444;
+        }
+        
+        body.dark-mode pre {
+            background-color: #2d2d2d;
+            border-color: #444;
+        }
+        
+        body.dark-mode code {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .complexity {
+            background-color: #333;
+            border-color: #5c9aff;
+        }
+        
+        body.dark-mode .back-button {
+            color: #6db4fe;
+        }
+        
+        body.dark-mode .back-button:hover {
+            color: #8bc4ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="theme-switch-wrapper">
+        <span>Light</span>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <span>Dark</span>
+    </div>
+
+    <div class="header-section">
+        <div class="container">
+            <h1 style="color: white;">2. Add Two Numbers</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="../courses.html" class="back-button"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
+        
+        <div class="solution-section">
+            <h2>Problem Description</h2>
+            <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each node contains a single digit. Add the two numbers and return the sum as a linked list.</p>
+            <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+            
+            <div class="example">
+                <h3>Example:</h3>
+                <pre><code>Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.</code></pre>
+            </div>
+        </div>
+        
+        <div class="solution-section">
+            <h2>Solution Approach</h2>
+            <p>We can solve this problem by simulating the addition process digit by digit:</p>
+            <ol>
+                <li>Initialize a dummy head node to simplify the edge cases</li>
+                <li>Maintain a current pointer and a carry value</li>
+                <li>Iterate through both lists simultaneously:</li>
+                <ul>
+                    <li>Get values from current nodes or 0 if a list ends</li>
+                    <li>Calculate sum: v1 + v2 + carry</li>
+                    <li>Update carry and the digit for the current node</li>
+                    <li>Move to the next nodes in both lists</li>
+                </ul>
+                <li>After iteration, if there's a remaining carry, add one more node</li>
+                <li>Return the linked list starting from dummy.next</li>
+            </ol>
+            
+            <div class="complexity">
+                <p><strong>Time Complexity:</strong> O(max(m, n)) where m and n are the lengths of the two linked lists.</p>
+                <p><strong>Space Complexity:</strong> O(max(m, n)) for the result linked list.</p>
+            </div>
+            
+            <h3>Python Implementation:</h3>
+            <pre><code>class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = ListNode(0)
+        cur, carry = dummy, 0
+        
+        while l1 or l2 or carry:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+            
+            # Calculate new digit and carry
+            carry, out = divmod(v1 + v2 + carry, 10)
+            
+            # Create new node with the calculated digit
+            cur.next = ListNode(out)
+            cur = cur.next
+            
+            # Move to next nodes
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+            
+        return dummy.next</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 Yangming Li. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script>
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+        
+        // If user has set a preference, apply it
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            
+            // Update checkbox status
+            if (currentTheme === 'dark-mode') {
+                document.getElementById('checkbox').checked = true;
+            }
+        }
+        
+        // Toggle theme when user changes preference
+        document.getElementById('checkbox').addEventListener('change', function(e) {
+            if (e.target.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('theme', '');
+            }
+        });
+    </script>
+</body>
+</html> 
