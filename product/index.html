@@ -164,6 +164,28 @@
       color: white;
     }
     
+    .year-pills {
+      margin: 20px 0;
+    }
+    
+    .year-pill {
+      display: inline-block;
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 20px;
+      background-color: #f0f0f0;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      font-size: 14px;
+    }
+    
+    .year-pill:hover, .year-pill.active {
+      background-color: #28a745;
+      color: white;
+    }
+    
     .blog-date {
       font-size: 14px;
       color: #777;
@@ -293,15 +315,21 @@
                 <button class="category-pill" data-category="data">数据科学</button>
                 <button class="category-pill" data-category="engineering">工程实践</button>
               </div>
+              <div class="year-pills" style="margin-top: 15px;">
+                <button class="year-pill active" data-year="all">全部年份</button>
+                <button class="year-pill" data-year="2025">2025</button>
+                <button class="year-pill" data-year="2026">2026</button>
+                <button class="year-pill" data-year="2027">2027</button>
+              </div>
             </section>
             
             <!-- 博客列表 -->
             <ul class="blog-list">
               <!-- AI/ML 类别 -->
-              <li class="blog-item" data-category="aiml">
+              <li class="blog-item" data-category="aiml" data-year="2023">
                 <span class="blog-date">2023年7月15日</span>
                 <h3>
-                  <a href="/trust-worth-machine-learning-1.html">可信任机器学习：原理与实践</a>
+                  <a href="/trust-worth-machine-learning-1.html">【2025】可信任机器学习：原理与实践</a>
                 </h3>
                 <p>探讨可信任机器学习的核心原则，包括公平性、可解释性、鲁棒性和隐私保护。本文深入分析了构建可信任AI系统的关键挑战和实用解决方案。</p>
                 <div class="blog-meta">
@@ -310,10 +338,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="aiml">
+              <li class="blog-item" data-category="aiml" data-year="2023">
                 <span class="blog-date">2023年6月23日</span>
                 <h3>
-                  <a href="/decoder-only-architectures.html">解码器架构：大语言模型的核心技术</a>
+                  <a href="/decoder-only-architectures.html">【2025】解码器架构：大语言模型的核心技术</a>
                 </h3>
                 <p>详细介绍解码器架构在大语言模型中的应用和工作原理，分析GPT系列模型的结构特点，以及与编码器-解码器架构的比较。</p>
                 <div class="blog-meta">
@@ -322,10 +350,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="aiml">
+              <li class="blog-item" data-category="aiml" data-year="2023">
                 <span class="blog-date">2023年5月30日</span>
                 <h3>
-                  <a href="/glm-overview.html">GLM模型概述：从理论到应用</a>
+                  <a href="/glm-overview.html">【2025】GLM模型概述：从理论到应用</a>
                 </h3>
                 <p>全面介绍广义线性模型(GLM)的数学原理、常见变种及其在机器学习和统计分析中的应用场景。包含实际案例和代码示例。</p>
                 <div class="blog-meta">
@@ -334,10 +362,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="aiml data">
+              <li class="blog-item" data-category="aiml data" data-year="2023">
                 <span class="blog-date">2023年4月12日</span>
                 <h3>
-                  <a href="/sentiment-analysis-fine-tune-with-bert.html">使用BERT微调进行情感分析</a>
+                  <a href="/sentiment-analysis-fine-tune-with-bert.html">【2025】使用BERT微调进行情感分析</a>
                 </h3>
                 <p>详细教程：如何使用预训练的BERT模型进行情感分析任务的微调。包括数据准备、模型训练、评估和部署的完整流程。</p>
                 <div class="blog-meta">
@@ -347,10 +375,10 @@
               </li>
               
               <!-- 产品管理类别 -->
-              <li class="blog-item" data-category="product">
+              <li class="blog-item" data-category="product" data-year="2024">
                 <span class="blog-date">2024年8月12日</span>
                 <h3>
-                  <a href="/building-high-impact-value-propositions.html">构建高影响力价值主张：实用产品框架</a>
+                  <a href="/building-high-impact-value-propositions.html">【2025】构建高影响力价值主张：实用产品框架</a>
                 </h3>
                 <p>本文提供了一个工程思维的产品价值主张框架，涵盖问题定义、用户需求验证、平台思维等11个关键步骤。这一结构化方法能帮助产品团队聚焦真正重要的问题并构建用户真正需要的解决方案。</p>
                 <div class="blog-meta">
@@ -359,10 +387,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="product">
+              <li class="blog-item" data-category="product" data-year="2023">
                 <span class="blog-date">2023年8月5日</span>
                 <h3>
-                  <a href="/building-product-scales-company.html">构建可扩展的产品：4U框架实战指南</a>
+                  <a href="/building-product-scales-company.html">【2025】构建可扩展的产品：4U框架实战指南</a>
                 </h3>
                 <p>深入剖析如何利用4U框架（有用性、易用性、独特性、迫切性）构建可扩展为公司的产品。本文通过实际案例分析，探讨了从产品到公司的扩展路径、常见挑战及解决方案。</p>
                 <div class="blog-meta">
@@ -371,10 +399,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="product">
+              <li class="blog-item" data-category="product" data-year="2023">
                 <span class="blog-date">2023年7月22日</span>
                 <h3>
-                  <a href="/product-success-essence.html">成功产品的核心要素：产品经理指南</a>
+                  <a href="/product-success-essence.html">【2025】成功产品的核心要素：产品经理指南</a>
                 </h3>
                 <p>本文深入探讨从产品经理角度看什么才是真正成功的产品。从市场契合度、用户体验到盈利模式，全面分析产品成功的关键因素。</p>
                 <div class="blog-meta">
@@ -383,10 +411,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="product engineering">
+              <li class="blog-item" data-category="product engineering" data-year="2023">
                 <span class="blog-date">2023年6月18日</span>
                 <h3>
-                  <a href="/jira-guide.html">Jira深度指南：现代团队的敏捷项目管理</a>
+                  <a href="/jira-guide.html">【2025】Jira深度指南：现代团队的敏捷项目管理</a>
                 </h3>
                 <p>这是一份关于如何使用Jira进行敏捷项目管理和团队协作的全面指南。从基础设置到高级工作流配置，从看板使用到冲刺规划，本文涵盖了Jira在现代团队中的各种应用场景。</p>
                 <div class="blog-meta">
@@ -396,10 +424,10 @@
               </li>
               
               <!-- 数据科学类别 -->
-              <li class="blog-item" data-category="data">
+              <li class="blog-item" data-category="data" data-year="2023">
                 <span class="blog-date">2023年9月3日</span>
                 <h3>
-                  <a href="/key-statistical-tests-survey-analysis.html">调查分析中的关键统计检验方法</a>
+                  <a href="/key-statistical-tests-survey-analysis.html">【2025】调查分析中的关键统计检验方法</a>
                 </h3>
                 <p>全面介绍调查数据分析中常用的统计检验方法，包括卡方检验、t检验、ANOVA和回归分析等。通过实际案例讲解如何选择和应用适当的统计方法。</p>
                 <div class="blog-meta">
@@ -408,10 +436,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="data">
+              <li class="blog-item" data-category="data" data-year="2023">
                 <span class="blog-date">2023年8月17日</span>
                 <h3>
-                  <a href="/polars-guide.html">Polars指南：高性能数据处理的Python库</a>
+                  <a href="/polars-guide.html">【2025】Polars指南：高性能数据处理的Python库</a>
                 </h3>
                 <p>详细介绍Polars库的核心特性、使用方法和性能优势。通过与Pandas的对比，展示Polars如何加速大规模数据处理和分析工作流。</p>
                 <div class="blog-meta">
@@ -421,10 +449,10 @@
               </li>
               
               <!-- 工程实践类别 -->
-              <li class="blog-item" data-category="engineering aiml">
+              <li class="blog-item" data-category="engineering aiml" data-year="2023">
                 <span class="blog-date">2023年9月25日</span>
                 <h3>
-                  <a href="/mlops-essential-skills.html">MLOps必备技能：从实验到生产的机器学习工程</a>
+                  <a href="/mlops-essential-skills.html">【2025】MLOps必备技能：从实验到生产的机器学习工程</a>
                 </h3>
                 <p>详细探讨MLOps领域的核心技能和最佳实践，包括模型版本控制、自动化部署、监控和反馈循环。本文提供了构建端到端ML系统的实用框架。</p>
                 <div class="blog-meta">
@@ -433,10 +461,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="engineering">
+              <li class="blog-item" data-category="engineering" data-year="2023">
                 <span class="blog-date">2023年8月30日</span>
                 <h3>
-                  <a href="/docker-in-ml.html">机器学习中的Docker应用</a>
+                  <a href="/docker-in-ml.html">【2025】机器学习中的Docker应用</a>
                 </h3>
                 <p>全面介绍Docker在机器学习项目中的应用，从环境管理到模型部署。本文提供了ML项目容器化的最佳实践和常见模式。</p>
                 <div class="blog-meta">
@@ -445,10 +473,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="engineering">
+              <li class="blog-item" data-category="engineering" data-year="2023">
                 <span class="blog-date">2023年7月5日</span>
                 <h3>
-                  <a href="/kubernetes-guide.html">Kubernetes指南：容器编排的基础与实践</a>
+                  <a href="/kubernetes-guide.html">【2025】Kubernetes指南：容器编排的基础与实践</a>
                 </h3>
                 <p>Kubernetes入门到进阶的综合指南，涵盖核心概念、架构和常见使用场景。特别关注ML工作负载在Kubernetes上的部署和管理策略。</p>
                 <div class="blog-meta">
@@ -458,10 +486,10 @@
               </li>
               
               <!-- 其他文章 -->
-              <li class="blog-item" data-category="aiml engineering">
+              <li class="blog-item" data-category="aiml engineering" data-year="2023">
                 <span class="blog-date">2023年6月10日</span>
                 <h3>
-                  <a href="/ray_explanation.html">Ray框架详解：分布式AI系统的构建</a>
+                  <a href="/ray_explanation.html">【2025】Ray框架详解：分布式AI系统的构建</a>
                 </h3>
                 <p>深入解析Ray框架在构建分布式AI系统中的应用，包括Ray Core、Ray Tune、Ray Train和Ray Serve的使用方法和实际案例。</p>
                 <div class="blog-meta">
@@ -470,10 +498,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="aiml data">
+              <li class="blog-item" data-category="aiml data" data-year="2023">
                 <span class="blog-date">2023年5月18日</span>
                 <h3>
-                  <a href="/jax-guide.html">JAX入门指南：高性能机器学习库</a>
+                  <a href="/jax-guide.html">【2025】JAX入门指南：高性能机器学习库</a>
                 </h3>
                 <p>全面介绍JAX库的核心概念、API和使用技巧，包括自动微分、即时编译和GPU/TPU加速。通过实例展示JAX如何加速科学计算和机器学习任务。</p>
                 <div class="blog-meta">
@@ -482,10 +510,10 @@
                 </div>
               </li>
               
-              <li class="blog-item" data-category="data engineering">
+              <li class="blog-item" data-category="data engineering" data-year="2023">
                 <span class="blog-date">2023年4月28日</span>
                 <h3>
-                  <a href="/databricks-comprehensive-guide.html">Databricks全面指南：统一数据与AI平台</a>
+                  <a href="/databricks-comprehensive-guide.html">【2025】Databricks全面指南：统一数据与AI平台</a>
                 </h3>
                 <p>详细介绍Databricks平台的架构、功能和最佳实践，包括Delta Lake、MLflow和Koalas等核心组件。通过实例演示如何构建端到端的数据和AI工作流。</p>
                 <div class="blog-meta">
@@ -570,28 +598,66 @@
   <!-- 搜索和筛选功能 -->
   <script>
     $(document).ready(function() {
+      var selectedCategory = 'all';
+      var selectedYear = 'all';
+      
+      // 筛选函数
+      function filterBlogs() {
+        $('.blog-item').each(function() {
+          var $item = $(this);
+          var itemCategory = $item.data('category') || '';
+          var itemYear = $item.data('year') || '';
+          var titleText = $item.find('h3 a').text() || '';
+          
+          // 分类匹配
+          var categoryMatch = selectedCategory === 'all' || 
+                              itemCategory.indexOf(selectedCategory) !== -1;
+          
+          // 年份匹配
+          var yearMatch = false;
+          if (selectedYear === 'all') {
+            yearMatch = true;
+          } else if (selectedYear === '2025') {
+            // 2025选项筛选标题中有【2025】标签的博客
+            yearMatch = titleText.indexOf('【2025】') !== -1;
+          } else {
+            // 其他年份根据data-year属性筛选
+            yearMatch = itemYear.toString() === selectedYear;
+          }
+          
+          // 搜索匹配
+          var searchValue = $('#blog-search').val().toLowerCase();
+          var searchMatch = searchValue === '' || 
+                           $item.text().toLowerCase().indexOf(searchValue) > -1;
+          
+          // 显示或隐藏
+          if (categoryMatch && yearMatch && searchMatch) {
+            $item.show();
+          } else {
+            $item.hide();
+          }
+        });
+      }
+      
       // 分类筛选
       $('.category-pill').click(function() {
         $('.category-pill').removeClass('active');
         $(this).addClass('active');
-        
-        var selectedCategory = $(this).data('category');
-        
-        if (selectedCategory === 'all') {
-          $('.blog-item').show();
-        } else {
-          $('.blog-item').hide();
-          $('.blog-item[data-category*="' + selectedCategory + '"]').show();
-        }
+        selectedCategory = $(this).data('category');
+        filterBlogs();
+      });
+      
+      // 年份筛选
+      $('.year-pill').click(function() {
+        $('.year-pill').removeClass('active');
+        $(this).addClass('active');
+        selectedYear = $(this).data('year');
+        filterBlogs();
       });
       
       // 搜索功能
       $('#blog-search').on('keyup', function() {
-        var value = $(this).val().toLowerCase();
-        
-        $('.blog-item').filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
+        filterBlogs();
       });
       
       // Newsletter form submission
