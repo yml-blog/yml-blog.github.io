@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Hind', sans-serif;
+  line-height: 1.6;
+}
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.header {
+  text-align: center;
+  padding: 2rem 0;
+}
+h1 {
+  margin-top: 0;
+}
+</style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>【2026】 PyTorch Review 01 | Yangming Li</title>
+<meta content="A practical PyTorch review of tensors, shapes, dtype, broadcasting, reshaping, and torch.distributions with concise code examples." name="description"/>
+<link href="favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
+        /* Dark mode toggle styles */
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+            margin: 0 10px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+        }
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: #f1780e;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        .blog-share-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        .blog-share-buttons a {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        .blog-share-buttons a:hover {
+            opacity: 0.8;
+        }
+        .blog-share-buttons .twitter {
+            background-color: #1da1f2;
+        }
+        .blog-share-buttons .linkedin {
+            background-color: #0077b5;
+        }
+        .blog-share-buttons .email {
+            background-color: #666;
+        }
+        .blog-share-buttons i {
+            margin-right: 8px;
+        }
+</style><link href="https://yangmingli.com/pytorch-review01.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="【2026】 PyTorch Review 01 | Yangming Li" property="og:title"/><meta content="A practical PyTorch review of tensors, shapes, dtype, broadcasting, reshaping, and torch.distributions with concise code examples." property="og:description"/><meta content="https://yangmingli.com/pytorch-review01.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="【2026】 PyTorch Review 01 | Yangming Li" name="twitter:title"/><meta content="A practical PyTorch review of tensors, shapes, dtype, broadcasting, reshaping, and torch.distributions with concise code examples." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "【2026】 PyTorch Review 01 | Yangming Li", "description": "A practical PyTorch review of tensors, shapes, dtype, broadcasting, reshaping, and torch.distributions with concise code examples.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/pytorch-review01.html"}}</script>
+</head>
+<body>
+<!-- Navigation will be injected here -->
+<div class="main-content">
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>【2026】 pytorch review01</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<span class="read-time"><i class="fa fa-clock-o"></i> 12 min read</span>
+<span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
+<span class="token-count"><i class="fa fa-calculator"></i> Estimated 2700 tokens</span>
+<div class="keywords">
+<strong>Keywords:</strong> PyTorch, Tensor, Shape, Dtype, Device, Broadcasting, Reshape, Permute, torch.distributions, Bernoulli, Normal
+                </div>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
+                </a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
+                </a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
+                </a>
+</div>
+<main>
+<section class="intro">
+<h2>Overview</h2>
+<p>This review walks through the PyTorch basics that show up in almost every project: what a tensor really is, how to create and reshape it, how broadcasting works, and how to use <code>torch.distributions</code> for probabilistic modeling. The examples are intentionally small and direct so you can keep the mental model clean.</p>
+</section>
+<section>
+<h2>1. What Is a Tensor?</h2>
+<p>A tensor is simply a box that holds numbers. The box can have 0, 1, 2, or any number of dimensions.</p>
+<ul>
+<li><strong>0D:</strong> a single number (scalar), e.g. <code>tensor(3.14)</code></li>
+<li><strong>1D:</strong> a row of numbers (vector), shape <code>(N,)</code></li>
+<li><strong>2D:</strong> a table (matrix), shape <code>(H, W)</code></li>
+<li><strong>3D:</strong> a cube of data (e.g., image), shape <code>(H, W, C)</code></li>
+<li><strong>4D:</strong> a batch of images, shape <code>(B, H, W, C)</code> or <code>(B, C, H, W)</code></li>
+</ul>
+<p>The four most important tensor attributes are:</p>
+<ul>
+<li><strong>shape:</strong> length of each dimension</li>
+<li><strong>ndim:</strong> number of dimensions</li>
+<li><strong>dtype:</strong> data type (int or float with precision)</li>
+<li><strong>device:</strong> CPU or GPU</li>
+</ul>
+</section>
+<section>
+<h2>2. Create a Tensor from a List</h2>
+<h3>2.1 Directly from a Python list</h3>
+<pre><code class="language-python">import torch
+
+a = torch.tensor([1, 2, 3])
+print(a)          # tensor([1, 2, 3])
+print(a.shape)    # torch.Size([3])
+print(a.ndim)     # 1
+print(a.dtype)    # inferred, usually torch.int64
+</code></pre>
+<p>Why is <code>dtype</code> <code>int64</code>? Because all values are integers, PyTorch infers an integer tensor.</p>
+<h3>2.2 Convert to float (most common in deep learning)</h3>
+<p>Two typical ways:</p>
+<pre><code class="language-python"># Option A: put floats in the list
+a = torch.tensor([1.0, 2.0, 3.0])
+print(a.dtype)  # torch.float32
+
+# Option B: explicitly specify dtype
+a = torch.tensor([1, 2, 3], dtype=torch.float32)
+print(a.dtype)  # torch.float32
+</code></pre>
+<p>In deep learning, parameters, gradients, and inputs are usually <code>float32</code> for speed and memory efficiency.</p>
+</section>
+<section>
+<h2>3. Factory Functions: zeros / ones / rand / randn / arange</h2>
+<pre><code class="language-python">torch.zeros(5)    # five zeros, shape (5,)
+torch.ones(5)     # five ones
+torch.rand(5)     # uniform random in [0, 1)
+torch.randn(5)    # standard normal N(0, 1)
+torch.arange(5)   # 0, 1, 2, 3, 4
+</code></pre>
+<h3>3.1 Example: arange + ones + division</h3>
+<pre><code class="language-python">a = torch.arange(10)
+b = torch.ones(10)
+
+print(f'{a = }')
+print(f'{b = }')
+print(f'{a / b = }')
+</code></pre>
+<p><strong>What happens?</strong></p>
+<ul>
+<li><code>a</code> is an integer tensor: <code>[0, 1, 2, ..., 9]</code></li>
+<li><code>b</code> is a float tensor: ten ones</li>
+<li><code>a / b</code> becomes float because of type promotion (int to float to preserve decimals)</li>
+</ul>
+</section>
+<section>
+<h2>4. Basic Tensor Operations</h2>
+<h3>4.1 Element-wise arithmetic</h3>
+<pre><code class="language-python">a = torch.arange(10)  # (10,)
+b = torch.ones(10)    # (10,)
+
+a + b
+a - b
+a * b
+a / b
+a.pow(2)              # element-wise square
+</code></pre>
+<p>These are element-wise operations, not matrix multiplication (matrix multiplication uses <code>@</code>).</p>
+<h3>4.2 Shape mismatch (unless broadcastable)</h3>
+<pre><code class="language-python">a = torch.ones(5)   # (5,)
+b = torch.ones(4)   # (4,)
+a + b               # RuntimeError: shape mismatch
+</code></pre>
+</section>
+<section>
+<h2>5. Convert an Image to a Tensor</h2>
+<p>PyTorch converts most naturally from a NumPy array:</p>
+<pre><code class="language-python">from PIL import Image
+import numpy as np
+import torch
+
+img = Image.open("cat.jpg")
+arr = np.array(img)          # shape (H, W, C)
+x = torch.tensor(arr)
+print(x.shape, x.dtype)      # (H, W, 3), torch.uint8
+</code></pre>
+<p>Image pixels are 0-255 integers, so <code>uint8</code> is expected. For training, convert to float and normalize:</p>
+<pre><code class="language-python">x = x.float() / 255.0
+</code></pre>
+<h3>5.1 Channel order: HWC vs CHW</h3>
+<p>Many CNNs expect <code>(C, H, W)</code>:</p>
+<pre><code class="language-python">x = x.permute(2, 0, 1)  # (H, W, C) -> (C, H, W)
+</code></pre>
+</section>
+<section>
+<h2>6. Reshape: view / reshape</h2>
+<p>Reshaping means viewing the same numbers with a different geometry. The total number of elements must match.</p>
+<pre><code class="language-python">a = torch.arange(6)    # shape (6,)
+b = a.reshape(2, 3)    # shape (2, 3)
+</code></pre>
+<p><code>view</code> and <code>reshape</code> both reshape, but <code>view</code> requires contiguous memory. When unsure, use <code>reshape</code>.</p>
+</section>
+<section>
+<h2>7. Transpose and permute</h2>
+<h3>7.1 2D transpose</h3>
+<pre><code class="language-python">A = torch.rand(2, 4)  # (2, 4)
+AT = A.T              # (4, 2)
+</code></pre>
+<h3>7.2 permute (general dimension reorder)</h3>
+<pre><code class="language-python">a = torch.rand(2, 3, 4)
+print(a.permute(1, 2, 0).shape)  # torch.Size([3, 4, 2])
+</code></pre>
+<p><code>permute</code> reorders dimensions and works for any rank (3D, 4D, etc.).</p>
+</section>
+<section>
+<h2>8. Add or remove size-1 dimensions</h2>
+<h3>8.1 Add a dimension (unsqueeze)</h3>
+<pre><code class="language-python">a = torch.arange(6)   # shape (6,)
+print(a[None].shape)  # shape (1, 6)
+
+a.unsqueeze(0)        # (1, 6)
+a.unsqueeze(1)        # (6, 1)
+</code></pre>
+<h3>8.2 Remove size-1 dimensions (squeeze)</h3>
+<pre><code class="language-python">x = torch.zeros(3, 2, 1, 1)  # (3, 2, 1, 1)
+
+x1 = x.squeeze(-1)           # (3, 2, 1)
+x2 = x1.squeeze(-1)          # (3, 2)
+</code></pre>
+<p>Prefer <code>squeeze(dim=...)</code> so you only remove the dimension you intend.</p>
+</section>
+<section>
+<h2>9. Broadcasting: The Most Useful Shortcut</h2>
+<p>When two tensors do element-wise ops, PyTorch aligns dimensions from the last one backward. Each dimension must match or be <code>1</code> to broadcast.</p>
+<pre><code class="language-python">a = torch.rand(4, 1)  # 4 rows, 1 column
+b = torch.rand(1, 5)  # 1 row, 5 columns
+print((a + b).shape)  # (4, 5)
+</code></pre>
+<p>The single column expands to 5 columns, and the single row expands to 4 rows. The result becomes <code>(4, 5)</code>.</p>
+</section>
+<section>
+<h2>Part 2. Distributions in PyTorch: <code>torch.distributions</code></h2>
+<p>In PyTorch, a distribution is an object (e.g., <code>dist.Bernoulli</code>, <code>dist.Normal</code>) with two key capabilities:</p>
+<ul>
+<li><code>sample()</code>: generate random samples</li>
+<li><code>mean</code>, <code>variance</code>, <code>log_prob(...)</code>: theoretical properties and probability calculations</li>
+</ul>
+</section>
+<section>
+<h2>10. Bernoulli: The Coin Flip (0/1)</h2>
+<p><strong>Bernoulli(p)</strong> produces:</p>
+<ul>
+<li><code>X = 1</code> with probability <code>p</code></li>
+<li><code>X = 0</code> with probability <code>1 - p</code></li>
+</ul>
+<p>Its theoretical mean is <code>p</code>, and variance is <code>p(1 - p)</code>. When <code>p = 0.5</code>, mean is <code>0.5</code> and variance is <code>0.25</code>.</p>
+<h3>10.1 Why is the sample shape <code>(1,)</code>?</h3>
+<pre><code class="language-python">import torch.distributions as dist
+bernoulli = dist.Bernoulli(torch.tensor([0.5]))
+print(bernoulli.sample())
+</code></pre>
+<p><code>torch.tensor([0.5])</code> has shape <code>(1,)</code>, so the output sample also has shape <code>(1,)</code>. If you use <code>torch.tensor(0.5)</code>, it behaves like a scalar.</p>
+</section>
+<section>
+<h2>11. Sampling Many Times</h2>
+<h3>11.1 Ten samples (looks random)</h3>
+<pre><code class="language-python">for _ in range(10):
+    print(bernoulli.sample())
+</code></pre>
+<h3>11.2 One thousand samples (compute mean and variance)</h3>
+<pre><code class="language-python">samples = [bernoulli.sample() for _ in range(1000)]
+x = torch.stack(samples)
+
+print(torch.mean(x))
+print(torch.var(x))
+</code></pre>
+<p><code>torch.stack</code> converts a Python list of tensors into a single tensor so you can apply <code>mean</code> and <code>var</code>.</p>
+<p>The sample mean will not be exactly <code>0.5</code> because you only sampled 1000 times. As the sample size grows, it converges toward the theoretical mean.</p>
+<h3>11.3 Note on variance correction</h3>
+<p>In many PyTorch versions, <code>torch.var</code> applies Bessel's correction (dividing by <code>n - 1</code>), which is an unbiased estimator for sample variance. If you want the population variance closer to <code>p(1 - p)</code>, use:</p>
+<pre><code class="language-python">torch.var(x, unbiased=False)
+# or in newer versions:
+torch.var(x, correction=0)
+</code></pre>
+</section>
+<section>
+<h2>12. Normal (Gaussian): The Bell Curve</h2>
+<p>Normal distributions produce real values across the entire number line. Most values cluster near the mean.</p>
+<pre><code class="language-python">normal = dist.Normal(torch.tensor([0.0]), torch.tensor([1.0]))
+print(normal.sample())
+</code></pre>
+<p>The second parameter is the standard deviation (<code>sigma</code>), not the variance. For <code>Normal(0, 1)</code>, the mean is <code>0</code> and the variance is <code>1</code>. Samples can be positive or negative because the distribution is continuous across all real numbers.</p>
+</section>
+<section>
+<h2>Closing Notes</h2>
+<p>This review covers the operations you will use every day: tensor creation, shape management, broadcasting, and basic probabilistic distributions. Mastering these fundamentals makes debugging and model-building dramatically faster.</p>
+</section>
+</main>
+</div>
+</div>
+</body>
+</html>
