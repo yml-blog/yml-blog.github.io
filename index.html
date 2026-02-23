@@ -327,6 +327,17 @@ h2, h3, p {
     margin: 20px 0;
     text-align: center;
 }
+.calendly-inline-widget {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+body.dark-mode .calendly-inline-widget {
+    background: #2d2d2d;
+}
+body.dark-mode #calendly-container {
+    background: #2d2d2d;
+}
 
 #map {
     border-radius: 8px;
@@ -1246,6 +1257,17 @@ section[id], h2[id], h3[id] {
             border-radius: 8px;
             margin: 20px 0;
             text-align: center;
+        }
+        .calendly-inline-widget {
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+        }
+        body.dark-mode .calendly-inline-widget {
+            background: #2d2d2d;
+        }
+        body.dark-mode #calendly-container {
+            background: #2d2d2d;
         }
 
         #map {
@@ -2793,14 +2815,14 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <li>
 <h3>Book a Meeting</h3>
 <div class="meeting-scheduler">
-<p>Click below to schedule a meeting with me:</p>
-<!-- Email Meeting Request Link -->
-<a class="btn btn-primary meeting-button" href="mailto:liym1@hotmail.com?subject=Meeting%20Request&amp;body=Hi%20Yangming%2C%0A%0AI%20would%20like%20to%20schedule%20a%20meeting%20with%20you.%0A%0APreferred%20Date%20and%20Time%3A%0ATime%20Zone%3A%0ATopic%3A%0A%0ABest%20regards">
-<i class="fa fa-calendar"></i> Schedule Meeting
-                                                </a>
+<p>Pick a time directly on my calendar:</p>
+<!-- Calendly inline widget container -->
+<div id="calendly-container" style="min-width: 320px; height: 760px; background: #fff; border-radius: 8px; overflow: hidden;">
+</div>
 <p class="mt-2 text-muted">
-<small>Email me at: 
-                                                        <a href="mailto:liym1@hotmail.com">liym1@hotmail.com</a>
+<small>
+                                                        Prefer email?
+                                                        <a href="mailto:liym1@hotmail.com?subject=Meeting%20Request">liym1@hotmail.com</a>
 </small>
 </p>
 </div>
@@ -3841,6 +3863,50 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         
         toggleSwitch.addEventListener('change', switchTheme, false);
     });
+    </script>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+<script defer="" src="https://assets.calendly.com/assets/external/widget.js"></script>
+<script>
+    (function () {
+      let calendlyInitialized = false;
+
+      function initCalendlyEmbed() {
+        const container = document.getElementById('calendly-container');
+        if (!container) return;
+
+        // Avoid repeated initialization
+        if (calendlyInitialized) return;
+
+        // Ensure Calendly script is loaded
+        if (typeof Calendly === 'undefined') {
+          setTimeout(initCalendlyEmbed, 300);
+          return;
+        }
+
+        // Prevent duplicate rendering
+        container.innerHTML = '';
+
+        Calendly.initInlineWidget({
+          url: 'https://calendly.com/liym1/30min?hide_gdpr_banner=1',
+          parentElement: container
+        });
+
+        calendlyInitialized = true;
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const contactTabPane = document.getElementById('contact');
+        if (contactTabPane && contactTabPane.classList.contains('active')) {
+          initCalendlyEmbed();
+        }
+
+        if (window.jQuery) {
+          $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
+            setTimeout(initCalendlyEmbed, 100);
+          });
+        }
+      });
+    })();
     </script>
 <script type="application/ld+json">
     {
