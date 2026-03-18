@@ -991,16 +991,6 @@ section[id], h2[id], h3[id] {
         },
         {
           "@type": "SiteNavigationElement",
-          "name": "Learning",
-          "url": "https://yangmingli.com/#reading"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "name": "Play Ground",
-          "url": "https://yangmingli.com/#fun"
-        },
-        {
-          "@type": "SiteNavigationElement",
           "name": "Contact",
           "url": "https://yangmingli.com/#contact"
         }
@@ -1302,6 +1292,93 @@ section[id], h2[id], h3[id] {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
+        }
+        .about-proof-card {
+            background: linear-gradient(135deg, #fffdf8, #ffffff 52%, #f4f8ff);
+        }
+        .about-proof-card::before {
+            background: radial-gradient(circle, rgba(5, 101, 220, 0.14), transparent 72%);
+        }
+        .proof-header {
+            position: relative;
+            z-index: 1;
+            max-width: 760px;
+            margin-bottom: 24px;
+        }
+        .proof-header-copy {
+            margin: 0;
+            color: #475569;
+            font-size: 1.02em;
+            line-height: 1.75;
+        }
+        .proof-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+        .proof-cluster {
+            --proof-accent: #f1780e;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .proof-cluster[data-tone="capabilities"] {
+            --proof-accent: #0565dc;
+        }
+        .proof-cluster[data-tone="delivery"] {
+            --proof-accent: #0f766e;
+        }
+        .proof-cluster[data-tone="artifacts"] {
+            --proof-accent: #7c3aed;
+        }
+        .proof-cluster-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            color: #0f172a;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .proof-cluster-label::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--proof-accent);
+            box-shadow: 0 0 0 6px rgba(15, 23, 42, 0.06);
+        }
+        .proof-pill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .proof-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 999px;
+            background: rgba(248, 250, 252, 0.94);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: #334155;
+            font-size: 0.92em;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .proof-pill::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--proof-accent);
+            flex-shrink: 0;
         }
         .about-card {
             position: relative;
@@ -1613,6 +1690,60 @@ section[id], h2[id], h3[id] {
             opacity: 1;
             transform: translateY(0);
         }
+        .about-utility-card {
+            background: linear-gradient(135deg, #f8fafc, #ffffff 58%, #f7fbff);
+        }
+        .about-utility-copy {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 18px;
+            color: #475569;
+            font-size: 1em;
+            line-height: 1.75;
+        }
+        .about-utility-links {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .about-utility-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.9);
+            color: #18212f !important;
+            font-size: 0.92em;
+            font-weight: 700;
+            text-decoration: none !important;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .about-utility-link:hover,
+        .about-utility-link:focus {
+            transform: translateY(-2px);
+            border-color: rgba(5, 101, 220, 0.2);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+        }
+        .about-utility-link::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ff8040, #0565dc);
+            flex-shrink: 0;
+        }
+        .about-utility-note {
+            position: relative;
+            z-index: 1;
+            margin-top: 16px;
+            color: #64748b;
+            font-size: 0.9em;
+            line-height: 1.7;
+        }
         .about-courses-card {
             background: linear-gradient(135deg, #f8fbff, #ffffff 55%, #eef6ff);
         }
@@ -1767,9 +1898,39 @@ section[id], h2[id], h3[id] {
         body.dark-mode .about-quote-card {
             background: linear-gradient(135deg, #31241d, #1f1f1f);
         }
+        body.dark-mode .about-proof-card {
+            background: linear-gradient(135deg, #172033, #111827 56%, #0f1b2d);
+        }
         body.dark-mode .quote-kicker,
         body.dark-mode .quote-footer {
             color: #fdba74;
+        }
+        body.dark-mode .proof-header-copy,
+        body.dark-mode .about-utility-copy,
+        body.dark-mode .about-utility-note {
+            color: #cbd5e1;
+        }
+        body.dark-mode .proof-cluster {
+            background: rgba(15, 23, 42, 0.74);
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+        body.dark-mode .proof-cluster-label {
+            color: #f8fafc;
+        }
+        body.dark-mode .proof-pill {
+            background: rgba(30, 41, 59, 0.92);
+            border-color: rgba(148, 163, 184, 0.14);
+            color: #dbeafe;
+        }
+        body.dark-mode .about-utility-card {
+            background: linear-gradient(135deg, #1c2535, #111827 60%, #0f172a);
+        }
+        body.dark-mode .about-utility-link {
+            background: rgba(15, 23, 42, 0.82);
+            border-color: rgba(148, 163, 184, 0.14);
+            color: #f8fafc !important;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
         }
         body.dark-mode .about-courses-card {
             background: linear-gradient(135deg, #142338, #1e293b 55%, #111827);
@@ -1801,6 +1962,9 @@ section[id], h2[id], h3[id] {
                 grid-template-columns: 1fr;
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .proof-grid {
+                grid-template-columns: 1fr;
             }
             .courses-highlight {
                 gap: 14px;
@@ -3562,13 +3726,16 @@ section[id], h2[id], h3[id] {
 <a aria-controls="blog" aria-selected="false" class="nav-link" data-toggle="tab" href="#blog" id="blog-tab" role="tab">Blog</a>
 </li>
 <li class="nav-item">
-<a aria-controls="reading" aria-selected="false" class="nav-link" data-toggle="tab" href="#reading" id="reading-tab" role="tab">Learning</a>
-</li>
-<li class="nav-item">
-<a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab">Play Ground</a>
-</li>
-<li class="nav-item">
 <a aria-controls="contact" aria-selected="false" class="nav-link" data-toggle="tab" href="#contact" id="contact-tab" role="tab">Contact</a>
+</li>
+<li class="nav-item" hidden>
+<a aria-controls="reading" aria-selected="false" class="nav-link" data-toggle="tab" href="#reading" id="reading-tab" role="tab">Notes</a>
+</li>
+<li class="nav-item" hidden>
+<a aria-controls="thoughts" aria-selected="false" class="nav-link" data-toggle="tab" href="#thoughts" id="thoughts-tab" role="tab">Essays</a>
+</li>
+<li class="nav-item" hidden>
+<a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab">Lab</a>
 </li>
 </ul>
 </nav>
@@ -3610,15 +3777,61 @@ section[id], h2[id], h3[id] {
 <span class="about-code-line" style="--line-index: 18;">print(f<span class="token-string">"Outcomes: {builder.outcomes()}"</span>)</span></div>
 <div class="runtime-output">
 <div class="runtime-output-line" style="--output-index: 0;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">focus_areas</span> = 5</div>
-<div class="runtime-output-line" style="--output-index: 1;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">industries_covered</span> = 5</div>
+<div class="runtime-output-line" style="--output-index: 1;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">industries_covered</span> = 4</div>
 <div class="runtime-output-line" style="--output-index: 2;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">delivery_mode</span> = "prototype to production"</div>
+</div>
+</div>
+
+<div class="about-card about-proof-card animate-on-view">
+<div class="proof-header">
+<span class="about-card-badge">Evidence Strip</span>
+<h3 class="about-card-title">A faster read on trust, fit, and delivery</h3>
+<p class="proof-header-copy">Built for teams that care about adoption, auditability, and workflow impact, not just model demos. The homepage now keeps the proof points visible and moves side quests into quieter corners.</p>
+</div>
+<div class="proof-grid">
+<article class="proof-cluster" data-tone="industries">
+<div class="proof-cluster-label">Industries</div>
+<div class="proof-pill-list">
+<span class="proof-pill">Healthcare operations</span>
+<span class="proof-pill">Finance and risk</span>
+<span class="proof-pill">Public sector delivery</span>
+<span class="proof-pill">Research environments</span>
+</div>
+</article>
+<article class="proof-cluster" data-tone="capabilities">
+<div class="proof-cluster-label">Capability Areas</div>
+<div class="proof-pill-list">
+<span class="proof-pill">LLM systems</span>
+<span class="proof-pill">Statistical ML</span>
+<span class="proof-pill">Data engineering</span>
+<span class="proof-pill">Decision-support products</span>
+</div>
+</article>
+<article class="proof-cluster" data-tone="delivery">
+<div class="proof-cluster-label">Delivery Modes</div>
+<div class="proof-pill-list">
+<span class="proof-pill">Dashboards and scorecards</span>
+<span class="proof-pill">APIs and microservices</span>
+<span class="proof-pill">Copilots and RAG workflows</span>
+<span class="proof-pill">Monitoring-ready pipelines</span>
+</div>
+</article>
+<article class="proof-cluster" data-tone="artifacts">
+<div class="proof-cluster-label">Public Artifacts</div>
+<div class="proof-pill-list">
+<span class="proof-pill">Peer-reviewed publication</span>
+<span class="proof-pill">Technical guides</span>
+<span class="proof-pill">Selected portfolio work</span>
+<span class="proof-pill">CFA and FRM credentials</span>
+</div>
+</article>
 </div>
 </div>
 
 <div class="about-secondary-grid">
 <div class="about-card about-quote-card animate-on-view">
-<span class="about-card-badge">Favorite Quote</span>
-<h3 class="about-card-title">My Favorite Quote</h3>
+<span class="about-card-badge">Working Style</span>
+<h3 class="about-card-title">Builder mindset</h3>
 <div class="quote-shell">
 <div class="quote-kicker">Tool Builder Mindset</div>
 <blockquote class="favorite-quote">
@@ -3632,56 +3845,21 @@ section[id], h2[id], h3[id] {
 <div class="quote-footer">- Steve Jobs</div>
 </div>
 
-<div class="about-card about-courses-card animate-on-view">
-<span class="about-card-badge">Learning Loop</span>
-<div class="courses-head">
-<h3 class="about-card-title" style="margin: 0 !important;"><a class="courses-link" href="courses.html">Courses Learned</a></h3>
-<a class="courses-cta" href="courses.html">View All Certificates</a>
+<div class="about-card about-utility-card animate-on-view">
+<span class="about-card-badge">Lab &amp; Notes</span>
+<h3 class="about-card-title">Lower-priority paths live here</h3>
+<p class="about-utility-copy">Study notes, essays, experiments, and certificates still matter, but they no longer lead the homepage story. They now sit behind softer entry points so the main narrative stays focused on work, proof, and outcomes.</p>
+<div class="about-utility-links">
+<a class="about-utility-link" data-open-tab="#reading" href="#reading">Notes</a>
+<a class="about-utility-link" data-open-tab="#thoughts" href="#thoughts">Essays</a>
+<a class="about-utility-link" data-open-tab="#fun" href="#fun">Lab</a>
+<a class="about-utility-link" href="courses.html">Certificates</a>
 </div>
-<div class="courses-highlight">
-<div class="courses-count-shell">
-<span class="courses-count-number" data-count-to="15">0</span>
-<span class="courses-count-label">courses+</span>
-</div>
-<p class="courses-copy">I've completed over 15 courses in programming, machine learning, MLOps, and data science from platforms like DataCamp and Coursera. <a href="courses.html" style="color: #4682B4;">Click here</a> to view all certificates.</p>
-</div>
-<div class="course-chip-cloud">
-<span class="course-chip" style="--chip-index: 0;">Python Programming</span>
-<span class="course-chip" style="--chip-index: 1;">Deep Learning</span>
-<span class="course-chip" style="--chip-index: 2;">SQL</span>
-<span class="course-chip" style="--chip-index: 3;">MLOps</span>
-<span class="course-chip" style="--chip-index: 4;">Docker</span>
-<span class="course-chip" style="--chip-index: 5;">Git &amp; GitHub</span>
-</div>
+<p class="about-utility-note">This keeps the homepage pointed at collaborators and hiring managers first, while still giving curious visitors a place to explore the side material.</p>
 </div>
 </div>
 
 
-<div style="display: none; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #FF8040; border-radius: 5px;">
-<h3 style="color: #333; margin-bottom: 15px;">My Favorite Quote</h3>
-<blockquote style="font-style: italic; margin: 20px 0; padding: 15px; border-left: 3px solid #FF8040; color: #666; font-size: 1.3em; background-color: #f9f9f9;">
-                                            "I’m a tool builder. That’s how I think of myself. I want to build really good tools that I know in my gut and my heart will be valuable. And then, whatever happens, is… you can’t really predict exactly what will happen, but you can feel the direction that we’re going. And that’s about as close as you can get. Then you just standback  and get out of the way, and these things take on a life of their own."
-                                            <footer style="margin-top: 10px; font-size: 0.9em; text-align: right;">― Steve Jobs</footer>
-</blockquote>
-</div>
-
-<div style="display: none; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #4682B4; border-radius: 5px;">
-    <h3 style="color: #333; margin-bottom: 15px;">
-        <a href="courses.html" style="color: #333; text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
-            Courses Learned
-            <span style="font-size: 0.8em; background-color: #4682B4; color: white; padding: 5px 10px; border-radius: 20px; margin-left: 15px;">View All Certificates</span>
-        </a>
-    </h3>
-    <p>I've completed over 15 courses in programming, machine learning, MLOps, and data science from platforms like DataCamp and Coursera. <a href="courses.html" style="color: #4682B4;">Click here</a> to view all certificates.</p>
-    
-    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px;">
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Python Programming</span>
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Deep Learning</span>
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">SQL</span>
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">MLOps</span>
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Docker</span>
-        <span style="background-color: #f0f0f0; border-radius: 15px; padding: 5px 10px; font-size: 0.9em; color: #555;">Git & GitHub</span>
-    </div>
 </div>
 </div>
 </div>
@@ -4147,10 +4325,11 @@ section[id], h2[id], h3[id] {
 <div class="row" style="padding: 0; margin: 0;">
 <div class="col-md-12" style="padding: 0; margin: 0;">
 <div class="section-title blog-section-title">
-<h2>Yangming's Self-Learning</h2>
+<h2>Notes</h2>
 </div>
 </div>
 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+<p class="blog-intro">Working notes, study artifacts, and lower-priority references that support the main body of work.</p>
 <ul>
 <li>
 <h3><a href="cmu-nlp-notes.html">Carnegie Mellon University Advanced NLP Course Notes</a></h3>
@@ -4281,10 +4460,11 @@ section[id], h2[id], h3[id] {
 <div class="row" style="padding: 0; margin: 0;">
 <div class="col-md-12" style="padding: 0; margin: 0;">
 <div class="section-title blog-section-title">
-<h2>Yangming's Thoughts</h2>
+<h2>Essays &amp; References</h2>
 </div>
 </div>
 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
+<p class="blog-intro">A quieter corner for essays, references, and ideas that inform how I build.</p>
 <ul>
 <li>
 <h3><a href="taste-in-science-and-technology.html">Why "Taste" Matters in Science — and in Technology</a></h3>
@@ -4321,11 +4501,12 @@ section[id], h2[id], h3[id] {
 <div class="row">
 <div class="col-md-12">
 <div class="section-title blog-section-title">
-<h2>Play Ground - AI Slot Machine</h2>
+<h2>Lab</h2>
 </div>
-<p>Try your luck with our AI-themed slot machine! Match three symbols to win!</p>
+<p>A smaller corner for interactive prototypes and playful experiments. The slot machine stays here as a lightweight demo, not part of the main positioning story.</p>
 
 <div class="slot-machine-container" style="max-width: 900px; margin: 0 auto; text-align: center; padding: 20px; background: linear-gradient(135deg, #7d3ec1, #f1780e); border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
+    <h3 style="margin-top: 0; color: white; font-weight: 700;">AI Slot Machine Demo</h3>
     <div style="display: flex; justify-content: space-between; margin-bottom: 15px; color: white;">
         <div style="display: flex; flex-direction: column; align-items: flex-start; background-color: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
             <div style="font-size: 16px;">CREDITS</div>
@@ -4610,12 +4791,24 @@ section[id], h2[id], h3[id] {
                 document.getElementsByTagName('head')[0].appendChild(link);
             }
 
-            $('#myTab a[href="#about-me"]').tab('show'); // Show the About Me tab by default
-            syncActiveTabState($('#myTab a[href="#about-me"]'));
+            var initialHash = window.location.hash;
+            var $initialTab = initialHash ? $('#myTab a[href="' + initialHash + '"]') : $();
+
+            if ($initialTab.length) {
+                $initialTab.tab('show');
+                syncActiveTabState($initialTab);
+            } else {
+                $('#myTab a[href="#about-me"]').tab('show');
+                syncActiveTabState($('#myTab a[href="#about-me"]'));
+            }
 
             $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 syncActiveTabState(e.target);
                 var targetHref = $(e.target).attr('href');
+
+                if (targetHref && window.history && typeof window.history.replaceState === 'function') {
+                    window.history.replaceState(null, '', targetHref);
+                }
 
                 if (targetHref && targetHref !== '#about-me') {
                     ensureBlogTabStylesLoaded();
@@ -4641,6 +4834,19 @@ section[id], h2[id], h3[id] {
                 if (window.redrawRouletteWheel && typeof window.redrawRouletteWheel === 'function') {
                     window.redrawRouletteWheel();
                 }
+            });
+
+            $('[data-open-tab]').on('click', function (e) {
+                e.preventDefault();
+                var targetSelector = $(this).attr('data-open-tab');
+                var $targetTab = $('#myTab a[href="' + targetSelector + '"]');
+
+                if (!$targetTab.length) {
+                    return;
+                }
+
+                $targetTab.tab('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             // Debug: Check which images are loading
