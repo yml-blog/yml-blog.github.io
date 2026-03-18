@@ -43,11 +43,13 @@
 .blog-section-content h3 a {
     color: #3754c6;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 32px;
+    line-height: 1.38;
 }
 
 .blog-section-content p {
-    font-size: 15px;
+    font-size: 20px;
+    line-height: 1.85;
 }
 
 .container-fluid {

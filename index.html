@@ -1278,6 +1278,526 @@ section[id], h2[id], h3[id] {
                 opacity: 0;
             }
         }
+        .about-showcase-grid {
+            display: grid;
+            gap: 24px;
+            margin-top: 0;
+        }
+        .about-showcase-grid > div[style*="#FF8040"],
+        .about-showcase-grid > div[style*="#4682B4"] {
+            display: none !important;
+        }
+        .about-secondary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .about-card {
+            position: relative;
+            overflow: hidden;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: #ffffff;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        }
+        .about-card::before {
+            content: "";
+            position: absolute;
+            inset: -15% auto auto 55%;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 128, 64, 0.16), transparent 70%);
+            pointer-events: none;
+        }
+        .animate-on-view {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
+        #about-me.active .animate-on-view,
+        #about-me.in .animate-on-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-on-view.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .about-card-badge {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(24, 33, 47, 0.06);
+            color: inherit;
+            font-size: 0.76em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .about-runtime-card .about-card-badge {
+            background: rgba(255, 255, 255, 0.18);
+        }
+        .about-card-title {
+            position: relative;
+            z-index: 1;
+            margin: 16px 0 12px !important;
+            color: #18212f;
+            font-size: 1.25em;
+        }
+        .about-runtime-card {
+            background: linear-gradient(145deg, #0f172a, #172554 58%, #111827);
+            border-color: rgba(148, 163, 184, 0.2);
+            color: #dbeafe;
+        }
+        .about-runtime-card::before {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+        }
+        .runtime-topbar {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin: 14px 0 12px;
+        }
+        .runtime-window {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .runtime-window-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+        }
+        .runtime-window-dot:nth-child(1) {
+            background: #fb7185;
+        }
+        .runtime-window-dot:nth-child(2) {
+            background: #fbbf24;
+        }
+        .runtime-window-dot:nth-child(3) {
+            background: #34d399;
+        }
+        .runtime-file {
+            color: rgba(219, 234, 254, 0.82);
+            font-size: 0.92em;
+            letter-spacing: 0.04em;
+        }
+        .runtime-state {
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(59, 130, 246, 0.18);
+            color: #bfdbfe;
+            font-size: 0.74em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .about-code {
+            position: relative;
+            z-index: 1;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent;
+            border: 0;
+            white-space: normal;
+            word-break: normal;
+            font: 600 0.98em/1.5 Consolas, Monaco, "Courier New", monospace;
+            color: #cbd5e1;
+        }
+        .about-code code {
+            display: block;
+        }
+        .about-code-line {
+            display: block;
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateX(-20px);
+            filter: blur(6px);
+            transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+            transition-delay: calc(120ms + var(--line-index) * 85ms);
+        }
+        .about-code-line:empty {
+            height: 0.7em;
+        }
+        .about-runtime-card.is-visible .about-code-line {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+        .token-keyword {
+            color: #c084fc;
+        }
+        .token-class {
+            color: #67e8f9;
+        }
+        .token-decorator {
+            color: #f59e0b;
+        }
+        .token-function {
+            color: #60a5fa;
+        }
+        .token-return {
+            color: #4ade80;
+        }
+        .token-string {
+            color: #fda4af;
+        }
+        .token-comment {
+            color: #86efac;
+        }
+        .runtime-output {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .runtime-output-line {
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.35);
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            color: #dbeafe;
+            font: 600 0.92em/1.55 Consolas, Monaco, "Courier New", monospace;
+            opacity: 0;
+            transform: translateY(14px);
+            filter: blur(6px);
+            transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
+            transition-delay: calc(1300ms + var(--output-index) * 140ms);
+        }
+        .about-runtime-card.is-visible .runtime-output-line {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+        .runtime-prompt {
+            color: #4ade80;
+            margin-right: 8px;
+        }
+        .runtime-accent {
+            color: #ffffff;
+        }
+        .about-quote-card {
+            background: linear-gradient(135deg, #fff8f2, #ffffff 60%, #fff4ea);
+        }
+        .about-quote-card::after {
+            content: "\"";
+            position: absolute;
+            top: 10px;
+            right: 22px;
+            color: rgba(255, 128, 64, 0.12);
+            font: 700 6rem/1 Georgia, serif;
+        }
+        .quote-shell {
+            position: relative;
+            z-index: 1;
+            padding-left: 24px;
+        }
+        .quote-shell::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 2px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255, 128, 64, 0.9), rgba(255, 128, 64, 0.1));
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 1s ease;
+        }
+        .about-quote-card.is-visible .quote-shell::before {
+            transform: scaleY(1);
+        }
+        .quote-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: #b45309;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+        .quote-kicker::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.5;
+        }
+        .about-quote-card.is-visible .quote-kicker {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .favorite-quote {
+            position: relative;
+            z-index: 1;
+            margin: 0 !important;
+            color: #334155;
+            font-size: 1.08em;
+            line-height: 1.75;
+        }
+        .quote-segment {
+            display: block;
+            margin: 0 0 12px;
+            padding: 0 0 0 2px;
+            opacity: 0;
+            transform: translateY(16px);
+            filter: blur(6px);
+            transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
+            transition-delay: calc(140ms + var(--segment-index) * 190ms);
+        }
+        .quote-segment:last-child {
+            margin-bottom: 0;
+        }
+        .quote-segment-text {
+            display: inline;
+            padding-bottom: 2px;
+            background-image: linear-gradient(transparent calc(100% - 0.65em), rgba(255, 128, 64, 0.16) 0);
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            transition: background-size 0.7s ease;
+            transition-delay: calc(320ms + var(--segment-index) * 190ms);
+        }
+        .about-quote-card.is-visible .quote-segment {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+        .about-quote-card.is-visible .quote-segment-text {
+            background-size: 100% 100%;
+        }
+        .quote-footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 22px !important;
+            color: #b45309;
+            text-align: right;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition-delay: 920ms;
+        }
+        .about-quote-card.is-visible .quote-footer {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .about-courses-card {
+            background: linear-gradient(135deg, #f8fbff, #ffffff 55%, #eef6ff);
+        }
+        .courses-head {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+        .courses-link {
+            color: #18212f !important;
+            text-decoration: none !important;
+        }
+        .courses-link:hover {
+            color: #0565dc !important;
+        }
+        .courses-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #4682b4, #0565dc);
+            color: #ffffff !important;
+            font-size: 0.8em;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 12px 25px rgba(5, 101, 220, 0.2);
+        }
+        .about-courses-card.is-visible .courses-cta {
+            animation: courses-cta-glow 3.2s ease-in-out infinite;
+        }
+        .courses-highlight {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .courses-count-shell {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 86px;
+            height: 86px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, #0565dc, #4aa6ff);
+            color: #ffffff;
+            box-shadow: 0 18px 30px rgba(5, 101, 220, 0.22);
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            transition-delay: 100ms;
+        }
+        .about-courses-card.is-visible .courses-count-shell {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .courses-count-number {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .courses-count-label {
+            margin-top: 6px;
+            font-size: 0.7em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .courses-copy {
+            color: #475569;
+            font-size: 1em !important;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            transition-delay: 220ms;
+        }
+        .about-courses-card.is-visible .courses-copy {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .course-chip-cloud {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .course-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(5, 101, 220, 0.12);
+            box-shadow: 0 10px 24px rgba(5, 101, 220, 0.08);
+            color: #385078;
+            font-size: 0.92em;
+            opacity: 0;
+            transform: translateY(16px) scale(0.92);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+            transition-delay: calc(320ms + var(--chip-index) * 90ms);
+        }
+        .course-chip::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ff8040, #0565dc);
+            flex-shrink: 0;
+        }
+        .about-courses-card.is-visible .course-chip {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: course-chip-float 4.5s ease-in-out infinite;
+            animation-delay: calc(1s + var(--chip-index) * 0.2s);
+        }
+        @keyframes course-chip-float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-4px) scale(1.01);
+            }
+        }
+        @keyframes courses-cta-glow {
+            0%, 100% {
+                box-shadow: 0 12px 25px rgba(5, 101, 220, 0.2);
+                transform: translateY(0);
+            }
+            50% {
+                box-shadow: 0 16px 30px rgba(70, 130, 180, 0.28);
+                transform: translateY(-2px);
+            }
+        }
+        body.dark-mode .about-card {
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+        }
+        body.dark-mode .about-card:not(.about-runtime-card) .about-card-badge {
+            background: rgba(148, 163, 184, 0.14);
+            color: #e2e8f0;
+        }
+        body.dark-mode .about-quote-card {
+            background: linear-gradient(135deg, #31241d, #1f1f1f);
+        }
+        body.dark-mode .quote-kicker,
+        body.dark-mode .quote-footer {
+            color: #fdba74;
+        }
+        body.dark-mode .about-courses-card {
+            background: linear-gradient(135deg, #142338, #1e293b 55%, #111827);
+        }
+        body.dark-mode .about-card-title,
+        body.dark-mode .courses-link {
+            color: #f8fafc !important;
+        }
+        body.dark-mode .favorite-quote,
+        body.dark-mode .courses-copy {
+            color: #cbd5e1;
+        }
+        body.dark-mode .quote-segment-text {
+            background-image: linear-gradient(transparent calc(100% - 0.65em), rgba(251, 146, 60, 0.18) 0);
+        }
+        body.dark-mode .course-chip {
+            background: rgba(15, 23, 42, 0.78);
+            border-color: rgba(96, 165, 250, 0.18);
+            color: #dbeafe;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+        }
+        @media (max-width: 768px) {
+            .about-card {
+                padding: 20px;
+            }
+            .runtime-topbar,
+            .courses-head,
+            .courses-highlight {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .courses-highlight {
+                gap: 14px;
+            }
+            .favorite-quote {
+                font-size: 1em;
+            }
+        }
         .blog-section-title {
             text-align: left;
             color: #f1780e;
@@ -1848,6 +2368,866 @@ section[id], h2[id], h3[id] {
         body.dark-mode .slot-row {
             border-color: #444 !important;
         }
+
+        /* Modern tab system redesign */
+        .right-col-block {
+            background:
+                radial-gradient(circle at top left, rgba(5, 101, 220, 0.08), transparent 28%),
+                linear-gradient(180deg, #f7fbff 0%, #eff5fb 100%);
+        }
+        #myTab {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 12px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 18px 20px !important;
+            margin: 0 !important;
+            background: rgba(3, 7, 18, 0.92) !important;
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+            scrollbar-width: none;
+        }
+        #myTab::-webkit-scrollbar {
+            display: none;
+        }
+        #myTab .nav-item {
+            float: none;
+            margin: 0 !important;
+            flex: 0 0 auto;
+        }
+        #myTab .nav-link {
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 999px !important;
+            padding: 14px 20px !important;
+            background: rgba(255,255,255,0.04) !important;
+            color: rgba(255,255,255,0.88) !important;
+            font-size: clamp(18px, 1.3vw, 22px) !important;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+        }
+        #myTab .nav-link:hover {
+            transform: translateY(-2px);
+            background: rgba(255,255,255,0.1) !important;
+            box-shadow: 0 14px 24px rgba(0,0,0,0.18);
+        }
+        #myTab .nav-link.active {
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+        }
+        #about-me-tab.active {
+            background: linear-gradient(135deg, #ff8040, #ffb86b) !important;
+        }
+        #aiml-tab.active {
+            background: linear-gradient(135deg, #0ea5e9, #22d3ee) !important;
+        }
+        #product-tab.active {
+            background: linear-gradient(135deg, #22c55e, #84cc16) !important;
+        }
+        #engineering-tab.active {
+            background: linear-gradient(135deg, #f97316, #fb7185) !important;
+        }
+        #reading-tab.active {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899) !important;
+        }
+        #gallery-tab.active {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6) !important;
+        }
+        #thoughts-tab.active {
+            background: linear-gradient(135deg, #f59e0b, #f97316) !important;
+        }
+        #fun-tab.active {
+            background: linear-gradient(135deg, #7c3aed, #c084fc) !important;
+        }
+        #contact-tab.active {
+            background: linear-gradient(135deg, #14b8a6, #22c55e) !important;
+        }
+        #myTabContent {
+            background: transparent !important;
+        }
+        #myTabContent > .tab-pane {
+            --section-accent: #ff8040;
+            --section-accent-rgb: 255, 128, 64;
+            padding: 28px !important;
+            min-height: calc(100vh - 96px);
+            background:
+                radial-gradient(circle at 88% 8%, rgba(var(--section-accent-rgb), 0.16), transparent 24%),
+                radial-gradient(circle at 12% 0%, rgba(5, 101, 220, 0.08), transparent 28%),
+                linear-gradient(180deg, #f7fbff 0%, #edf4fb 100%);
+        }
+        #myTabContent > .tab-pane.active {
+            animation: tab-panel-reveal 0.45s ease;
+        }
+        #about-me {
+            --section-accent: #ff8040;
+            --section-accent-rgb: 255, 128, 64;
+        }
+        #aiml {
+            --section-accent: #06b6d4;
+            --section-accent-rgb: 6, 182, 212;
+        }
+        #product {
+            --section-accent: #22c55e;
+            --section-accent-rgb: 34, 197, 94;
+        }
+        #engineering {
+            --section-accent: #f97316;
+            --section-accent-rgb: 249, 115, 22;
+        }
+        #reading {
+            --section-accent: #a855f7;
+            --section-accent-rgb: 168, 85, 247;
+        }
+        #gallery {
+            --section-accent: #3b82f6;
+            --section-accent-rgb: 59, 130, 246;
+        }
+        #thoughts {
+            --section-accent: #f59e0b;
+            --section-accent-rgb: 245, 158, 11;
+        }
+        #fun {
+            --section-accent: #8b5cf6;
+            --section-accent-rgb: 139, 92, 246;
+        }
+        #contact {
+            --section-accent: #10b981;
+            --section-accent-rgb: 16, 185, 129;
+        }
+        @keyframes tab-panel-reveal {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #aiml .blog-section-content,
+        #product .blog-section-content,
+        #engineering .blog-section-content,
+        #reading .blog-section-content,
+        #thoughts .blog-section-content,
+        #contact .blog-section-content,
+        #gallery .container-fluid,
+        #fun .container-fluid {
+            position: relative;
+            padding: 26px !important;
+            border-radius: 30px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            background: rgba(255,255,255,0.72);
+            box-shadow: 0 24px 44px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(16px);
+        }
+        #gallery .container-fluid,
+        #fun .container-fluid {
+            padding: 30px !important;
+        }
+        #myTab .nav-item.active .nav-link,
+        #myTab .nav-link.active,
+        #myTab .nav-link[aria-selected="true"] {
+            background: linear-gradient(135deg, #ff8040, #ffb86b) !important;
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 14px 30px rgba(255, 128, 64, 0.28);
+        }
+        #myTabContent .section-title.blog-section-title {
+            margin-bottom: 26px !important;
+            padding-bottom: 16px !important;
+            border-bottom: 1px solid rgba(var(--section-accent-rgb), 0.18);
+        }
+        #myTabContent .section-title.blog-section-title h2,
+        #gallery h2 {
+            margin: 0 !important;
+            font-size: clamp(2rem, 3.6vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            color: #0f172a;
+        }
+        #gallery h2 {
+            margin-bottom: 12px !important;
+        }
+        #gallery .gallery-intro,
+        #gallery .gallery-description p,
+        #fun > .intro p,
+        #contact .meeting-scheduler p,
+        #contact .text-muted,
+        #myTabContent .blog-section-content p {
+            color: #475569 !important;
+        }
+        #gallery .gallery-intro {
+            max-width: 760px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 6px !important;
+        }
+        #myTabContent .blog-section-content > ul {
+            display: grid;
+            gap: 18px;
+        }
+        #product .blog-section-content > ul,
+        #engineering .blog-section-content > ul,
+        #reading .blog-section-content > ul,
+        #thoughts .blog-section-content > ul,
+        #contact .blog-section-content > ul {
+            counter-reset: section-card;
+        }
+        #myTabContent .blog-section-content > ul > li {
+            margin: 0 !important;
+            padding: 22px 24px 18px !important;
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            background: rgba(255,255,255,0.9) !important;
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.06);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease, background-color 0.28s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        #product .blog-section-content > ul > li,
+        #engineering .blog-section-content > ul > li,
+        #reading .blog-section-content > ul > li,
+        #thoughts .blog-section-content > ul > li,
+        #contact .blog-section-content > ul > li {
+            counter-increment: section-card;
+            padding-top: 58px !important;
+        }
+        #aiml .blog-section-content > ul > li {
+            padding-top: 58px !important;
+        }
+        #myTabContent .blog-section-content > ul > li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18px;
+            bottom: 18px;
+            width: 4px;
+            border-radius: 999px;
+            background: var(--section-accent);
+            opacity: 0.9;
+        }
+        #aiml .blog-section-content > ul > li::after,
+        #product .blog-section-content > ul > li::after,
+        #engineering .blog-section-content > ul > li::after,
+        #reading .blog-section-content > ul > li::after,
+        #thoughts .blog-section-content > ul > li::after,
+        #contact .blog-section-content > ul > li::after {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 11px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--section-accent);
+            background: rgba(var(--section-accent-rgb), 0.1);
+            box-shadow: inset 0 0 0 1px rgba(var(--section-accent-rgb), 0.14);
+        }
+        #aiml .blog-section-content > ul > li::after {
+            content: attr(data-tag) " / " attr(data-year);
+        }
+        #product .blog-section-content > ul > li::after {
+            content: "Product Note " counter(section-card, decimal-leading-zero);
+        }
+        #engineering .blog-section-content > ul > li::after {
+            content: "Build Log " counter(section-card, decimal-leading-zero);
+        }
+        #reading .blog-section-content > ul > li::after {
+            content: "Study Note " counter(section-card, decimal-leading-zero);
+        }
+        #thoughts .blog-section-content > ul > li::after {
+            content: "Field Note " counter(section-card, decimal-leading-zero);
+        }
+        #contact .blog-section-content > ul > li:nth-child(1)::after {
+            content: "Inbox";
+        }
+        #contact .blog-section-content > ul > li:nth-child(2)::after {
+            content: "Network";
+        }
+        #contact .blog-section-content > ul > li:nth-child(3)::after {
+            content: "Code";
+        }
+        #contact .blog-section-content > ul > li:nth-child(4)::after {
+            content: "Research";
+        }
+        #contact .blog-section-content > ul > li:nth-child(5)::after {
+            content: "Map";
+        }
+        #contact .blog-section-content > ul > li:nth-child(6)::after {
+            content: "Schedule";
+        }
+        #contact .blog-section-content > ul > li:nth-child(7)::after {
+            content: "Message";
+        }
+        #myTabContent .blog-section-content > ul > li:hover {
+            transform: translateY(-6px);
+            background: #ffffff !important;
+            border-color: rgba(var(--section-accent-rgb), 0.28);
+            box-shadow: 0 26px 40px rgba(var(--section-accent-rgb), 0.14), 0 16px 28px rgba(15, 23, 42, 0.08);
+        }
+        #reading .blog-section-content > ul > li {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.96), rgba(251,245,255,0.92)) !important;
+        }
+        #thoughts .blog-section-content > ul > li {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,249,240,0.96)) !important;
+        }
+        #engineering .blog-section-content > ul > li {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,245,240,0.96)) !important;
+        }
+        #product .blog-section-content > ul > li {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,255,247,0.96)) !important;
+        }
+        #myTabContent .blog-section-content h3 a,
+        #contact .blog-section-content h3 a {
+            color: #0f172a !important;
+            font-size: clamp(1.62rem, 2.05vw, 2.15rem) !important;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+        #myTabContent .blog-section-content h3,
+        #contact .blog-section-content h3 {
+            margin: 0 !important;
+            font-size: clamp(1.62rem, 2.05vw, 2.15rem) !important;
+            line-height: 1.45;
+        }
+        #thoughts .blog-section-content h3 a[target="_blank"]::after,
+        #contact .blog-section-content h3 a[target="_blank"]::after {
+            content: " ->";
+            font-size: 0.85em;
+            opacity: 0.75;
+        }
+        #myTabContent .blog-section-content h3 a:hover,
+        #contact .blog-section-content h3 a:hover {
+            color: var(--section-accent) !important;
+        }
+        #myTabContent .blog-section-content p {
+            margin-top: 10px !important;
+            font-size: 1.22rem !important;
+            line-height: 1.9;
+        }
+        #myTabContent .blog-share-buttons {
+            margin-top: 16px;
+            justify-content: flex-end;
+        }
+        #myTabContent .share-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 14px;
+            box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
+        }
+        #myTabContent .tab-pane.active .blog-section-content > ul > li,
+        #myTabContent .tab-pane.active #gallery .gallery-item {
+            animation: section-card-rise 0.55s ease both;
+            animation-delay: calc(var(--card-order, 0) * 70ms);
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(1),
+        #gallery .gallery-item:nth-child(1) {
+            --card-order: 0;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(2),
+        #gallery .gallery-item:nth-child(2) {
+            --card-order: 1;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(3),
+        #gallery .gallery-item:nth-child(3) {
+            --card-order: 2;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(4),
+        #gallery .gallery-item:nth-child(4) {
+            --card-order: 3;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(5),
+        #gallery .gallery-item:nth-child(5) {
+            --card-order: 4;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(6),
+        #gallery .gallery-item:nth-child(6) {
+            --card-order: 5;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(7),
+        #gallery .gallery-item:nth-child(7) {
+            --card-order: 6;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(8),
+        #gallery .gallery-item:nth-child(8) {
+            --card-order: 7;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(9),
+        #gallery .gallery-item:nth-child(9) {
+            --card-order: 8;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(10),
+        #gallery .gallery-item:nth-child(10) {
+            --card-order: 9;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(11),
+        #gallery .gallery-item:nth-child(11) {
+            --card-order: 10;
+        }
+        #myTabContent .blog-section-content > ul > li:nth-child(12),
+        #gallery .gallery-item:nth-child(12) {
+            --card-order: 11;
+        }
+        @keyframes section-card-rise {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.985);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        #aiml-search-box,
+        #aiml-filter,
+        #aiml-year-filter {
+            min-height: 46px;
+            font-size: 1.1rem !important;
+            border-radius: 14px !important;
+            border: 1px solid rgba(148, 163, 184, 0.2) !important;
+            background: rgba(255,255,255,0.92) !important;
+        }
+        #aiml-filter-label,
+        #aiml-year-filter-label {
+            font-size: 1.26rem !important;
+            font-weight: 700;
+        }
+        #aiml-reset-btn {
+            min-height: 46px;
+            border-radius: 14px !important;
+            padding: 0 18px !important;
+            font-size: 1.1rem !important;
+            font-weight: 700;
+        }
+        #myTabContent .blog-section-content > ul > li::after {
+            padding: 10px 14px;
+            font-size: 0.98rem;
+            letter-spacing: 0.06em;
+        }
+        #aiml .blog-section-content > ul > li::after {
+            padding: 12px 18px;
+            font-size: 1.04rem;
+            letter-spacing: 0.05em;
+        }
+        #aiml .blog-section-content > ul > li h3 a {
+            font-size: clamp(1.8rem, 2.25vw, 2.4rem) !important;
+        }
+        #aiml .blog-section-content > ul > li p {
+            font-size: 1.24rem !important;
+            color: #475569 !important;
+        }
+        #contact .blog-section-content > ul > li:nth-child(-n+4) {
+            padding: 0 !important;
+            overflow: visible;
+            background: transparent !important;
+            border: 0;
+            box-shadow: none;
+        }
+        #contact .blog-section-content > ul > li:nth-child(-n+4)::before,
+        #contact .blog-section-content > ul > li:nth-child(-n+4)::after {
+            display: none;
+        }
+        .contact-link-card {
+            display: flex;
+            align-items: stretch;
+            min-height: 100%;
+        }
+        .contact-primary-link {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            width: 100%;
+            min-height: 148px;
+            padding: 28px;
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(255,255,255,0.94);
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.06);
+            text-decoration: none !important;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+        .contact-primary-link:hover {
+            transform: translateY(-6px);
+            border-color: rgba(16, 185, 129, 0.24);
+            box-shadow: 0 24px 40px rgba(16, 185, 129, 0.14), 0 16px 28px rgba(15, 23, 42, 0.08);
+        }
+        .contact-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(34, 197, 94, 0.24));
+            color: #059669;
+            font-size: 1.8rem;
+            box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.12);
+            flex: 0 0 auto;
+        }
+        .contact-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 0;
+        }
+        .contact-label {
+            color: #0f172a;
+            font-size: 1.04rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .contact-value {
+            color: #334155;
+            font-size: 1.42rem;
+            font-weight: 600;
+            line-height: 1.45;
+            word-break: break-word;
+        }
+        #gallery .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            margin-top: 28px;
+        }
+        #gallery .gallery-item {
+            width: auto;
+            margin: 0;
+            min-height: 220px;
+            border-radius: 26px;
+            overflow: hidden;
+            position: relative;
+            background: #0f172a;
+            box-shadow: 0 20px 34px rgba(15, 23, 42, 0.12);
+        }
+        #gallery .gallery-item::after {
+            content: "Expand";
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            color: #ffffff;
+            font-size: 0.78em;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+        #gallery .gallery-item:hover::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #gallery .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease, filter 0.7s ease;
+        }
+        #gallery .gallery-item:hover img {
+            transform: scale(1.06);
+            filter: saturate(1.08) contrast(1.04);
+        }
+        #gallery .gallery-item:nth-child(6n+1),
+        #gallery .gallery-item:nth-child(6n+4) {
+            grid-column: span 6;
+        }
+        #gallery .gallery-item:nth-child(6n+2),
+        #gallery .gallery-item:nth-child(6n+3),
+        #gallery .gallery-item:nth-child(6n+5),
+        #gallery .gallery-item:nth-child(6n) {
+            grid-column: span 3;
+        }
+        #gallery .gallery-description {
+            margin-top: 24px;
+            padding: 22px 24px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.84);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+        #thoughts .blog-section-content > ul > li:nth-child(2),
+        #thoughts .blog-section-content > ul > li:nth-child(3) {
+            background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,248,235,0.98)) !important;
+        }
+        #fun .section-title {
+            margin-bottom: 12px !important;
+        }
+        #fun p {
+            font-size: 1rem !important;
+            line-height: 1.8;
+        }
+        #fun .slot-machine-container {
+            max-width: 980px !important;
+            padding: 28px !important;
+            border-radius: 30px !important;
+            border: 1px solid rgba(255,255,255,0.14) !important;
+            background: linear-gradient(135deg, #111827, #312e81 52%, #c2410c) !important;
+            box-shadow: 0 28px 60px rgba(49, 46, 129, 0.22) !important;
+        }
+        #fun #slot-display {
+            border-radius: 18px !important;
+            border-width: 6px !important;
+            box-shadow: 0 0 26px rgba(250, 204, 21, 0.35) !important;
+        }
+        #fun #slot-spin-button,
+        #fun #max-bet,
+        #fun #bet-up,
+        #fun #bet-down {
+            border: 0 !important;
+            box-shadow: 0 12px 22px rgba(0,0,0,0.2) !important;
+        }
+        #fun #slot-spin-button {
+            background: linear-gradient(135deg, #fb923c, #facc15) !important;
+            color: #111827 !important;
+        }
+        #fun #max-bet {
+            background: linear-gradient(135deg, #8b5cf6, #c084fc) !important;
+        }
+        #contact .blog-section-content > ul {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 18px;
+        }
+        #contact .blog-section-content > ul > li {
+            grid-column: span 4;
+        }
+        #contact .blog-section-content > ul > li:nth-child(5),
+        #contact .blog-section-content > ul > li:nth-child(6),
+        #contact .blog-section-content > ul > li:nth-child(7) {
+            grid-column: 1 / -1;
+        }
+        #contact #map,
+        #contact #calendly-container,
+        #contact .message-board {
+            border-radius: 20px !important;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            box-shadow: 0 18px 30px rgba(15, 23, 42, 0.08);
+        }
+        #contact .meeting-scheduler,
+        #contact .message-board {
+            background: rgba(255,255,255,0.72);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            box-shadow: 0 20px 34px rgba(15, 23, 42, 0.06);
+        }
+        #contact .form-control {
+            border-radius: 14px;
+            border-color: rgba(148, 163, 184, 0.18);
+            background: rgba(255,255,255,0.94);
+        }
+        #contact .message-button {
+            border-radius: 14px;
+            padding: 12px 18px;
+            font-weight: 700;
+            box-shadow: 0 12px 22px rgba(5, 101, 220, 0.16);
+        }
+        /* Readability boost */
+        #aiml-blog-list > li h3 a,
+        #product .blog-section-content > ul > li h3 a,
+        #engineering .blog-section-content > ul > li h3 a,
+        #reading .blog-section-content > ul > li h3 a,
+        #thoughts .blog-section-content > ul > li h3 a {
+            font-size: clamp(1.92rem, 2.35vw, 2.55rem) !important;
+            line-height: 1.38 !important;
+        }
+        #aiml-blog-list > li p,
+        #product .blog-section-content > ul > li p,
+        #engineering .blog-section-content > ul > li p,
+        #reading .blog-section-content > ul > li p,
+        #thoughts .blog-section-content > ul > li p {
+            font-size: 1.28rem !important;
+            line-height: 1.92 !important;
+        }
+        #aiml-blog-list > li::after,
+        #product .blog-section-content > ul > li::after,
+        #engineering .blog-section-content > ul > li::after,
+        #reading .blog-section-content > ul > li::after,
+        #thoughts .blog-section-content > ul > li::after {
+            font-size: 1.06rem !important;
+            padding: 12px 18px !important;
+        }
+        #contact .contact-label,
+        #contact .contact-value {
+            display: block;
+        }
+        #contact .contact-label {
+            font-size: 1.08rem !important;
+        }
+        #contact .contact-value {
+            font-size: 1.52rem !important;
+            line-height: 1.5 !important;
+        }
+        body.dark-mode .right-col-block {
+            background:
+                radial-gradient(circle at top left, rgba(96, 165, 250, 0.1), transparent 28%),
+                linear-gradient(180deg, #0b1220 0%, #111827 100%);
+        }
+        body.dark-mode #myTab {
+            background: rgba(2, 6, 23, 0.94) !important;
+            border-bottom-color: rgba(148,163,184,0.16);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+        }
+        body.dark-mode #myTab .nav-link {
+            background: rgba(255,255,255,0.05) !important;
+            border-color: rgba(148,163,184,0.14) !important;
+            color: rgba(255,255,255,0.88) !important;
+        }
+        body.dark-mode #myTabContent > .tab-pane {
+            background:
+                radial-gradient(circle at 88% 8%, rgba(var(--section-accent-rgb), 0.16), transparent 24%),
+                radial-gradient(circle at 12% 0%, rgba(96, 165, 250, 0.08), transparent 28%),
+                linear-gradient(180deg, #0b1220 0%, #111827 100%);
+        }
+        body.dark-mode #aiml .blog-section-content,
+        body.dark-mode #product .blog-section-content,
+        body.dark-mode #engineering .blog-section-content,
+        body.dark-mode #reading .blog-section-content,
+        body.dark-mode #thoughts .blog-section-content,
+        body.dark-mode #contact .blog-section-content,
+        body.dark-mode #gallery .container-fluid,
+        body.dark-mode #fun .container-fluid {
+            background: rgba(15, 23, 42, 0.74);
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: 0 24px 44px rgba(0, 0, 0, 0.24);
+        }
+        body.dark-mode #myTabContent .section-title.blog-section-title h2,
+        body.dark-mode #gallery h2,
+        body.dark-mode #myTabContent .blog-section-content h3 a,
+        body.dark-mode #contact .blog-section-content h3,
+        body.dark-mode #contact .blog-section-content h3 a {
+            color: #f8fafc !important;
+        }
+        body.dark-mode #myTabContent .blog-section-content > ul > li {
+            background: rgba(15, 23, 42, 0.86) !important;
+            border-color: rgba(148, 163, 184, 0.12);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.22);
+        }
+        body.dark-mode #aiml .blog-section-content > ul > li::after,
+        body.dark-mode #product .blog-section-content > ul > li::after,
+        body.dark-mode #engineering .blog-section-content > ul > li::after,
+        body.dark-mode #reading .blog-section-content > ul > li::after,
+        body.dark-mode #thoughts .blog-section-content > ul > li::after,
+        body.dark-mode #contact .blog-section-content > ul > li::after {
+            background: rgba(var(--section-accent-rgb), 0.14);
+            color: #e2e8f0;
+            box-shadow: inset 0 0 0 1px rgba(var(--section-accent-rgb), 0.2);
+        }
+        body.dark-mode #myTabContent .blog-section-content > ul > li:hover {
+            background: rgba(30, 41, 59, 0.96) !important;
+        }
+        body.dark-mode #gallery .gallery-description,
+        body.dark-mode #contact .meeting-scheduler,
+        body.dark-mode #contact .message-board {
+            background: rgba(15, 23, 42, 0.78);
+            border-color: rgba(148, 163, 184, 0.14);
+        }
+        body.dark-mode #gallery .gallery-intro,
+        body.dark-mode #gallery .gallery-description p,
+        body.dark-mode #fun p,
+        body.dark-mode #contact .meeting-scheduler p,
+        body.dark-mode #contact .text-muted,
+        body.dark-mode #myTabContent .blog-section-content p {
+            color: #cbd5e1 !important;
+        }
+        body.dark-mode #contact .form-control {
+            background: rgba(30, 41, 59, 0.94);
+            border-color: rgba(148, 163, 184, 0.16);
+            color: #f8fafc;
+        }
+        body.dark-mode .contact-primary-link {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: 0 18px 32px rgba(0, 0, 0, 0.22);
+        }
+        body.dark-mode .contact-icon {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.18), rgba(34, 197, 94, 0.2));
+            color: #6ee7b7;
+        }
+        body.dark-mode .contact-label {
+            color: #cbd5e1;
+        }
+        body.dark-mode .contact-value {
+            color: #f8fafc;
+        }
+        @media (max-width: 991px) {
+            #myTabContent > .tab-pane {
+                padding: 20px !important;
+            }
+            #gallery .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #gallery .gallery-item:nth-child(n) {
+                grid-column: span 1;
+                min-height: 220px;
+            }
+            #contact .blog-section-content > ul > li {
+                grid-column: span 6;
+            }
+            #contact .blog-section-content > ul > li:nth-child(5),
+            #contact .blog-section-content > ul > li:nth-child(6),
+            #contact .blog-section-content > ul > li:nth-child(7) {
+                grid-column: 1 / -1;
+            }
+            .contact-primary-link {
+                min-height: 132px;
+            }
+        }
+        @media (max-width: 700px) {
+            #myTab {
+                gap: 10px;
+                padding: 14px 14px !important;
+            }
+            #myTab .nav-link {
+                padding: 12px 16px !important;
+                font-size: 16px !important;
+            }
+            #aiml .blog-section-content,
+            #product .blog-section-content,
+            #engineering .blog-section-content,
+            #reading .blog-section-content,
+            #thoughts .blog-section-content,
+            #contact .blog-section-content,
+            #gallery .container-fluid,
+            #fun .container-fluid {
+                padding: 18px !important;
+                border-radius: 24px;
+            }
+            #contact .blog-section-content > ul {
+                grid-template-columns: 1fr;
+            }
+            #contact .blog-section-content > ul > li {
+                grid-column: 1 / -1;
+            }
+            .contact-primary-link {
+                padding: 22px;
+            }
+            .contact-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.45rem;
+            }
+            .contact-value {
+                font-size: 1.16rem;
+            }
+        }
         
         @media (max-width: 600px) {
             .hero-intro {
@@ -1938,77 +3318,125 @@ section[id], h2[id], h3[id] {
 <div class="right-col-block blocks" style="padding: 0; margin: 0;">
 <nav aria-label="Main navigation">
 <ul class="nav nav-tabs" id="myTab" role="tablist" style="background-color: #000000;">
-<li class="nav-item" role="presentation">
-<a aria-controls="about-me" aria-selected="true" class="nav-link active" data-toggle="tab" href="#about-me" id="about-me-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">About Me</a>
+<li class="nav-item active" role="presentation">
+<a aria-controls="about-me" aria-selected="true" class="nav-link active" data-toggle="tab" href="#about-me" id="about-me-tab" role="tab">About Me</a>
 </li>
 <li class="nav-item" role="presentation">
-<a aria-controls="aiml" aria-selected="false" class="nav-link" data-toggle="tab" href="#aiml" id="aiml-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">AI/ML</a>
+<a aria-controls="aiml" aria-selected="false" class="nav-link" data-toggle="tab" href="#aiml" id="aiml-tab" role="tab">AI/ML</a>
 </li>
 <li class="nav-item">
-<a aria-controls="product" aria-selected="false" class="nav-link" data-toggle="tab" href="#product" id="product-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Product</a>
+<a aria-controls="product" aria-selected="false" class="nav-link" data-toggle="tab" href="#product" id="product-tab" role="tab">Product</a>
 </li>
 <li class="nav-item">
-<a aria-controls="engineering" aria-selected="false" class="nav-link" data-toggle="tab" href="#engineering" id="engineering-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Engineering</a>
+<a aria-controls="engineering" aria-selected="false" class="nav-link" data-toggle="tab" href="#engineering" id="engineering-tab" role="tab">Engineering</a>
 </li>
 <li class="nav-item">
 <a aria-controls="reading" aria-selected="false" class="nav-link" data-toggle="tab" href="#reading" id="reading-tab" role="tab">Learning</a>
 </li>
 <li class="nav-item">
-<a aria-controls="gallery" aria-selected="false" class="nav-link" data-toggle="tab" href="#gallery" id="gallery-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Gallery</a>
+<a aria-controls="gallery" aria-selected="false" class="nav-link" data-toggle="tab" href="#gallery" id="gallery-tab" role="tab">Gallery</a>
 </li>
 <li class="nav-item">
-<a aria-controls="thoughts" aria-selected="false" class="nav-link" data-toggle="tab" href="#thoughts" id="thoughts-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Thoughts</a>
+<a aria-controls="thoughts" aria-selected="false" class="nav-link" data-toggle="tab" href="#thoughts" id="thoughts-tab" role="tab">Thoughts</a>
 </li>
 <li class="nav-item">
-<a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Play Ground</a>
+<a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab">Play Ground</a>
 </li>
 <li class="nav-item">
-<a aria-controls="contact" aria-selected="false" class="nav-link" data-toggle="tab" href="#contact" id="contact-tab" role="tab" style="color: #ffffff !important; background-color: #000000;">Contact</a>
+<a aria-controls="contact" aria-selected="false" class="nav-link" data-toggle="tab" href="#contact" id="contact-tab" role="tab">Contact</a>
 </li>
 </ul>
 </nav>
 <div class="tab-content" id="myTabContent" style="padding: 0; margin: 0;" role="main">
-<div aria-labelledby="about-me-tab" class="tab-pane fade show active" id="about-me" role="tabpanel">
-<section class="intro section-wrapper" style="padding: 20px; margin: 0;">
+<div aria-labelledby="about-me-tab" class="tab-pane fade in active" id="about-me" role="tabpanel">
+<section class="intro section-wrapper" style="padding: 0 20px 20px; margin: 0;">
 <div class="container-fluid">
 <div class="row">
 <div class="col-md-12">
-<h2>About Me</h2>
-<pre><code class="language-python">
-<strong style="font-size: 1.2em">
-<span style="color: #4B0082">class</span> <span style="color: #008B8B">YangmingLi</span>:
-    <span style="color: #8B4513">@staticmethod</span>
-    <span style="color: #4169E1">def roles()</span> -&gt; list:
-        <span style="color: #006400">return</span> [
-            <span style="color: #FF4500">"Product Manager"</span>,
-            <span style="color: #FF4500">"AI Engineer"</span>, 
-            <span style="color: #FF4500">"Machine Learning Engineer"</span>,
-            <span style="color: #FF4500">"Data Scientist"</span>
-        ]
-    
-    <span style="color: #8B4513">@staticmethod</span>
-    <span style="color: #4169E1">def industry_experience()</span> -&gt; dict:
-        <span style="color: #006400">return</span> {
-            <span style="color: #FF4500">"Finance"</span>: [<span style="color: #FF4500">"BCIMC"</span>, <span style="color: #FF4500">"Industrial and Commercial Bank of China"</span>],
-            <span style="color: #FF4500">"Healthcare"</span>: [<span style="color: #FF4500">"Provincial Health Authority"</span>, <span style="color: #FF4500">"Island Health"</span>],
-            <span style="color: #FF4500">"Transportation"</span>: [<span style="color: #FF4500">"BC Public Service"</span>], 
-            <span style="color: #FF4500">"Environment"</span>: [<span style="color: #FF4500">"Environment Canada and Climate Change"</span>],
-            <span style="color: #FF4500">"Education"</span>: [
-                <span style="color: #FF4500">"University of Victoria"</span>,
-                <span style="color: #FF4500">"University of Waterloo"</span>,
-                <span style="color: #FF4500">"Wilfrid Laurier University"</span>
-            ]
-        }
-    
-    <span style="color: #8B4513">@staticmethod</span>
-    <span style="color: #4169E1">def mission()</span> -&gt; str:
-        <span style="color: #006400">return</span> <span style="color: #FF4500">"Share latest ideas on data products while documenting knowledge growth"</span>
+<div class="about-showcase-grid">
+<div class="about-card about-runtime-card animate-on-view">
+<span class="about-card-badge">Runtime Snapshot</span>
+<div class="runtime-topbar">
+<div class="runtime-window">
+<span class="runtime-window-dot"></span>
+<span class="runtime-window-dot"></span>
+<span class="runtime-window-dot"></span>
+</div>
+<span class="runtime-file">yangming_profile.py</span>
+<span class="runtime-state">live object</span>
+</div>
+<div class="about-code"><span class="about-code-line" style="--line-index: 0;"><span class="token-keyword">class</span> <span class="token-class">YangmingLi</span>:</span>
+<span class="about-code-line" style="--line-index: 1;">    <span class="token-decorator">@staticmethod</span></span>
+<span class="about-code-line" style="--line-index: 2;">    <span class="token-function">def roles()</span> -&gt; list:</span>
+<span class="about-code-line" style="--line-index: 3;">        <span class="token-return">return</span> [<span class="token-string">"Product Manager"</span>, <span class="token-string">"AI Engineer"</span>,</span>
+<span class="about-code-line" style="--line-index: 4;">                <span class="token-string">"Machine Learning Engineer"</span>, <span class="token-string">"Data Scientist"</span>]</span>
+<span class="about-code-line" style="--line-index: 5;"></span>
+<span class="about-code-line" style="--line-index: 6;">    <span class="token-decorator">@staticmethod</span></span>
+<span class="about-code-line" style="--line-index: 7;">    <span class="token-function">def industry_experience()</span> -&gt; dict:</span>
+<span class="about-code-line" style="--line-index: 8;">        <span class="token-return">return</span> {</span>
+<span class="about-code-line" style="--line-index: 9;">            <span class="token-string">"Finance"</span>: [<span class="token-string">"BCIMC"</span>, <span class="token-string">"Industrial and Commercial Bank of China"</span>],</span>
+<span class="about-code-line" style="--line-index: 10;">            <span class="token-string">"Healthcare"</span>: [<span class="token-string">"Provincial Health Authority"</span>, <span class="token-string">"Island Health"</span>],</span>
+<span class="about-code-line" style="--line-index: 11;">            <span class="token-string">"Transportation"</span>: [<span class="token-string">"BC Public Service"</span>],</span>
+<span class="about-code-line" style="--line-index: 12;">            <span class="token-string">"Environment"</span>: [<span class="token-string">"Environment Canada and Climate Change"</span>],</span>
+<span class="about-code-line" style="--line-index: 13;">            <span class="token-string">"Education"</span>: [<span class="token-string">"University of Victoria"</span>, <span class="token-string">"University of Waterloo"</span>, <span class="token-string">"Wilfrid Laurier University"</span>]</span>
+<span class="about-code-line" style="--line-index: 14;">        }</span>
+<span class="about-code-line" style="--line-index: 15;"></span>
+<span class="about-code-line" style="--line-index: 16;">    <span class="token-decorator">@staticmethod</span></span>
+<span class="about-code-line" style="--line-index: 17;">    <span class="token-function">def mission()</span> -&gt; str:</span>
+<span class="about-code-line" style="--line-index: 18;">        <span class="token-return">return</span> <span class="token-string">"Share latest ideas on data products while documenting knowledge growth"</span></span>
+<span class="about-code-line" style="--line-index: 19;"></span>
+<span class="about-code-line" style="--line-index: 20;"><span class="token-comment"># Instantiate Yangming Li</span></span>
+<span class="about-code-line" style="--line-index: 21;">me = YangmingLi()</span>
+<span class="about-code-line" style="--line-index: 22;">print(f<span class="token-string">"Roles: {me.roles()}"</span>)</span>
+<span class="about-code-line" style="--line-index: 23;">print(f<span class="token-string">"Experience across {len(me.industry_experience())} industries"</span>)</span>
+<span class="about-code-line" style="--line-index: 24;">print(f<span class="token-string">"Mission: {me.mission()}"</span>)</span></div>
+<div class="runtime-output">
+<div class="runtime-output-line" style="--output-index: 0;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">roles_loaded</span> = 4</div>
+<div class="runtime-output-line" style="--output-index: 1;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">industries_covered</span> = 5</div>
+<div class="runtime-output-line" style="--output-index: 2;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">mission_status</span> = "building useful data products"</div>
+</div>
+</div>
 
-<span style="color: #228B22"># Instantiate Yangming Li</span>
-me = YangmingLi()
-print(f<span style="color: #FF4500">"Roles: {me.roles()}"</span>)
-print(f<span style="color: #FF4500">"Experience across {len(me.industry_experience())} industries"</span>)
-print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></code></pre>
+<div class="about-secondary-grid">
+<div class="about-card about-quote-card animate-on-view">
+<span class="about-card-badge">Favorite Quote</span>
+<h3 class="about-card-title">My Favorite Quote</h3>
+<div class="quote-shell">
+<div class="quote-kicker">Tool Builder Mindset</div>
+<blockquote class="favorite-quote">
+<span class="quote-segment" style="--segment-index: 0;"><span class="quote-segment-text">"I'm a tool builder. That's how I think of myself.</span></span>
+<span class="quote-segment" style="--segment-index: 1;"><span class="quote-segment-text">I want to build really good tools that I know in my gut and my heart will be valuable.</span></span>
+<span class="quote-segment" style="--segment-index: 2;"><span class="quote-segment-text">And then, whatever happens, is... you can't really predict exactly what will happen, but you can feel the direction that we're going.</span></span>
+<span class="quote-segment" style="--segment-index: 3;"><span class="quote-segment-text">And that's about as close as you can get.</span></span>
+<span class="quote-segment" style="--segment-index: 4;"><span class="quote-segment-text">Then you just stand back and get out of the way, and these things take on a life of their own."</span></span>
+</blockquote>
+</div>
+<div class="quote-footer">- Steve Jobs</div>
+</div>
+
+<div class="about-card about-courses-card animate-on-view">
+<span class="about-card-badge">Learning Loop</span>
+<div class="courses-head">
+<h3 class="about-card-title" style="margin: 0 !important;"><a class="courses-link" href="courses.html">Courses Learned</a></h3>
+<a class="courses-cta" href="courses.html">View All Certificates</a>
+</div>
+<div class="courses-highlight">
+<div class="courses-count-shell">
+<span class="courses-count-number" data-count-to="15">0</span>
+<span class="courses-count-label">courses+</span>
+</div>
+<p class="courses-copy">I've completed over 15 courses in programming, machine learning, MLOps, and data science from platforms like DataCamp and Coursera. <a href="courses.html" style="color: #4682B4;">Click here</a> to view all certificates.</p>
+</div>
+<div class="course-chip-cloud">
+<span class="course-chip" style="--chip-index: 0;">Python Programming</span>
+<span class="course-chip" style="--chip-index: 1;">Deep Learning</span>
+<span class="course-chip" style="--chip-index: 2;">SQL</span>
+<span class="course-chip" style="--chip-index: 3;">MLOps</span>
+<span class="course-chip" style="--chip-index: 4;">Docker</span>
+<span class="course-chip" style="--chip-index: 5;">Git &amp; GitHub</span>
+</div>
+</div>
+</div>
 
 
 <div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #FF8040; border-radius: 5px;">
@@ -2877,24 +4305,46 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <div class="row" style="padding: 0; margin: 0;">
 <div class="col-md-12" style="padding: 0; margin: 0;">
 <div class="section-title blog-section-title">
-<h2>Contact Information</h2>
+<h2>Contact</h2>
 </div>
 </div>
 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
 <ul>
-<li>
-<h3>Email: <a href="mailto:liym1@hotmail.com">liym1@hotmail.com</a></h3>
+<li class="contact-link-card">
+<a class="contact-primary-link" href="mailto:liym1@hotmail.com">
+<span class="contact-icon"><i class="fa fa-envelope"></i></span>
+<span class="contact-meta">
+<span class="contact-label">Email</span>
+<span class="contact-value">liym1@hotmail.com</span>
+</span>
+</a>
 </li>
-<li>
-<h3>LinkedIn: <a href="https://www.linkedin.com/in/yangming-li-tech/" target="_blank"><i class="fa fa-linkedin"></i> Yangming Li</a></h3>
+<li class="contact-link-card">
+<a class="contact-primary-link" href="https://www.linkedin.com/in/yangming-li-tech/" target="_blank">
+<span class="contact-icon"><i class="fa fa-linkedin"></i></span>
+<span class="contact-meta">
+<span class="contact-label">LinkedIn</span>
+<span class="contact-value">Yangming Li</span>
+</span>
+</a>
 </li>
-<li>
-<h3>GitHub: <a href="https://github.com/yml-blog" target="_blank"><i class="fa fa-github"></i> GitHub</a></h3>
+<li class="contact-link-card">
+<a class="contact-primary-link" href="https://github.com/yml-blog" target="_blank">
+<span class="contact-icon"><i class="fa fa-github"></i></span>
+<span class="contact-meta">
+<span class="contact-label">GitHub</span>
+<span class="contact-value">github.com/yml-blog</span>
+</span>
+</a>
 </li>
-<li>
-<h3>Google Scholar: <a href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&amp;hl=en" target="_blank">
-<i class="fa fa-graduation-cap"></i> Google Scholar Profile
-                                            </a></h3>
+<li class="contact-link-card">
+<a class="contact-primary-link" href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&amp;hl=en" target="_blank">
+<span class="contact-icon"><i class="fa fa-graduation-cap"></i></span>
+<span class="contact-meta">
+<span class="contact-label">Google Scholar</span>
+<span class="contact-value">Scholar Profile</span>
+</span>
+</a>
 </li>
 <li>
 <h3>Location: Vancouver, BC, Canada</h3>
@@ -2955,99 +4405,42 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer>
         $(document).ready(function () {
+            function syncActiveTabState(target) {
+                var $target = $(target);
+                $('#myTab .nav-item').removeClass('active');
+                $('#myTab .nav-link').removeClass('active').attr('aria-selected', 'false');
+                $target.addClass('active').attr('aria-selected', 'true');
+                $target.closest('.nav-item').addClass('active');
+            }
+
+            function ensureBlogTabStylesLoaded() {
+                if (document.querySelector('link[data-blog-tab-styles="true"]')) {
+                    return;
+                }
+
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/blog_tab.css';
+                link.setAttribute('data-blog-tab-styles', 'true');
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+
             $('#myTab a[href="#about-me"]').tab('show'); // Show the About Me tab by default
-            
-            // Initialize skills radar chart when About Me tab is shown
-            $('#myTab a[href="#about-me"]').on('shown.bs.tab', function () {
-                // Hide the Blog tab content
-                $('#aiml, #product, #engineering, #thoughts, #gallery, #reading').removeClass('show active');
-            });
-            
-            $('#myTab a[href="#aiml"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the blog tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
+            syncActiveTabState($('#myTab a[href="#about-me"]'));
 
-            $('#myTab a[href="#product"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the blog tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
+            $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                syncActiveTabState(e.target);
+                var targetHref = $(e.target).attr('href');
 
-            $('#myTab a[href="#engineering"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the blog tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
+                if (targetHref && targetHref !== '#about-me') {
+                    ensureBlogTabStylesLoaded();
+                }
 
-            $('#myTab a[href="#gallery"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the gallery tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
+                if (targetHref !== '#fun') {
+                    return;
+                }
 
-            $('#myTab a[href="#thoughts"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the blog tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
-
-            $('#myTab a[href="#reading"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the readings tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
-
-            $('#myTab a[href="#contact"]').on('shown.bs.tab', function () {
-                // Ensure the blog CSS is loaded when the contact tab is shown
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = 'css/blog_tab.css'; // Load the new CSS file
-                document.getElementsByTagName('head')[0].appendChild(link);
-                
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
-            });
-            
-                        $('#myTab a[href="#fun"]').on('shown.bs.tab', function () {
                 console.log("Fun tab clicked and shown!");
                 // Make sure slot machine container is visible
                 var slotMachine = document.querySelector('.slot-machine-container');
@@ -3059,9 +4452,6 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
                 } else {
                     console.log("Slot machine container not found!");
                 }
-
-                // Hide the About Me tab content
-                $('#about-me').removeClass('show active');
  
                 // Redraw the roulette wheel if it exists
                 if (window.redrawRouletteWheel && typeof window.redrawRouletteWheel === 'function') {
@@ -3186,6 +4576,70 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
         });
     </script>
 <script defer="" src="js/scripts.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const aboutCards = document.querySelectorAll('.about-card.animate-on-view');
+
+            function animateCount(element) {
+                const target = parseInt(element.dataset.countTo || '0', 10);
+                const duration = 1400;
+                let startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) {
+                        startTime = timestamp;
+                    }
+
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    element.textContent = Math.floor(progress * target);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        element.textContent = target;
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            function activateCard(card) {
+                if (card.dataset.animated === 'true') {
+                    return;
+                }
+
+                card.dataset.animated = 'true';
+                card.classList.add('is-visible');
+
+                card.querySelectorAll('[data-count-to]').forEach(animateCount);
+            }
+
+            if (!aboutCards.length) {
+                return;
+            }
+
+            if (!('IntersectionObserver' in window)) {
+                aboutCards.forEach(activateCard);
+                return;
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    activateCard(entry.target);
+                    observer.unobserve(entry.target);
+                });
+            }, {
+                threshold: 0.25,
+                rootMargin: '0px 0px -8% 0px'
+            });
+
+            aboutCards.forEach((card) => observer.observe(card));
+        });
+    </script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             const reactionButtons = document.querySelectorAll('.reaction-btn');
