@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="en">
-<head><style>
+<html class="no-js" lang="en">
+<head><script>document.documentElement.className=document.documentElement.className.replace('no-js','js');</script><style>
 body {
   margin: 0;
   padding: 0;
@@ -1205,6 +1205,79 @@ section[id], h2[id], h3[id] {
         .header .content h1, .header .content p {
             text-align: center;
         }
+        .hero-copy {
+            max-width: 900px;
+            margin: 0 auto !important;
+        }
+        .hero-copy .big-text {
+            display: inline-block;
+            line-height: 1.45;
+        }
+        .hero-intro {
+            max-width: 800px;
+            margin: 20px auto 0 !important;
+            text-align: left !important;
+            font-size: 1.1em !important;
+            color: #ffffff !important;
+        }
+        .hero-intro p {
+            margin: 0 !important;
+        }
+        .typing-line,
+        .typing-block {
+            position: relative;
+        }
+        .js .typing-line,
+        .js .typing-block {
+            visibility: hidden;
+        }
+        .js .typing-line.typewriter-ready,
+        .js .typing-block.typewriter-ready {
+            visibility: visible;
+        }
+        .typewriter-text {
+            white-space: pre-wrap;
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 0.08em;
+            height: 1em;
+            margin-left: 0.08em;
+            background-color: currentColor;
+            vertical-align: -0.1em;
+            animation: blink-caret 0.9s steps(1, end) infinite;
+        }
+        .hero-cta,
+        .hero-cta-original {
+            max-width: 900px;
+            margin: 14px auto 0 !important;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .hero-cta-original {
+            display: none;
+        }
+        .js .hero-cta {
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+        }
+        .js .hero-cta.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+        @keyframes blink-caret {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
         .blog-section-title {
             text-align: left;
             color: #f1780e;
@@ -1777,6 +1850,9 @@ section[id], h2[id], h3[id] {
         }
         
         @media (max-width: 600px) {
+            .hero-intro {
+                font-size: 1em !important;
+            }
             #aiml-search-box { width: 100%; margin-bottom: 10px; }
             #aiml-reset-btn { width: 100%; margin: 10px 0 10px 0; }
             #roulette-canvas { width: 100%; height: auto; }
@@ -1791,31 +1867,44 @@ section[id], h2[id], h3[id] {
 <header class="header">
 <div class="content text-center">
 <h1>Yangming Li · AI/ML · product · engineer blog</h1>
-<p class="lead">
-<strong class="big-text">I am a Data &amp; Product Enthusiast.<br/>
-                            I am interested in AI/ML System &amp; product management/HCI &amp; data engineer/science.</strong>
+<p class="lead hero-copy">
+<strong class="big-text"><span class="typing-line" data-typed-text="I am a Data &amp; Product Enthusiast." data-typing-speed="34" data-typing-delay="260">I am a Data &amp; Product Enthusiast.</span><br/>
+<span class="typing-line" data-typed-text="I am interested in AI/ML System &amp; product management/HCI &amp; data engineer/science." data-typing-speed="20" data-typing-delay="180">I am interested in AI/ML System &amp; product management/HCI &amp; data engineer/science.</span></strong>
 </p>
 
 <!-- Primary CTAs (job conversion) -->
-<div class="cta-row" style="max-width: 900px; margin: 14px auto 0; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+<div class="cta-row hero-cta-original">
   <a class="btn btn-default" href="https://www.linkedin.com/in/yangming-li-tech/" target="_blank" rel="noopener noreferrer">
     <i class="fa fa-linkedin"></i> LinkedIn
   </a>
   <a class="btn btn-default" href="https://github.com/yml-blog" target="_blank" rel="noopener noreferrer">
     <i class="fa fa-github"></i> GitHub
   </a>
-  <a class="btn btn-default" href="mailto:liym1@hotmail.com?subject=Hello%20Yangming" >
+  <a class="btn btn-default" href="mailto:liym1@hotmail.com?subject=Hello%20Yangming">
     <i class="fa fa-envelope"></i> Email
   </a>
 </div>
 
 <!-- —— 新增简介段落 —— -->
-<div class="intro-text" style="max-width:800px; margin:20px auto; text-align:left; font-size:1.1em; color:#555;">
-  <p>
+<div class="intro-text hero-intro">
+  <p class="typing-block" data-typed-text="Welcome to my tech blog! My name is Yangming Li, and I'm currently based in Vancouver, working as a Data Sceientist/Engineer- product. Here, I'll share practical techniques and engineering insights for building real-world data products, drawing on years of hands-on experience in AI/ML and product management across the finance, healthcare, transportation, environment, and education sectors. Whether you're a beginner or a seasoned professional, you'll find reusable methods and inspiration through case studies, tool selection, deployment workflows, and code examples." data-typing-speed="12" data-typing-delay="220">
     Welcome to my tech blog! My name is Yangming Li, and I'm currently based in Vancouver, working as a Data Sceientist/Engineer- product. Here, I'll share practical techniques and engineering insights for building real-world data products, drawing on years of hands-on experience in AI/ML and product management across the finance, healthcare, transportation, environment, and education sectors. Whether you're a beginner or a seasoned professional, you'll find reusable methods and inspiration through case studies, tool selection, deployment workflows, and code examples.
   </p>
 </div>
 <!-- —— 以上段落—— -->
+
+<!-- Primary CTAs (job conversion) -->
+<div class="cta-row hero-cta">
+  <a class="btn btn-default" href="https://www.linkedin.com/in/yangming-li-tech/" target="_blank" rel="noopener noreferrer">
+    <i class="fa fa-linkedin"></i> LinkedIn
+  </a>
+  <a class="btn btn-default" href="https://github.com/yml-blog" target="_blank" rel="noopener noreferrer">
+    <i class="fa fa-github"></i> GitHub
+  </a>
+  <a class="btn btn-default" href="mailto:liym1@hotmail.com?subject=Hello%20Yangming">
+    <i class="fa fa-envelope"></i> Email
+  </a>
+</div>
 
 <br/>
 <div class="theme-switch-wrapper">
@@ -3018,6 +3107,82 @@ print(f<span style="color: #FF4500">"Mission: {me.mission()}"</span>)</strong></
             
             // Ensure first image is showing
             images[0].classList.add('active');
+
+            const typingTargets = Array.from(document.querySelectorAll('.typing-line, .typing-block'));
+            const heroCta = document.querySelector('.hero-cta');
+
+            function getTypingDelay(character, baseDelay) {
+                if (/[,.!?]/.test(character)) {
+                    return baseDelay * 6;
+                }
+                if (/[;:]/.test(character)) {
+                    return baseDelay * 4;
+                }
+                if (/\s/.test(character)) {
+                    return Math.max(10, Math.round(baseDelay * 0.5));
+                }
+                return baseDelay;
+            }
+
+            function typeText(element) {
+                const text = element.dataset.typedText || element.textContent;
+                const speed = parseInt(element.dataset.typingSpeed || '18', 10);
+                const delay = parseInt(element.dataset.typingDelay || '0', 10);
+                const characters = Array.from(text);
+
+                element.setAttribute('aria-label', text);
+                element.textContent = '';
+
+                const textNode = document.createElement('span');
+                textNode.className = 'typewriter-text';
+
+                const cursorNode = document.createElement('span');
+                cursorNode.className = 'typewriter-cursor';
+                cursorNode.setAttribute('aria-hidden', 'true');
+
+                element.appendChild(textNode);
+                element.appendChild(cursorNode);
+                element.classList.add('typewriter-ready');
+
+                return new Promise(resolve => {
+                    let index = 0;
+
+                    function step() {
+                        if (index >= characters.length) {
+                            cursorNode.remove();
+                            resolve();
+                            return;
+                        }
+
+                        const currentCharacter = characters[index];
+                        textNode.textContent += currentCharacter;
+                        index += 1;
+
+                        setTimeout(step, getTypingDelay(currentCharacter, speed));
+                    }
+
+                    setTimeout(step, delay);
+                });
+            }
+
+            async function runHeroTypewriter() {
+                if (!typingTargets.length) {
+                    if (heroCta) {
+                        heroCta.classList.add('is-visible');
+                    }
+                    return;
+                }
+
+                for (const target of typingTargets) {
+                    await typeText(target);
+                }
+
+                if (heroCta) {
+                    requestAnimationFrame(() => heroCta.classList.add('is-visible'));
+                }
+            }
+
+            runHeroTypewriter();
         });
     </script>
 <script defer="" src="js/scripts.js"></script>
