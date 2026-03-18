@@ -185,11 +185,13 @@ body.dark-mode pre code {
     background-color: #2d2d2d;
     color: #f5f5f5;
 }
-body.dark-mode #aiml-blog-list li {
+body.dark-mode #aiml-blog-list li,
+body.dark-mode #blog-list li {
     background-color: #333;
     box-shadow: 0 1px 6px rgba(255,255,255,0.1);
 }
-body.dark-mode #aiml-blog-list li:hover {
+body.dark-mode #aiml-blog-list li:hover,
+body.dark-mode #blog-list li:hover {
     background-color: #444;
     box-shadow: 0 4px 18px rgba(241,120,14,0.2), 0 1.5px 8px rgba(255,255,255,0.1);
 }
@@ -732,7 +734,8 @@ body.dark-mode .share-btn.email {
     margin-left: 8px;
     font-size: 0.9em;
 }
-#aiml-blog-list li {
+#aiml-blog-list li,
+#blog-list li {
     opacity: 1;
     transition: opacity 0.35s, box-shadow 0.2s;
     border-radius: 8px;
@@ -742,14 +745,17 @@ body.dark-mode .share-btn.email {
     padding: 12px 18px 10px 18px;
     position: relative;
 }
-#aiml-blog-list li.fading-out {
+#aiml-blog-list li.fading-out,
+#blog-list li.fading-out {
     opacity: 0;
     pointer-events: none;
 }
-#aiml-blog-list li.fading-in {
+#aiml-blog-list li.fading-in,
+#blog-list li.fading-in {
     opacity: 1;
 }
-#aiml-blog-list li:hover {
+#aiml-blog-list li:hover,
+#blog-list li:hover {
     box-shadow: 0 4px 18px rgba(241,120,14,0.13), 0 1.5px 8px rgba(0,0,0,0.07);
     background: #fffbe9;
     z-index: 2;
@@ -865,15 +871,15 @@ section[id], h2[id], h3[id] {
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <!-- —— 优化后的 SEO 元数据 —— -->
-<title>Yangming Li (yangmingli) — AI/ML & Product Engineering Blog</title>
+<title>Yangming Li | Applied AI Systems for Real-World Workflows</title>
 <meta name="description"
-      content="Yangming Li (yangmingli)'s Tech Blog: In-depth insights on AI/ML, product management and engineering practices. Tutorials, case studies, and best practices for building real-world data products."/>
+      content="Yangming Li builds applied AI systems for real-world workflows. AI Engineer + Product Builder focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams."/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://yangmingli.com/" rel="canonical"/>
 <link rel="alternate" hreflang="zh-CN" href="https://yangmingli.com/" />
 <link rel="alternate" hreflang="en-CA" href="https://yangmingli.com/en/" />
 <meta name="robots" content="index,follow,max-image-preview:large"/>
-<meta name="keywords" content="AI, machine learning, product management, data science, MLOps, engineering, data products, tutorials, case studies, Yangming Li, YangmingLi, yangmingli"/>
+<meta name="keywords" content="applied AI, LLM systems, data products, experiment infrastructure, AI engineer, product builder, healthcare AI, finance AI, enterprise workflows, Yangming Li"/>
 <meta name="author" content="Yangming Li"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
 <meta name="revisit-after" content="7 days"/>
@@ -882,17 +888,17 @@ section[id], h2[id], h3[id] {
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="en_CA"/>
 <meta property="og:site_name" content="Yangming Li"/>
-<meta property="og:title" content="AI/ML & Product Engineering Insights | Yangming Li Tech Blog"/>
+<meta property="og:title" content="Applied AI Systems for Real-World Workflows | Yangming Li"/>
 <meta property="og:description"
-      content="In-depth insights on AI/ML, product management and engineering practices for implementing data products. Explore tutorials, case studies, and best practices."/>
+      content="AI Engineer + Product Builder focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams."/>
 <meta property="og:url" content="https://yangmingli.com/"/>
 <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
 <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="AI/ML & Product Engineering Insights | Yangming Li Tech Blog"/>
+<meta name="twitter:title" content="Applied AI Systems for Real-World Workflows | Yangming Li"/>
 <meta name="twitter:description"
-      content="In-depth insights on AI/ML, product management and engineering practices for implementing data products. Tutorials, case studies, and best practices."/>
+      content="AI Engineer + Product Builder focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams."/>
 <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png"/>
 <meta name="theme-color" content="#f1780e"/>
 <link rel="manifest" href="/manifest.json"/>
@@ -906,7 +912,7 @@ section[id], h2[id], h3[id] {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": "https://yangmingli.com/#website",
-      "name": "Yangming Li Tech Blog",
+      "name": "Yangming Li",
       "url": "https://yangmingli.com/",
       "inLanguage": "en",
       "publisher": { "@id": "https://yangmingli.com/#yangming-li" },
@@ -957,9 +963,9 @@ section[id], h2[id], h3[id] {
         "https://github.com/yml-blog",
         "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en"
       ],
-      "jobTitle": "Data Product Scientist",
-      "description": "AI/ML, product design & information visualization specialist.",
-      "knowsAbout": ["AI/ML", "Product Management", "Data Science", "Machine Learning", "Information Visualization"]
+      "jobTitle": "AI Engineer & Product Builder",
+      "description": "Builds applied AI systems for real-world workflows across healthcare, finance, and enterprise teams.",
+      "knowsAbout": ["Applied AI", "LLM Systems", "Data Products", "Experiment Infrastructure", "Product Engineering"]
     }
     </script>
 <script type="application/ld+json">
@@ -975,18 +981,13 @@ section[id], h2[id], h3[id] {
         },
         {
           "@type": "SiteNavigationElement",
-          "name": "AI/ML",
-          "url": "https://yangmingli.com/#aiml"
+          "name": "Portfolio",
+          "url": "https://yangmingli.com/#portfolio"
         },
         {
           "@type": "SiteNavigationElement",
-          "name": "Product",
-          "url": "https://yangmingli.com/#product"
-        },
-        {
-          "@type": "SiteNavigationElement",
-          "name": "Engineering",
-          "url": "https://yangmingli.com/#engineering"
+          "name": "Blog",
+          "url": "https://yangmingli.com/#blog"
         },
         {
           "@type": "SiteNavigationElement",
@@ -995,8 +996,8 @@ section[id], h2[id], h3[id] {
         },
         {
           "@type": "SiteNavigationElement",
-          "name": "Gallery",
-          "url": "https://yangmingli.com/#gallery"
+          "name": "Play Ground",
+          "url": "https://yangmingli.com/#fun"
         },
         {
           "@type": "SiteNavigationElement",
@@ -1116,11 +1117,13 @@ section[id], h2[id], h3[id] {
             background-color: #2d2d2d;
             color: #f5f5f5;
         }
-        body.dark-mode #aiml-blog-list li {
+        body.dark-mode #aiml-blog-list li,
+        body.dark-mode #blog-list li {
             background-color: #333;
             box-shadow: 0 1px 6px rgba(255,255,255,0.1);
         }
-        body.dark-mode #aiml-blog-list li:hover {
+        body.dark-mode #aiml-blog-list li:hover,
+        body.dark-mode #blog-list li:hover {
             background-color: #444;
             box-shadow: 0 4px 18px rgba(241,120,14,0.2), 0 1.5px 8px rgba(255,255,255,0.1);
         }
@@ -2256,7 +2259,8 @@ section[id], h2[id], h3[id] {
             margin-left: 8px;
             font-size: 0.9em;
         }
-        #aiml-blog-list li {
+        #aiml-blog-list li,
+        #blog-list li {
             opacity: 1;
             transition: opacity 0.35s, box-shadow 0.2s;
             border-radius: 8px;
@@ -2266,14 +2270,17 @@ section[id], h2[id], h3[id] {
             padding: 12px 18px 10px 18px;
             position: relative;
         }
-        #aiml-blog-list li.fading-out {
+        #aiml-blog-list li.fading-out,
+        #blog-list li.fading-out {
             opacity: 0;
             pointer-events: none;
         }
-        #aiml-blog-list li.fading-in {
+        #aiml-blog-list li.fading-in,
+        #blog-list li.fading-in {
             opacity: 1;
         }
-        #aiml-blog-list li:hover {
+        #aiml-blog-list li:hover,
+        #blog-list li:hover {
             box-shadow: 0 4px 18px rgba(241,120,14,0.13), 0 1.5px 8px rgba(0,0,0,0.07);
             background: #fffbe9;
             z-index: 2;
@@ -2569,6 +2576,161 @@ section[id], h2[id], h3[id] {
             line-height: 1.8;
             margin-bottom: 6px !important;
         }
+        #portfolio-tab.active {
+            background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+        }
+        #blog-tab.active {
+            background: linear-gradient(135deg, #0284c7, #38bdf8) !important;
+        }
+        #blog {
+            --section-accent: #0284c7;
+            --section-accent-rgb: 2, 132, 199;
+        }
+        #portfolio {
+            --section-accent: #0f766e;
+            --section-accent-rgb: 15, 118, 110;
+        }
+        #blog .blog-section-content,
+        #portfolio .blog-section-content {
+            position: relative;
+            padding: 26px !important;
+            border-radius: 30px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            background: rgba(255,255,255,0.72);
+            box-shadow: 0 24px 44px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(16px);
+        }
+        #blog .blog-intro,
+        #portfolio .portfolio-intro {
+            max-width: 760px;
+            font-size: 1.08rem !important;
+            line-height: 1.8;
+            margin-bottom: 20px !important;
+        }
+        .blog-filter-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+        .blog-topic-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .blog-topic-btn {
+            min-height: 44px;
+            padding: 0 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(2, 132, 199, 0.16);
+            background: rgba(255,255,255,0.92);
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+        .blog-topic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 24px rgba(2, 132, 199, 0.12);
+        }
+        .blog-topic-btn.is-active {
+            background: linear-gradient(135deg, #0284c7, #38bdf8);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 16px 30px rgba(2, 132, 199, 0.2);
+        }
+        #blog-search-box {
+            flex: 1 1 260px;
+            min-height: 46px;
+            padding: 0 16px;
+            border-radius: 14px !important;
+            border: 1px solid rgba(148, 163, 184, 0.2) !important;
+            background: rgba(255,255,255,0.92) !important;
+            font-size: 1.08rem !important;
+        }
+        #blog .blog-section-content > ul > li::after {
+            content: attr(data-card-label);
+            padding: 12px 18px;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+        #blog .blog-section-content > ul > li h3 a {
+            font-size: clamp(1.55rem, 2vw, 2.1rem) !important;
+        }
+        #blog .blog-section-content > ul > li p {
+            font-size: 1.12rem !important;
+            color: #475569 !important;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .portfolio-card {
+            overflow: hidden;
+            border-radius: 28px;
+            border: 1px solid rgba(148, 163, 184, 0.16);
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 24px 38px rgba(15, 23, 42, 0.08);
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(15, 118, 110, 0.2);
+            box-shadow: 0 28px 44px rgba(15, 118, 110, 0.14), 0 18px 28px rgba(15, 23, 42, 0.08);
+        }
+        .portfolio-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+        }
+        .portfolio-card-body {
+            padding: 24px;
+        }
+        .portfolio-card-kicker {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(15, 118, 110, 0.1);
+            color: #0f766e;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .portfolio-card h3 {
+            margin: 16px 0 12px !important;
+            color: #0f172a !important;
+            font-size: clamp(1.45rem, 1.8vw, 1.9rem);
+            font-weight: 800;
+            line-height: 1.25;
+        }
+        .portfolio-link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 40px;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.06);
+            color: #0f172a !important;
+            font-weight: 700;
+            text-decoration: none !important;
+        }
+        .portfolio-link:hover {
+            background: rgba(15, 118, 110, 0.12);
+            color: #0f766e !important;
+        }
         #myTabContent .blog-section-content > ul {
             display: grid;
             gap: 18px;
@@ -2731,7 +2893,8 @@ section[id], h2[id], h3[id] {
             box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
         }
         #myTabContent .tab-pane.active .blog-section-content > ul > li,
-        #myTabContent .tab-pane.active #gallery .gallery-item {
+        #myTabContent .tab-pane.active #gallery .gallery-item,
+        #myTabContent .tab-pane.active #portfolio .portfolio-card {
             animation: section-card-rise 0.55s ease both;
             animation-delay: calc(var(--card-order, 0) * 70ms);
         }
@@ -2745,6 +2908,15 @@ section[id], h2[id], h3[id] {
         }
         #myTabContent .blog-section-content > ul > li:nth-child(3),
         #gallery .gallery-item:nth-child(3) {
+            --card-order: 2;
+        }
+        #portfolio .portfolio-card:nth-child(1) {
+            --card-order: 0;
+        }
+        #portfolio .portfolio-card:nth-child(2) {
+            --card-order: 1;
+        }
+        #portfolio .portfolio-card:nth-child(3) {
             --card-order: 2;
         }
         #myTabContent .blog-section-content > ul > li:nth-child(4),
@@ -3041,6 +3213,7 @@ section[id], h2[id], h3[id] {
         }
         /* Readability boost */
         #aiml-blog-list > li h3 a,
+        #blog-list > li h3 a,
         #product .blog-section-content > ul > li h3 a,
         #engineering .blog-section-content > ul > li h3 a,
         #reading .blog-section-content > ul > li h3 a,
@@ -3049,6 +3222,7 @@ section[id], h2[id], h3[id] {
             line-height: 1.38 !important;
         }
         #aiml-blog-list > li p,
+        #blog-list > li p,
         #product .blog-section-content > ul > li p,
         #engineering .blog-section-content > ul > li p,
         #reading .blog-section-content > ul > li p,
@@ -3057,6 +3231,7 @@ section[id], h2[id], h3[id] {
             line-height: 1.92 !important;
         }
         #aiml-blog-list > li::after,
+        #blog-list > li::after,
         #product .blog-section-content > ul > li::after,
         #engineering .blog-section-content > ul > li::after,
         #reading .blog-section-content > ul > li::after,
@@ -3167,9 +3342,49 @@ section[id], h2[id], h3[id] {
         body.dark-mode .contact-value {
             color: #f8fafc;
         }
+        body.dark-mode #blog .blog-section-content,
+        body.dark-mode #portfolio .blog-section-content {
+            background: rgba(15, 23, 42, 0.74);
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: 0 24px 44px rgba(0, 0, 0, 0.24);
+        }
+        body.dark-mode .blog-topic-btn {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(56, 189, 248, 0.14);
+            color: #e2e8f0;
+        }
+        body.dark-mode .blog-topic-btn.is-active {
+            color: #ffffff;
+        }
+        body.dark-mode #blog-search-box {
+            background: rgba(15, 23, 42, 0.94) !important;
+            border-color: rgba(148, 163, 184, 0.16) !important;
+            color: #f8fafc;
+        }
+        body.dark-mode .portfolio-card {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(148, 163, 184, 0.14);
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.24);
+        }
+        body.dark-mode .portfolio-card-kicker {
+            background: rgba(20, 184, 166, 0.16);
+            color: #5eead4;
+        }
+        body.dark-mode .portfolio-link {
+            background: rgba(148, 163, 184, 0.12);
+            color: #e2e8f0 !important;
+        }
+        body.dark-mode .portfolio-link:hover {
+            background: rgba(20, 184, 166, 0.16);
+            color: #5eead4 !important;
+        }
         @media (max-width: 991px) {
             #myTabContent > .tab-pane {
                 padding: 20px !important;
+            }
+            #blog .blog-section-content,
+            #portfolio .blog-section-content {
+                padding: 22px !important;
             }
             #gallery .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -3198,6 +3413,17 @@ section[id], h2[id], h3[id] {
             #myTab .nav-link {
                 padding: 12px 16px !important;
                 font-size: 16px !important;
+            }
+            #blog .blog-section-content,
+            #portfolio .blog-section-content {
+                padding: 18px !important;
+                border-radius: 24px;
+            }
+            .blog-filter-toolbar {
+                align-items: stretch;
+            }
+            #blog-search-box {
+                width: 100%;
             }
             #aiml .blog-section-content,
             #product .blog-section-content,
@@ -3233,6 +3459,7 @@ section[id], h2[id], h3[id] {
             .hero-intro {
                 font-size: 1em !important;
             }
+            #blog-search-box { width: 100%; }
             #aiml-search-box { width: 100%; margin-bottom: 10px; }
             #aiml-reset-btn { width: 100%; margin: 10px 0 10px 0; }
             #roulette-canvas { width: 100%; height: auto; }
@@ -3246,10 +3473,9 @@ section[id], h2[id], h3[id] {
 <div class="left-col-block blocks">
 <header class="header">
 <div class="content text-center">
-<h1>Yangming Li · AI/ML · product · engineer blog</h1>
+<h1>I build applied AI systems for real-world workflows.</h1>
 <p class="lead hero-copy">
-<strong class="big-text"><span class="typing-line" data-typed-text="I am a Data &amp; Product Enthusiast." data-typing-speed="34" data-typing-delay="260">I am a Data &amp; Product Enthusiast.</span><br/>
-<span class="typing-line" data-typed-text="I am interested in AI/ML System &amp; product management/HCI &amp; data engineer/science." data-typing-speed="20" data-typing-delay="180">I am interested in AI/ML System &amp; product management/HCI &amp; data engineer/science.</span></strong>
+<strong class="big-text"><span class="typing-line" data-typed-text="AI Engineer + Product Builder focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams." data-typing-speed="18" data-typing-delay="220">AI Engineer + Product Builder focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams.</span></strong>
 </p>
 
 <!-- Primary CTAs (job conversion) -->
@@ -3267,8 +3493,8 @@ section[id], h2[id], h3[id] {
 
 <!-- —— 新增简介段落 —— -->
 <div class="intro-text hero-intro">
-  <p class="typing-block" data-typed-text="Welcome to my tech blog! My name is Yangming Li, and I'm currently based in Vancouver, working as a Data Sceientist/Engineer- product. Here, I'll share practical techniques and engineering insights for building real-world data products, drawing on years of hands-on experience in AI/ML and product management across the finance, healthcare, transportation, environment, and education sectors. Whether you're a beginner or a seasoned professional, you'll find reusable methods and inspiration through case studies, tool selection, deployment workflows, and code examples." data-typing-speed="12" data-typing-delay="220">
-    Welcome to my tech blog! My name is Yangming Li, and I'm currently based in Vancouver, working as a Data Sceientist/Engineer- product. Here, I'll share practical techniques and engineering insights for building real-world data products, drawing on years of hands-on experience in AI/ML and product management across the finance, healthcare, transportation, environment, and education sectors. Whether you're a beginner or a seasoned professional, you'll find reusable methods and inspiration through case studies, tool selection, deployment workflows, and code examples.
+  <p class="typing-block" data-typed-text="I work at the intersection of AI engineering and product thinking to ship systems teams can actually use, from LLM-powered workflows to experiment-ready data platforms." data-typing-speed="12" data-typing-delay="140">
+    I work at the intersection of AI engineering and product thinking to ship systems teams can actually use, from LLM-powered workflows to experiment-ready data platforms.
   </p>
 </div>
 <!-- —— 以上段落—— -->
@@ -3322,22 +3548,13 @@ section[id], h2[id], h3[id] {
 <a aria-controls="about-me" aria-selected="true" class="nav-link active" data-toggle="tab" href="#about-me" id="about-me-tab" role="tab">About Me</a>
 </li>
 <li class="nav-item" role="presentation">
-<a aria-controls="aiml" aria-selected="false" class="nav-link" data-toggle="tab" href="#aiml" id="aiml-tab" role="tab">AI/ML</a>
+<a aria-controls="portfolio" aria-selected="false" class="nav-link" data-toggle="tab" href="#portfolio" id="portfolio-tab" role="tab">Portfolio</a>
 </li>
 <li class="nav-item">
-<a aria-controls="product" aria-selected="false" class="nav-link" data-toggle="tab" href="#product" id="product-tab" role="tab">Product</a>
-</li>
-<li class="nav-item">
-<a aria-controls="engineering" aria-selected="false" class="nav-link" data-toggle="tab" href="#engineering" id="engineering-tab" role="tab">Engineering</a>
+<a aria-controls="blog" aria-selected="false" class="nav-link" data-toggle="tab" href="#blog" id="blog-tab" role="tab">Blog</a>
 </li>
 <li class="nav-item">
 <a aria-controls="reading" aria-selected="false" class="nav-link" data-toggle="tab" href="#reading" id="reading-tab" role="tab">Learning</a>
-</li>
-<li class="nav-item">
-<a aria-controls="gallery" aria-selected="false" class="nav-link" data-toggle="tab" href="#gallery" id="gallery-tab" role="tab">Gallery</a>
-</li>
-<li class="nav-item">
-<a aria-controls="thoughts" aria-selected="false" class="nav-link" data-toggle="tab" href="#thoughts" id="thoughts-tab" role="tab">Thoughts</a>
 </li>
 <li class="nav-item">
 <a aria-controls="fun" aria-selected="false" class="nav-link" data-toggle="tab" href="#fun" id="fun-tab" role="tab">Play Ground</a>
@@ -3367,33 +3584,26 @@ section[id], h2[id], h3[id] {
 </div>
 <div class="about-code"><span class="about-code-line" style="--line-index: 0;"><span class="token-keyword">class</span> <span class="token-class">YangmingLi</span>:</span>
 <span class="about-code-line" style="--line-index: 1;">    <span class="token-decorator">@staticmethod</span></span>
-<span class="about-code-line" style="--line-index: 2;">    <span class="token-function">def roles()</span> -&gt; list:</span>
-<span class="about-code-line" style="--line-index: 3;">        <span class="token-return">return</span> [<span class="token-string">"Product Manager"</span>, <span class="token-string">"AI Engineer"</span>,</span>
-<span class="about-code-line" style="--line-index: 4;">                <span class="token-string">"Machine Learning Engineer"</span>, <span class="token-string">"Data Scientist"</span>]</span>
+<span class="about-code-line" style="--line-index: 2;">    <span class="token-function">def builds()</span> -&gt; list:</span>
+<span class="about-code-line" style="--line-index: 3;">        <span class="token-return">return</span> [<span class="token-string">"LLM systems"</span>, <span class="token-string">"Data products"</span>, <span class="token-string">"Experiment infrastructure"</span>]</span>
 <span class="about-code-line" style="--line-index: 5;"></span>
 <span class="about-code-line" style="--line-index: 6;">    <span class="token-decorator">@staticmethod</span></span>
-<span class="about-code-line" style="--line-index: 7;">    <span class="token-function">def industry_experience()</span> -&gt; dict:</span>
-<span class="about-code-line" style="--line-index: 8;">        <span class="token-return">return</span> {</span>
-<span class="about-code-line" style="--line-index: 9;">            <span class="token-string">"Finance"</span>: [<span class="token-string">"BCIMC"</span>, <span class="token-string">"Industrial and Commercial Bank of China"</span>],</span>
-<span class="about-code-line" style="--line-index: 10;">            <span class="token-string">"Healthcare"</span>: [<span class="token-string">"Provincial Health Authority"</span>, <span class="token-string">"Island Health"</span>],</span>
-<span class="about-code-line" style="--line-index: 11;">            <span class="token-string">"Transportation"</span>: [<span class="token-string">"BC Public Service"</span>],</span>
-<span class="about-code-line" style="--line-index: 12;">            <span class="token-string">"Environment"</span>: [<span class="token-string">"Environment Canada and Climate Change"</span>],</span>
-<span class="about-code-line" style="--line-index: 13;">            <span class="token-string">"Education"</span>: [<span class="token-string">"University of Victoria"</span>, <span class="token-string">"University of Waterloo"</span>, <span class="token-string">"Wilfrid Laurier University"</span>]</span>
-<span class="about-code-line" style="--line-index: 14;">        }</span>
-<span class="about-code-line" style="--line-index: 15;"></span>
-<span class="about-code-line" style="--line-index: 16;">    <span class="token-decorator">@staticmethod</span></span>
-<span class="about-code-line" style="--line-index: 17;">    <span class="token-function">def mission()</span> -&gt; str:</span>
-<span class="about-code-line" style="--line-index: 18;">        <span class="token-return">return</span> <span class="token-string">"Share latest ideas on data products while documenting knowledge growth"</span></span>
-<span class="about-code-line" style="--line-index: 19;"></span>
-<span class="about-code-line" style="--line-index: 20;"><span class="token-comment"># Instantiate Yangming Li</span></span>
-<span class="about-code-line" style="--line-index: 21;">me = YangmingLi()</span>
-<span class="about-code-line" style="--line-index: 22;">print(f<span class="token-string">"Roles: {me.roles()}"</span>)</span>
-<span class="about-code-line" style="--line-index: 23;">print(f<span class="token-string">"Experience across {len(me.industry_experience())} industries"</span>)</span>
-<span class="about-code-line" style="--line-index: 24;">print(f<span class="token-string">"Mission: {me.mission()}"</span>)</span></div>
+<span class="about-code-line" style="--line-index: 7;">    <span class="token-function">def serves()</span> -&gt; list:</span>
+<span class="about-code-line" style="--line-index: 8;">        <span class="token-return">return</span> [<span class="token-string">"Healthcare teams"</span>, <span class="token-string">"Finance teams"</span>, <span class="token-string">"Enterprise teams"</span>]</span>
+<span class="about-code-line" style="--line-index: 9;"></span>
+<span class="about-code-line" style="--line-index: 10;">    <span class="token-decorator">@staticmethod</span></span>
+<span class="about-code-line" style="--line-index: 11;">    <span class="token-function">def outcomes()</span> -&gt; list:</span>
+<span class="about-code-line" style="--line-index: 12;">        <span class="token-return">return</span> [<span class="token-string">"Shipped workflows"</span>, <span class="token-string">"Faster decision loops"</span>, <span class="token-string">"Reusable internal tooling"</span>]</span>
+<span class="about-code-line" style="--line-index: 13;"></span>
+<span class="about-code-line" style="--line-index: 14;"><span class="token-comment"># Instantiate Yangming Li</span></span>
+<span class="about-code-line" style="--line-index: 15;">builder = YangmingLi()</span>
+<span class="about-code-line" style="--line-index: 16;">print(f<span class="token-string">"Builds: {builder.builds()}"</span>)</span>
+<span class="about-code-line" style="--line-index: 17;">print(f<span class="token-string">"Serves: {builder.serves()}"</span>)</span>
+<span class="about-code-line" style="--line-index: 18;">print(f<span class="token-string">"Outcomes: {builder.outcomes()}"</span>)</span></div>
 <div class="runtime-output">
-<div class="runtime-output-line" style="--output-index: 0;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">roles_loaded</span> = 4</div>
+<div class="runtime-output-line" style="--output-index: 0;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">focus_areas</span> = 3</div>
 <div class="runtime-output-line" style="--output-index: 1;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">industries_covered</span> = 5</div>
-<div class="runtime-output-line" style="--output-index: 2;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">mission_status</span> = "building useful data products"</div>
+<div class="runtime-output-line" style="--output-index: 2;"><span class="runtime-prompt">&gt;</span><span class="runtime-accent">delivery_mode</span> = "prototype to production"</div>
 </div>
 </div>
 
@@ -3439,7 +3649,7 @@ section[id], h2[id], h3[id] {
 </div>
 
 
-<div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #FF8040; border-radius: 5px;">
+<div style="display: none; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #FF8040; border-radius: 5px;">
 <h3 style="color: #333; margin-bottom: 15px;">My Favorite Quote</h3>
 <blockquote style="font-style: italic; margin: 20px 0; padding: 15px; border-left: 3px solid #FF8040; color: #666; font-size: 1.3em; background-color: #f9f9f9;">
                                             "I’m a tool builder. That’s how I think of myself. I want to build really good tools that I know in my gut and my heart will be valuable. And then, whatever happens, is… you can’t really predict exactly what will happen, but you can feel the direction that we’re going. And that’s about as close as you can get. Then you just standback  and get out of the way, and these things take on a life of their own."
@@ -3447,7 +3657,7 @@ section[id], h2[id], h3[id] {
 </blockquote>
 </div>
 
-<div style="margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #4682B4; border-radius: 5px;">
+<div style="display: none; margin-top: 30px; padding: 20px; background-color: #f8f9fa; border-left: 5px solid #4682B4; border-radius: 5px;">
     <h3 style="color: #333; margin-bottom: 15px;">
         <a href="courses.html" style="color: #333; text-decoration: none; display: flex; align-items: center; justify-content: space-between;">
             Courses Learned
@@ -3470,34 +3680,27 @@ section[id], h2[id], h3[id] {
 </div>
 </section>
 </div>
-<div aria-labelledby="aiml-tab" class="tab-pane fade" id="aiml" role="tabpanel" style="padding: 0; margin: 0;">
+<div aria-labelledby="blog-tab" class="tab-pane fade" id="blog" role="tabpanel" style="padding: 0; margin: 0;">
 <section class="intro section-wrapper" style="padding: 0; margin: 0;">
 <div class="container-fluid" style="padding: 0; margin: 0;">
 <div class="row" style="padding: 0; margin: 0;">
 <div class="col-md-12" style="padding: 0; margin: 0;">
 <div class="section-title blog-section-title">
-<h2>Yangming's AI/ML Blog</h2>
+<h2>Selected Writing</h2>
 </div>
 </div>
 <div class="col-md-12 blog-section-content" style="padding: 0; margin: 0;">
-<input autocomplete="off" id="aiml-search-box" placeholder="Search AI/ML blogs..." type="text"/>
-<label for="aiml-filter" id="aiml-filter-label">Filter by Tag:</label>
-<select id="aiml-filter">
-<option value="all">All</option>
-<option value="MLOP">MLOP</option>
-<option value="ML">ML Application</option>
-<option value="ML Infra">ML Infra</option>
-<option value="Classical ML">Classical ML</option>
-</select>
-<label for="aiml-year-filter" id="aiml-year-filter-label" style="margin-left: 20px;">Filter by Year:</label>
-<select id="aiml-year-filter">
-<option value="all">All Years</option>
-<option value="2025">2025</option>
-<option value="2026">2026</option>
-<option value="2027">2027</option>
-</select>
-<button id="aiml-reset-btn" type="button">Reset</button>
-<ul id="aiml-blog-list">
+<p class="blog-intro">Browse writing by topic. AI/ML, product, and engineering now live under one blog view.</p>
+<div class="blog-filter-toolbar">
+<div aria-label="Blog categories" class="blog-topic-pills" role="toolbar">
+<button class="blog-topic-btn is-active" data-category="all" type="button">All</button>
+<button class="blog-topic-btn" data-category="AI/ML" type="button">AI/ML</button>
+<button class="blog-topic-btn" data-category="Product" type="button">Product</button>
+<button class="blog-topic-btn" data-category="Engineering" type="button">Engineering</button>
+</div>
+<input autocomplete="off" id="blog-search-box" placeholder="Search articles..." type="text"/>
+</div>
+<ul id="blog-list">
 <li data-tag="ML" data-year="2026">
 <h3><a href="pytorch-review01.html">【2026】 pytorch review01</a></h3>
 <p>[ML] A practical PyTorch review of tensors, shapes, broadcasting, reshaping, and torch.distributions.</p>
@@ -4007,84 +4210,57 @@ section[id], h2[id], h3[id] {
 </div>
 </section>
 </div>
-<div aria-labelledby="gallery-tab" class="tab-pane fade" id="gallery" role="tabpanel">
+<div aria-labelledby="portfolio-tab" class="tab-pane fade" id="portfolio" role="tabpanel">
 <section class="intro section-wrapper" style="padding: 20px; margin: 0;">
 <div class="container-fluid">
 <div class="row">
 <div class="col-md-12">
-<h2>AI Art Gallery</h2>
-<p class="gallery-intro">A collection of AI-generated artwork showcasing the possibilities of artificial intelligence in creative expression.</p>
-<div class="gallery-grid">
-<div class="gallery-item">
-<img alt="AI Art 1" loading="lazy" onclick="openModal(this.src)" src="img/sd13.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 2" loading="lazy" onclick="openModal(this.src)" src="img/sd2.jpg"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 3" loading="lazy" onclick="openModal(this.src)" src="img/sd3.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 4" loading="lazy" onclick="openModal(this.src)" src="img/sd4.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 5" loading="lazy" onclick="openModal(this.src)" src="img/sd5.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 6" loading="lazy" onclick="openModal(this.src)" src="img/sd6.jpg"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 7" loading="lazy" onclick="openModal(this.src)" src="img/sd7.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 8" loading="lazy" onclick="openModal(this.src)" src="img/sd8.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 9" loading="lazy" onclick="openModal(this.src)" src="img/sd9.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 10" loading="lazy" onclick="openModal(this.src)" src="img/sd14.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 11" loading="lazy" onclick="openModal(this.src)" src="img/sd11.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 12" loading="lazy" onclick="openModal(this.src)" src="img/sd12.jpg"/>
-</div>
-<!-- New images -->
-<div class="gallery-item">
-<img alt="AI Art 15" loading="lazy" onclick="openModal(this.src)" src="img/sd15.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 16" loading="lazy" onclick="openModal(this.src)" src="img/sd16.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 17" loading="lazy" onclick="openModal(this.src)" src="img/sd17.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 18" loading="lazy" onclick="openModal(this.src)" src="img/sd18.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 19" loading="lazy" onclick="openModal(this.src)" src="img/sd19.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 20" loading="lazy" onclick="openModal(this.src)" src="img/sd20.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 21" loading="lazy" onclick="openModal(this.src)" src="img/sd21.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 22" loading="lazy" onclick="openModal(this.src)" src="img/sd22.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 23" loading="lazy" onclick="openModal(this.src)" src="img/sd23.png"/>
-</div>
-<div class="gallery-item">
-<img alt="AI Art 24" loading="lazy" onclick="openModal(this.src)" src="img/sd24.png"/>
+<div class="section-title blog-section-title">
+<h2>Selected Work</h2>
 </div>
 </div>
-<div class="gallery-description">
-<p>These images were created using AI technology, specifically Stable Diffusion. They demonstrate the creative possibilities of artificial intelligence in generating unique visual content.</p>
+<div class="col-md-12 blog-section-content portfolio-section-content">
+<p class="portfolio-intro">Representative work themes across healthcare, finance, and enterprise teams, centered on systems that improve real workflows instead of staying as demos.</p>
+<div class="portfolio-grid">
+<article class="portfolio-card">
+<img alt="LLM systems and workflow automation" class="portfolio-card-image" loading="lazy" src="img/optimized/portfolio-1.webp"/>
+<div class="portfolio-card-body">
+<span class="portfolio-card-kicker">LLM Systems</span>
+<h3>Applied AI for document and knowledge workflows</h3>
+<p>Designing LLM-assisted systems for document transformation, retrieval, review, and operational handoff in enterprise environments.</p>
+<div class="portfolio-link-row">
+<a class="portfolio-link" href="llama-report-guide.html">LlamaReport guide</a>
+<a class="portfolio-link" href="mcp-protocol-guide.html">MCP guide</a>
+<a class="portfolio-link" href="n8n-ai-workflows.html">n8n workflows</a>
+</div>
+</div>
+</article>
+<article class="portfolio-card">
+<img alt="Data products and operational decision support" class="portfolio-card-image" loading="lazy" src="img/optimized/portfolio-2.webp"/>
+<div class="portfolio-card-body">
+<span class="portfolio-card-kicker">Data Products</span>
+<h3>Decision-support products for complex teams</h3>
+<p>Building analytics and product experiences that help healthcare, finance, and public-sector teams move from raw data to better operational decisions.</p>
+<div class="portfolio-link-row">
+<a class="portfolio-link" href="building-product-scales-company.html">Product strategy</a>
+<a class="portfolio-link" href="product-success-essence.html">Product fundamentals</a>
+<a class="portfolio-link" href="jira-guide.html">Workflow systems</a>
+</div>
+</div>
+</article>
+<article class="portfolio-card">
+<img alt="Experiment infrastructure and ML delivery" class="portfolio-card-image" loading="lazy" src="img/optimized/portfolio-3.webp"/>
+<div class="portfolio-card-body">
+<span class="portfolio-card-kicker">Experiment Infrastructure</span>
+<h3>From experimentation to production delivery</h3>
+<p>Shaping the foundations for reproducible ML, faster iteration, and experiment-ready delivery with MLOps and engineering discipline.</p>
+<div class="portfolio-link-row">
+<a class="portfolio-link" href="engineering/ab-test-engineering-guide.html">A/B testing systems</a>
+<a class="portfolio-link" href="mlops-essential-skills.html">MLOps foundations</a>
+<a class="portfolio-link" href="databricks-comprehensive-guide.html">Data platform guide</a>
+</div>
+</div>
+</article>
 </div>
 </div>
 </div>
@@ -4905,6 +5081,9 @@ section[id], h2[id], h3[id] {
     document.addEventListener('DOMContentLoaded', function() {
         var filter = document.getElementById('aiml-filter');
         var blogList = document.getElementById('aiml-blog-list');
+        if (!filter || !blogList) {
+            return;
+        }
         filter.addEventListener('change', function() {
             var value = filter.value;
             var items = blogList.querySelectorAll('li');
@@ -4922,6 +5101,10 @@ section[id], h2[id], h3[id] {
     // Fancy AI/ML filter & search
     function updateAIMLTagBadges() {
         var blogList = document.getElementById('aiml-blog-list');
+        var filter = document.getElementById('aiml-filter');
+        if (!blogList || !filter) {
+            return;
+        }
         var items = blogList.querySelectorAll('li');
         var tagCounts = { 'MLOP': 0, 'ML': 0, 'Classical ML': 0 };
         items.forEach(function(li) {
@@ -4930,7 +5113,6 @@ section[id], h2[id], h3[id] {
                 if (tagCounts[tag] !== undefined) tagCounts[tag]++;
             }
         });
-        var filter = document.getElementById('aiml-filter');
         for (var i = 0; i < filter.options.length; i++) {
             var opt = filter.options[i];
             if (opt.value === 'all') {
@@ -4958,6 +5140,9 @@ section[id], h2[id], h3[id] {
         var blogList = document.getElementById('aiml-blog-list');
         var searchBox = document.getElementById('aiml-search-box');
         var resetBtn = document.getElementById('aiml-reset-btn');
+        if (!filter || !blogList || !searchBox || !resetBtn) {
+            return;
+        }
         function filterAndSearch() {
             var tag = filter.value;
             var year = yearFilter ? yearFilter.value : 'all';
@@ -5003,6 +5188,73 @@ section[id], h2[id], h3[id] {
         });
         // 初始化badge
         updateAIMLTagBadges();
+    });
+    </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var blogList = document.getElementById('blog-list');
+        var searchBox = document.getElementById('blog-search-box');
+        var topicButtons = Array.prototype.slice.call(document.querySelectorAll('.blog-topic-btn'));
+
+        if (!blogList || !searchBox || !topicButtons.length) {
+            return;
+        }
+
+        function setCardLabel(item, category) {
+            var tag = item.getAttribute('data-tag');
+            item.setAttribute('data-category', category);
+            item.setAttribute('data-card-label', category === 'AI/ML' && tag ? category + ' / ' + tag : category);
+        }
+
+        Array.prototype.slice.call(blogList.querySelectorAll('li')).forEach(function(item) {
+            setCardLabel(item, 'AI/ML');
+        });
+
+        [
+            { selector: '#product .blog-section-content > ul > li', category: 'Product' },
+            { selector: '#engineering .blog-section-content > ul > li', category: 'Engineering' }
+        ].forEach(function(source) {
+            Array.prototype.slice.call(document.querySelectorAll(source.selector)).forEach(function(item) {
+                var clone = item.cloneNode(true);
+                clone.style.display = '';
+                setCardLabel(clone, source.category);
+                blogList.appendChild(clone);
+            });
+        });
+
+        var activeCategory = 'all';
+
+        function syncTopicButtons() {
+            topicButtons.forEach(function(button) {
+                var isActive = button.getAttribute('data-category') === activeCategory;
+                button.classList.toggle('is-active', isActive);
+                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
+
+        function filterBlogItems() {
+            var keyword = searchBox.value.trim().toLowerCase();
+            Array.prototype.slice.call(blogList.querySelectorAll('li')).forEach(function(item) {
+                var category = item.getAttribute('data-category') || '';
+                var text = item.textContent.toLowerCase();
+                var matchesCategory = activeCategory === 'all' || category === activeCategory;
+                var matchesSearch = keyword === '' || text.indexOf(keyword) !== -1;
+                item.style.display = matchesCategory && matchesSearch ? '' : 'none';
+            });
+        }
+
+        topicButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                activeCategory = button.getAttribute('data-category') || 'all';
+                syncTopicButtons();
+                filterBlogItems();
+            });
+        });
+
+        searchBox.addEventListener('input', filterBlogItems);
+
+        syncTopicButtons();
+        filterBlogItems();
     });
     </script>
 <script>
@@ -5537,7 +5789,7 @@ section[id], h2[id], h3[id] {
           "name": "What topics does this blog cover?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "This blog covers AI/ML, product management, engineering practices, and data science topics with practical tutorials, case studies, and best practices for implementing data products."
+            "text": "This site covers applied AI systems, LLM workflows, data products, and experiment infrastructure with practical writing across AI/ML, product, and engineering."
           }
         },
         {
@@ -5545,7 +5797,7 @@ section[id], h2[id], h3[id] {
           "name": "Who is Yangming Li?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yangming Li is a Data Product Scientist based in Vancouver, with experience in AI/ML, product management, and information visualization across finance, healthcare, transportation, environment, and education sectors."
+            "text": "Yangming Li is an AI Engineer and Product Builder based in Vancouver, focused on LLM systems, data products, and experiment infrastructure for healthcare, finance, and enterprise teams."
           }
         },
         {
