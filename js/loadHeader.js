@@ -39,6 +39,152 @@ function inferArticleSection() {
     return 'AI/ML';
 }
 
+function findArticleBody(articleRoot, hero) {
+    const explicitBody =
+        articleRoot.querySelector('main') ||
+        articleRoot.querySelector('.blog-content') ||
+        articleRoot.querySelector('.post-content') ||
+        articleRoot.querySelector('.entry-content');
+
+    if (explicitBody) {
+        return explicitBody;
+    }
+
+    const directChildren = Array.from(articleRoot.children);
+    const excludedNodes = new Set([hero].filter(Boolean));
+    const excludedSelectors = [
+        '#header-placeholder',
+        'script',
+        'style',
+        'footer',
+        '.footer',
+        '.theme-switch-wrapper',
+        '.article-metadata',
+        '.blog-meta',
+        '.blog-share-buttons',
+        '.share-buttons',
+        '.subscription-box',
+        '.article-progress-bar'
+    ].join(', ');
+
+    const directBodyCandidate = directChildren.find(child => {
+        if (!child.matches || excludedNodes.has(child) || child.matches(excludedSelectors)) {
+            return false;
+        }
+
+        if (child.matches('.content, article, .article-content, .post-content, .entry-content')) {
+            return true;
+        }
+
+        return Boolean(child.querySelector('h2, h3, p, pre, ul, ol, table, article, .article-content'));
+    });
+
+    if (directBodyCandidate) {
+        return directBodyCandidate;
+    }
+
+    return articleRoot.querySelector('article.article-content, .article-content, .content');
+}
+
+function findArticleRoot() {
+    const selectors = [
+        'body > .main-content > .container',
+        '.main-content .container',
+        'body > .container.mt-5',
+        'body > .blog-container',
+        'body > .container'
+    ];
+    const seen = new Set();
+    const candidates = [];
+
+    selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(candidate => {
+            if (!seen.has(candidate)) {
+                seen.add(candidate);
+                candidates.push(candidate);
+            }
+        });
+    });
+
+    return candidates.find(candidate => {
+        const title = candidate.querySelector('.header .content h1, .blog-header h1, .header-section h1, .blog-title, h1');
+        const hero = title ? title.closest('.header, .blog-header, .header-section') : null;
+        return Boolean(title && findArticleBody(candidate, hero));
+    }) || null;
+}
+
+function normalizeLegacyArticleLayout(articleBody) {
+    if (!articleBody || articleBody.dataset.articleLayoutNormalized === 'true') {
+        return;
+    }
+
+    const directChildren = Array.from(articleBody.children);
+    const supportSelectors = [
+        '.generated-article-toc',
+        '.tldr-container',
+        '.toc-container',
+        '.key-points',
+        '.takeaway-box',
+        '.content-box',
+        '.complexity',
+        '.diagram-container',
+        '.practical-tip'
+    ].join(', ');
+    const appendixSelectors = [
+        '.related-posts',
+        '.related-reading',
+        '.comments-section'
+    ].join(', ');
+
+    const supportNodes = directChildren.filter(child => child.matches && child.matches(supportSelectors));
+    const appendixNodes = directChildren.filter(child => child.matches && child.matches(appendixSelectors));
+
+    let contentFlow = directChildren.find(child => child.matches && child.matches('article, .article-content, .solution-section, .entry-content, .post-content'));
+
+    if (!contentFlow) {
+        const proseNodes = directChildren.filter(child => {
+            if (!child.matches) {
+                return false;
+            }
+
+            return !child.matches(supportSelectors) && !child.matches(appendixSelectors);
+        });
+
+        if (proseNodes.length) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'article-body-flow';
+            proseNodes[0].before(wrapper);
+            proseNodes.forEach(node => wrapper.appendChild(node));
+            contentFlow = wrapper;
+        }
+    }
+
+    if (contentFlow) {
+        contentFlow.classList.add('article-body-flow');
+    }
+
+    if (supportNodes.length) {
+        const supportGrid = document.createElement('div');
+        supportGrid.className = 'article-support-grid';
+
+        if (contentFlow) {
+            articleBody.insertBefore(supportGrid, contentFlow);
+        } else {
+            articleBody.insertBefore(supportGrid, supportNodes[0]);
+        }
+
+        supportNodes.forEach(node => {
+            if (node.parentElement !== supportGrid) {
+                supportGrid.appendChild(node);
+            }
+            node.classList.add('article-support-card');
+        });
+    }
+
+    appendixNodes.forEach(node => node.classList.add('article-appendix-card'));
+    articleBody.dataset.articleLayoutNormalized = 'true';
+}
+
 function buildGeneratedOutline(articleBody) {
     if (
         !articleBody ||
@@ -142,10 +288,7 @@ function initArticleProgress(articleBody) {
 }
 
 function enhanceArticlePage() {
-    const articleRoot =
-        document.querySelector('.main-content .container') ||
-        document.querySelector('body > .container.mt-5') ||
-        document.querySelector('body > .blog-container');
+    const articleRoot = findArticleRoot();
 
     if (!articleRoot) {
         return;
@@ -162,9 +305,8 @@ function enhanceArticlePage() {
         articleRoot.querySelector('.header-section h1') ||
         articleRoot.querySelector('.blog-title');
 
-    const articleBody =
-        articleRoot.querySelector('main') ||
-        articleRoot.querySelector('.blog-content');
+    const hero = title.closest('.header, .blog-header, .header-section');
+    const articleBody = findArticleBody(articleRoot, hero);
 
     if (!headerHost || !title || !articleBody) {
         return;
@@ -178,8 +320,7 @@ function enhanceArticlePage() {
     articleRoot.classList.add('article-page-container');
     articleBody.classList.add('article-prose-surface');
 
-    const hero = title.closest('.header, .blog-header, .header-section') || headerHost;
-    hero.classList.add('article-hero');
+    (hero || headerHost).classList.add('article-hero');
 
     const themeSwitch = articleRoot.querySelector('.theme-switch-wrapper');
     const metadata = articleRoot.querySelector('.article-metadata, .blog-meta');
@@ -216,6 +357,7 @@ function enhanceArticlePage() {
     }
 
     buildGeneratedOutline(articleBody);
+    normalizeLegacyArticleLayout(articleBody);
     initArticleProgress(articleBody);
 }
 
