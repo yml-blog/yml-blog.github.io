@@ -906,6 +906,8 @@ section[id], h2[id], h3[id] {
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
 <link href="css/style.css" rel="stylesheet"/>
+<link href="css/monte-carlo-lab.css" rel="stylesheet"/>
+<link href="css/lab-simulator-suite.css" rel="stylesheet"/>
 <!-- JSON-LD structured data -->
 <script type="application/ld+json">
     {
@@ -2706,9 +2708,11 @@ section[id], h2[id], h3[id] {
             box-shadow: 0 24px 44px rgba(15, 23, 42, 0.08);
             backdrop-filter: blur(16px);
         }
-        #gallery .container-fluid,
-        #fun .container-fluid {
+        #gallery .container-fluid {
             padding: 30px !important;
+        }
+        #fun .container-fluid {
+            padding: 20px !important;
         }
         #myTab .nav-item.active .nav-link,
         #myTab .nav-link.active,
@@ -3316,21 +3320,35 @@ section[id], h2[id], h3[id] {
             margin-bottom: 12px !important;
         }
         #fun p {
-            font-size: 1rem !important;
-            line-height: 1.8;
+            font-size: 1.04rem !important;
+            line-height: 1.82;
         }
         #fun .slot-machine-container {
-            max-width: 980px !important;
-            padding: 28px !important;
-            border-radius: 30px !important;
+            max-width: 1040px !important;
+            padding: 30px !important;
+            border-radius: 32px !important;
             border: 1px solid rgba(255,255,255,0.14) !important;
             background: linear-gradient(135deg, #111827, #312e81 52%, #c2410c) !important;
             box-shadow: 0 28px 60px rgba(49, 46, 129, 0.22) !important;
         }
+        #fun .slot-machine-container h3 {
+            font-size: clamp(1.8rem, 2.6vw, 2.3rem) !important;
+            margin-bottom: 18px !important;
+        }
         #fun #slot-display {
+            max-width: 760px !important;
             border-radius: 18px !important;
             border-width: 6px !important;
             box-shadow: 0 0 26px rgba(250, 204, 21, 0.35) !important;
+        }
+        #fun .slot-symbol {
+            height: 112px !important;
+        }
+        #fun #credits-display,
+        #fun #win-display,
+        #fun #bet-amount,
+        #fun #slot-result {
+            font-size: clamp(1.6rem, 2.4vw, 2rem) !important;
         }
         #fun #slot-spin-button,
         #fun #max-bet,
@@ -3338,13 +3356,32 @@ section[id], h2[id], h3[id] {
         #fun #bet-down {
             border: 0 !important;
             box-shadow: 0 12px 22px rgba(0,0,0,0.2) !important;
+            font-size: 1.05rem !important;
         }
         #fun #slot-spin-button {
             background: linear-gradient(135deg, #fb923c, #facc15) !important;
             color: #111827 !important;
+            padding: 10px 22px !important;
         }
         #fun #max-bet {
             background: linear-gradient(135deg, #8b5cf6, #c084fc) !important;
+            padding: 10px 16px !important;
+        }
+        #fun #bet-up,
+        #fun #bet-down {
+            width: 44px !important;
+            height: 44px !important;
+            font-size: 1.3rem !important;
+        }
+        #fun #win-lines .win-line {
+            width: 112px !important;
+            padding: 10px !important;
+        }
+        #fun #win-lines .win-line div:first-child {
+            font-size: 0.88rem !important;
+        }
+        #fun #win-lines .win-line div:last-child {
+            font-size: 1.12rem !important;
         }
         #contact .blog-section-content > ul {
             display: grid;
@@ -4504,6 +4541,526 @@ section[id], h2[id], h3[id] {
 <h2>Lab</h2>
 </div>
 <p>A smaller corner for interactive prototypes and playful experiments. The slot machine stays here as a lightweight demo, not part of the main positioning story.</p>
+<div class="monte-carlo-lab" id="monte-carlo-lab">
+<div class="monte-carlo-shell">
+<div class="mc-header">
+<div class="mc-header-copy">
+<span class="mc-kicker">Risk Forecast Studio</span>
+<h3>Turn Monte Carlo into a finance or delivery risk story</h3>
+<p class="mc-description">Treat each run like a committee review: one path could be a quarterly portfolio outcome, another a launch program under delivery pressure. The upper chart shows how scenarios drift apart over time, and the histogram reveals where the ending cases really cluster.</p>
+</div>
+<div class="mc-legend" aria-label="Monte Carlo legend">
+<span class="mc-legend-item"><span class="mc-swatch mc-swatch-band"></span>10-90 risk band</span>
+<span class="mc-legend-item"><span class="mc-swatch mc-swatch-path"></span>Sample cases</span>
+<span class="mc-legend-item"><span class="mc-swatch mc-swatch-target"></span>Required hurdle</span>
+</div>
+</div>
+
+<div class="mc-preset-row" role="toolbar" aria-label="Monte Carlo presets">
+<button class="mc-preset is-active" data-preset="steady" type="button">Capital Plan</button>
+<button class="mc-preset" data-preset="moonshot" type="button">Launch Stretch</button>
+<button class="mc-preset" data-preset="turbulence" type="button">Stress Test</button>
+</div>
+<p class="mc-scenario-copy" id="mc-scenario-copy">A balanced review setup where the hurdle still feels reachable, but the tail risk is visible enough to force a real decision.</p>
+<div class="mc-story-grid">
+<article class="mc-story-card">
+<span class="mc-story-label">Situation</span>
+<strong id="mc-story-title">Quarter-close risk review</strong>
+<p id="mc-story-body">A lead is checking whether the plan still clears its hurdle before committing more capital, timeline, or scope.</p>
+</article>
+<article class="mc-story-card">
+<span class="mc-story-label">Main Risk</span>
+<strong id="mc-risk-title">Variance can overpower the base case</strong>
+<p id="mc-risk-body">The center line may look calm, but a few bad shocks widen the tail quickly and change the story for stakeholders.</p>
+</article>
+<article class="mc-story-card">
+<span class="mc-story-label">Decision Lens</span>
+<strong id="mc-decision-title">Adjust before review day</strong>
+<p id="mc-decision-body">Lower the hurdle, extend the horizon, or reduce exposure and scope if the success odds drift too low.</p>
+</article>
+</div>
+
+<div class="mc-layout">
+<div class="mc-visual-column">
+<div class="mc-canvas-card">
+<div class="mc-card-top">
+<div>
+<span class="mc-card-label">Scenario Paths</span>
+<h4>How the forecast can unfold</h4>
+</div>
+<div class="mc-live-pill" id="mc-live-pill">Preparing simulation...</div>
+</div>
+<canvas id="mc-path-canvas" aria-label="Monte Carlo path forecast visualization"></canvas>
+</div>
+
+<div class="mc-canvas-card mc-histogram-card">
+<div class="mc-card-top">
+<div>
+<span class="mc-card-label">Distribution</span>
+<h4>Where the ending scenarios cluster</h4>
+</div>
+<div class="mc-live-pill" id="mc-hist-summary">Target not set</div>
+</div>
+<canvas id="mc-distribution-canvas" aria-label="Monte Carlo distribution histogram"></canvas>
+</div>
+</div>
+
+<aside class="mc-control-panel">
+<div class="mc-stat-grid">
+<div class="mc-stat-card">
+<span class="mc-stat-label">Beat Hurdle</span>
+<strong id="mc-success-rate">--</strong>
+</div>
+<div class="mc-stat-card">
+<span class="mc-stat-label">Expected Finish</span>
+<strong id="mc-mean-finish">--</strong>
+</div>
+<div class="mc-stat-card">
+<span class="mc-stat-label">Median Case</span>
+<strong id="mc-median-finish">--</strong>
+</div>
+<div class="mc-stat-card">
+<span class="mc-stat-label">10-90 Band</span>
+<strong id="mc-range-band">--</strong>
+</div>
+</div>
+
+<div class="mc-controls">
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-start">Baseline level</label>
+<span id="mc-start-value">100</span>
+</div>
+<span class="mc-control-caption">Opening portfolio value, buffer, or program progress before the uncertainty starts compounding.</span>
+<input id="mc-start" max="200" min="50" step="5" type="range" value="100"/>
+</div>
+
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-drift">Expected gain / velocity</label>
+<span id="mc-drift-value">+0.45%</span>
+</div>
+<span class="mc-control-caption">The average step change if the plan is working, before market shocks or delivery friction show up.</span>
+<input id="mc-drift" max="120" min="-30" step="5" type="range" value="45"/>
+</div>
+
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-volatility">Shock / delivery noise</label>
+<span id="mc-volatility-value">1.80%</span>
+</div>
+<span class="mc-control-caption">Use this for market swings, scope creep, coordination drag, and other sources of variance.</span>
+<input id="mc-volatility" max="600" min="40" step="10" type="range" value="180"/>
+</div>
+
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-horizon">Review horizon</label>
+<span id="mc-horizon-value">72</span>
+</div>
+<span class="mc-control-caption">More steps can help a plan recover, but they also give risk more time to compound.</span>
+<input id="mc-horizon" max="180" min="24" step="6" type="range" value="72"/>
+</div>
+
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-simulations">Scenarios</label>
+<span id="mc-simulations-value">900</span>
+</div>
+<span class="mc-control-caption">More scenarios make the probability story steadier and the tails easier to trust.</span>
+<input id="mc-simulations" max="2400" min="300" step="100" type="range" value="900"/>
+</div>
+
+<div class="mc-control-row">
+<div class="mc-control-head">
+<label for="mc-target">Required hurdle</label>
+<span id="mc-target-value">135</span>
+</div>
+<span class="mc-control-caption">The level you need to hit for the review to be called a win, whether that means return, runway, or launch readiness.</span>
+<input id="mc-target" max="260" min="60" step="5" type="range" value="135"/>
+</div>
+</div>
+
+<div class="mc-button-row">
+<button class="mc-primary-button" id="mc-run-button" type="button">Run Risk Story</button>
+<button class="mc-secondary-button" id="mc-remix-button" type="button">Resample Risk</button>
+</div>
+
+<div class="mc-note-panel" id="mc-note-panel">The point is not to chase one perfect forecast. It is to see whether the plan still holds together once you let uncertainty show up honestly.</div>
+</aside>
+</div>
+</div>
+</div>
+<div class="lab-simulator-suite" id="lab-simulator-suite">
+<div class="lab-suite-header">
+<span class="lab-suite-kicker">Decision Simulators</span>
+<h3>Three more playable tools for experiment design, AI economics, and representation learning</h3>
+<p>These are not generic calculators. One helps answer "can I trust this experiment read?", another stress-tests production AI economics, and the third turns high-dimensional structure into a neighborhood map you can actually interrogate.</p>
+</div>
+
+<div class="lab-simulator-stack">
+<section class="lab-sim-card ab-sim-card" id="ab-test-simulator">
+<div class="lab-sim-header">
+<div class="lab-sim-header-copy">
+<span class="lab-sim-kicker">Experiment Design Studio</span>
+<h4>A/B Test Power Simulator</h4>
+<p class="lab-sim-copy" id="ab-sim-scenario">Model the decision pressure behind a launch review: how much sample, how much noise, and how much real lift you need before a "winner" deserves trust.</p>
+</div>
+<div class="lab-sim-preset-row" role="toolbar" aria-label="A/B simulator presets">
+<button class="lab-sim-preset is-active" data-ab-preset="cta" type="button">CTA Refresh</button>
+<button class="lab-sim-preset" data-ab-preset="pricing" type="button">Pricing Page</button>
+<button class="lab-sim-preset" data-ab-preset="checkout" type="button">Checkout Flow</button>
+</div>
+</div>
+
+<div class="lab-sim-layout">
+<div class="lab-sim-visual">
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Evidence Map</span>
+<h5>Null vs. uplift distribution</h5>
+</div>
+<div class="lab-live-pill" id="ab-stage-pill">Calibrating read...</div>
+</div>
+<canvas id="ab-power-canvas" aria-label="A/B test power visualization"></canvas>
+</div>
+
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Runtime Pressure</span>
+<h5>How long you need to sit on the test</h5>
+</div>
+<div class="lab-live-pill" id="ab-runtime-pill">Timing pending</div>
+</div>
+<div class="ab-runtime-track">
+<div class="ab-runtime-fill" id="ab-runtime-fill"></div>
+</div>
+<div class="ab-runtime-scale">
+<span>1 day</span>
+<span>1 week</span>
+<span>2 weeks</span>
+<span>1 month+</span>
+</div>
+<p class="ab-runtime-copy" id="ab-runtime-copy">Short tests feel faster, but they usually buy speed by borrowing confidence from the future.</p>
+</div>
+</div>
+
+<aside class="lab-sim-controls">
+<div class="lab-stat-grid">
+<div class="lab-stat-card">
+<span class="lab-stat-label">Power</span>
+<strong id="ab-power-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">False Win Risk</span>
+<strong id="ab-false-positive-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Miss Risk</span>
+<strong id="ab-false-negative-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Runtime</span>
+<strong id="ab-runtime-stat">--</strong>
+</div>
+</div>
+
+<div class="lab-input-grid">
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ab-baseline">Baseline conversion</label>
+<span id="ab-baseline-value">8.0%</span>
+</div>
+<p>The current conversion rate before you ship the treatment.</p>
+<input id="ab-baseline" max="20" min="1" step="0.25" type="range" value="8"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ab-uplift">Expected uplift</label>
+<span id="ab-uplift-value">+8%</span>
+</div>
+<p>The lift you hope the treatment will create relative to baseline.</p>
+<input id="ab-uplift" max="30" min="1" step="0.5" type="range" value="8"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ab-sample-size">Sample per variant</label>
+<span id="ab-sample-size-value">18,000</span>
+</div>
+<p>Traffic assigned to each arm before you call the test.</p>
+<input id="ab-sample-size" max="120000" min="2000" step="1000" type="range" value="18000"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ab-variance">Variance drag</label>
+<span id="ab-variance-value">1.00x</span>
+</div>
+<p>Noise multiplier for messy data, heterogeneity, novelty effects, and messy instrumentation.</p>
+<input id="ab-variance" max="2.5" min="0.7" step="0.05" type="range" value="1"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ab-daily-traffic">Eligible users per day</label>
+<span id="ab-daily-traffic-value">6,000</span>
+</div>
+<p>Used to translate sample ambition into actual calendar time.</p>
+<input id="ab-daily-traffic" max="60000" min="500" step="500" type="range" value="6000"/>
+</div>
+</div>
+
+<div class="lab-note-panel" id="ab-note-panel">Strong experiment reads come from the combination of effect size, variance control, and patience, not from a single lucky day.</div>
+</aside>
+</div>
+</section>
+
+<section class="lab-sim-card llm-sim-card" id="llm-cost-simulator">
+<div class="lab-sim-header">
+<div class="lab-sim-header-copy">
+<span class="lab-sim-kicker">Applied AI Economics</span>
+<h4>LLM Cost-Latency Simulator</h4>
+<p class="lab-sim-copy" id="llm-sim-scenario">Stress-test an AI workflow the way a platform lead would: traffic, context size, retries, and cache behavior all fight over the same latency and budget envelope.</p>
+</div>
+<div class="lab-sim-preset-row" role="toolbar" aria-label="LLM simulator presets">
+<button class="lab-sim-preset is-active" data-llm-preset="support" type="button">Support Copilot</button>
+<button class="lab-sim-preset" data-llm-preset="agent" type="button">Ops Agent</button>
+<button class="lab-sim-preset" data-llm-preset="research" type="button">Research Desk</button>
+</div>
+</div>
+
+<div class="lab-sim-layout">
+<div class="lab-sim-visual">
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Cost Stack</span>
+<h5>Where the monthly spend really goes</h5>
+</div>
+<div class="lab-live-pill" id="llm-cost-pill">Illustrative economics</div>
+</div>
+<canvas id="llm-cost-canvas" aria-label="LLM monthly cost breakdown visualization"></canvas>
+</div>
+
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Latency Budget</span>
+<h5>How queueing and retries bend the p95</h5>
+</div>
+<div class="lab-live-pill" id="llm-latency-pill">Health pending</div>
+</div>
+<canvas id="llm-latency-canvas" aria-label="LLM latency breakdown visualization"></canvas>
+</div>
+</div>
+
+<aside class="lab-sim-controls">
+<div class="lab-stat-grid">
+<div class="lab-stat-card">
+<span class="lab-stat-label">Monthly Spend</span>
+<strong id="llm-monthly-cost-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">P95 Latency</span>
+<strong id="llm-p95-latency-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Failure Rate</span>
+<strong id="llm-failure-rate-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Cache Savings</span>
+<strong id="llm-cache-savings-stat">--</strong>
+</div>
+</div>
+
+<div class="lab-input-grid">
+<div class="lab-model-picker">
+<span class="lab-input-title">Model class</span>
+<div class="lab-model-row" role="toolbar" aria-label="LLM model class">
+<button class="lab-model-chip is-active" data-llm-model="fast" type="button">Fast</button>
+<button class="lab-model-chip" data-llm-model="balanced" type="button">Balanced</button>
+<button class="lab-model-chip" data-llm-model="reasoning" type="button">Reasoning</button>
+</div>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="llm-qps">Average QPS</label>
+<span id="llm-qps-value">1.2</span>
+</div>
+<p>Steady state throughput across the month, not just the homepage demo spike.</p>
+<input id="llm-qps" max="20" min="0.2" step="0.1" type="range" value="1.2"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="llm-context">Input context tokens</label>
+<span id="llm-context-value">7,000</span>
+</div>
+<p>Prompt, system instructions, retrieved docs, and conversation history combined.</p>
+<input id="llm-context" max="64000" min="500" step="500" type="range" value="7000"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="llm-output">Output tokens</label>
+<span id="llm-output-value">900</span>
+</div>
+<p>The average answer length or tool-augmented completion size.</p>
+<input id="llm-output" max="6000" min="100" step="100" type="range" value="900"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="llm-cache-hit">Cache hit rate</label>
+<span id="llm-cache-hit-value">35%</span>
+</div>
+<p>Shared prompts, reusable context, and semantic caching can shave cost without changing the UX.</p>
+<input id="llm-cache-hit" max="90" min="0" step="5" type="range" value="35"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="llm-retry-rate">Retry share</label>
+<span id="llm-retry-rate-value">6%</span>
+</div>
+<p>The fraction of requests that need a retry because of timeouts, transient failures, or guardrail retries.</p>
+<input id="llm-retry-rate" max="30" min="0" step="1" type="range" value="6"/>
+</div>
+</div>
+
+<div class="lab-note-panel" id="llm-note-panel">These numbers are illustrative economics, not live vendor quotes, but they are useful for understanding how quickly context size and retries turn into budget pressure.</div>
+</aside>
+</div>
+</section>
+
+<section class="lab-sim-card ml-sim-card" id="ml-manifold-simulator">
+<div class="lab-sim-header">
+<div class="lab-sim-header-copy">
+<span class="lab-sim-kicker">Representation Learning Studio</span>
+<h4>UMAP / HDBSCAN Manifold Simulator</h4>
+<p class="lab-sim-copy" id="ml-sim-scenario">Compress a synthetic high-dimensional population into a neighborhood map and watch density structure survive, split, or dissolve as overlap, local scale, and minimum cluster size shift.</p>
+</div>
+<div class="lab-sim-preset-row" role="toolbar" aria-label="Manifold simulator presets">
+<button class="lab-sim-preset is-active" data-ml-preset="customer" type="button">Customer Graph</button>
+<button class="lab-sim-preset" data-ml-preset="fraud" type="button">Fraud Rings</button>
+<button class="lab-sim-preset" data-ml-preset="patient" type="button">Patient States</button>
+</div>
+</div>
+
+<div class="lab-sim-layout">
+<div class="lab-sim-visual">
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Embedding Surface</span>
+<h5>How local neighborhoods fold into 2D</h5>
+</div>
+<div class="lab-live-pill" id="ml-embedding-pill">Projection pending</div>
+</div>
+<canvas id="ml-embedding-canvas" aria-label="UMAP style embedding visualization"></canvas>
+</div>
+
+<div class="lab-sim-panel">
+<div class="lab-sim-panel-head">
+<div>
+<span class="lab-panel-label">Density Frontier</span>
+<h5>Where dense structure becomes noise</h5>
+</div>
+<div class="lab-live-pill" id="ml-density-pill">Cluster scan pending</div>
+</div>
+<canvas id="ml-density-canvas" aria-label="Density clustering threshold visualization"></canvas>
+</div>
+</div>
+
+<aside class="lab-sim-controls">
+<div class="lab-stat-grid">
+<div class="lab-stat-card">
+<span class="lab-stat-label">Groups Found</span>
+<strong id="ml-groups-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Noise Share</span>
+<strong id="ml-noise-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">Separation</span>
+<strong id="ml-separation-stat">--</strong>
+</div>
+<div class="lab-stat-card">
+<span class="lab-stat-label">NN Trust</span>
+<strong id="ml-trust-stat">--</strong>
+</div>
+</div>
+
+<div class="lab-input-grid">
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-dims">Latent dimensions</label>
+<span id="ml-dims-value">18</span>
+</div>
+<p>The hidden feature space before the embedding compresses the geometry into a readable plane.</p>
+<input id="ml-dims" max="48" min="4" step="2" type="range" value="18"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-clusters">Seeded groups</label>
+<span id="ml-clusters-value">4</span>
+</div>
+<p>How many underlying structures the synthetic population starts with before density blur and overlap kick in.</p>
+<input id="ml-clusters" max="8" min="3" step="1" type="range" value="4"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-overlap">Overlap / noise</label>
+<span id="ml-overlap-value">0.55x</span>
+</div>
+<p>Raise this to make manifolds smear together, inject border cases, and force the clustering logic to work harder.</p>
+<input id="ml-overlap" max="1.5" min="0.2" step="0.05" type="range" value="0.55"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-neighbors">Local neighborhood</label>
+<span id="ml-neighbors-value">12</span>
+</div>
+<p>Smaller values emphasize fine local detail; larger values smooth the embedding and favor broader structure.</p>
+<input id="ml-neighbors" max="24" min="6" step="1" type="range" value="12"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-min-cluster">Min cluster size</label>
+<span id="ml-min-cluster-value">10</span>
+</div>
+<p>Acts like the patience of a density clusterer: tiny islands can disappear if they cannot support enough local evidence.</p>
+<input id="ml-min-cluster" max="24" min="6" step="1" type="range" value="10"/>
+</div>
+
+<div class="lab-input-row">
+<div class="lab-input-head">
+<label for="ml-curl">Manifold curl</label>
+<span id="ml-curl-value">0.85</span>
+</div>
+<p>Bends the hidden geometry so the map stops looking like clean Gaussian blobs and starts feeling more like real representation space.</p>
+<input id="ml-curl" max="1.6" min="0" step="0.05" type="range" value="0.85"/>
+</div>
+</div>
+
+<div class="lab-note-panel" id="ml-note-panel">Use this like a UMAP and density-clustering intuition board: local neighborhoods can survive the projection even while cluster boundaries become contestable.</div>
+</aside>
+</div>
+</section>
+</div>
+</div>
+<p class="lab-secondary-note">Below it, the slot machine keeps the lighter arcade energy for visitors who want something more playful than probabilistic forecasting.</p>
 
 <div class="slot-machine-container" style="max-width: 900px; margin: 0 auto; text-align: center; padding: 20px; background: linear-gradient(135deg, #7d3ec1, #f1780e); border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);">
     <h3 style="margin-top: 0; color: white; font-weight: 700;">AI Slot Machine Demo</h3>
@@ -4966,6 +5523,9 @@ section[id], h2[id], h3[id] {
         });
     </script>
 <script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/monte-carlo-lab.js"></script>
+<script defer="" src="js/lab-simulator-suite.js"></script>
+<script defer="" src="js/lab-ml-simulator.js"></script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             const aboutCards = document.querySelectorAll('.about-card.animate-on-view');
