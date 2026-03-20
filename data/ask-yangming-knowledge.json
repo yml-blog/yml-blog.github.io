@@ -1,0 +1,88 @@
+[
+    {
+        "id": "profile-overview",
+        "title": "Yangming Li Overview",
+        "url": "/index.html#about-me",
+        "tags": ["profile", "about", "ai", "ml", "product", "data"],
+        "alwaysInclude": true,
+        "content": "Yangming Li is an AI Engineer and Product Builder based in Vancouver. The site positions him around applied AI systems for real-world workflows, especially LLM systems, statistical ML, data engineering, data products, and experiment infrastructure."
+    },
+    {
+        "id": "profile-builds-serves-outcomes",
+        "title": "What Yangming Builds and Who He Serves",
+        "url": "/index.html#about-me",
+        "tags": ["llm systems", "statistical ml", "data engineering", "data products", "experiment infrastructure", "healthcare", "finance", "enterprise"],
+        "content": "The homepage highlights three groups of information: builds, serves, and outcomes. Builds include LLM systems, statistical ML, data engineering, data products, and experiment infrastructure. Serves include healthcare teams, finance teams, and enterprise teams. Outcomes include shipped workflows, faster decision loops, and reusable internal tooling."
+    },
+    {
+        "id": "contact-options",
+        "title": "Contact Yangming",
+        "url": "/index.html#contact",
+        "tags": ["contact", "email", "linkedin", "github", "scholar", "meeting"],
+        "alwaysInclude": true,
+        "content": "Visitors can reach Yangming through email at liym1@hotmail.com, through LinkedIn, through GitHub, or by booking time on Calendly from the contact tab. The contact section also notes Vancouver, BC, Canada as location."
+    },
+    {
+        "id": "work-style",
+        "title": "How Yangming Frames His Work",
+        "url": "/index.html#about-me",
+        "tags": ["applied ai", "workflow", "product thinking", "platforms", "delivery"],
+        "content": "The hero and about sections describe Yangming as someone working at the intersection of AI engineering, statistical ML, data engineering, and product thinking to ship systems teams can actually use, from LLM-powered workflows to experiment-ready data platforms."
+    },
+    {
+        "id": "mlops-article",
+        "title": "MLOps Essential Skills",
+        "url": "/mlops-essential-skills.html",
+        "tags": ["mlops", "deployment", "monitoring", "infrastructure", "data engineering"],
+        "content": "This article covers practical MLOps capabilities and is a strong recommendation for visitors who care about production machine learning, deployment workflows, model operations, and the engineering side of AI systems."
+    },
+    {
+        "id": "n8n-article",
+        "title": "n8n AI Workflows",
+        "url": "/n8n-ai-workflows.html",
+        "tags": ["ai workflows", "automation", "agents", "llm", "integration"],
+        "content": "This article is relevant for people exploring workflow automation, orchestration, and AI-enabled process design. It is especially relevant if the visitor is interested in turning LLM capability into business workflows."
+    },
+    {
+        "id": "mcp-article",
+        "title": "MCP Protocol Guide",
+        "url": "/mcp-protocol-guide.html",
+        "tags": ["mcp", "protocol", "agent tools", "tool use", "integration"],
+        "content": "This guide is a good fit for visitors asking about AI agents, tool calling, or how models connect to external systems. It helps position Yangming as someone who thinks about system integration rather than just isolated prompts."
+    },
+    {
+        "id": "machine-unlearning-article",
+        "title": "Machine Unlearning Guide",
+        "url": "/machine-unlearning-guide.html",
+        "tags": ["machine learning", "privacy", "safety", "compliance", "ml systems"],
+        "content": "This piece is relevant to visitors interested in responsible AI, model maintenance, privacy-sensitive systems, and how machine learning systems behave after deployment."
+    },
+    {
+        "id": "databricks-article",
+        "title": "Databricks Comprehensive Guide",
+        "url": "/databricks-comprehensive-guide.html",
+        "tags": ["databricks", "data engineering", "analytics", "platforms"],
+        "content": "This article is a strong recommendation when the user asks about data platforms, data engineering, and scalable analytics workflows."
+    },
+    {
+        "id": "polars-article",
+        "title": "Polars Guide",
+        "url": "/polars-guide.html",
+        "tags": ["polars", "dataframes", "data engineering", "analytics"],
+        "content": "This guide is a useful recommendation for users interested in data tooling, dataframe performance, and practical analytics engineering."
+    },
+    {
+        "id": "python-package-article",
+        "title": "From Zero to One: Building and Publishing a Python Package",
+        "url": "/engineering/python-package-guide.html",
+        "tags": ["python", "engineering", "packaging", "developer tooling"],
+        "content": "This engineering article is relevant when a visitor asks about Python tooling, packaging, library design, or software engineering practices."
+    },
+    {
+        "id": "ab-test-article",
+        "title": "A/B Test Engineering Guide",
+        "url": "/engineering/ab-test-engineering-guide.html",
+        "tags": ["experimentation", "ab testing", "product", "measurement", "decision making"],
+        "content": "This article is a good match for visitors asking about experiment infrastructure, product measurement, decision loops, and data-informed product work."
+    }
+]

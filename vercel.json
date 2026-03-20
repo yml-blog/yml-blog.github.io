@@ -1,0 +1,7 @@
+{
+    "functions": {
+        "api/ask-yangming.js": {
+            "maxDuration": 15
+        }
+    }
+}

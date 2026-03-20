@@ -3666,6 +3666,7 @@ section[id], h2[id], h3[id] {
             #roulette-canvas { width: 100%; height: auto; }
         }
     </style>
+    <link href="css/ask-yangming.css" rel="stylesheet"/>
   </head>
 <body data-spy="scroll" data-target=".navbar" id="page-top">
 <a href="#myTabContent" class="skip-link">跳到主要内容</a>
@@ -3702,6 +3703,9 @@ section[id], h2[id], h3[id] {
 
 <!-- Primary CTAs (job conversion) -->
 <div class="cta-row hero-cta">
+  <button class="btn btn-default ask-yangming-hero-trigger" data-ask-yangming-open type="button">
+    <i class="fa fa-comments"></i> Ask Yangming AI
+  </button>
   <a class="btn btn-default" href="https://www.linkedin.com/in/yangming-li-tech/" target="_blank" rel="noopener noreferrer">
     <i class="fa fa-linkedin"></i> LinkedIn
   </a>
@@ -5313,6 +5317,43 @@ section[id], h2[id], h3[id] {
 </div>
 </div>
 </div>
+<div class="ask-yangming-shell" data-api-base="" data-assistant-mode="static" data-ask-yangming>
+<div aria-hidden="true" aria-label="Ask Yangming assistant" class="ask-yangming-panel" data-ask-yangming-panel data-state="closed" id="ask-yangming-panel" role="dialog">
+<div class="ask-yangming-header">
+<div class="ask-yangming-header-top">
+<div>
+<div class="ask-yangming-eyebrow"><span class="ask-yangming-launcher-dot"></span> Grounded Site Assistant</div>
+<h3 class="ask-yangming-title">Ask Yangming</h3>
+<p class="ask-yangming-subtitle">A lightweight assistant for site visitors. Best for fit, focus areas, blog recommendations, and contact routing.</p>
+</div>
+<div class="ask-yangming-actions">
+<button aria-label="Clear conversation" class="ask-yangming-icon-btn" data-ask-yangming-reset type="button">
+<i class="fa fa-refresh"></i>
+</button>
+<button aria-label="Close assistant" class="ask-yangming-icon-btn" data-ask-yangming-close type="button">
+<i class="fa fa-times"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="ask-yangming-quick-prompts" data-ask-yangming-prompts></div>
+<div aria-live="polite" class="ask-yangming-messages" data-ask-yangming-messages></div>
+<div class="ask-yangming-composer">
+<div class="ask-yangming-status" data-ask-yangming-status></div>
+<form class="ask-yangming-form" data-ask-yangming-form>
+<textarea class="ask-yangming-input" data-ask-yangming-input maxlength="1200" placeholder="Ask about expertise, relevant posts, project fit, or how to get in touch." rows="3"></textarea>
+<button class="ask-yangming-submit" data-ask-yangming-submit type="submit">
+<i class="fa fa-paper-plane"></i>
+</button>
+</form>
+<div class="ask-yangming-footnote">This version embeds local site knowledge directly in the frontend, so it works on a static host without a separate JSON or backend. If you later want live model responses, switch the assistant mode and point it at a deployed API.</div>
+</div>
+</div>
+<button aria-controls="ask-yangming-panel" aria-expanded="false" class="ask-yangming-launcher" data-ask-yangming-launcher type="button">
+<span class="ask-yangming-launcher-dot"></span>
+<span>Ask Yangming</span>
+</button>
+</div>
 <!-- jquery -->
 <script src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
@@ -6683,6 +6724,7 @@ section[id], h2[id], h3[id] {
       });
     })();
     </script>
+<script defer="" src="js/ask-yangming.js"></script>
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
