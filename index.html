@@ -1511,19 +1511,9 @@ section[id], h2[id], h3[id] {
             margin: 0;
             white-space: pre-wrap;
             line-height: 1.5;
-            opacity: 0;
-            transform: translateX(-20px);
-            filter: blur(6px);
-            transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
-            transition-delay: calc(120ms + var(--line-index) * 85ms);
         }
         .about-code-line:empty {
             height: 0.7em;
-        }
-        .about-runtime-card.is-visible .about-code-line {
-            opacity: 1;
-            transform: translateX(0);
-            filter: blur(0);
         }
         .token-keyword {
             color: #c084fc;
@@ -1560,16 +1550,6 @@ section[id], h2[id], h3[id] {
             border: 1px solid rgba(148, 163, 184, 0.16);
             color: #dbeafe;
             font: 600 0.92em/1.55 Consolas, Monaco, "Courier New", monospace;
-            opacity: 0;
-            transform: translateY(14px);
-            filter: blur(6px);
-            transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease;
-            transition-delay: calc(1300ms + var(--output-index) * 140ms);
-        }
-        .about-runtime-card.is-visible .runtime-output-line {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
         }
         .runtime-prompt {
             color: #4ade80;
@@ -1577,6 +1557,18 @@ section[id], h2[id], h3[id] {
         }
         .runtime-accent {
             color: #ffffff;
+        }
+        .about-code-line,
+        .runtime-output-line {
+            position: relative;
+        }
+        .js .about-code-line,
+        .js .runtime-output-line {
+            visibility: hidden;
+        }
+        .js .about-runtime-card.is-visible .about-code-line.typewriter-ready,
+        .js .about-runtime-card.is-visible .runtime-output-line.typewriter-ready {
+            visibility: visible;
         }
         .about-quote-card {
             background: linear-gradient(135deg, #fff8f2, #ffffff 60%, #fff4ea);
@@ -5529,6 +5521,7 @@ section[id], h2[id], h3[id] {
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             const aboutCards = document.querySelectorAll('.about-card.animate-on-view');
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             function animateCount(element) {
                 const target = parseInt(element.dataset.countTo || '0', 10);
@@ -5553,6 +5546,139 @@ section[id], h2[id], h3[id] {
                 requestAnimationFrame(step);
             }
 
+            function wait(duration) {
+                return new Promise((resolve) => window.setTimeout(resolve, duration));
+            }
+
+            function getTypingDelay(character, baseDelay) {
+                if (/[,.!?]/.test(character)) {
+                    return baseDelay * 5;
+                }
+                if (/[;:]/.test(character)) {
+                    return baseDelay * 3;
+                }
+                if (/\s/.test(character)) {
+                    return Math.max(10, Math.round(baseDelay * 0.45));
+                }
+                return baseDelay;
+            }
+
+            function createNodeBlueprint(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    return {
+                        type: 'text',
+                        text: node.textContent || ''
+                    };
+                }
+
+                if (node.nodeType !== Node.ELEMENT_NODE) {
+                    return null;
+                }
+
+                return {
+                    type: 'element',
+                    tagName: node.tagName.toLowerCase(),
+                    attributes: Array.from(node.attributes).map((attribute) => [attribute.name, attribute.value]),
+                    children: Array.from(node.childNodes).map(createNodeBlueprint).filter(Boolean)
+                };
+            }
+
+            function appendTypedNode(parent, node, line, cursor) {
+                if (parent === line && cursor.parentNode === line) {
+                    line.insertBefore(node, cursor);
+                    return;
+                }
+
+                parent.appendChild(node);
+            }
+
+            async function typeBlueprint(blueprint, parent, line, cursor, speed) {
+                if (blueprint.type === 'text') {
+                    const textNode = document.createTextNode('');
+                    const characters = Array.from(blueprint.text);
+
+                    appendTypedNode(parent, textNode, line, cursor);
+
+                    for (const character of characters) {
+                        textNode.textContent += character;
+                        await wait(getTypingDelay(character, speed));
+                    }
+
+                    return;
+                }
+
+                const element = document.createElement(blueprint.tagName);
+
+                blueprint.attributes.forEach(([name, value]) => {
+                    element.setAttribute(name, value);
+                });
+
+                appendTypedNode(parent, element, line, cursor);
+
+                for (const child of blueprint.children) {
+                    await typeBlueprint(child, element, line, cursor, speed);
+                }
+            }
+
+            async function typeStructuredLine(line, speed, keepCursor) {
+                const blueprints = Array.from(line.childNodes).map(createNodeBlueprint).filter(Boolean);
+                const originalText = line.textContent;
+
+                line.setAttribute('aria-label', originalText);
+                line.textContent = '';
+                line.classList.add('typewriter-ready');
+
+                if (!blueprints.length) {
+                    await wait(Math.max(60, Math.round(speed * 1.8)));
+                    return;
+                }
+
+                const cursor = document.createElement('span');
+                cursor.className = 'typewriter-cursor';
+                cursor.setAttribute('aria-hidden', 'true');
+                line.appendChild(cursor);
+
+                for (const blueprint of blueprints) {
+                    await typeBlueprint(blueprint, line, line, cursor, speed);
+                }
+
+                if (!keepCursor) {
+                    cursor.remove();
+                }
+            }
+
+            function revealStructuredLine(line) {
+                line.classList.add('typewriter-ready');
+            }
+
+            async function runRuntimeTypewriter(card) {
+                if (card.dataset.runtimeTyped === 'true') {
+                    return;
+                }
+
+                card.dataset.runtimeTyped = 'true';
+
+                const codeLines = Array.from(card.querySelectorAll('.about-code-line'));
+                const outputLines = Array.from(card.querySelectorAll('.runtime-output-line'));
+                const sequence = [
+                    ...codeLines.map((line) => ({ line, speed: 12 })),
+                    ...outputLines.map((line) => ({ line, speed: 16 }))
+                ];
+
+                if (prefersReducedMotion) {
+                    sequence.forEach(({ line }) => revealStructuredLine(line));
+                    return;
+                }
+
+                const lastVisibleLineIndex = sequence.reduce((lastIndex, item, index) => {
+                    return item.line.textContent.trim() ? index : lastIndex;
+                }, -1);
+
+                for (const [index, item] of sequence.entries()) {
+                    await typeStructuredLine(item.line, item.speed, index === lastVisibleLineIndex);
+                }
+            }
+
             function activateCard(card) {
                 if (card.dataset.animated === 'true') {
                     return;
@@ -5560,6 +5686,10 @@ section[id], h2[id], h3[id] {
 
                 card.dataset.animated = 'true';
                 card.classList.add('is-visible');
+
+                if (card.classList.contains('about-runtime-card')) {
+                    runRuntimeTypewriter(card);
+                }
 
                 card.querySelectorAll('[data-count-to]').forEach(animateCount);
             }
