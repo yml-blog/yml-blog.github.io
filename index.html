@@ -903,11 +903,13 @@ section[id], h2[id], h3[id] {
 <meta name="theme-color" content="#f1780e"/>
 <link rel="manifest" href="/manifest.json"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="css/monte-carlo-lab.css" rel="stylesheet"/>
 <link href="css/lab-simulator-suite.css" rel="stylesheet"/>
+<link href="css/focus-room.css" rel="stylesheet"/>
 <!-- JSON-LD structured data -->
 <script type="application/ld+json">
     {
@@ -4482,6 +4484,95 @@ section[id], h2[id], h3[id] {
 </div>
 </article>
 </div>
+<section aria-labelledby="focus-room-feature-title" class="focus-room-feature">
+<div class="focus-room-feature-copy">
+<span class="focus-room-feature-kicker">Featured Interactive Experience</span>
+<h3 id="focus-room-feature-title">Focus Room</h3>
+<p>A premium SwiftUI prototype for deep work: a soft hold-to-enter threshold, layered ambient sound mixing, a subtle timer, and a study room that slowly deepens as the session unfolds.</p>
+<div class="focus-room-feature-meta">
+<span>Hold-to-enter ritual</span>
+<span>Ambient mixer</span>
+<span>Ghost UI</span>
+<span>Session evolution</span>
+<span>Local persistence</span>
+</div>
+<div class="focus-room-feature-actions">
+<a class="focus-room-feature-link primary" href="focus-room/index.html">Enter /focus-room</a>
+<a class="focus-room-feature-link secondary" href="focus-room/index.html#source">View SwiftUI source</a>
+</div>
+</div>
+<div class="focus-room-feature-visual">
+<div class="fr-scene is-piano-active" style="--fr-session-progress: 0.28; --fr-rain-strength: 0.58; --fr-ghost-opacity: 0.72; --fr-lamp-warmth: 0.46; --fr-note-opacity: 1; --fr-bonus-star-opacity: 1; --fr-ring-progress: 0.36;">
+<div class="fr-scene-stars" aria-hidden="true">
+<span class="fr-scene-star" style="left: 18%; top: 14%;"></span>
+<span class="fr-scene-star" style="left: 39%; top: 10%; animation-delay: -1.5s;"></span>
+<span class="fr-scene-star" style="left: 67%; top: 16%; animation-delay: -3s;"></span>
+<span class="fr-scene-star bonus" style="left: 76%; top: 9%; animation-delay: -0.8s;"></span>
+</div>
+<div class="fr-scene-room">
+<div class="fr-scene-wall"></div>
+<div class="fr-scene-window">
+<div class="fr-scene-rain">
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div class="fr-scene-lamp"></div>
+<div class="fr-scene-desk"></div>
+<div class="fr-scene-record"></div>
+<div class="fr-scene-book"></div>
+<div class="fr-scene-cup"></div>
+<div class="fr-scene-note">Good work. Take a breath.</div>
+</div>
+<div class="fr-scene-ui ghost fr-scene-timer fr-ui-panel">
+<span class="fr-scene-timer-label">Focus Timer</span>
+<div class="fr-scene-timer-shell">
+<div class="fr-progress-ring">
+<svg aria-hidden="true" viewBox="0 0 72 72">
+<defs>
+<linearGradient id="frProgressGradientHome" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#a9c6d9"></stop>
+<stop offset="100%" stop-color="#efcf9e"></stop>
+</linearGradient>
+</defs>
+<circle class="track" cx="36" cy="36" r="31.4"></circle>
+<circle class="progress" cx="36" cy="36" r="31.4" style="stroke: url(#frProgressGradientHome);"></circle>
+</svg>
+</div>
+<div>
+<div class="fr-scene-clock">31:42</div>
+<div class="fr-scene-status">Focusing</div>
+</div>
+</div>
+</div>
+<div class="fr-scene-ui ghost fr-scene-mixer fr-ui-panel">
+<span class="fr-scene-timer-label">Ambient Layers</span>
+<div class="fr-mixer-grid">
+<div class="fr-mixer-row">
+<strong>Piano</strong>
+<span>vinyl warmth</span>
+</div>
+<div class="fr-mixer-row">
+<strong>Rain</strong>
+<span>window hush</span>
+</div>
+<div class="fr-mixer-row">
+<strong>Brown</strong>
+<span>deep bed</span>
+</div>
+<div class="fr-mixer-row">
+<strong>Cafe</strong>
+<span>soft distance</span>
+</div>
+<div class="fr-mixer-row">
+<strong>White</strong>
+<span>clean edge</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 </div>
 </div>
 </div>
