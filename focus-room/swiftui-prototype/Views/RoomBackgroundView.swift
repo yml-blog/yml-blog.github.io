@@ -18,8 +18,16 @@ struct RoomBackgroundView: View {
                             .fill(
                                 LinearGradient(
                                     colors: [
-                                        Color(red: 0.08, green: 0.11, blue: 0.18),
-                                        Color(red: 0.04, green: 0.05, blue: 0.10)
+                                        blendedColor(
+                                            from: (0.08, 0.11, 0.18),
+                                            to: (0.05, 0.08, 0.16),
+                                            amount: atmosphere.colorTemperature * 0.7
+                                        ),
+                                        blendedColor(
+                                            from: (0.04, 0.05, 0.10),
+                                            to: (0.03, 0.04, 0.08),
+                                            amount: atmosphere.colorTemperature * 0.5
+                                        )
                                     ],
                                     startPoint: .top,
                                     endPoint: .bottom
@@ -66,39 +74,58 @@ struct RoomBackgroundView: View {
     }
 
     private func backgroundField(time: TimeInterval) -> some View {
-        ZStack {
+        let temperature = atmosphere.colorTemperature
+        let blurRadius = CGFloat(atmosphere.backgroundBlur)
+
+        return ZStack {
             LinearGradient(
                 colors: [
-                    FocusRoomTheme.background,
-                    FocusRoomTheme.backgroundDeep.opacity(0.96)
+                    blendedColor(from: (0.11, 0.13, 0.17), to: (0.05, 0.08, 0.17), amount: temperature),
+                    blendedColor(from: (0.07, 0.09, 0.13), to: (0.03, 0.06, 0.15), amount: temperature),
+                    blendedColor(from: (0.03, 0.04, 0.07), to: (0.01, 0.03, 0.10), amount: temperature)
                 ],
                 startPoint: .top,
                 endPoint: .bottom
             )
 
-            Circle()
-                .fill(FocusRoomTheme.rain.opacity(0.15))
-                .frame(width: 420, height: 420)
-                .blur(radius: 120)
-                .offset(x: -220, y: -250)
+            ZStack {
+                Circle()
+                    .fill(blendedColor(from: (0.54, 0.60, 0.68), to: (0.33, 0.43, 0.68), amount: temperature).opacity(0.16))
+                    .frame(width: 440, height: 440)
+                    .blur(radius: 120 + blurRadius)
+                    .offset(x: -220, y: -250)
 
-            Circle()
-                .fill(FocusRoomTheme.accent.opacity(0.18 + atmosphere.progress * 0.08))
-                .frame(width: 320, height: 320)
-                .blur(radius: 90)
-                .offset(x: 220, y: -180)
+                Circle()
+                    .fill(blendedColor(from: (0.78, 0.70, 0.60), to: (0.64, 0.59, 0.72), amount: temperature * 0.66).opacity(0.16 + atmosphere.progress * 0.07))
+                    .frame(width: 360, height: 360)
+                    .blur(radius: 96 + (blurRadius * 0.65))
+                    .offset(x: 220, y: -180)
 
-            Circle()
-                .fill(Color.black.opacity(0.38 + atmosphere.backgroundDepth * 0.2))
-                .frame(width: 760, height: 760)
-                .blur(radius: 120)
-                .offset(y: 380)
+                Circle()
+                    .fill(Color.black.opacity(0.32 + atmosphere.backgroundDepth * 0.24))
+                    .frame(width: 780, height: 780)
+                    .blur(radius: 120 + (blurRadius * 0.45))
+                    .offset(y: 380)
 
-            RoundedRectangle(cornerRadius: 80, style: .continuous)
-                .fill(Color.white.opacity(0.02))
-                .frame(width: 260, height: 260)
-                .blur(radius: 60)
-                .offset(x: sin(time * 0.12) * 40, y: cos(time * 0.08) * 24)
+                RoundedRectangle(cornerRadius: 80, style: .continuous)
+                    .fill(blendedColor(from: (0.82, 0.86, 0.92), to: (0.42, 0.51, 0.70), amount: temperature * 0.7).opacity(0.04))
+                    .frame(width: 260, height: 260)
+                    .blur(radius: 54 + (blurRadius * 0.35))
+                    .offset(x: sin(time * 0.12) * 40, y: cos(time * 0.08) * 24)
+            }
+
+            grainOverlay(time: time)
+                .opacity(atmosphere.grainIntensity)
+                .blendMode(.softLight)
+
+            LinearGradient(
+                colors: [
+                    Color.black.opacity(0.02),
+                    Color.black.opacity(0.12 + atmosphere.backgroundDepth * 0.16)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
     }
 
@@ -107,8 +134,8 @@ struct RoomBackgroundView: View {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color(red: 0.16, green: 0.21, blue: 0.31).opacity(0.9),
-                        Color(red: 0.07, green: 0.09, blue: 0.14).opacity(0.98)
+                        blendedColor(from: (0.16, 0.21, 0.31), to: (0.12, 0.16, 0.29), amount: atmosphere.colorTemperature * 0.72).opacity(0.9),
+                        blendedColor(from: (0.07, 0.09, 0.14), to: (0.04, 0.06, 0.12), amount: atmosphere.colorTemperature * 0.7).opacity(0.98)
                     ],
                     startPoint: .top,
                     endPoint: .bottom
@@ -125,8 +152,8 @@ struct RoomBackgroundView: View {
                 .fill(
                     LinearGradient(
                         colors: [
-                            Color(red: 0.15, green: 0.24, blue: 0.34).opacity(0.88),
-                            Color(red: 0.04, green: 0.06, blue: 0.10).opacity(0.98)
+                            blendedColor(from: (0.15, 0.24, 0.34), to: (0.10, 0.16, 0.30), amount: atmosphere.colorTemperature).opacity(0.88),
+                            blendedColor(from: (0.04, 0.06, 0.10), to: (0.02, 0.04, 0.10), amount: atmosphere.colorTemperature).opacity(0.98)
                         ],
                         startPoint: .top,
                         endPoint: .bottom
@@ -160,7 +187,7 @@ struct RoomBackgroundView: View {
                         y: CGFloat((time * (60 + Double(index * 6))).truncatingRemainder(dividingBy: Double(height + 120))) - height / 2 - 60
                     )
                     .rotationEffect(.degrees(12))
-                    .opacity(0.3 + atmosphere.rainIntensity * 0.7)
+                    .opacity(0.16 + atmosphere.rainIntensity * 0.7)
             }
         }
         .frame(width: width, height: height)
@@ -172,12 +199,12 @@ struct RoomBackgroundView: View {
 
         return ZStack {
             Circle()
-                .fill(FocusRoomTheme.accent.opacity(0.18 + atmosphere.lampWarmth * 0.14))
+                .fill(FocusRoomTheme.accent.opacity(0.16 + atmosphere.lampWarmth * 0.18))
                 .frame(width: 140 * pulse, height: 140 * pulse)
                 .blur(radius: 10)
 
             Circle()
-                .fill(Color(red: 1, green: 0.92, blue: 0.77))
+                .fill(blendedColor(from: (1.0, 0.92, 0.77), to: (1.0, 0.89, 0.72), amount: atmosphere.colorTemperature))
                 .frame(width: 20, height: 20)
                 .shadow(color: FocusRoomTheme.accent.opacity(0.7), radius: 24)
         }
@@ -188,8 +215,8 @@ struct RoomBackgroundView: View {
             .fill(
                 LinearGradient(
                     colors: [
-                        Color(red: 0.37, green: 0.27, blue: 0.20),
-                        Color(red: 0.19, green: 0.13, blue: 0.09)
+                        blendedColor(from: (0.37, 0.27, 0.20), to: (0.35, 0.25, 0.19), amount: atmosphere.colorTemperature * 0.48),
+                        blendedColor(from: (0.19, 0.13, 0.09), to: (0.16, 0.11, 0.09), amount: atmosphere.colorTemperature * 0.48)
                     ],
                     startPoint: .top,
                     endPoint: .bottom
@@ -273,7 +300,7 @@ struct RoomBackgroundView: View {
         return ZStack {
             ForEach(Array(starOffsets.enumerated()), id: \.offset) { index, point in
                 Circle()
-                    .fill(FocusRoomTheme.textPrimary.opacity(0.76 + (sin(time + Double(index)) * 0.1)))
+                    .fill(FocusRoomTheme.textPrimary.opacity(0.72 + (sin(time + Double(index)) * 0.1)))
                     .frame(width: 4, height: 4)
                     .shadow(color: FocusRoomTheme.accent.opacity(0.34), radius: 8)
                     .offset(x: roomWidth * point.x, y: roomHeight * point.y)
@@ -291,6 +318,38 @@ struct RoomBackgroundView: View {
             }
         }
     }
+
+    private func grainOverlay(time: TimeInterval) -> some View {
+        Canvas(rendersAsynchronously: true) { context, size in
+            for index in 0..<96 {
+                let seed = Double(index)
+                let x = pseudoRandom(seed * 17.13 + time * 0.12) * size.width
+                let y = pseudoRandom(seed * 29.41 + time * 0.09 + 7) * size.height
+                let edge = 1 + pseudoRandom(seed * 11.19) * 1.8
+                let opacity = atmosphere.grainIntensity * (0.22 + pseudoRandom(seed * 5.17 + time * 0.05) * 0.44)
+                let rect = CGRect(x: x, y: y, width: edge, height: edge)
+                context.fill(Path(rect), with: .color(Color.white.opacity(opacity)))
+            }
+        }
+    }
+
+    private func blendedColor(
+        from cold: (Double, Double, Double),
+        to warm: (Double, Double, Double),
+        amount: Double
+    ) -> Color {
+        let clampedAmount = min(max(amount, 0), 1)
+        return Color(
+            red: cold.0 + ((warm.0 - cold.0) * clampedAmount),
+            green: cold.1 + ((warm.1 - cold.1) * clampedAmount),
+            blue: cold.2 + ((warm.2 - cold.2) * clampedAmount)
+        )
+    }
+
+    private func pseudoRandom(_ seed: Double) -> CGFloat {
+        let raw = sin(seed) * 43758.5453123
+        return CGFloat(raw - floor(raw))
+    }
 }
 
 #Preview {
@@ -301,7 +360,10 @@ struct RoomBackgroundView: View {
             backgroundDepth: 0.4,
             rainIntensity: 0.6,
             pianoIsSpinning: true,
-            earnedStars: 1
+            earnedStars: 1,
+            backgroundBlur: 10,
+            colorTemperature: 0.58,
+            grainIntensity: 0.06
         )
     )
 }

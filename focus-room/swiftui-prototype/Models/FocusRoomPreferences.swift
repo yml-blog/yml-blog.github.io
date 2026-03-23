@@ -43,6 +43,7 @@ enum SessionLengthPreset: String, CaseIterable, Codable, Identifiable {
 }
 
 struct FocusRoomPreferences: Codable, Equatable {
+    var roomKind: FocusRoomKind
     var selectedPreset: SessionLengthPreset
     var customMinutes: Int
     var layers: [AmbientLayerSetting]
@@ -51,10 +52,46 @@ struct FocusRoomPreferences: Codable, Equatable {
         selectedPreset.resolvedMinutes(customMinutes: customMinutes)
     }
 
+    init(
+        roomKind: FocusRoomKind = .study,
+        selectedPreset: SessionLengthPreset,
+        customMinutes: Int,
+        layers: [AmbientLayerSetting]
+    ) {
+        self.roomKind = roomKind
+        self.selectedPreset = selectedPreset
+        self.customMinutes = customMinutes
+        self.layers = layers
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case roomKind
+        case selectedPreset
+        case customMinutes
+        case layers
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        roomKind = try container.decodeIfPresent(FocusRoomKind.self, forKey: .roomKind) ?? .study
+        selectedPreset = try container.decode(SessionLengthPreset.self, forKey: .selectedPreset)
+        customMinutes = try container.decode(Int.self, forKey: .customMinutes)
+        layers = try container.decode([AmbientLayerSetting].self, forKey: .layers)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(roomKind, forKey: .roomKind)
+        try container.encode(selectedPreset, forKey: .selectedPreset)
+        try container.encode(customMinutes, forKey: .customMinutes)
+        try container.encode(layers, forKey: .layers)
+    }
+
     static let `default` = FocusRoomPreferences(
+        roomKind: .study,
         selectedPreset: .minutes25,
         customMinutes: 75,
-        layers: .focusRoomDefaults
+        layers: StudyRoomSoundscapeStrategy().defaultLayers()
     )
 }
 
@@ -65,4 +102,7 @@ struct RoomAtmosphere: Equatable {
     let rainIntensity: Double
     let pianoIsSpinning: Bool
     let earnedStars: Int
+    let backgroundBlur: Double
+    let colorTemperature: Double
+    let grainIntensity: Double
 }

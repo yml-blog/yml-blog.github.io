@@ -92,6 +92,17 @@ enum AmbientLayerKind: String, CaseIterable, Codable, Identifiable {
             return false
         }
     }
+
+    func defaultSetting(
+        isEnabled: Bool? = nil,
+        volume: Double? = nil
+    ) -> AmbientLayerSetting {
+        AmbientLayerSetting(
+            kind: self,
+            isEnabled: isEnabled ?? defaultEnabled,
+            volume: volume ?? defaultVolume
+        )
+    }
 }
 
 struct AmbientLayerSetting: Identifiable, Codable, Equatable {
@@ -102,22 +113,19 @@ struct AmbientLayerSetting: Identifiable, Codable, Equatable {
     var id: AmbientLayerKind { kind }
 }
 
+struct AmbientLayerMix: Equatable {
+    let kind: AmbientLayerKind
+    let level: Double
+}
+
 extension Array where Element == AmbientLayerSetting {
     static var focusRoomDefaults: [AmbientLayerSetting] {
         AmbientLayerKind.allCases.map { kind in
-            AmbientLayerSetting(
-                kind: kind,
-                isEnabled: kind.defaultEnabled,
-                volume: kind.defaultVolume
-            )
+            kind.defaultSetting()
         }
     }
 
     func setting(for kind: AmbientLayerKind) -> AmbientLayerSetting {
-        first(where: { $0.kind == kind }) ?? AmbientLayerSetting(
-            kind: kind,
-            isEnabled: kind.defaultEnabled,
-            volume: kind.defaultVolume
-        )
+        first(where: { $0.kind == kind }) ?? kind.defaultSetting()
     }
 }

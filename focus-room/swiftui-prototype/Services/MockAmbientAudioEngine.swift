@@ -1,7 +1,7 @@
 import Foundation
 
 protocol AmbientAudioControlling: AnyObject {
-    func updateLayers(_ layers: [AmbientLayerSetting], animated: Bool)
+    func updateMix(_ mix: [AmbientLayerMix], animated: Bool)
     func setPreviewLevel(_ level: Double)
     func fadeOutAll(duration: TimeInterval)
 }
@@ -11,9 +11,10 @@ final class MockAmbientAudioEngine: AmbientAudioControlling, ObservableObject {
     @Published private(set) var previewLevel: Double = 0
     @Published private(set) var activeLevels: [AmbientLayerKind: Double] = [:]
 
-    func updateLayers(_ layers: [AmbientLayerSetting], animated: Bool) {
-        let nextLevels = Dictionary(uniqueKeysWithValues: layers.map { layer in
-            (layer.kind, layer.isEnabled ? layer.volume : 0)
+    func updateMix(_ mix: [AmbientLayerMix], animated: Bool) {
+        let _ = animated
+        let nextLevels = Dictionary(uniqueKeysWithValues: mix.map { layer in
+            (layer.kind, layer.level)
         })
 
         activeLevels = nextLevels
