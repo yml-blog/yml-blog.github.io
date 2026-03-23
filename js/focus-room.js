@@ -20,48 +20,107 @@
         return Math.round(value * 100) + '%';
     }
 
-    var thresholdStage = document.querySelector('[data-threshold-stage]');
-    var thresholdTrigger = document.querySelector('[data-threshold-trigger]');
-    var thresholdLabel = document.querySelector('[data-threshold-label]');
-    var thresholdPrompt = document.querySelector('[data-threshold-prompt]');
-    var thresholdDemoTrack = document.querySelector('[data-demo-track]');
-    var thresholdDemoStatus = document.querySelector('[data-demo-status]');
-    var prototypeAnchor = document.querySelector('#prototype');
-    var roomShell = document.querySelector('[data-room-shell]');
-    var ghostPanels = Array.prototype.slice.call(document.querySelectorAll('[data-ghost-panel]'));
+    function formatClock(totalSeconds) {
+        var safeSeconds = Math.max(0, Math.ceil(totalSeconds));
+        var minutes = Math.floor(safeSeconds / 60);
+        var seconds = safeSeconds % 60;
+        return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+    }
+
+    function setHidden(element, shouldHide) {
+        if (!element) {
+            return;
+        }
+
+        if (shouldHide) {
+            element.setAttribute('hidden', '');
+        } else {
+            element.removeAttribute('hidden');
+        }
+    }
+
+    var html = document.documentElement;
+    var body = document.body;
+    var pageContent = document.querySelector('[data-page-content]');
+
+    var openRoomButtons = Array.prototype.slice.call(document.querySelectorAll('[data-open-room]'));
+    var closeRoomButtons = Array.prototype.slice.call(document.querySelectorAll('[data-close-room]'));
+
+    var previewStage = document.querySelector('[data-preview-stage]');
+    var previewTrack = document.querySelector('[data-preview-track]');
+    var previewStatus = document.querySelector('[data-preview-status]');
+    var previewPrompt = document.querySelector('[data-preview-prompt]');
+
+    var appShell = document.querySelector('[data-app-shell]');
+    var appDialog = document.querySelector('[data-app-dialog]');
+    var appPhaseLabel = document.querySelector('[data-app-phase-label]');
+    var appMixSummary = document.querySelector('[data-app-mix-summary]');
+    var appTopbarNote = document.querySelector('.fr-app-topbar-note');
+    var appPhaseSections = Array.prototype.slice.call(document.querySelectorAll('[data-app-phase]'));
+
+    var appThresholdStage = document.querySelector('[data-app-threshold-stage]');
+    var appThresholdTrigger = document.querySelector('[data-app-threshold-trigger]');
+    var appThresholdLabel = document.querySelector('[data-app-threshold-label]');
+    var appThresholdProgress = document.querySelector('[data-app-threshold-progress]');
+    var appThresholdPrompt = document.querySelector('[data-app-threshold-prompt]');
+    var appThresholdState = document.querySelector('[data-app-threshold-state]');
+
+    var appRoomShell = document.querySelector('[data-app-room-shell]');
+    var appRoomNote = document.querySelector('[data-app-room-note]');
+    var appCompletionNote = document.querySelector('[data-app-completion-note]');
+    var appSessionClock = document.querySelector('[data-app-session-clock]');
+    var appSessionStatus = document.querySelector('[data-app-session-status]');
+    var appRingProgress = document.querySelector('[data-app-ring-progress]');
+    var appDurationButtons = Array.prototype.slice.call(document.querySelectorAll('[data-app-duration]'));
+    var appStartButton = document.querySelector('[data-app-session-start]');
+    var appResetButton = document.querySelector('[data-app-session-reset]');
+
+    var sceneGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-scene-ui[data-app-ghost-panel]'));
+    var railGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-app-room-rail[data-app-ghost-panel]'));
+    var layerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-toggle]'));
+    var layerSliders = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-volume]'));
+
     var codeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-code-file]'));
     var codePath = document.querySelector('[data-code-path]');
     var codeContent = document.querySelector('[data-code-content]');
     var codeStatus = document.querySelector('[data-code-status]');
-    var timerDisplay = document.querySelector('[data-session-clock]');
-    var timerStatus = document.querySelector('[data-session-status]');
-    var timerRing = document.querySelector('[data-ring-progress]');
-    var durationButtons = Array.prototype.slice.call(document.querySelectorAll('[data-duration]'));
-    var startButton = document.querySelector('[data-session-start]');
-    var resetButton = document.querySelector('[data-session-reset]');
-    var completionNote = document.querySelector('[data-completion-note]');
-    var layerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-layer-toggle]'));
-    var layerSliders = Array.prototype.slice.call(document.querySelectorAll('[data-layer-volume]'));
+
+    var layerNames = ['piano', 'rain', 'brownNoise', 'cafe', 'whiteNoise'];
+    var storageKey = 'focus-room.web-settings';
+
+    var previewState = {
+        frame: null,
+        startedAt: 0,
+        duration: 8000,
+        hovered: false
+    };
+
+    var appState = {
+        isOpen: false,
+        phase: 'threshold',
+        lastTrigger: null,
+        scrollY: 0,
+        thresholdSceneFrame: null
+    };
 
     var thresholdState = {
         active: false,
         hovered: false,
-        startedAt: 0,
         holdProgress: 0,
         holdFrame: null,
-        demoFrame: null,
-        demoStartedAt: 0,
-        holdDuration: 1450,
-        demoDuration: 8000
+        startedAt: 0,
+        holdDuration: 1450
     };
 
-    var timerState = {
+    var sessionState = {
         selectedMinutes: 25,
         demoDurationMs: 90000,
         running: false,
         startedAt: null,
         pausedElapsedMs: 0,
-        frame: null
+        frame: null,
+        completionVisible: false,
+        ghostTimer: null
     };
 
     var codeFallbacks = {
@@ -73,30 +132,13 @@
             'final class FocusRoomViewModel: ObservableObject {',
             '    @Published private(set) var phase: FocusRoomPhase = .threshold',
             '    @Published private(set) var holdProgress: Double = 0',
-            '    @Published private(set) var previewLevel: Double = 0',
             '    @Published private(set) var ambientLayers: [AmbientLayerSetting]',
             '    @Published private(set) var sessionState: FocusSessionState = .idle',
-            '    @Published private(set) var secondsRemaining: Int',
             '    @Published private(set) var controlsOpacity: Double = 0.96',
             '',
             '    private let preferencesStore: FocusRoomPreferencesStoring',
             '    private let audioEngine: AmbientAudioControlling',
-            '    private let holdDurationSeconds = 1.45',
-            '    private let idleFadeDelay: Duration = .seconds(3)',
-            '',
-            '    var atmosphere: RoomAtmosphere {',
-            '        let rainSetting = ambientLayers.setting(for: .rain)',
-            '        let pianoSetting = ambientLayers.setting(for: .piano)',
-            '',
-            '        return RoomAtmosphere(',
-            '            progress: progress,',
-            '            lampWarmth: 0.28 + (progress * 0.5),',
-            '            backgroundDepth: 0.24 + (progress * 0.46),',
-            '            rainIntensity: rainSetting.isEnabled ? max(0.18, rainSetting.volume + (progress * 0.12)) : 0.06,',
-            '            pianoIsSpinning: pianoSetting.isEnabled && pianoSetting.volume > 0.05,',
-            '            earnedStars: max(earnedStars, sessionState == .completed ? 1 : 0)',
-            '        )',
-            '    }',
+            '    private let soundscape: any RoomSoundscapeStrategy',
             '',
             '    func registerInteraction() {',
             '        guard phase == .room else { return }',
@@ -104,6 +146,11 @@
             '        withAnimation(.easeOut(duration: 0.25)) {',
             '            controlsOpacity = 1',
             '        }',
+            '    }',
+            '',
+            '    func applyTimerProgress(_ progress: Double) {',
+            '        let mix = soundscape.makeMix(from: ambientLayers, sessionProgress: progress)',
+            '        audioEngine.update(mix)',
             '    }',
             '}'
         ].join('\n'),
@@ -118,8 +165,6 @@
             'struct UserDefaultsPreferencesStore: FocusRoomPreferencesStoring {',
             '    private let defaults: UserDefaults',
             '    private let key: String',
-            '    private let decoder = JSONDecoder()',
-            '    private let encoder = JSONEncoder()',
             '',
             '    init(defaults: UserDefaults = .standard, key: String = "focus-room.preferences") {',
             '        self.defaults = defaults',
@@ -127,21 +172,15 @@
             '    }',
             '',
             '    func load() -> FocusRoomPreferences {',
-            '        guard',
-            '            let data = defaults.data(forKey: key),',
-            '            let preferences = try? decoder.decode(FocusRoomPreferences.self, from: data)',
-            '        else {',
+            '        guard let data = defaults.data(forKey: key) else {',
             '            return .default',
             '        }',
             '',
-            '        return preferences',
+            '        return (try? JSONDecoder().decode(FocusRoomPreferences.self, from: data)) ?? .default',
             '    }',
             '',
             '    func save(_ preferences: FocusRoomPreferences) {',
-            '        guard let data = try? encoder.encode(preferences) else {',
-            '            return',
-            '        }',
-            '',
+            '        guard let data = try? JSONEncoder().encode(preferences) else { return }',
             '        defaults.set(data, forKey: key)',
             '    }',
             '}'
@@ -153,29 +192,23 @@
             '    case study',
             '    case library',
             '    case forest',
+            '',
+            '    var id: String { rawValue }',
             '}',
             '',
             'protocol RoomSoundscapeStrategy {',
             '    var roomKind: FocusRoomKind { get }',
             '    func defaultLayers() -> [AmbientLayerSetting]',
             '    func makeMix(from layers: [AmbientLayerSetting], sessionProgress: Double) -> [AmbientLayerMix]',
-            '    func makeAtmosphere(',
-            '        from layers: [AmbientLayerSetting],',
-            '        sessionProgress: Double,',
-            '        sessionState: FocusSessionState,',
-            '        earnedStars: Int',
-            '    ) -> RoomAtmosphere',
+            '    func makeAtmosphere(from layers: [AmbientLayerSetting], sessionProgress: Double, sessionState: FocusSessionState, earnedStars: Int) -> RoomAtmosphere',
             '}',
             '',
             'enum RoomSoundscapeFactory {',
             '    static func makeStrategy(for roomKind: FocusRoomKind) -> any RoomSoundscapeStrategy {',
             '        switch roomKind {',
-            '        case .study:',
-            '            return StudyRoomSoundscapeStrategy()',
-            '        case .library:',
-            '            return LibraryRoomSoundscapeStrategy()',
-            '        case .forest:',
-            '            return ForestRoomSoundscapeStrategy()',
+            '        case .study: return StudyRoomSoundscapeStrategy()',
+            '        case .library: return LibraryRoomSoundscapeStrategy()',
+            '        case .forest: return ForestRoomSoundscapeStrategy()',
             '        }',
             '    }',
             '}'
@@ -222,89 +255,103 @@
         ].join('\n')
     };
 
-    var ghostTimer = null;
+    function findFocusableElements(container) {
+        if (!container) {
+            return [];
+        }
 
-    function scrollBehavior() {
-        return prefersReducedMotion() ? 'auto' : 'smooth';
+        return Array.prototype.slice.call(
+            container.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')
+        ).filter(function (element) {
+            return !element.hasAttribute('hidden') && element.getAttribute('aria-hidden') !== 'true' && element.offsetParent !== null;
+        });
     }
 
-    function setThresholdPromptCopy() {
-        if (!thresholdLabel || !thresholdPrompt) {
+    function setPageInert(isInert) {
+        if (!pageContent) {
             return;
         }
 
-        if (thresholdStage && thresholdStage.classList.contains('is-entered')) {
-            thresholdLabel.textContent = 'Entered';
-            thresholdPrompt.textContent = 'The room opens gently and the main study wakes up below.';
+        pageContent.setAttribute('aria-hidden', isInert ? 'true' : 'false');
+
+        if ('inert' in pageContent) {
+            pageContent.inert = isInert;
             return;
         }
 
-        if (thresholdState.active) {
-            thresholdLabel.textContent = 'Holding';
-            thresholdPrompt.textContent = 'Blur lifts, glow opens, and the room begins to come forward.';
-            return;
+        if (isInert) {
+            pageContent.setAttribute('inert', '');
+        } else {
+            pageContent.removeAttribute('inert');
         }
-
-        thresholdLabel.textContent = 'Hold to Enter';
-        thresholdPrompt.textContent = thresholdState.hovered
-            ? 'Rain wakes first. Hold steady to dissolve the threshold.'
-            : 'Hover wakes the room. Hold to step inside.';
     }
 
-    function setThresholdHoldProgress(progress) {
-        thresholdState.holdProgress = clamp(progress, 0, 1);
-
-        if (!thresholdStage) {
-            return;
-        }
-
-        thresholdStage.style.setProperty('--fr-hold-progress', thresholdState.holdProgress.toFixed(3));
+    function lockBodyScroll() {
+        appState.scrollY = window.scrollY || window.pageYOffset || 0;
+        html.classList.add('fr-no-scroll');
+        body.classList.add('fr-no-scroll');
+        body.style.position = 'fixed';
+        body.style.top = '-' + appState.scrollY + 'px';
+        body.style.left = '0';
+        body.style.right = '0';
+        body.style.width = '100%';
     }
 
-    function updateThresholdScene(now) {
-        if (!thresholdStage || thresholdStage.classList.contains('is-entered')) {
+    function unlockBodyScroll() {
+        var scrollTarget = appState.scrollY;
+
+        html.classList.remove('fr-no-scroll');
+        body.classList.remove('fr-no-scroll');
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
+        body.style.width = '';
+        window.scrollTo(0, scrollTarget);
+    }
+
+    function renderPreviewScene(now) {
+        if (!previewStage) {
             return;
         }
 
         if (prefersReducedMotion()) {
-            thresholdStage.style.setProperty('--fr-session-progress', '0.180');
-            thresholdStage.style.setProperty('--fr-lamp-warmth', thresholdState.hovered ? '0.380' : '0.320');
-            thresholdStage.style.setProperty('--fr-rain-strength', thresholdState.hovered ? '0.380' : '0.240');
-            thresholdStage.style.setProperty('--fr-note-opacity', '0');
+            previewStage.style.setProperty('--fr-session-progress', previewState.hovered ? '0.240' : '0.140');
+            previewStage.style.setProperty('--fr-lamp-warmth', previewState.hovered ? '0.500' : '0.320');
+            previewStage.style.setProperty('--fr-rain-strength', previewState.hovered ? '0.560' : '0.260');
+            previewStage.style.setProperty('--fr-note-opacity', previewState.hovered ? '0.4' : '0');
+            previewStage.style.setProperty('--fr-hover-energy', previewState.hovered ? '0.420' : '0.120');
 
-            if (thresholdDemoTrack) {
-                thresholdDemoTrack.style.transform = 'scaleX(0.36)';
+            if (previewTrack) {
+                previewTrack.style.transform = 'scaleX(' + (previewState.hovered ? '0.72' : '0.28') + ')';
             }
 
-            if (thresholdDemoStatus && !thresholdState.active) {
-                thresholdDemoStatus.textContent = thresholdState.hovered ? 'Preview awake' : 'Room resting';
+            if (previewStatus) {
+                previewStatus.textContent = previewState.hovered ? 'Room waking' : 'Room settling';
             }
 
             return;
         }
 
-        if (!thresholdState.demoStartedAt) {
-            thresholdState.demoStartedAt = now;
+        if (!previewState.startedAt) {
+            previewState.startedAt = now;
         }
 
-        var loopProgress = ((now - thresholdState.demoStartedAt) % thresholdState.demoDuration) / thresholdState.demoDuration;
-        var hoverEnergy = thresholdState.hovered ? 0.24 : 0;
-        var holdEnergy = thresholdState.holdProgress * 0.72;
-        var cycleWarm = smoothstep(clamp((loopProgress - 0.16) / 0.36, 0, 1));
-        var cycleRain = smoothstep(clamp((loopProgress - 0.34) / 0.38, 0, 1));
-        var cycleNote = smoothstep(clamp((loopProgress - 0.78) / 0.18, 0, 1));
-        var sessionProgress = clamp(0.08 + loopProgress * 0.26 + hoverEnergy * 0.18 + holdEnergy * 0.18, 0.08, 0.64);
-        var lampWarmth = clamp(0.24 + cycleWarm * 0.28 + hoverEnergy * 0.16 + holdEnergy * 0.24, 0.2, 1);
-        var rainStrength = clamp(0.18 + cycleRain * 0.34 + hoverEnergy * 0.24 + holdEnergy * 0.18, 0.1, 1);
+        var loopProgress = ((now - previewState.startedAt) % previewState.duration) / previewState.duration;
+        var hoverEnergy = previewState.hovered ? 0.22 : 0;
+        var cycleWarm = smoothstep((loopProgress - 0.14) / 0.34);
+        var cycleRain = smoothstep((loopProgress - 0.34) / 0.32);
+        var cycleNote = smoothstep((loopProgress - 0.77) / 0.17);
+        var sessionProgress = clamp(0.08 + loopProgress * 0.24 + hoverEnergy * 0.2, 0.08, 0.62);
+        var lampWarmth = clamp(0.24 + cycleWarm * 0.34 + hoverEnergy * 0.18, 0.22, 1);
+        var rainStrength = clamp(0.16 + cycleRain * 0.42 + hoverEnergy * 0.16, 0.12, 1);
         var noteOpacity = clamp(cycleNote * 0.92, 0, 1);
-        var stageEnergy = clamp(0.08 + cycleWarm * 0.18 + hoverEnergy + holdEnergy, 0, 1);
+        var hoverVisual = clamp(0.12 + hoverEnergy + cycleWarm * 0.12, 0, 1);
         var statusText = 'Room settling';
 
-        if (thresholdState.active) {
-            statusText = 'Threshold opening';
-        } else if (loopProgress < 0.28) {
+        if (loopProgress < 0.28) {
             statusText = 'Room settling';
-        } else if (loopProgress < 0.58) {
+        } else if (loopProgress < 0.56) {
             statusText = 'Lamp warming';
         } else if (loopProgress < 0.82) {
             statusText = 'Rain deepening';
@@ -312,112 +359,652 @@
             statusText = 'Soft note arriving';
         }
 
-        thresholdStage.style.setProperty('--fr-hover-energy', stageEnergy.toFixed(3));
-        thresholdStage.style.setProperty('--fr-demo-progress', loopProgress.toFixed(3));
-        thresholdStage.style.setProperty('--fr-session-progress', sessionProgress.toFixed(3));
-        thresholdStage.style.setProperty('--fr-lamp-warmth', lampWarmth.toFixed(3));
-        thresholdStage.style.setProperty('--fr-rain-strength', rainStrength.toFixed(3));
-        thresholdStage.style.setProperty('--fr-note-opacity', noteOpacity.toFixed(3));
-
-        if (thresholdDemoTrack) {
-            thresholdDemoTrack.style.transform = 'scaleX(' + Math.max(0.08, loopProgress).toFixed(3) + ')';
+        if (previewState.hovered) {
+            statusText = 'Preview awake';
         }
 
-        if (thresholdDemoStatus && !thresholdState.active) {
-            thresholdDemoStatus.textContent = thresholdState.hovered ? 'Preview awake' : statusText;
+        previewStage.style.setProperty('--fr-hover-energy', hoverVisual.toFixed(3));
+        previewStage.style.setProperty('--fr-demo-progress', loopProgress.toFixed(3));
+        previewStage.style.setProperty('--fr-session-progress', sessionProgress.toFixed(3));
+        previewStage.style.setProperty('--fr-lamp-warmth', lampWarmth.toFixed(3));
+        previewStage.style.setProperty('--fr-rain-strength', rainStrength.toFixed(3));
+        previewStage.style.setProperty('--fr-note-opacity', noteOpacity.toFixed(3));
+
+        if (previewTrack) {
+            previewTrack.style.transform = 'scaleX(' + Math.max(0.08, loopProgress).toFixed(3) + ')';
         }
 
-        thresholdState.demoFrame = window.requestAnimationFrame(updateThresholdScene);
+        if (previewStatus) {
+            previewStatus.textContent = statusText;
+        }
+
+        previewState.frame = window.requestAnimationFrame(renderPreviewScene);
     }
 
-    function beginThresholdSceneLoop() {
-        if (!thresholdStage) {
+    function beginPreviewLoop() {
+        if (!previewStage) {
             return;
         }
 
-        if (thresholdState.demoFrame) {
-            window.cancelAnimationFrame(thresholdState.demoFrame);
-            thresholdState.demoFrame = null;
+        if (previewState.frame) {
+            window.cancelAnimationFrame(previewState.frame);
+            previewState.frame = null;
         }
 
-        thresholdState.demoStartedAt = 0;
-        updateThresholdScene(performance.now());
+        previewState.startedAt = 0;
+        renderPreviewScene(performance.now());
     }
 
-    function setThresholdAwake(isAwake) {
-        if (!thresholdStage || thresholdStage.classList.contains('is-entered')) {
+    function setPreviewAwake(isAwake) {
+        if (!previewStage) {
             return;
         }
 
-        thresholdState.hovered = !!isAwake;
-        thresholdStage.classList.toggle('is-awake', thresholdState.hovered);
-        setThresholdPromptCopy();
+        previewState.hovered = !!isAwake;
+        previewStage.classList.toggle('is-awake', previewState.hovered);
+
+        if (previewPrompt) {
+            previewPrompt.textContent = previewState.hovered
+                ? 'Rain and lamp glow wake first. Open the fullscreen room when you are ready.'
+                : 'Hover wakes the room. Open the fullscreen experience to begin.';
+        }
     }
 
-    function finishThresholdEntry() {
-        if (!thresholdStage) {
+    function setAppPhase(phaseName) {
+        appState.phase = phaseName;
+
+        appPhaseSections.forEach(function (section) {
+            setHidden(section, section.getAttribute('data-app-phase') !== phaseName);
+        });
+
+        if (appPhaseLabel) {
+            appPhaseLabel.textContent = phaseName === 'room' ? 'Room' : 'Threshold';
+        }
+
+        if (appTopbarNote) {
+            appTopbarNote.textContent = phaseName === 'room'
+                ? 'Keep the room gentle. Start when the mix already feels right.'
+                : 'Press and hold to let the room surface.';
+        }
+    }
+
+    function setThresholdPromptCopy() {
+        if (!appThresholdLabel || !appThresholdPrompt || !appThresholdState) {
             return;
         }
 
-        thresholdState.active = false;
-        thresholdStage.classList.remove('is-holding');
-        thresholdTrigger && thresholdTrigger.classList.remove('is-holding');
-        thresholdStage.classList.add('is-entered');
-        document.body.classList.add('is-focus-room-entered');
-        setThresholdHoldProgress(1);
-
-        thresholdStage.style.setProperty('--fr-session-progress', '0.320');
-        thresholdStage.style.setProperty('--fr-lamp-warmth', '0.620');
-        thresholdStage.style.setProperty('--fr-rain-strength', '0.620');
-        thresholdStage.style.setProperty('--fr-note-opacity', '1');
-
-        if (thresholdDemoTrack) {
-            thresholdDemoTrack.style.transform = 'scaleX(1)';
+        if (thresholdState.active) {
+            appThresholdLabel.textContent = 'Holding';
+            appThresholdPrompt.textContent = 'Stay steady. Blur softens and the room begins to rise.';
+            appThresholdState.textContent = 'Threshold opening';
+            return;
         }
 
-        if (thresholdDemoStatus) {
-            thresholdDemoStatus.textContent = 'Entered';
-        }
-
-        setThresholdPromptCopy();
-
-        if (roomShell) {
-            roomShell.classList.add('is-awake');
-            roomShell.style.setProperty('--fr-session-progress', '0.18');
-            roomShell.style.setProperty('--fr-lamp-warmth', '0.36');
-            wakeGhostUI();
-        }
-
-        if (thresholdState.demoFrame) {
-            window.cancelAnimationFrame(thresholdState.demoFrame);
-            thresholdState.demoFrame = null;
-        }
-
-        window.setTimeout(function () {
-            if (prototypeAnchor) {
-                prototypeAnchor.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
-            }
-        }, 360);
+        appThresholdLabel.textContent = 'Hold to Enter';
+        appThresholdPrompt.textContent = thresholdState.hovered
+            ? 'The room is awake. Hold for a breath to cross the threshold.'
+            : 'Press and hold to let the room surface.';
+        appThresholdState.textContent = thresholdState.hovered ? 'Room waking' : 'Ready when you are';
     }
 
-    function releaseThreshold(shouldResetLabel) {
+    function setThresholdHoldProgress(progress) {
+        var safeProgress = clamp(progress, 0, 1);
+        thresholdState.holdProgress = safeProgress;
+
+        if (appThresholdStage) {
+            appThresholdStage.style.setProperty('--fr-hold-progress', safeProgress.toFixed(3));
+        }
+
+        if (appThresholdProgress) {
+            appThresholdProgress.style.width = (safeProgress * 100).toFixed(1) + '%';
+        }
+    }
+
+    function renderAppThresholdScene(now) {
+        if (!appState.isOpen || appState.phase !== 'threshold' || !appThresholdStage) {
+            return;
+        }
+
+        if (prefersReducedMotion()) {
+            appThresholdStage.style.setProperty('--fr-session-progress', thresholdState.active ? '0.260' : '0.120');
+            appThresholdStage.style.setProperty('--fr-lamp-warmth', thresholdState.active ? '0.620' : '0.320');
+            appThresholdStage.style.setProperty('--fr-rain-strength', thresholdState.active ? '0.620' : (thresholdState.hovered ? '0.420' : '0.240'));
+            appThresholdStage.style.setProperty('--fr-note-opacity', thresholdState.active ? '0.24' : '0');
+            appThresholdStage.style.setProperty('--fr-hover-energy', thresholdState.hovered ? '0.420' : '0.120');
+            return;
+        }
+
+        var time = now * 0.001;
+        var floatPulse = (Math.sin(time * 1.1) + 1) * 0.5;
+        var holdEnergy = thresholdState.holdProgress * 0.72;
+        var hoverEnergy = thresholdState.hovered ? 0.18 : 0;
+        var sessionProgress = clamp(0.08 + floatPulse * 0.08 + hoverEnergy * 0.14 + holdEnergy * 0.22, 0.08, 0.58);
+        var lampWarmth = clamp(0.24 + floatPulse * 0.14 + hoverEnergy * 0.12 + holdEnergy * 0.26, 0.2, 1);
+        var rainStrength = clamp(0.18 + floatPulse * 0.08 + hoverEnergy * 0.2 + holdEnergy * 0.22, 0.12, 1);
+        var noteOpacity = clamp(thresholdState.holdProgress > 0.88 ? (thresholdState.holdProgress - 0.88) / 0.12 : 0, 0, 1);
+        var hoverVisual = clamp(0.08 + hoverEnergy + holdEnergy * 0.8, 0, 1);
+
+        appThresholdStage.style.setProperty('--fr-session-progress', sessionProgress.toFixed(3));
+        appThresholdStage.style.setProperty('--fr-lamp-warmth', lampWarmth.toFixed(3));
+        appThresholdStage.style.setProperty('--fr-rain-strength', rainStrength.toFixed(3));
+        appThresholdStage.style.setProperty('--fr-note-opacity', noteOpacity.toFixed(3));
+        appThresholdStage.style.setProperty('--fr-hover-energy', hoverVisual.toFixed(3));
+
+        appState.thresholdSceneFrame = window.requestAnimationFrame(renderAppThresholdScene);
+    }
+
+    function beginAppThresholdLoop() {
+        if (!appThresholdStage) {
+            return;
+        }
+
+        if (appState.thresholdSceneFrame) {
+            window.cancelAnimationFrame(appState.thresholdSceneFrame);
+            appState.thresholdSceneFrame = null;
+        }
+
+        renderAppThresholdScene(performance.now());
+    }
+
+    function stopAppThresholdLoop() {
+        if (appState.thresholdSceneFrame) {
+            window.cancelAnimationFrame(appState.thresholdSceneFrame);
+            appState.thresholdSceneFrame = null;
+        }
+    }
+
+    function releaseThreshold(shouldResetCopy) {
         thresholdState.active = false;
         thresholdState.startedAt = 0;
-        thresholdStage && thresholdStage.classList.remove('is-holding');
-        thresholdTrigger && thresholdTrigger.classList.remove('is-holding');
+
+        if (appThresholdStage) {
+            appThresholdStage.classList.remove('is-holding');
+        }
+
+        if (appThresholdTrigger) {
+            appThresholdTrigger.classList.remove('is-holding');
+        }
 
         if (thresholdState.holdFrame) {
             window.cancelAnimationFrame(thresholdState.holdFrame);
             thresholdState.holdFrame = null;
         }
 
-        if (thresholdStage && !thresholdStage.classList.contains('is-entered')) {
-            setThresholdHoldProgress(0);
-        }
+        setThresholdHoldProgress(0);
 
-        if (shouldResetLabel) {
+        if (shouldResetCopy) {
             setThresholdPromptCopy();
         }
+    }
+
+    function updateRoomNote() {
+        if (!appRoomNote) {
+            return;
+        }
+
+        if (sessionState.completionVisible) {
+            appRoomNote.textContent = 'The room leaves a small trace behind, then returns to stillness.';
+            return;
+        }
+
+        if (sessionState.running) {
+            appRoomNote.textContent = 'The session is live. The room warms and deepens quietly while everything else falls back.';
+            return;
+        }
+
+        var activeLayers = layerNames.filter(function (name) {
+            var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
+            var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
+            return !!(toggle && slider && toggle.checked && Number(slider.value || '0') > 0.03);
+        });
+
+        if (!activeLayers.length) {
+            appRoomNote.textContent = 'Bring one layer in before you start and keep the room nearly invisible after that.';
+            return;
+        }
+
+        var readableNames = activeLayers.slice(0, 3).map(function (name) {
+            if (name === 'brownNoise') {
+                return 'Brown Noise';
+            }
+
+            if (name === 'whiteNoise') {
+                return 'White Noise';
+            }
+
+            return name.charAt(0).toUpperCase() + name.slice(1);
+        });
+
+        appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are already carrying the room. Start immediately or soften the mix first.';
+    }
+
+    function updateMixSummary() {
+        if (!appMixSummary) {
+            return;
+        }
+
+        var activeLayers = layerNames.map(function (name) {
+            var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
+            var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
+
+            return {
+                name: name,
+                enabled: !!(toggle && toggle.checked),
+                volume: slider ? Number(slider.value || '0') : 0
+            };
+        }).filter(function (layer) {
+            return layer.enabled && layer.volume > 0.03;
+        }).sort(function (first, second) {
+            return second.volume - first.volume;
+        });
+
+        if (!activeLayers.length) {
+            appMixSummary.textContent = 'Room muted';
+            return;
+        }
+
+        var label = activeLayers.slice(0, 3).map(function (layer) {
+            if (layer.name === 'brownNoise') {
+                return 'Brown Noise';
+            }
+
+            if (layer.name === 'whiteNoise') {
+                return 'White Noise';
+            }
+
+            return layer.name.charAt(0).toUpperCase() + layer.name.slice(1);
+        }).join(', ');
+
+        appMixSummary.textContent = 'Mix: ' + label;
+    }
+
+    function setGhostPanels(isAwake) {
+        var sceneOpacity = isAwake ? 0.94 : (sessionState.running ? 0.18 : 0.46);
+        var railOpacity = isAwake ? 0.98 : (sessionState.running ? 0.72 : 0.9);
+
+        sceneGhostPanels.forEach(function (panel) {
+            panel.classList.toggle('is-awake', isAwake);
+            panel.style.opacity = sceneOpacity.toFixed(3);
+        });
+
+        railGhostPanels.forEach(function (panel) {
+            panel.classList.toggle('is-awake', isAwake);
+            panel.style.opacity = railOpacity.toFixed(3);
+        });
+
+        if (appRoomShell) {
+            appRoomShell.style.setProperty('--fr-ghost-opacity', sceneOpacity.toFixed(3));
+        }
+    }
+
+    function wakeGhostUI(delayMs) {
+        if (!appRoomShell || appState.phase !== 'room') {
+            return;
+        }
+
+        setGhostPanels(true);
+        window.clearTimeout(sessionState.ghostTimer);
+        sessionState.ghostTimer = window.setTimeout(function () {
+            setGhostPanels(false);
+        }, typeof delayMs === 'number' ? delayMs : 1800);
+    }
+
+    function applySessionVisuals(progress) {
+        if (!appRoomShell) {
+            return;
+        }
+
+        var clamped = clamp(progress, 0, 1);
+        var rainToggle = document.querySelector('[data-app-layer-toggle="rain"]');
+        var rainSlider = document.querySelector('[data-app-layer-volume="rain"]');
+        var rainStrength = 0.08;
+
+        if (rainToggle && rainToggle.checked && rainSlider) {
+            rainStrength = Math.max(0.18, Number(rainSlider.value || '0.55') + clamped * 0.16);
+        }
+
+        appRoomShell.style.setProperty('--fr-session-progress', clamped.toFixed(3));
+        appRoomShell.style.setProperty('--fr-lamp-warmth', (0.28 + clamped * 0.48).toFixed(3));
+        appRoomShell.style.setProperty('--fr-rain-strength', clamp(rainStrength, 0.08, 1).toFixed(3));
+        appRoomShell.style.setProperty('--fr-note-opacity', clamped >= 1 ? '1' : '0');
+        appRoomShell.style.setProperty('--fr-bonus-star-opacity', clamped >= 1 ? '1' : '0');
+    }
+
+    function syncLayerVisual(layerName) {
+        if (!appRoomShell) {
+            return;
+        }
+
+        var toggle = document.querySelector('[data-app-layer-toggle="' + layerName + '"]');
+        var slider = document.querySelector('[data-app-layer-volume="' + layerName + '"]');
+        var card = document.querySelector('[data-app-layer-card="' + layerName + '"]');
+        var miniPill = document.querySelector('[data-app-mini-layer-pill="' + layerName + '"]');
+        var valueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-value="' + layerName + '"], [data-app-mini-layer-value="' + layerName + '"]'));
+        var isOn = !!(toggle && toggle.checked);
+        var volume = slider ? Number(slider.value || '0') : 0;
+        var displayValue = formatPercent(volume);
+        var isAudible = isOn && volume > 0.03;
+
+        valueNodes.forEach(function (node) {
+            node.textContent = displayValue;
+        });
+
+        if (card) {
+            card.classList.toggle('is-active', isAudible);
+        }
+
+        if (miniPill) {
+            miniPill.classList.toggle('is-on', isAudible);
+        }
+
+        if (layerName === 'piano') {
+            appRoomShell.classList.toggle('is-piano-active', isOn && volume > 0.05);
+        }
+
+        if (layerName === 'rain') {
+            appRoomShell.style.setProperty('--fr-rain-strength', isOn ? Math.max(0.18, volume).toFixed(3) : '0.08');
+        }
+    }
+
+    function syncAllLayers() {
+        layerNames.forEach(syncLayerVisual);
+        updateMixSummary();
+        updateRoomNote();
+    }
+
+    function updateDurationButtons(activeMinutes) {
+        appDurationButtons.forEach(function (button) {
+            button.classList.toggle('is-active', Number(button.getAttribute('data-app-duration') || '25') === activeMinutes);
+        });
+    }
+
+    function resetSession() {
+        sessionState.running = false;
+        sessionState.startedAt = null;
+        sessionState.pausedElapsedMs = 0;
+        sessionState.completionVisible = false;
+
+        if (sessionState.frame) {
+            window.cancelAnimationFrame(sessionState.frame);
+            sessionState.frame = null;
+        }
+
+        if (appRingProgress) {
+            appRingProgress.style.setProperty('--fr-ring-progress', '0.04');
+        }
+
+        if (appSessionClock) {
+            appSessionClock.textContent = formatClock(sessionState.selectedMinutes * 60);
+        }
+
+        if (appSessionStatus) {
+            appSessionStatus.textContent = 'Ready';
+        }
+
+        if (appStartButton) {
+            appStartButton.textContent = 'Start Session';
+        }
+
+        if (appCompletionNote) {
+            appCompletionNote.classList.remove('is-visible');
+        }
+
+        applySessionVisuals(0);
+        updateRoomNote();
+        setGhostPanels(false);
+    }
+
+    function finishSession() {
+        sessionState.running = false;
+        sessionState.startedAt = null;
+        sessionState.pausedElapsedMs = sessionState.demoDurationMs;
+        sessionState.completionVisible = true;
+
+        if (appStartButton) {
+            appStartButton.textContent = 'Start Another Session';
+        }
+
+        if (appSessionStatus) {
+            appSessionStatus.textContent = 'Complete';
+        }
+
+        if (appSessionClock) {
+            appSessionClock.textContent = '00:00';
+        }
+
+        if (appRingProgress) {
+            appRingProgress.style.setProperty('--fr-ring-progress', '1');
+        }
+
+        if (appCompletionNote) {
+            appCompletionNote.classList.add('is-visible');
+        }
+
+        applySessionVisuals(1);
+        updateRoomNote();
+        wakeGhostUI(2600);
+    }
+
+    function tickSession(now) {
+        if (!sessionState.running) {
+            return;
+        }
+
+        if (!sessionState.startedAt) {
+            sessionState.startedAt = now;
+        }
+
+        var elapsed = sessionState.pausedElapsedMs + (now - sessionState.startedAt);
+        var progress = clamp(elapsed / sessionState.demoDurationMs, 0, 1);
+        var totalSeconds = sessionState.selectedMinutes * 60;
+        var secondsRemaining = totalSeconds * (1 - progress);
+
+        if (appRingProgress) {
+            appRingProgress.style.setProperty('--fr-ring-progress', progress.toFixed(3));
+        }
+
+        if (appSessionClock) {
+            appSessionClock.textContent = formatClock(secondsRemaining);
+        }
+
+        if (appSessionStatus) {
+            appSessionStatus.textContent = progress <= 0 ? 'Ready' : 'Focusing';
+        }
+
+        applySessionVisuals(progress);
+
+        if (progress >= 1) {
+            finishSession();
+            return;
+        }
+
+        sessionState.frame = window.requestAnimationFrame(tickSession);
+    }
+
+    function startSession() {
+        if (sessionState.running) {
+            sessionState.running = false;
+            sessionState.pausedElapsedMs += sessionState.startedAt ? performance.now() - sessionState.startedAt : 0;
+            sessionState.startedAt = null;
+
+            if (sessionState.frame) {
+                window.cancelAnimationFrame(sessionState.frame);
+                sessionState.frame = null;
+            }
+
+            if (appStartButton) {
+                appStartButton.textContent = 'Resume Session';
+            }
+
+            if (appSessionStatus) {
+                appSessionStatus.textContent = 'Paused';
+            }
+
+            updateRoomNote();
+            wakeGhostUI();
+            return;
+        }
+
+        if (sessionState.completionVisible || sessionState.pausedElapsedMs >= sessionState.demoDurationMs) {
+            sessionState.pausedElapsedMs = 0;
+        }
+
+        if (appCompletionNote) {
+            appCompletionNote.classList.remove('is-visible');
+        }
+
+        sessionState.completionVisible = false;
+        sessionState.running = true;
+        sessionState.startedAt = null;
+
+        if (appStartButton) {
+            appStartButton.textContent = 'Pause Session';
+        }
+
+        updateRoomNote();
+        wakeGhostUI();
+        sessionState.frame = window.requestAnimationFrame(tickSession);
+    }
+
+    function saveSettings() {
+        var payload = {
+            selectedMinutes: sessionState.selectedMinutes,
+            layers: {}
+        };
+
+        layerNames.forEach(function (name) {
+            var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
+            var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
+
+            payload.layers[name] = {
+                enabled: !!(toggle && toggle.checked),
+                volume: slider ? Number(slider.value || '0') : 0
+            };
+        });
+
+        try {
+            window.localStorage.setItem(storageKey, JSON.stringify(payload));
+        } catch (error) {
+            return;
+        }
+    }
+
+    function applyStoredSettings() {
+        var raw = null;
+        var parsed = null;
+
+        try {
+            raw = window.localStorage.getItem(storageKey);
+        } catch (error) {
+            raw = null;
+        }
+
+        if (!raw) {
+            updateDurationButtons(sessionState.selectedMinutes);
+            return;
+        }
+
+        try {
+            parsed = JSON.parse(raw);
+        } catch (error) {
+            parsed = null;
+        }
+
+        if (!parsed) {
+            updateDurationButtons(sessionState.selectedMinutes);
+            return;
+        }
+
+        if (typeof parsed.selectedMinutes === 'number') {
+            var matchingButton = null;
+
+            appDurationButtons.some(function (button) {
+                if (Number(button.getAttribute('data-app-duration') || '25') === parsed.selectedMinutes) {
+                    matchingButton = button;
+                    return true;
+                }
+
+                return false;
+            });
+
+            if (matchingButton) {
+                sessionState.selectedMinutes = Number(matchingButton.getAttribute('data-app-duration') || '25');
+                sessionState.demoDurationMs = Number(matchingButton.getAttribute('data-app-demo-seconds') || '90') * 1000;
+            }
+        }
+
+        if (parsed.layers) {
+            layerNames.forEach(function (name) {
+                var storedLayer = parsed.layers[name];
+                var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
+                var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
+
+                if (!storedLayer) {
+                    return;
+                }
+
+                if (toggle && typeof storedLayer.enabled === 'boolean') {
+                    toggle.checked = storedLayer.enabled;
+                }
+
+                if (slider && typeof storedLayer.volume === 'number') {
+                    slider.value = clamp(storedLayer.volume, 0, 1).toFixed(2);
+                }
+            });
+        }
+
+        updateDurationButtons(sessionState.selectedMinutes);
+    }
+
+    function resetThresholdView() {
+        thresholdState.active = false;
+        thresholdState.hovered = false;
+
+        if (appThresholdStage) {
+            appThresholdStage.classList.remove('is-holding');
+            appThresholdStage.classList.remove('is-awake');
+        }
+
+        if (appThresholdTrigger) {
+            appThresholdTrigger.classList.remove('is-holding');
+        }
+
+        setThresholdHoldProgress(0);
+        setThresholdPromptCopy();
+    }
+
+    function completeThresholdEntry() {
+        releaseThreshold(false);
+
+        if (appThresholdState) {
+            appThresholdState.textContent = 'Entering room';
+        }
+
+        if (appThresholdPrompt) {
+            appThresholdPrompt.textContent = 'The room opens and the controls fall back into the edges.';
+        }
+
+        if (appThresholdLabel) {
+            appThresholdLabel.textContent = 'Entering';
+        }
+
+        if (appThresholdStage) {
+            appThresholdStage.classList.add('is-awake');
+            appThresholdStage.style.setProperty('--fr-session-progress', '0.320');
+            appThresholdStage.style.setProperty('--fr-lamp-warmth', '0.620');
+            appThresholdStage.style.setProperty('--fr-rain-strength', '0.620');
+            appThresholdStage.style.setProperty('--fr-note-opacity', '1');
+        }
+
+        window.setTimeout(function () {
+            setAppPhase('room');
+            stopAppThresholdLoop();
+            wakeGhostUI(2600);
+
+            if (appStartButton) {
+                appStartButton.focus();
+            }
+        }, prefersReducedMotion() ? 120 : 320);
     }
 
     function tickThresholdHold(now) {
@@ -434,7 +1021,7 @@
         setThresholdHoldProgress(progress);
 
         if (progress >= 1) {
-            finishThresholdEntry();
+            completeThresholdEntry();
             return;
         }
 
@@ -442,7 +1029,7 @@
     }
 
     function beginThresholdHold(event) {
-        if (!thresholdStage || thresholdStage.classList.contains('is-entered')) {
+        if (!appState.isOpen || appState.phase !== 'threshold') {
             return;
         }
 
@@ -452,8 +1039,16 @@
 
         thresholdState.active = true;
         thresholdState.startedAt = 0;
-        thresholdStage.classList.add('is-holding');
-        thresholdTrigger && thresholdTrigger.classList.add('is-holding');
+
+        if (appThresholdStage) {
+            appThresholdStage.classList.add('is-holding');
+            appThresholdStage.classList.add('is-awake');
+        }
+
+        if (appThresholdTrigger) {
+            appThresholdTrigger.classList.add('is-holding');
+        }
+
         setThresholdPromptCopy();
 
         if (thresholdState.holdFrame) {
@@ -464,325 +1059,121 @@
     }
 
     function cancelThresholdHold() {
-        if (!thresholdStage || thresholdStage.classList.contains('is-entered')) {
+        if (!appState.isOpen || appState.phase !== 'threshold') {
             return;
         }
 
         releaseThreshold(true);
     }
 
-    if (thresholdStage && thresholdTrigger) {
-        thresholdTrigger.addEventListener('pointerdown', beginThresholdHold);
-        thresholdTrigger.addEventListener('pointerup', cancelThresholdHold);
-        thresholdTrigger.addEventListener('pointerleave', cancelThresholdHold);
-        thresholdTrigger.addEventListener('pointercancel', cancelThresholdHold);
-        thresholdTrigger.addEventListener('blur', cancelThresholdHold);
-        thresholdTrigger.addEventListener('keydown', function (event) {
-            if ((event.code === 'Space' || event.code === 'Enter') && !event.repeat) {
-                beginThresholdHold(event);
+    function openRoom(trigger) {
+        if (!appShell || !appDialog) {
+            return;
+        }
+
+        if (appState.isOpen) {
+            return;
+        }
+
+        appState.lastTrigger = trigger || document.activeElement;
+        appState.isOpen = true;
+        setAppPhase('threshold');
+        resetThresholdView();
+        resetSession();
+        syncAllLayers();
+        saveSettings();
+
+        appShell.hidden = false;
+        appShell.setAttribute('aria-hidden', 'false');
+        setPageInert(true);
+        lockBodyScroll();
+
+        window.requestAnimationFrame(function () {
+            appShell.classList.add('is-open');
+        });
+
+        beginAppThresholdLoop();
+
+        window.setTimeout(function () {
+            if (appThresholdTrigger) {
+                appThresholdTrigger.focus();
+            } else {
+                appDialog.focus();
             }
-        });
-        thresholdTrigger.addEventListener('keyup', function (event) {
-            if (event.code === 'Space' || event.code === 'Enter') {
-                cancelThresholdHold();
+        }, prefersReducedMotion() ? 0 : 80);
+    }
+
+    function closeRoom() {
+        if (!appShell || !appState.isOpen) {
+            return;
+        }
+
+        appState.isOpen = false;
+        cancelThresholdHold();
+        stopAppThresholdLoop();
+        window.clearTimeout(sessionState.ghostTimer);
+
+        if (sessionState.running) {
+            sessionState.running = false;
+
+            if (sessionState.frame) {
+                window.cancelAnimationFrame(sessionState.frame);
+                sessionState.frame = null;
             }
-        });
-
-        thresholdStage.addEventListener('pointerenter', function () {
-            setThresholdAwake(true);
-        });
-        thresholdStage.addEventListener('pointerleave', function () {
-            setThresholdAwake(false);
-            cancelThresholdHold();
-        });
-        thresholdStage.addEventListener('focusin', function () {
-            setThresholdAwake(true);
-        });
-        thresholdStage.addEventListener('focusout', function () {
-            window.setTimeout(function () {
-                if (!thresholdStage.contains(document.activeElement)) {
-                    setThresholdAwake(false);
-                    cancelThresholdHold();
-                }
-            }, 0);
-        });
-    }
-
-    function wakeGhostUI() {
-        if (!ghostPanels.length) {
-            return;
         }
 
-        ghostPanels.forEach(function (panel) {
-            panel.classList.add('is-awake');
-        });
+        appShell.classList.remove('is-open');
+        appShell.setAttribute('aria-hidden', 'true');
+        setPageInert(false);
+        unlockBodyScroll();
 
-        if (roomShell) {
-            roomShell.style.setProperty('--fr-ghost-opacity', '0.94');
-        }
-
-        window.clearTimeout(ghostTimer);
-        ghostTimer = window.setTimeout(function () {
-            ghostPanels.forEach(function (panel) {
-                panel.classList.remove('is-awake');
-            });
-
-            if (roomShell) {
-                roomShell.style.setProperty('--fr-ghost-opacity', timerState.running ? '0.34' : '0.54');
+        window.setTimeout(function () {
+            if (!appState.isOpen) {
+                appShell.hidden = true;
+                setAppPhase('threshold');
+                resetThresholdView();
             }
-        }, 2600);
+        }, prefersReducedMotion() ? 0 : 280);
+
+        if (appState.lastTrigger && typeof appState.lastTrigger.focus === 'function') {
+            appState.lastTrigger.focus();
+        }
     }
 
-    if (roomShell) {
-        ['pointermove', 'pointerdown', 'touchstart', 'focusin'].forEach(function (eventName) {
-            roomShell.addEventListener(eventName, wakeGhostUI, { passive: true });
-        });
-    }
-
-    function formatTimeFromProgress(progress) {
-        var totalSeconds = timerState.selectedMinutes * 60;
-        var remainingSeconds = Math.max(0, Math.ceil(totalSeconds * (1 - progress)));
-        var minutes = Math.floor(remainingSeconds / 60);
-        var seconds = remainingSeconds % 60;
-        return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
-    }
-
-    function applySessionVisuals(progress) {
-        if (!roomShell) {
+    function handleDialogKeydown(event) {
+        if (!appState.isOpen) {
             return;
         }
 
-        var clamped = clamp(progress, 0, 1);
-        roomShell.style.setProperty('--fr-session-progress', clamped.toFixed(3));
-        roomShell.style.setProperty('--fr-lamp-warmth', (0.28 + clamped * 0.48).toFixed(3));
-
-        var rainToggle = document.querySelector('[data-layer-toggle="rain"]');
-        var rainSlider = document.querySelector('[data-layer-volume="rain"]');
-        var rainStrength = 0.08;
-
-        if (rainToggle && rainToggle.checked && rainSlider) {
-            rainStrength = Math.max(0.2, Number(rainSlider.value || '0.55') + clamped * 0.16);
-        }
-
-        roomShell.style.setProperty('--fr-rain-strength', Math.min(1, rainStrength).toFixed(3));
-        roomShell.style.setProperty('--fr-note-opacity', clamped >= 1 ? '1' : '0');
-        roomShell.style.setProperty('--fr-bonus-star-opacity', clamped >= 1 ? '1' : '0');
-    }
-
-    function syncLayerVisual(layerName) {
-        if (!roomShell) {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            closeRoom();
             return;
         }
 
-        var toggle = document.querySelector('[data-layer-toggle="' + layerName + '"]');
-        var slider = document.querySelector('[data-layer-volume="' + layerName + '"]');
-        var valueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-layer-value="' + layerName + '"]'));
-        var miniValueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-mini-layer-value="' + layerName + '"]'));
-        var miniPills = Array.prototype.slice.call(document.querySelectorAll('[data-mini-layer-pill="' + layerName + '"]'));
-        var isOn = !!(toggle && toggle.checked);
-        var volume = slider ? Number(slider.value || '0') : 0;
-        var displayValue = formatPercent(volume);
-
-        valueNodes.forEach(function (node) {
-            node.textContent = displayValue;
-        });
-
-        miniValueNodes.forEach(function (node) {
-            node.textContent = displayValue;
-        });
-
-        miniPills.forEach(function (pill) {
-            pill.classList.toggle('is-on', isOn && volume > 0.03);
-        });
-
-        if (layerName === 'piano') {
-            roomShell.classList.toggle('is-piano-active', isOn && volume > 0.05);
-        }
-
-        if (layerName === 'rain') {
-            roomShell.style.setProperty('--fr-rain-strength', isOn ? Math.max(0.2, volume).toFixed(3) : '0.08');
-        }
-    }
-
-    function finishSession() {
-        timerState.running = false;
-        timerState.startedAt = null;
-        timerState.pausedElapsedMs = timerState.demoDurationMs;
-
-        if (startButton) {
-            startButton.textContent = 'Start Another Session';
-        }
-
-        if (timerStatus) {
-            timerStatus.textContent = 'Complete';
-        }
-
-        applySessionVisuals(1);
-
-        if (timerDisplay) {
-            timerDisplay.textContent = '00:00';
-        }
-
-        if (timerRing) {
-            timerRing.style.setProperty('--fr-ring-progress', '1');
-        }
-
-        if (completionNote) {
-            completionNote.classList.add('is-visible');
-        }
-
-        wakeGhostUI();
-    }
-
-    function tickSession(now) {
-        if (!timerState.running) {
+        if (event.key !== 'Tab') {
             return;
         }
 
-        if (!timerState.startedAt) {
-            timerState.startedAt = now;
-        }
+        var focusable = findFocusableElements(appDialog);
 
-        var elapsed = timerState.pausedElapsedMs + (now - timerState.startedAt);
-        var progress = clamp(elapsed / timerState.demoDurationMs, 0, 1);
-
-        if (timerRing) {
-            timerRing.style.setProperty('--fr-ring-progress', progress.toFixed(3));
-        }
-
-        if (timerDisplay) {
-            timerDisplay.textContent = formatTimeFromProgress(progress);
-        }
-
-        if (timerStatus) {
-            timerStatus.textContent = progress === 0 ? 'Ready' : 'Focusing';
-        }
-
-        applySessionVisuals(progress);
-
-        if (progress >= 1) {
-            finishSession();
+        if (!focusable.length) {
+            event.preventDefault();
+            appDialog.focus();
             return;
         }
 
-        timerState.frame = window.requestAnimationFrame(tickSession);
-    }
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
 
-    function pauseSession() {
-        if (!timerState.running) {
-            return;
-        }
-
-        timerState.running = false;
-        timerState.pausedElapsedMs += performance.now() - timerState.startedAt;
-        timerState.startedAt = null;
-
-        if (timerState.frame) {
-            window.cancelAnimationFrame(timerState.frame);
-            timerState.frame = null;
-        }
-
-        if (startButton) {
-            startButton.textContent = 'Resume Session';
-        }
-
-        if (timerStatus) {
-            timerStatus.textContent = 'Paused';
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
         }
     }
-
-    function startSession() {
-        if (timerState.running) {
-            pauseSession();
-            return;
-        }
-
-        if (completionNote) {
-            completionNote.classList.remove('is-visible');
-        }
-
-        timerState.running = true;
-        timerState.startedAt = null;
-
-        if (startButton) {
-            startButton.textContent = 'Pause Session';
-        }
-
-        timerState.frame = window.requestAnimationFrame(tickSession);
-        wakeGhostUI();
-    }
-
-    function resetSession() {
-        timerState.running = false;
-        timerState.startedAt = null;
-        timerState.pausedElapsedMs = 0;
-
-        if (timerState.frame) {
-            window.cancelAnimationFrame(timerState.frame);
-            timerState.frame = null;
-        }
-
-        if (timerRing) {
-            timerRing.style.setProperty('--fr-ring-progress', '0.04');
-        }
-
-        if (timerDisplay) {
-            timerDisplay.textContent = String(timerState.selectedMinutes).padStart(2, '0') + ':00';
-        }
-
-        if (timerStatus) {
-            timerStatus.textContent = 'Ready';
-        }
-
-        if (startButton) {
-            startButton.textContent = 'Start Session';
-        }
-
-        if (completionNote) {
-            completionNote.classList.remove('is-visible');
-        }
-
-        applySessionVisuals(0);
-    }
-
-    durationButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            timerState.selectedMinutes = Number(button.getAttribute('data-duration') || '25');
-            timerState.demoDurationMs = Number(button.getAttribute('data-demo-seconds') || '90') * 1000;
-
-            durationButtons.forEach(function (item) {
-                item.classList.toggle('is-active', item === button);
-            });
-
-            resetSession();
-            wakeGhostUI();
-        });
-    });
-
-    if (startButton) {
-        startButton.addEventListener('click', startSession);
-    }
-
-    if (resetButton) {
-        resetButton.addEventListener('click', function () {
-            resetSession();
-            wakeGhostUI();
-        });
-    }
-
-    layerToggles.forEach(function (toggle) {
-        toggle.addEventListener('change', function () {
-            syncLayerVisual(toggle.getAttribute('data-layer-toggle'));
-            wakeGhostUI();
-        });
-    });
-
-    layerSliders.forEach(function (slider) {
-        slider.addEventListener('input', function () {
-            syncLayerVisual(slider.getAttribute('data-layer-volume'));
-            wakeGhostUI();
-        });
-    });
 
     function fallbackContentFor(button, filePath) {
         var explicitKey = button.getAttribute('data-code-fallback-key');
@@ -807,8 +1198,8 @@
     }
 
     function updateActiveCodeButtons(filePath) {
-        codeButtons.forEach(function (item) {
-            item.classList.toggle('is-active', item.getAttribute('data-code-file') === filePath);
+        codeButtons.forEach(function (button) {
+            button.classList.toggle('is-active', button.getAttribute('data-code-file') === filePath);
         });
     }
 
@@ -828,7 +1219,8 @@
 
     function loadCodeFile(button) {
         var filePath = button.getAttribute('data-code-file');
-        if (!filePath || !codeContent || !codePath) {
+
+        if (!filePath || !codePath || !codeContent) {
             return;
         }
 
@@ -868,30 +1260,182 @@
             });
     }
 
+    if (previewStage) {
+        previewStage.addEventListener('pointerenter', function () {
+            setPreviewAwake(true);
+        });
+
+        previewStage.addEventListener('pointerleave', function () {
+            setPreviewAwake(false);
+        });
+
+        previewStage.addEventListener('focusin', function () {
+            setPreviewAwake(true);
+        });
+
+        previewStage.addEventListener('focusout', function () {
+            window.setTimeout(function () {
+                if (!previewStage.contains(document.activeElement)) {
+                    setPreviewAwake(false);
+                }
+            }, 0);
+        });
+    }
+
+    openRoomButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            openRoom(button);
+        });
+    });
+
+    closeRoomButtons.forEach(function (button) {
+        button.addEventListener('click', closeRoom);
+    });
+
+    if (appShell) {
+        appShell.addEventListener('click', function (event) {
+            if (event.target === appShell) {
+                closeRoom();
+            }
+        });
+    }
+
+    if (appDialog) {
+        appDialog.addEventListener('keydown', handleDialogKeydown);
+    }
+
+    if (appThresholdTrigger) {
+        appThresholdTrigger.addEventListener('pointerdown', beginThresholdHold);
+        appThresholdTrigger.addEventListener('pointerup', cancelThresholdHold);
+        appThresholdTrigger.addEventListener('pointerleave', cancelThresholdHold);
+        appThresholdTrigger.addEventListener('pointercancel', cancelThresholdHold);
+        appThresholdTrigger.addEventListener('blur', cancelThresholdHold);
+        appThresholdTrigger.addEventListener('keydown', function (event) {
+            if ((event.code === 'Space' || event.code === 'Enter') && !event.repeat) {
+                beginThresholdHold(event);
+            }
+        });
+        appThresholdTrigger.addEventListener('keyup', function (event) {
+            if (event.code === 'Space' || event.code === 'Enter') {
+                cancelThresholdHold();
+            }
+        });
+    }
+
+    if (appThresholdStage) {
+        appThresholdStage.addEventListener('pointerenter', function () {
+            thresholdState.hovered = true;
+            appThresholdStage.classList.add('is-awake');
+            setThresholdPromptCopy();
+        });
+
+        appThresholdStage.addEventListener('pointerleave', function () {
+            thresholdState.hovered = false;
+            appThresholdStage.classList.remove('is-awake');
+            cancelThresholdHold();
+            setThresholdPromptCopy();
+        });
+
+        appThresholdStage.addEventListener('focusin', function () {
+            thresholdState.hovered = true;
+            appThresholdStage.classList.add('is-awake');
+            setThresholdPromptCopy();
+        });
+
+        appThresholdStage.addEventListener('focusout', function () {
+            window.setTimeout(function () {
+                if (!appThresholdStage.contains(document.activeElement)) {
+                    thresholdState.hovered = false;
+                    appThresholdStage.classList.remove('is-awake');
+                    cancelThresholdHold();
+                    setThresholdPromptCopy();
+                }
+            }, 0);
+        });
+    }
+
+    if (appRoomShell) {
+        ['pointermove', 'pointerdown', 'touchstart', 'focusin'].forEach(function (eventName) {
+            appRoomShell.addEventListener(eventName, function () {
+                wakeGhostUI();
+            }, { passive: true });
+        });
+    }
+
+    appDurationButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            sessionState.selectedMinutes = Number(button.getAttribute('data-app-duration') || '25');
+            sessionState.demoDurationMs = Number(button.getAttribute('data-app-demo-seconds') || '90') * 1000;
+            updateDurationButtons(sessionState.selectedMinutes);
+            saveSettings();
+            resetSession();
+            syncAllLayers();
+            wakeGhostUI();
+        });
+    });
+
+    if (appStartButton) {
+        appStartButton.addEventListener('click', function () {
+            startSession();
+            wakeGhostUI();
+        });
+    }
+
+    if (appResetButton) {
+        appResetButton.addEventListener('click', function () {
+            resetSession();
+            saveSettings();
+            syncAllLayers();
+            wakeGhostUI();
+        });
+    }
+
+    layerToggles.forEach(function (toggle) {
+        toggle.addEventListener('change', function () {
+            syncLayerVisual(toggle.getAttribute('data-app-layer-toggle'));
+            saveSettings();
+            updateMixSummary();
+            updateRoomNote();
+            wakeGhostUI();
+        });
+    });
+
+    layerSliders.forEach(function (slider) {
+        slider.addEventListener('input', function () {
+            syncLayerVisual(slider.getAttribute('data-app-layer-volume'));
+            saveSettings();
+            updateMixSummary();
+            updateRoomNote();
+            wakeGhostUI();
+        });
+    });
+
     codeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             loadCodeFile(button);
         });
     });
 
-    ['piano', 'rain', 'brownNoise', 'cafe', 'whiteNoise'].forEach(syncLayerVisual);
+    applyStoredSettings();
+    syncAllLayers();
     resetSession();
-    setThresholdPromptCopy();
+    resetThresholdView();
+    beginPreviewLoop();
 
     if (codeButtons.length) {
-        var initialCodeButton = Array.prototype.find
-            ? Array.prototype.find.call(codeButtons, function (button) {
-                return button.classList.contains('is-active');
-            })
-            : codeButtons[0];
-        loadCodeFile(initialCodeButton || codeButtons[0]);
+        var initialCodeButton = codeButtons.filter(function (button) {
+            return button.classList.contains('is-active');
+        })[0] || codeButtons[0];
+        loadCodeFile(initialCodeButton);
     }
-
-    beginThresholdSceneLoop();
 
     if (mediaQuery) {
         var handleMotionPreferenceChange = function () {
-            beginThresholdSceneLoop();
+            beginPreviewLoop();
+
+            if (appState.isOpen && appState.phase === 'threshold') {
+                beginAppThresholdLoop();
+            }
         };
 
         if (typeof mediaQuery.addEventListener === 'function') {

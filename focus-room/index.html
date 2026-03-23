@@ -25,14 +25,15 @@
   <link rel="stylesheet" href="../css/focus-room.css">
 </head>
 <body class="focus-room-page">
-  <main class="fr-page">
+  <main class="fr-page" data-page-content>
     <header class="fr-topbar">
       <a class="fr-brand" href="../index.html">
         <span class="fr-brand-mark"></span>
         <span>Yangming Li</span>
       </a>
       <nav class="fr-topbar-nav" aria-label="Focus Room sections">
-        <a href="#prototype">Prototype</a>
+        <button class="fr-topbar-enter" data-open-room type="button">Enter Room</button>
+        <a href="#experience">How It Works</a>
         <a href="#architecture">Architecture</a>
         <a href="#source">Source</a>
         <a href="../index.html">Home</a>
@@ -52,13 +53,13 @@
           <span class="fr-stat-chip"><strong>Session</strong><em>evolution</em></span>
         </div>
         <div class="fr-actions fr-actions-hero">
-          <a class="fr-button primary fr-button-hero" href="#prototype">Enter the Room</a>
+          <button class="fr-button primary fr-button-hero" data-open-room type="button">Enter the Room</button>
           <a class="fr-button tertiary" href="#architecture">View Architecture</a>
         </div>
-        <p class="fr-note">Soft entry, low-visibility controls, and session-based atmosphere optimized for calm, not feature density.</p>
+        <p class="fr-note">The landing page stays light. The real product now opens as a fullscreen room, separate from the build notes and source browser below.</p>
       </div>
 
-      <div class="fr-threshold-stage" data-threshold-stage tabindex="0" aria-label="Interactive Focus Room preview">
+      <div class="fr-threshold-stage fr-hero-preview" data-preview-stage tabindex="0" aria-label="Focus Room preview">
         <div class="fr-threshold-backdrop">
           <div class="fr-threshold-shell">
             <div class="fr-scene-stars" aria-hidden="true">
@@ -86,233 +87,69 @@
           <div class="fr-threshold-orb" aria-hidden="true"></div>
           <h2>Focus Room</h2>
           <p>A quiet room for deep work.</p>
-          <button class="fr-threshold-trigger" data-threshold-trigger type="button">
-            <span data-threshold-label>Hold to Enter</span>
+          <button class="fr-threshold-trigger" data-open-room type="button">
+            <span>Open Fullscreen Room</span>
           </button>
-          <div class="fr-threshold-progress" aria-hidden="true">
-            <span></span>
-          </div>
-          <p class="fr-threshold-footnote" data-threshold-prompt aria-live="polite">Hover wakes the room. Hold to step inside.</p>
+          <p class="fr-threshold-footnote" data-preview-prompt aria-live="polite">Hover wakes the room. Open the fullscreen experience to begin.</p>
         </div>
 
         <div class="fr-stage-caption">
           <div class="fr-stage-chip-row">
-            <span class="fr-stage-chip fr-stage-chip-live">Interactive Preview</span>
+            <span class="fr-stage-chip fr-stage-chip-live">Preview</span>
             <span class="fr-stage-chip">Hover wakes rain</span>
-            <span class="fr-stage-chip">Hold to enter</span>
+            <span class="fr-stage-chip">Fullscreen app</span>
           </div>
           <div class="fr-stage-loop">
             <span class="fr-stage-loop-label">8s room cycle</span>
-            <div class="fr-stage-loop-track"><span data-demo-track></span></div>
-            <span class="fr-stage-loop-status" data-demo-status aria-live="polite">Room settling</span>
+            <div class="fr-stage-loop-track"><span data-preview-track></span></div>
+            <span class="fr-stage-loop-status" data-preview-status aria-live="polite">Room settling</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="fr-section" id="prototype">
-      <span class="fr-eyebrow">Prototype</span>
-      <h2>Main Room</h2>
-      <p class="fr-body">The room remains the hero. Controls stay near-silent until invited back into view, while the atmosphere deepens slowly enough to feel alive without behaving like a dashboard.</p>
+    <section class="fr-section fr-experience" id="experience">
+      <span class="fr-eyebrow">App Mode</span>
+      <h2>The product now opens as a true room, not another section on the page</h2>
+      <p class="fr-body">The landing page introduces the idea. The actual experience opens separately, locks the page behind it, and keeps the first-use path simple: enter, keep or tune the mix, start, finish softly.</p>
 
-      <div class="fr-room-layout">
-        <div class="fr-room-shell is-piano-active" data-room-shell>
-          <div class="fr-scene" style="--fr-ring-progress: 0.04;">
-            <div class="fr-scene-stars" aria-hidden="true">
-              <span class="fr-scene-star" style="left: 20%; top: 11%;"></span>
-              <span class="fr-scene-star" style="left: 46%; top: 9%; animation-delay: -1.4s;"></span>
-              <span class="fr-scene-star" style="left: 62%; top: 13%; animation-delay: -3.2s;"></span>
-              <span class="fr-scene-star" style="left: 79%; top: 18%; animation-delay: -2.1s;"></span>
-              <span class="fr-scene-star bonus" style="left: 73%; top: 8%; animation-delay: -0.8s;"></span>
-            </div>
-            <div class="fr-scene-room">
-              <div class="fr-scene-wall"></div>
-              <div class="fr-scene-window">
-                <div class="fr-scene-rain">
-                  <span></span><span></span><span></span><span></span>
-                  <span></span><span></span><span></span><span></span>
-                </div>
-              </div>
-              <div class="fr-scene-lamp"></div>
-              <div class="fr-scene-desk"></div>
-              <div class="fr-scene-record"></div>
-              <div class="fr-scene-book"></div>
-              <div class="fr-scene-cup"></div>
-              <div class="fr-scene-note">Session star collected. The wall keeps a soft trace of finished work.</div>
-            </div>
-
-            <div class="fr-scene-ui ghost fr-scene-timer fr-ui-panel fr-ghost-panel" data-ghost-panel>
-              <span class="fr-scene-timer-label">Focus Timer</span>
-              <div class="fr-scene-timer-shell">
-                <div class="fr-progress-ring">
-                  <svg viewBox="0 0 72 72" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="frProgressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#a9c6d9"></stop>
-                        <stop offset="100%" stop-color="#efcf9e"></stop>
-                      </linearGradient>
-                    </defs>
-                    <circle class="track" cx="36" cy="36" r="31.4"></circle>
-                    <circle class="progress" cx="36" cy="36" r="31.4" data-ring-progress></circle>
-                  </svg>
-                </div>
-                <div>
-                  <div class="fr-scene-clock" data-session-clock>25:00</div>
-                  <div class="fr-scene-status" data-session-status>Ready</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="fr-scene-ui ghost fr-scene-mixer fr-ui-panel fr-ghost-panel" data-ghost-panel>
-              <span class="fr-scene-timer-label">Ambient Layers</span>
-              <div class="fr-mixer-pill-row">
-                <span class="fr-mixer-pill is-on" data-mini-layer-pill="piano"><span class="fr-mixer-pill-name">Piano</span><span class="fr-mixer-pill-value" data-mini-layer-value="piano">42%</span></span>
-                <span class="fr-mixer-pill is-on" data-mini-layer-pill="rain"><span class="fr-mixer-pill-name">Rain</span><span class="fr-mixer-pill-value" data-mini-layer-value="rain">58%</span></span>
-                <span class="fr-mixer-pill is-on" data-mini-layer-pill="brownNoise"><span class="fr-mixer-pill-name">Brown</span><span class="fr-mixer-pill-value" data-mini-layer-value="brownNoise">34%</span></span>
-                <span class="fr-mixer-pill" data-mini-layer-pill="cafe"><span class="fr-mixer-pill-name">Cafe</span><span class="fr-mixer-pill-value" data-mini-layer-value="cafe">18%</span></span>
-                <span class="fr-mixer-pill" data-mini-layer-pill="whiteNoise"><span class="fr-mixer-pill-name">White</span><span class="fr-mixer-pill-value" data-mini-layer-value="whiteNoise">12%</span></span>
-              </div>
-            </div>
-
-            <div class="fr-completion-note" data-completion-note>
-              <strong>Session Complete</strong>
-              <p>Good work. Take a breath.</p>
-            </div>
-          </div>
+      <div class="fr-flow-layout">
+        <div class="fr-flow-steps" aria-label="First-use flow">
+          <article class="fr-flow-card">
+            <span class="fr-flow-step">01</span>
+            <strong>Enter the room</strong>
+            <p>The first screen is a threshold, not a settings page. Hold to enter and let the room come forward.</p>
+          </article>
+          <article class="fr-flow-card">
+            <span class="fr-flow-step">02</span>
+            <strong>Keep the default mix</strong>
+            <p>Rain, Piano, and Brown Noise are already active. Users can begin immediately or tune the room gently.</p>
+          </article>
+          <article class="fr-flow-card">
+            <span class="fr-flow-step">03</span>
+            <strong>Start a session</strong>
+            <p>The timer stays quiet and peripheral so the room remains primary while work begins.</p>
+          </article>
+          <article class="fr-flow-card">
+            <span class="fr-flow-step">04</span>
+            <strong>Finish softly</strong>
+            <p>Completion lands as a small intimate state instead of a loud productivity reward.</p>
+          </article>
         </div>
 
-        <aside class="fr-room-copy fr-story-rail fr-ghost-panel" data-ghost-panel>
-          <div class="fr-rail-intro">
-            <span class="fr-panel-label">Why It Feels Different</span>
-            <h3>Built to reduce friction before focus</h3>
-            <p>Focus Room treats the session like entering a place instead of configuring a utility. The room stays central. Controls recede until they are invited back into view.</p>
+        <aside class="fr-flow-panel">
+          <span class="fr-panel-label">First Session</span>
+          <h3>Open the app, keep the room, begin.</h3>
+          <p>What used to be embedded in the document now opens as a fullscreen app layer. Architecture and source stay on the page. The focus ritual lives outside it.</p>
+          <div class="fr-pill-row">
+            <span class="fr-pill">Threshold ritual</span>
+            <span class="fr-pill">Default mix ready</span>
+            <span class="fr-pill">Fullscreen room</span>
+            <span class="fr-pill">Soft completion</span>
           </div>
-
-          <div class="fr-hero-metrics fr-rail-metrics" aria-label="Prototype outcomes">
-            <span class="fr-stat-chip"><strong>Soft</strong><em>entry ritual</em></span>
-            <span class="fr-stat-chip"><strong>Subtle</strong><em>focus timer</em></span>
-            <span class="fr-stat-chip"><strong>Low-friction</strong><em>sound palette</em></span>
-          </div>
-
-          <div class="fr-rail-divider"></div>
-
-          <div class="fr-rail-section fr-timer-panel">
-            <div class="fr-rail-header">
-              <strong>Session cadence</strong>
-              <span>The timer stays quiet and peripheral.</span>
-            </div>
-            <div class="fr-duration-row" role="toolbar" aria-label="Session duration options">
-              <button class="fr-duration-chip is-active" data-duration="25" data-demo-seconds="90" type="button">25 min</button>
-              <button class="fr-duration-chip" data-duration="50" data-demo-seconds="120" type="button">50 min</button>
-              <button class="fr-duration-chip" data-duration="75" data-demo-seconds="105" type="button">Custom 75</button>
-            </div>
-            <div class="fr-timer-actions">
-              <button class="fr-button primary" data-session-start type="button">Start Session</button>
-              <button class="fr-button secondary" data-session-reset type="button">Reset</button>
-            </div>
-          </div>
-
-          <div class="fr-rail-divider"></div>
-
-          <div class="fr-rail-section">
-            <div class="fr-rail-header">
-              <strong>Sound palette</strong>
-              <span>Ghost controls brighten on touch and fade on idle.</span>
-            </div>
-
-            <div class="fr-layer-pill-grid">
-              <div class="fr-layer-pill" data-layer-card="piano">
-                <div class="fr-layer-pill-top">
-                  <span class="fr-icon-chip">P</span>
-                  <div class="fr-layer-copy">
-                    <strong>Piano</strong>
-                    <span>Soft vinyl warmth</span>
-                  </div>
-                  <label class="fr-switch">
-                    <input checked data-layer-toggle="piano" type="checkbox">
-                    <span class="fr-switch-track"></span>
-                  </label>
-                </div>
-                <div class="fr-slider-row">
-                  <input class="fr-slider" data-layer-volume="piano" max="1" min="0" step="0.01" type="range" value="0.42">
-                  <span class="fr-slider-value" data-layer-value="piano">42%</span>
-                </div>
-              </div>
-
-              <div class="fr-layer-pill" data-layer-card="rain">
-                <div class="fr-layer-pill-top">
-                  <span class="fr-icon-chip">R</span>
-                  <div class="fr-layer-copy">
-                    <strong>Rain</strong>
-                    <span>Window-side hush</span>
-                  </div>
-                  <label class="fr-switch">
-                    <input checked data-layer-toggle="rain" type="checkbox">
-                    <span class="fr-switch-track"></span>
-                  </label>
-                </div>
-                <div class="fr-slider-row">
-                  <input class="fr-slider" data-layer-volume="rain" max="1" min="0" step="0.01" type="range" value="0.58">
-                  <span class="fr-slider-value" data-layer-value="rain">58%</span>
-                </div>
-              </div>
-
-              <div class="fr-layer-pill" data-layer-card="brownNoise">
-                <div class="fr-layer-pill-top">
-                  <span class="fr-icon-chip">B</span>
-                  <div class="fr-layer-copy">
-                    <strong>Brown Noise</strong>
-                    <span>Low sheltering bed</span>
-                  </div>
-                  <label class="fr-switch">
-                    <input checked data-layer-toggle="brownNoise" type="checkbox">
-                    <span class="fr-switch-track"></span>
-                  </label>
-                </div>
-                <div class="fr-slider-row">
-                  <input class="fr-slider" data-layer-volume="brownNoise" max="1" min="0" step="0.01" type="range" value="0.34">
-                  <span class="fr-slider-value" data-layer-value="brownNoise">34%</span>
-                </div>
-              </div>
-
-              <div class="fr-layer-pill" data-layer-card="cafe">
-                <div class="fr-layer-pill-top">
-                  <span class="fr-icon-chip">C</span>
-                  <div class="fr-layer-copy">
-                    <strong>Cafe</strong>
-                    <span>Distant human texture</span>
-                  </div>
-                  <label class="fr-switch">
-                    <input data-layer-toggle="cafe" type="checkbox">
-                    <span class="fr-switch-track"></span>
-                  </label>
-                </div>
-                <div class="fr-slider-row">
-                  <input class="fr-slider" data-layer-volume="cafe" max="1" min="0" step="0.01" type="range" value="0.18">
-                  <span class="fr-slider-value" data-layer-value="cafe">18%</span>
-                </div>
-              </div>
-
-              <div class="fr-layer-pill" data-layer-card="whiteNoise">
-                <div class="fr-layer-pill-top">
-                  <span class="fr-icon-chip">W</span>
-                  <div class="fr-layer-copy">
-                    <strong>White Noise</strong>
-                    <span>Clean acoustic edge</span>
-                  </div>
-                  <label class="fr-switch">
-                    <input data-layer-toggle="whiteNoise" type="checkbox">
-                    <span class="fr-switch-track"></span>
-                  </label>
-                </div>
-                <div class="fr-slider-row">
-                  <input class="fr-slider" data-layer-volume="whiteNoise" max="1" min="0" step="0.01" type="range" value="0.12">
-                  <span class="fr-slider-value" data-layer-value="whiteNoise">12%</span>
-                </div>
-              </div>
-            </div>
-
-            <p class="fr-rail-note">Low-visibility controls fade back after a few seconds of stillness so the room can stay primary.</p>
+          <div class="fr-actions">
+            <button class="fr-button primary" data-open-room type="button">Open the App</button>
+            <a class="fr-button secondary" href="#source">View the Build</a>
           </div>
         </aside>
       </div>
@@ -552,6 +389,282 @@
       <p class="fr-footer-note">On local <code>file://</code> previews, the highlighted excerpts still surface real code even when browser fetch rules block the full file viewer.</p>
     </section>
   </main>
+
+  <div class="fr-app-shell" data-app-shell hidden aria-hidden="true">
+    <div class="fr-app-frame" data-app-dialog role="dialog" aria-modal="true" aria-labelledby="frAppTitle" tabindex="-1">
+      <header class="fr-app-topbar">
+        <div class="fr-app-topbar-copy">
+          <span class="fr-panel-label" data-app-phase-label>Threshold</span>
+          <strong id="frAppTitle">Focus Room</strong>
+          <span class="fr-app-topbar-note">A quiet room for deep work.</span>
+        </div>
+        <div class="fr-app-topbar-actions">
+          <span class="fr-app-chip" data-app-mix-summary>Default mix: Piano, Rain, Brown Noise</span>
+          <button class="fr-button secondary fr-app-exit" data-close-room type="button">Exit</button>
+        </div>
+      </header>
+
+      <div class="fr-app-phase-wrap">
+        <section class="fr-app-phase fr-app-phase-threshold" data-app-phase="threshold">
+          <div class="fr-app-threshold-layout">
+            <div class="fr-threshold-stage fr-app-threshold-stage" data-app-threshold-stage aria-label="Threshold screen">
+              <div class="fr-threshold-backdrop">
+                <div class="fr-threshold-shell">
+                  <div class="fr-scene-stars" aria-hidden="true">
+                    <span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
+                    <span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
+                    <span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
+                    <span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
+                  </div>
+                  <div class="fr-scene-window" aria-hidden="true">
+                    <div class="fr-scene-rain">
+                      <span></span><span></span><span></span><span></span>
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  <div class="fr-scene-lamp" aria-hidden="true"></div>
+                  <div class="fr-scene-desk" aria-hidden="true"></div>
+                  <div class="fr-scene-record" aria-hidden="true"></div>
+                  <div class="fr-scene-book" aria-hidden="true"></div>
+                  <div class="fr-scene-cup" aria-hidden="true"></div>
+                  <div class="fr-threshold-demo-note" aria-hidden="true">Good work. Take a breath.</div>
+                </div>
+              </div>
+
+              <div class="fr-threshold-copy">
+                <div class="fr-threshold-orb" aria-hidden="true"></div>
+                <h2>Focus Room</h2>
+                <p>A quiet room for deep work.</p>
+                <button class="fr-threshold-trigger" data-app-threshold-trigger type="button">
+                  <span data-app-threshold-label>Hold to Enter</span>
+                </button>
+                <div class="fr-threshold-progress" aria-hidden="true">
+                  <span data-app-threshold-progress></span>
+                </div>
+                <p class="fr-threshold-footnote" data-app-threshold-prompt aria-live="polite">Press and hold to let the room surface.</p>
+              </div>
+
+              <div class="fr-stage-caption fr-stage-caption-app">
+                <div class="fr-stage-chip-row">
+                  <span class="fr-stage-chip fr-stage-chip-live">Threshold</span>
+                  <span class="fr-stage-chip">Hold to enter</span>
+                  <span class="fr-stage-chip">Fullscreen ritual</span>
+                </div>
+                <div class="fr-stage-loop">
+                  <span class="fr-stage-loop-label">Entry</span>
+                  <span class="fr-stage-loop-status" data-app-threshold-state aria-live="polite">Ready when you are</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="fr-app-phase fr-app-phase-room" data-app-phase="room" hidden>
+          <div class="fr-room-layout fr-app-room-layout">
+            <div class="fr-room-shell is-piano-active" data-app-room-shell>
+              <div class="fr-scene" style="--fr-ring-progress: 0.04;">
+                <div class="fr-scene-stars" aria-hidden="true">
+                  <span class="fr-scene-star" style="left: 20%; top: 11%;"></span>
+                  <span class="fr-scene-star" style="left: 46%; top: 9%; animation-delay: -1.4s;"></span>
+                  <span class="fr-scene-star" style="left: 62%; top: 13%; animation-delay: -3.2s;"></span>
+                  <span class="fr-scene-star" style="left: 79%; top: 18%; animation-delay: -2.1s;"></span>
+                  <span class="fr-scene-star bonus" style="left: 73%; top: 8%; animation-delay: -0.8s;"></span>
+                </div>
+                <div class="fr-scene-room">
+                  <div class="fr-scene-wall"></div>
+                  <div class="fr-scene-window">
+                    <div class="fr-scene-rain">
+                      <span></span><span></span><span></span><span></span>
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
+                  <div class="fr-scene-lamp"></div>
+                  <div class="fr-scene-desk"></div>
+                  <div class="fr-scene-record"></div>
+                  <div class="fr-scene-book"></div>
+                  <div class="fr-scene-cup"></div>
+                  <div class="fr-scene-note">Session star collected. The wall keeps a soft trace of finished work.</div>
+                </div>
+
+                <div class="fr-scene-ui ghost fr-scene-timer fr-ui-panel fr-ghost-panel" data-app-ghost-panel>
+                  <span class="fr-scene-timer-label">Focus Timer</span>
+                  <div class="fr-scene-timer-shell">
+                    <div class="fr-progress-ring">
+                      <svg viewBox="0 0 72 72" aria-hidden="true">
+                        <defs>
+                          <linearGradient id="frAppProgressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#a9c6d9"></stop>
+                            <stop offset="100%" stop-color="#efcf9e"></stop>
+                          </linearGradient>
+                        </defs>
+                        <circle class="track" cx="36" cy="36" r="31.4"></circle>
+                        <circle class="progress" cx="36" cy="36" r="31.4" data-app-ring-progress></circle>
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="fr-scene-clock" data-app-session-clock>25:00</div>
+                      <div class="fr-scene-status" data-app-session-status>Ready</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fr-scene-ui ghost fr-scene-mixer fr-ui-panel fr-ghost-panel" data-app-ghost-panel>
+                  <span class="fr-scene-timer-label">Ambient Layers</span>
+                  <div class="fr-mixer-pill-row">
+                    <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="piano"><span class="fr-mixer-pill-name">Piano</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="piano">42%</span></span>
+                    <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="rain"><span class="fr-mixer-pill-name">Rain</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="rain">58%</span></span>
+                    <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="brownNoise"><span class="fr-mixer-pill-name">Brown</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="brownNoise">34%</span></span>
+                    <span class="fr-mixer-pill" data-app-mini-layer-pill="cafe"><span class="fr-mixer-pill-name">Cafe</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="cafe">18%</span></span>
+                    <span class="fr-mixer-pill" data-app-mini-layer-pill="whiteNoise"><span class="fr-mixer-pill-name">White</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="whiteNoise">12%</span></span>
+                  </div>
+                </div>
+
+                <div class="fr-completion-note" data-app-completion-note>
+                  <strong>Session Complete</strong>
+                  <p>Good work. Take a breath.</p>
+                </div>
+              </div>
+            </div>
+
+            <aside class="fr-room-copy fr-story-rail fr-app-room-rail fr-ghost-panel" data-app-ghost-panel>
+              <div class="fr-rail-intro">
+                <span class="fr-panel-label">Current Mix</span>
+                <h3>Keep the default room or tune it gently</h3>
+                <p data-app-room-note>Rain, Piano, and Brown Noise are already carrying the room. Start immediately or soften the mix first.</p>
+              </div>
+
+              <div class="fr-hero-metrics fr-rail-metrics" aria-label="Current session setup">
+                <span class="fr-stat-chip"><strong>Default</strong><em>mix ready</em></span>
+                <span class="fr-stat-chip"><strong>Quiet</strong><em>ghost controls</em></span>
+                <span class="fr-stat-chip"><strong>Soft</strong><em>completion</em></span>
+              </div>
+
+              <div class="fr-rail-divider"></div>
+
+              <div class="fr-rail-section fr-timer-panel">
+                <div class="fr-rail-header">
+                  <strong>Session</strong>
+                  <span>Keep the default 25-minute room or change the session length first.</span>
+                </div>
+                <div class="fr-duration-row" role="toolbar" aria-label="Session duration options">
+                  <button class="fr-duration-chip is-active" data-app-duration="25" data-app-demo-seconds="90" type="button">25 min</button>
+                  <button class="fr-duration-chip" data-app-duration="50" data-app-demo-seconds="120" type="button">50 min</button>
+                  <button class="fr-duration-chip" data-app-duration="75" data-app-demo-seconds="105" type="button">Custom 75</button>
+                </div>
+                <div class="fr-timer-actions">
+                  <button class="fr-button primary" data-app-session-start type="button">Start Session</button>
+                  <button class="fr-button secondary" data-app-session-reset type="button">Reset</button>
+                </div>
+              </div>
+
+              <div class="fr-rail-divider"></div>
+
+              <div class="fr-rail-section">
+                <div class="fr-rail-header">
+                  <strong>Ambient Mix</strong>
+                  <span>Controls stay quiet until you reach for them, then fade back when the room settles.</span>
+                </div>
+
+                <div class="fr-layer-pill-grid">
+                  <div class="fr-layer-pill" data-app-layer-card="piano">
+                    <div class="fr-layer-pill-top">
+                      <span class="fr-icon-chip">P</span>
+                      <div class="fr-layer-copy">
+                        <strong>Piano</strong>
+                        <span>Soft vinyl warmth</span>
+                      </div>
+                      <label class="fr-switch">
+                        <input checked data-app-layer-toggle="piano" type="checkbox">
+                        <span class="fr-switch-track"></span>
+                      </label>
+                    </div>
+                    <div class="fr-slider-row">
+                      <input class="fr-slider" data-app-layer-volume="piano" max="1" min="0" step="0.01" type="range" value="0.42">
+                      <span class="fr-slider-value" data-app-layer-value="piano">42%</span>
+                    </div>
+                  </div>
+
+                  <div class="fr-layer-pill" data-app-layer-card="rain">
+                    <div class="fr-layer-pill-top">
+                      <span class="fr-icon-chip">R</span>
+                      <div class="fr-layer-copy">
+                        <strong>Rain</strong>
+                        <span>Window-side hush</span>
+                      </div>
+                      <label class="fr-switch">
+                        <input checked data-app-layer-toggle="rain" type="checkbox">
+                        <span class="fr-switch-track"></span>
+                      </label>
+                    </div>
+                    <div class="fr-slider-row">
+                      <input class="fr-slider" data-app-layer-volume="rain" max="1" min="0" step="0.01" type="range" value="0.58">
+                      <span class="fr-slider-value" data-app-layer-value="rain">58%</span>
+                    </div>
+                  </div>
+
+                  <div class="fr-layer-pill" data-app-layer-card="brownNoise">
+                    <div class="fr-layer-pill-top">
+                      <span class="fr-icon-chip">B</span>
+                      <div class="fr-layer-copy">
+                        <strong>Brown Noise</strong>
+                        <span>Low sheltering bed</span>
+                      </div>
+                      <label class="fr-switch">
+                        <input checked data-app-layer-toggle="brownNoise" type="checkbox">
+                        <span class="fr-switch-track"></span>
+                      </label>
+                    </div>
+                    <div class="fr-slider-row">
+                      <input class="fr-slider" data-app-layer-volume="brownNoise" max="1" min="0" step="0.01" type="range" value="0.34">
+                      <span class="fr-slider-value" data-app-layer-value="brownNoise">34%</span>
+                    </div>
+                  </div>
+
+                  <div class="fr-layer-pill" data-app-layer-card="cafe">
+                    <div class="fr-layer-pill-top">
+                      <span class="fr-icon-chip">C</span>
+                      <div class="fr-layer-copy">
+                        <strong>Cafe</strong>
+                        <span>Distant human texture</span>
+                      </div>
+                      <label class="fr-switch">
+                        <input data-app-layer-toggle="cafe" type="checkbox">
+                        <span class="fr-switch-track"></span>
+                      </label>
+                    </div>
+                    <div class="fr-slider-row">
+                      <input class="fr-slider" data-app-layer-volume="cafe" max="1" min="0" step="0.01" type="range" value="0.18">
+                      <span class="fr-slider-value" data-app-layer-value="cafe">18%</span>
+                    </div>
+                  </div>
+
+                  <div class="fr-layer-pill" data-app-layer-card="whiteNoise">
+                    <div class="fr-layer-pill-top">
+                      <span class="fr-icon-chip">W</span>
+                      <div class="fr-layer-copy">
+                        <strong>White Noise</strong>
+                        <span>Clean acoustic edge</span>
+                      </div>
+                      <label class="fr-switch">
+                        <input data-app-layer-toggle="whiteNoise" type="checkbox">
+                        <span class="fr-switch-track"></span>
+                      </label>
+                    </div>
+                    <div class="fr-slider-row">
+                      <input class="fr-slider" data-app-layer-volume="whiteNoise" max="1" min="0" step="0.01" type="range" value="0.12">
+                      <span class="fr-slider-value" data-app-layer-value="whiteNoise">12%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="fr-rail-note">The room is meant to be used, not inspected. Once the session starts, the controls fall back into the edges.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <script defer src="../js/focus-room.js"></script>
 </body>
