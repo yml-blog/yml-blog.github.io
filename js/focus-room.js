@@ -71,14 +71,19 @@
     var appSessionClock = document.querySelector('[data-app-session-clock]');
     var appSessionStatus = document.querySelector('[data-app-session-status]');
     var appRingProgress = document.querySelector('[data-app-ring-progress]');
+    var appSceneLabel = document.querySelector('[data-app-scene-label]');
+    var appSceneSub = document.querySelector('[data-app-scene-sub]');
     var appDurationButtons = Array.prototype.slice.call(document.querySelectorAll('[data-app-duration]'));
     var appStartButton = document.querySelector('[data-app-session-start]');
     var appResetButton = document.querySelector('[data-app-session-reset]');
+    var appMixerPanel = document.querySelector('[data-app-mixer-panel]');
+    var appMixerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-mixer-toggle]'));
 
-    var sceneGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-scene-ui[data-app-ghost-panel]'));
-    var railGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-app-room-rail[data-app-ghost-panel]'));
+    var hudGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-room__hud[data-app-ghost-panel]'));
+    var consoleGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-rack[data-app-ghost-panel], .fr-transport-bar[data-app-ghost-panel]'));
     var layerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-toggle]'));
     var layerSliders = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-volume]'));
+    var atmosphereInputs = Array.prototype.slice.call(document.querySelectorAll('[data-app-atmosphere]'));
 
     var codeButtons = Array.prototype.slice.call(document.querySelectorAll('[data-code-file]'));
     var codePath = document.querySelector('[data-code-path]');
@@ -135,7 +140,8 @@
         pausedElapsedMs: 0,
         frame: null,
         completionVisible: false,
-        ghostTimer: null
+        ghostTimer: null,
+        mixerExpanded: false
     };
 
     var audioState = {
@@ -143,6 +149,20 @@
         layers: {},
         chime: null,
         completionTimer: null
+    };
+
+    var atmosphereState = {
+        warmth: 0.42,
+        focusDepth: 0.36,
+        fog: 0.28
+    };
+
+    var visualState = {
+        progress: 0,
+        lampWarmthBoost: 0,
+        rainDensityBoost: 0,
+        consoleDim: 0.08,
+        hudFade: 1
     };
 
     var codeFallbacks = {
@@ -809,12 +829,12 @@
         }
 
         if (sessionState.completionVisible) {
-            appRoomNote.textContent = 'The room leaves a small trace behind, then returns to stillness.';
+            appRoomNote.textContent = 'The console exhales a soft reflection, then returns to rain and stillness.';
             return;
         }
 
         if (sessionState.running) {
-            appRoomNote.textContent = 'The session is live. The room warms and deepens quietly while everything else falls back.';
+            appRoomNote.textContent = 'Transport is live. Light warms, the glass deepens, and the rest of the room falls back.';
             return;
         }
 
@@ -824,13 +844,13 @@
         });
 
         if (!activeLayers.length) {
-            appRoomNote.textContent = 'Bring one layer in before you start and keep the room nearly invisible after that.';
+            appRoomNote.textContent = 'Bring one channel up before you roll transport and let the room do the rest.';
             return;
         }
 
         var readableNames = activeLayers.slice(0, 3).map(getLayerDisplayName);
 
-        appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are already carrying the room. Start immediately or soften the mix first.';
+        appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are already carrying the room. Roll transport when it feels right.';
     }
 
     function updateMixSummary() {
@@ -865,22 +885,53 @@
     }
 
     function setGhostPanels(isAwake) {
-        var sceneOpacity = isAwake ? 0.82 : (sessionState.running ? 0.12 : 0.34);
-        var railOpacity = isAwake ? 0.94 : (sessionState.running ? 0.68 : 0.86);
+        var hudOpacity = isAwake ? 0.96 : (sessionState.running ? 0.58 : 0.82);
+        var consoleOpacity = isAwake ? 1 : 0.98;
 
-        sceneGhostPanels.forEach(function (panel) {
+        hudGhostPanels.forEach(function (panel) {
             panel.classList.toggle('is-awake', isAwake);
-            panel.style.opacity = sceneOpacity.toFixed(3);
+            panel.style.opacity = hudOpacity.toFixed(3);
         });
 
-        railGhostPanels.forEach(function (panel) {
+        consoleGhostPanels.forEach(function (panel) {
             panel.classList.toggle('is-awake', isAwake);
-            panel.style.opacity = railOpacity.toFixed(3);
+            panel.style.opacity = consoleOpacity.toFixed(3);
         });
 
         if (appRoomShell) {
-            appRoomShell.style.setProperty('--fr-ghost-opacity', sceneOpacity.toFixed(3));
+            appRoomShell.style.setProperty('--fr-ghost-opacity', consoleOpacity.toFixed(3));
         }
+    }
+
+    function defaultMixerExpanded() {
+        return true;
+    }
+
+    function canCollapseConsole() {
+        return false;
+    }
+
+    function setMixerExpanded(shouldExpand) {
+        var collapsible = canCollapseConsole();
+
+        sessionState.mixerExpanded = true;
+
+        if (appMixerPanel) {
+            setHidden(appMixerPanel, false);
+        }
+
+        if (appRoomShell) {
+            appRoomShell.classList.toggle('is-console-open', sessionState.mixerExpanded);
+            appRoomShell.classList.toggle('is-mixer-open', sessionState.mixerExpanded);
+        }
+
+        appMixerToggles.forEach(function (button) {
+            setHidden(button, true);
+            button.setAttribute('aria-expanded', 'true');
+            button.textContent = 'Console';
+        });
+
+        setGhostPanels(sessionState.mixerExpanded);
     }
 
     function wakeGhostUI(delayMs) {
@@ -900,32 +951,28 @@
             return;
         }
 
-        var clamped = clamp(progress, 0, 1);
-        var rainToggle = document.querySelector('[data-app-layer-toggle="rain"]');
-        var rainSlider = document.querySelector('[data-app-layer-volume="rain"]');
-        var rainStrength = 0.08;
+        var eased = smoothstep(progress);
 
-        if (rainToggle && rainToggle.checked && rainSlider) {
-            rainStrength = Math.max(0.18, Number(rainSlider.value || '0.55') + clamped * 0.16);
-        }
+        visualState.progress = eased;
+        visualState.lampWarmthBoost = eased * 0.18;
+        visualState.rainDensityBoost = eased * 0.14;
+        visualState.consoleDim = 0.08 + eased * 0.18;
+        visualState.hudFade = 1 - eased * 0.32;
 
-        appRoomShell.style.setProperty('--fr-session-progress', clamped.toFixed(3));
-        appRoomShell.style.setProperty('--fr-lamp-warmth', (0.28 + clamped * 0.48).toFixed(3));
-        appRoomShell.style.setProperty('--fr-rain-strength', clamp(rainStrength, 0.08, 1).toFixed(3));
-        appRoomShell.style.setProperty('--fr-note-opacity', clamped >= 1 ? '1' : '0');
-        appRoomShell.style.setProperty('--fr-bonus-star-opacity', clamped >= 1 ? '1' : '0');
+        appRoomShell.style.setProperty('--fr-session-progress', eased.toFixed(3));
+        appRoomShell.style.setProperty('--fr-lamp-warmth-boost', visualState.lampWarmthBoost.toFixed(3));
+        appRoomShell.style.setProperty('--fr-rain-density-boost', visualState.rainDensityBoost.toFixed(3));
+        appRoomShell.style.setProperty('--fr-console-dim', visualState.consoleDim.toFixed(3));
+        appRoomShell.style.setProperty('--fr-hud-fade', visualState.hudFade.toFixed(3));
+        appRoomShell.style.setProperty('--fr-completion-softness', (sessionState.completionVisible ? 0.84 : eased * 0.16).toFixed(3));
+        applyAtmosphereFromConsole();
     }
 
     function syncLayerVisual(layerName) {
-        if (!appRoomShell) {
-            return;
-        }
-
         var toggle = document.querySelector('[data-app-layer-toggle="' + layerName + '"]');
         var slider = document.querySelector('[data-app-layer-volume="' + layerName + '"]');
         var card = document.querySelector('[data-app-layer-card="' + layerName + '"]');
-        var miniPill = document.querySelector('[data-app-mini-layer-pill="' + layerName + '"]');
-        var valueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-value="' + layerName + '"], [data-app-mini-layer-value="' + layerName + '"]'));
+        var valueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-value="' + layerName + '"]'));
         var isOn = !!(toggle && toggle.checked);
         var volume = slider ? Number(slider.value || '0') : 0;
         var displayValue = formatPercent(volume);
@@ -941,25 +988,115 @@
 
         if (card) {
             card.classList.toggle('is-active', isAudible);
+            card.style.setProperty('--fr-strip-level', volume.toFixed(3));
+            card.style.setProperty('--fr-strip-presence', isAudible ? '1' : '0');
         }
 
-        if (miniPill) {
-            miniPill.classList.toggle('is-on', isAudible);
+        if (appRoomShell) {
+            appRoomShell.classList.toggle('is-' + layerName + '-active', isAudible);
         }
 
-        if (layerName === 'piano') {
-            appRoomShell.classList.toggle('is-piano-active', isOn && volume > 0.05);
+        if (layerName === 'piano' && appRoomShell) {
+            appRoomShell.classList.toggle('is-piano-active', isAudible);
         }
 
-        if (layerName === 'rain') {
-            appRoomShell.style.setProperty('--fr-rain-strength', isOn ? Math.max(0.18, volume).toFixed(3) : '0.08');
-        }
+        applyAtmosphereFromConsole();
     }
 
     function syncAllLayers() {
         layerNames.forEach(syncLayerVisual);
         updateMixSummary();
         updateRoomNote();
+    }
+
+    function syncAtmosphereInputs() {
+        atmosphereInputs.forEach(function (input) {
+            var key = input.getAttribute('data-app-atmosphere');
+            var value = clamp(Number(input.value || '0'), 0, 1);
+            var valueNodes = Array.prototype.slice.call(document.querySelectorAll('[data-app-atmosphere-value="' + key + '"]'));
+            var knob = input.closest('.fr-console-knob');
+
+            if (!Object.prototype.hasOwnProperty.call(atmosphereState, key)) {
+                return;
+            }
+
+            atmosphereState[key] = value;
+
+            if (knob) {
+                knob.style.setProperty('--fr-knob-value', value.toFixed(3));
+                knob.style.setProperty('--fr-knob-angle', (-120 + value * 240).toFixed(1) + 'deg');
+            }
+
+            valueNodes.forEach(function (node) {
+                node.textContent = formatPercent(value);
+            });
+        });
+
+        applyAtmosphereFromConsole();
+    }
+
+    function applyAtmosphereFromConsole() {
+        if (!appRoomShell) {
+            return;
+        }
+
+        var rain = getLayerState('rain');
+        var piano = getLayerState('piano');
+        var wind = getLayerState('wind');
+        var cafe = getLayerState('cafe');
+        var water = getLayerState('water');
+
+        var rainValue = rain.enabled ? rain.volume : 0;
+        var pianoValue = piano.enabled ? piano.volume : 0;
+        var windValue = wind.enabled ? wind.volume : 0;
+        var cafeValue = cafe.enabled ? cafe.volume : 0;
+        var waterValue = water.enabled ? water.volume : 0;
+
+        var warmth = clamp(atmosphereState.warmth + pianoValue * 0.24 + cafeValue * 0.14 + visualState.lampWarmthBoost, 0, 1);
+        var focusDepth = clamp(atmosphereState.focusDepth + windValue * 0.16 + visualState.progress * 0.16, 0, 1);
+        var fog = clamp(atmosphereState.fog + rainValue * 0.14 + windValue * 0.08, 0, 1);
+        var rainStrength = clamp(Math.max(0.06, rainValue) + visualState.rainDensityBoost, 0.06, 1);
+        var skyGlow = clamp(0.22 + rainStrength * 0.22 + (1 - focusDepth) * 0.08, 0.18, 0.72);
+        var roomCalm = clamp(0.28 + (1 - cafeValue) * 0.18 + (1 - windValue) * 0.10, 0.18, 0.84);
+        var deskReflectionWarmth = clamp((warmth * 0.74) + (visualState.progress * 0.24) + (waterValue * 0.14), 0.08, 1);
+        var sceneName = 'Deep Rain';
+        var sceneSub = 'Warm desk / cold glass';
+
+        appRoomShell.style.setProperty('--fr-rain-strength', rainStrength.toFixed(3));
+        appRoomShell.style.setProperty('--fr-window-fog-level', fog.toFixed(3));
+        appRoomShell.style.setProperty('--fr-lamp-warmth', warmth.toFixed(3));
+        appRoomShell.style.setProperty('--fr-focus-depth', focusDepth.toFixed(3));
+        appRoomShell.style.setProperty('--fr-room-calm', roomCalm.toFixed(3));
+        appRoomShell.style.setProperty('--fr-water-shimmer', waterValue.toFixed(3));
+        appRoomShell.style.setProperty('--fr-sky-glow', skyGlow.toFixed(3));
+        appRoomShell.style.setProperty('--fr-desk-reflection-warmth', deskReflectionWarmth.toFixed(3));
+        appRoomShell.style.setProperty('--fr-console-dim', clamp(visualState.consoleDim + focusDepth * 0.10, 0.08, 0.42).toFixed(3));
+        appRoomShell.style.setProperty('--fr-hud-fade', clamp(visualState.hudFade - focusDepth * 0.10, 0.48, 1).toFixed(3));
+
+        if (sessionState.completionVisible) {
+            sceneName = 'Soft Return';
+            sceneSub = 'Warm spill / quiet glass';
+        } else if (warmth > 0.68) {
+            sceneName = 'Warm Console';
+            sceneSub = 'Tungsten spill / softened desk';
+        } else if (rainStrength > 0.72) {
+            sceneName = 'Storm Focus';
+            sceneSub = 'Dense field / deepened glass';
+        } else if (focusDepth > 0.62) {
+            sceneName = 'Night Focus';
+            sceneSub = 'Dimmed HUD / longer room';
+        } else if (waterValue > 0.34) {
+            sceneName = 'Low Current';
+            sceneSub = 'Rain field / water shimmer';
+        }
+
+        if (appSceneLabel) {
+            appSceneLabel.textContent = sceneName;
+        }
+
+        if (appSceneSub) {
+            appSceneSub.textContent = sceneSub;
+        }
     }
 
     function updateDurationButtons(activeMinutes) {
@@ -1141,7 +1278,12 @@
     function saveSettings() {
         var payload = {
             selectedMinutes: sessionState.selectedMinutes,
-            layers: {}
+            layers: {},
+            atmosphere: {
+                warmth: atmosphereState.warmth,
+                focusDepth: atmosphereState.focusDepth,
+                fog: atmosphereState.fog
+            }
         };
 
         layerNames.forEach(function (name) {
@@ -1172,6 +1314,7 @@
         }
 
         if (!raw) {
+            syncAtmosphereInputs();
             updateDurationButtons(sessionState.selectedMinutes);
             return;
         }
@@ -1183,6 +1326,7 @@
         }
 
         if (!parsed) {
+            syncAtmosphereInputs();
             updateDurationButtons(sessionState.selectedMinutes);
             return;
         }
@@ -1225,6 +1369,18 @@
             });
         }
 
+        if (parsed.atmosphere) {
+            atmosphereInputs.forEach(function (input) {
+                var key = input.getAttribute('data-app-atmosphere');
+                var storedValue = parsed.atmosphere[key];
+
+                if (typeof storedValue === 'number') {
+                    input.value = clamp(storedValue, 0, 1).toFixed(2);
+                }
+            });
+        }
+
+        syncAtmosphereInputs();
         updateDurationButtons(sessionState.selectedMinutes);
     }
 
@@ -1270,6 +1426,7 @@
 
         window.setTimeout(function () {
             setAppPhase('room');
+            setMixerExpanded(defaultMixerExpanded());
             stopAppThresholdLoop();
             wakeGhostUI(2600);
 
@@ -1352,6 +1509,7 @@
         setAppPhase('threshold');
         resetThresholdView();
         resetSession();
+        setMixerExpanded(defaultMixerExpanded());
         syncAllLayers();
         saveSettings();
 
@@ -1403,6 +1561,7 @@
         appShell.setAttribute('aria-hidden', 'true');
         setPageInert(false);
         unlockBodyScroll();
+        setMixerExpanded(false);
 
         window.setTimeout(function () {
             if (!appState.isOpen) {
@@ -1668,6 +1827,13 @@
         });
     }
 
+    appMixerToggles.forEach(function (button) {
+        button.addEventListener('click', function () {
+            setMixerExpanded(!sessionState.mixerExpanded);
+            wakeGhostUI(sessionState.mixerExpanded ? 2400 : 1600);
+        });
+    });
+
     layerToggles.forEach(function (toggle) {
         toggle.addEventListener('change', function () {
             var layerName = toggle.getAttribute('data-app-layer-toggle');
@@ -1702,6 +1868,14 @@
         });
     });
 
+    atmosphereInputs.forEach(function (input) {
+        input.addEventListener('input', function () {
+            syncAtmosphereInputs();
+            saveSettings();
+            wakeGhostUI();
+        });
+    });
+
     codeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             loadCodeFile(button);
@@ -1710,10 +1884,20 @@
 
     initializeAudioEngine();
     applyStoredSettings();
+    syncAtmosphereInputs();
     syncAllLayers();
     resetSession();
+    setMixerExpanded(defaultMixerExpanded());
     resetThresholdView();
     beginPreviewLoop();
+
+    window.addEventListener('resize', function () {
+        if (!appRoomShell) {
+            return;
+        }
+
+        setMixerExpanded(sessionState.mixerExpanded);
+    });
 
     if (codeButtons.length) {
         var initialCodeButton = codeButtons.filter(function (button) {

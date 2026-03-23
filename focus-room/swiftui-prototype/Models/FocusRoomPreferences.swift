@@ -100,6 +100,10 @@ struct RoomAtmosphere: Equatable {
     let lampWarmth: Double
     let backgroundDepth: Double
     let rainIntensity: Double
+    let rainDepth: Double
+    let skyGlow: Double
+    let deskReflectionWarmth: Double
+    let completionSoftness: Double
     let pianoIsSpinning: Bool
     let earnedStars: Int
     let backgroundBlur: Double

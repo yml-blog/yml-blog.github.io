@@ -8,40 +8,59 @@ struct AmbientMixerView: View {
 
     var body: some View {
         GhostGlassPanel(opacity: ghostOpacity) {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Ambient Mixer")
-                    .font(.system(size: 12, weight: .bold, design: .rounded))
-                    .foregroundStyle(FocusRoomTheme.textSecondary)
-                    .tracking(2)
-                    .textCase(.uppercase)
+            VStack(alignment: .leading, spacing: 14) {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Sound")
+                            .font(.system(size: 11, weight: .bold, design: .rounded))
+                            .foregroundStyle(FocusRoomTheme.textSecondary)
+                            .tracking(2)
+                            .textCase(.uppercase)
 
-                Text("Each layer can stay almost invisible until the user reaches for it.")
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundStyle(FocusRoomTheme.textSecondary)
+                        Text("\(activeLayerCount) layers shaping the room")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundStyle(FocusRoomTheme.textPrimary)
+                    }
+
+                    Spacer()
+
+                    Text(activeLayerCount == 0 ? "Muted" : "Live")
+                        .font(.system(size: 12, weight: .semibold, design: .rounded))
+                        .foregroundStyle(FocusRoomTheme.textSecondary)
+                        .padding(.horizontal, 10)
+                        .frame(height: 28)
+                        .background(Color.white.opacity(0.04), in: Capsule(style: .continuous))
+                }
 
                 ForEach(layers) { layer in
                     VStack(alignment: .leading, spacing: 10) {
-                        HStack(spacing: 14) {
+                        HStack(spacing: 12) {
                             ZStack {
                                 Circle()
                                     .fill(layer.kind.tint.opacity(0.16))
+
                                 Image(systemName: layer.kind.symbolName)
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundStyle(layer.kind.tint)
                             }
-                            .frame(width: 38, height: 38)
+                            .frame(width: 34, height: 34)
 
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(layer.kind.title)
-                                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
                                     .foregroundStyle(FocusRoomTheme.textPrimary)
 
                                 Text(layer.kind.subtitle)
-                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .font(.system(size: 11, weight: .medium, design: .rounded))
                                     .foregroundStyle(FocusRoomTheme.textSecondary)
                             }
 
                             Spacer()
+
+                            Text("\(Int(layer.volume * 100))")
+                                .font(.system(size: 11, weight: .semibold, design: .rounded))
+                                .foregroundStyle(FocusRoomTheme.textSecondary)
+                                .frame(width: 28, alignment: .trailing)
 
                             Toggle("", isOn: Binding(
                                 get: { layer.isEnabled },
@@ -62,14 +81,9 @@ struct AmbientMixerView: View {
                             .tint(layer.kind.tint)
                             .disabled(!layer.isEnabled)
                             .opacity(layer.isEnabled ? 1 : 0.35)
-
-                            Text("\(Int(layer.volume * 100))%")
-                                .font(.system(size: 12, weight: .semibold, design: .rounded))
-                                .foregroundStyle(FocusRoomTheme.textSecondary)
-                                .frame(width: 40, alignment: .trailing)
                         }
                     }
-                    .padding(14)
+                    .padding(12)
                     .background(Color.white.opacity(0.03), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
@@ -77,7 +91,12 @@ struct AmbientMixerView: View {
                     )
                 }
             }
+            .frame(maxWidth: 320, alignment: .leading)
         }
+    }
+
+    private var activeLayerCount: Int {
+        layers.filter(\.isEnabled).count
     }
 }
 

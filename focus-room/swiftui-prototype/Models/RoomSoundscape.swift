@@ -138,20 +138,24 @@ struct StudyRoomSoundscapeStrategy: RoomSoundscapeStrategy {
     ) -> RoomAtmosphere {
         let clampedProgress = clamped(sessionProgress)
         let mix = makeMix(from: layers, sessionProgress: clampedProgress)
-        let completionBoost = sessionState == .completed ? 0.06 : 0
+        let completionBoost = sessionState == .completed ? 0.12 : 0
         let rainLevel = level(for: .rain, in: mix)
         let pianoLevel = level(for: .piano, in: mix)
 
         return RoomAtmosphere(
             progress: clampedProgress,
-            lampWarmth: 0.24 + (clampedProgress * 0.46) + completionBoost,
-            backgroundDepth: 0.22 + (clampedProgress * 0.5),
-            rainIntensity: max(0.10, rainLevel + (clampedProgress * 0.08)),
+            lampWarmth: 0.14 + (clampedProgress * 0.58) + completionBoost,
+            backgroundDepth: 0.24 + (clampedProgress * 0.46) + (rainLevel * 0.10),
+            rainIntensity: max(0.12, 0.18 + (rainLevel * 0.72) + (clampedProgress * 0.08)),
+            rainDepth: 0.24 + (rainLevel * 0.58) + (clampedProgress * 0.14),
+            skyGlow: 0.34 + (rainLevel * 0.20) + ((1 - clampedProgress) * 0.10) + (completionBoost * 0.28),
+            deskReflectionWarmth: 0.10 + (clampedProgress * 0.72) + completionBoost,
+            completionSoftness: sessionState == .completed ? 0.82 : (clampedProgress * 0.10),
             pianoIsSpinning: pianoLevel > 0.05,
             earnedStars: max(earnedStars, sessionState == .completed ? 1 : 0),
-            backgroundBlur: 18 - (clampedProgress * 9),
-            colorTemperature: 0.16 + (clampedProgress * 0.76) + completionBoost,
-            grainIntensity: max(0.025, 0.16 - (clampedProgress * 0.12))
+            backgroundBlur: 20 - (clampedProgress * 10),
+            colorTemperature: 0.10 + (clampedProgress * 0.70) + (completionBoost * 0.44),
+            grainIntensity: max(0.025, 0.15 - (clampedProgress * 0.11))
         )
     }
 }
@@ -195,9 +199,13 @@ struct LibraryRoomSoundscapeStrategy: RoomSoundscapeStrategy {
 
         return RoomAtmosphere(
             progress: clampedProgress,
-            lampWarmth: 0.20 + (clampedProgress * 0.38),
-            backgroundDepth: 0.26 + (clampedProgress * 0.46),
-            rainIntensity: max(0.04, level(for: .rain, in: mix) * 0.85),
+            lampWarmth: 0.18 + (clampedProgress * 0.34) + (sessionState == .completed ? 0.06 : 0),
+            backgroundDepth: 0.30 + (clampedProgress * 0.40),
+            rainIntensity: max(0.06, 0.08 + (level(for: .rain, in: mix) * 0.62)),
+            rainDepth: 0.18 + (level(for: .rain, in: mix) * 0.44),
+            skyGlow: 0.28 + ((1 - clampedProgress) * 0.08),
+            deskReflectionWarmth: 0.12 + (clampedProgress * 0.42),
+            completionSoftness: sessionState == .completed ? 0.66 : (clampedProgress * 0.08),
             pianoIsSpinning: level(for: .piano, in: mix) > 0.06,
             earnedStars: max(earnedStars, sessionState == .completed ? 1 : 0),
             backgroundBlur: 16 - (clampedProgress * 7),
@@ -244,9 +252,13 @@ struct ForestRoomSoundscapeStrategy: RoomSoundscapeStrategy {
 
         return RoomAtmosphere(
             progress: clampedProgress,
-            lampWarmth: 0.18 + (clampedProgress * 0.34),
+            lampWarmth: 0.16 + (clampedProgress * 0.30) + (sessionState == .completed ? 0.05 : 0),
             backgroundDepth: 0.28 + (clampedProgress * 0.42),
-            rainIntensity: max(0.12, level(for: .rain, in: mix) + 0.10),
+            rainIntensity: max(0.14, 0.12 + level(for: .rain, in: mix) * 0.78),
+            rainDepth: 0.28 + (level(for: .rain, in: mix) * 0.56),
+            skyGlow: 0.30 + (level(for: .rain, in: mix) * 0.14),
+            deskReflectionWarmth: 0.08 + (clampedProgress * 0.36),
+            completionSoftness: sessionState == .completed ? 0.58 : (clampedProgress * 0.06),
             pianoIsSpinning: level(for: .piano, in: mix) > 0.06,
             earnedStars: max(earnedStars, sessionState == .completed ? 1 : 0),
             backgroundBlur: 15 - (clampedProgress * 6),
