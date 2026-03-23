@@ -399,7 +399,7 @@
           <span class="fr-app-topbar-note">A quiet room for deep work.</span>
         </div>
         <div class="fr-app-topbar-actions">
-          <span class="fr-app-chip" data-app-mix-summary>Default mix: Piano, Rain, Brown Noise</span>
+          <span class="fr-app-chip" data-app-mix-summary>Default mix: Piano, Rain, Wind</span>
           <button class="fr-button secondary fr-app-exit" data-close-room type="button">Exit</button>
         </div>
       </header>
@@ -513,9 +513,9 @@
                   <div class="fr-mixer-pill-row">
                     <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="piano"><span class="fr-mixer-pill-name">Piano</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="piano">42%</span></span>
                     <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="rain"><span class="fr-mixer-pill-name">Rain</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="rain">58%</span></span>
-                    <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="brownNoise"><span class="fr-mixer-pill-name">Brown</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="brownNoise">34%</span></span>
+                    <span class="fr-mixer-pill is-on" data-app-mini-layer-pill="wind"><span class="fr-mixer-pill-name">Wind</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="wind">34%</span></span>
                     <span class="fr-mixer-pill" data-app-mini-layer-pill="cafe"><span class="fr-mixer-pill-name">Cafe</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="cafe">18%</span></span>
-                    <span class="fr-mixer-pill" data-app-mini-layer-pill="whiteNoise"><span class="fr-mixer-pill-name">White</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="whiteNoise">12%</span></span>
+                    <span class="fr-mixer-pill" data-app-mini-layer-pill="water"><span class="fr-mixer-pill-name">Water</span><span class="fr-mixer-pill-value" data-app-mini-layer-value="water">12%</span></span>
                   </div>
                 </div>
 
@@ -530,7 +530,7 @@
               <div class="fr-rail-intro">
                 <span class="fr-panel-label">Current Mix</span>
                 <h3>Keep the default room or tune it gently</h3>
-                <p data-app-room-note>Rain, Piano, and Brown Noise are already carrying the room. Start immediately or soften the mix first.</p>
+                <p data-app-room-note>Rain, Piano, and Wind are already carrying the room. Start immediately or soften the mix first.</p>
               </div>
 
               <div class="fr-hero-metrics fr-rail-metrics" aria-label="Current session setup">
@@ -574,12 +574,12 @@
                         <span>Soft vinyl warmth</span>
                       </div>
                       <label class="fr-switch">
-                        <input checked data-app-layer-toggle="piano" type="checkbox">
+                        <input checked data-app-layer-toggle="piano" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Piano layer">
                         <span class="fr-switch-track"></span>
                       </label>
                     </div>
                     <div class="fr-slider-row">
-                      <input class="fr-slider" data-app-layer-volume="piano" max="1" min="0" step="0.01" type="range" value="0.42">
+                      <input class="fr-slider" data-app-layer-volume="piano" max="1" min="0" step="0.01" type="range" value="0.42" aria-label="Piano volume">
                       <span class="fr-slider-value" data-app-layer-value="piano">42%</span>
                     </div>
                   </div>
@@ -592,31 +592,31 @@
                         <span>Window-side hush</span>
                       </div>
                       <label class="fr-switch">
-                        <input checked data-app-layer-toggle="rain" type="checkbox">
+                        <input checked data-app-layer-toggle="rain" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Rain layer">
                         <span class="fr-switch-track"></span>
                       </label>
                     </div>
                     <div class="fr-slider-row">
-                      <input class="fr-slider" data-app-layer-volume="rain" max="1" min="0" step="0.01" type="range" value="0.58">
+                      <input class="fr-slider" data-app-layer-volume="rain" max="1" min="0" step="0.01" type="range" value="0.58" aria-label="Rain volume">
                       <span class="fr-slider-value" data-app-layer-value="rain">58%</span>
                     </div>
                   </div>
 
-                  <div class="fr-layer-pill" data-app-layer-card="brownNoise">
+                  <div class="fr-layer-pill" data-app-layer-card="wind">
                     <div class="fr-layer-pill-top">
-                      <span class="fr-icon-chip">B</span>
+                      <span class="fr-icon-chip">W</span>
                       <div class="fr-layer-copy">
-                        <strong>Brown Noise</strong>
-                        <span>Low sheltering bed</span>
+                        <strong>Wind</strong>
+                        <span>Cold airy drift</span>
                       </div>
                       <label class="fr-switch">
-                        <input checked data-app-layer-toggle="brownNoise" type="checkbox">
+                        <input checked data-app-layer-toggle="wind" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Wind layer">
                         <span class="fr-switch-track"></span>
                       </label>
                     </div>
                     <div class="fr-slider-row">
-                      <input class="fr-slider" data-app-layer-volume="brownNoise" max="1" min="0" step="0.01" type="range" value="0.34">
-                      <span class="fr-slider-value" data-app-layer-value="brownNoise">34%</span>
+                      <input class="fr-slider" data-app-layer-volume="wind" max="1" min="0" step="0.01" type="range" value="0.34" aria-label="Wind volume">
+                      <span class="fr-slider-value" data-app-layer-value="wind">34%</span>
                     </div>
                   </div>
 
@@ -628,31 +628,31 @@
                         <span>Distant human texture</span>
                       </div>
                       <label class="fr-switch">
-                        <input data-app-layer-toggle="cafe" type="checkbox">
+                        <input data-app-layer-toggle="cafe" type="checkbox" role="switch" aria-checked="false" aria-label="Toggle Cafe layer">
                         <span class="fr-switch-track"></span>
                       </label>
                     </div>
                     <div class="fr-slider-row">
-                      <input class="fr-slider" data-app-layer-volume="cafe" max="1" min="0" step="0.01" type="range" value="0.18">
+                      <input class="fr-slider" data-app-layer-volume="cafe" max="1" min="0" step="0.01" type="range" value="0.18" aria-label="Cafe volume">
                       <span class="fr-slider-value" data-app-layer-value="cafe">18%</span>
                     </div>
                   </div>
 
-                  <div class="fr-layer-pill" data-app-layer-card="whiteNoise">
+                  <div class="fr-layer-pill" data-app-layer-card="water">
                     <div class="fr-layer-pill-top">
-                      <span class="fr-icon-chip">W</span>
+                      <span class="fr-icon-chip">A</span>
                       <div class="fr-layer-copy">
-                        <strong>White Noise</strong>
-                        <span>Clean acoustic edge</span>
+                        <strong>Water</strong>
+                        <span>Low stream texture</span>
                       </div>
                       <label class="fr-switch">
-                        <input data-app-layer-toggle="whiteNoise" type="checkbox">
+                        <input data-app-layer-toggle="water" type="checkbox" role="switch" aria-checked="false" aria-label="Toggle Water layer">
                         <span class="fr-switch-track"></span>
                       </label>
                     </div>
                     <div class="fr-slider-row">
-                      <input class="fr-slider" data-app-layer-volume="whiteNoise" max="1" min="0" step="0.01" type="range" value="0.12">
-                      <span class="fr-slider-value" data-app-layer-value="whiteNoise">12%</span>
+                      <input class="fr-slider" data-app-layer-volume="water" max="1" min="0" step="0.01" type="range" value="0.12" aria-label="Water volume">
+                      <span class="fr-slider-value" data-app-layer-value="water">12%</span>
                     </div>
                   </div>
                 </div>

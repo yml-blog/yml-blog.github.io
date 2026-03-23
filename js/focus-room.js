@@ -85,7 +85,22 @@
     var codeContent = document.querySelector('[data-code-content]');
     var codeStatus = document.querySelector('[data-code-status]');
 
-    var layerNames = ['piano', 'rain', 'brownNoise', 'cafe', 'whiteNoise'];
+    var layerNames = ['piano', 'rain', 'wind', 'cafe', 'water'];
+    var layerDisplayNames = {
+        piano: 'Piano',
+        rain: 'Rain',
+        wind: 'Wind',
+        cafe: 'Cafe',
+        water: 'Water'
+    };
+    var AUDIO_SOURCES = {
+        piano: './swiftui-prototype/public/audio/piano/piano-last-night.mp3',
+        rain: './swiftui-prototype/public/audio/rain/light-rain.mp3',
+        cafe: './swiftui-prototype/public/audio/cafe/cafe-ambience-soft.mp3',
+        wind: './swiftui-prototype/public/audio/wind/arctic-cold-wind.mp3',
+        water: './swiftui-prototype/public/audio/water/mountain-stream.mp3',
+        chime: './swiftui-prototype/public/audio/chime/wind-chime-toll.mp3'
+    };
     var storageKey = 'focus-room.web-settings';
 
     var previewState = {
@@ -121,6 +136,13 @@
         frame: null,
         completionVisible: false,
         ghostTimer: null
+    };
+
+    var audioState = {
+        hasUserInteracted: false,
+        layers: {},
+        chime: null,
+        completionTimer: null
     };
 
     var codeFallbacks = {
@@ -254,6 +276,250 @@
             '}'
         ].join('\n')
     };
+
+    function getLayerDisplayName(layerName) {
+        return layerDisplayNames[layerName] || (layerName.charAt(0).toUpperCase() + layerName.slice(1));
+    }
+
+    function getLayerElements(layerName) {
+        return {
+            toggle: document.querySelector('[data-app-layer-toggle="' + layerName + '"]'),
+            slider: document.querySelector('[data-app-layer-volume="' + layerName + '"]')
+        };
+    }
+
+    function getLayerState(layerName) {
+        var elements = getLayerElements(layerName);
+
+        return {
+            enabled: !!(elements.toggle && elements.toggle.checked),
+            volume: elements.slider ? clamp(Number(elements.slider.value || '0'), 0, 1) : 0
+        };
+    }
+
+    function safePreloadAudio(audio) {
+        if (!audio || typeof audio.load !== 'function') {
+            return;
+        }
+
+        try {
+            audio.load();
+        } catch (error) {
+            // Ignore preload failures and let play() surface issues later.
+        }
+    }
+
+    function createAudioController(key, source, options) {
+        if (!source) {
+            return null;
+        }
+
+        var config = options || {};
+        var audio = new Audio(source);
+        audio.preload = config.preload || 'auto';
+        audio.loop = !!config.loop;
+        audio.volume = clamp(typeof config.volume === 'number' ? config.volume : 0, 0, 1);
+        audio.playsInline = true;
+
+        safePreloadAudio(audio);
+
+        return {
+            key: key,
+            audio: audio,
+            loop: !!config.loop,
+            frame: null
+        };
+    }
+
+    function initializeAudioEngine() {
+        layerNames.forEach(function (layerName) {
+            audioState.layers[layerName] = createAudioController(layerName, AUDIO_SOURCES[layerName], {
+                loop: true,
+                volume: 0
+            });
+        });
+
+        audioState.chime = createAudioController('chime', AUDIO_SOURCES.chime, {
+            loop: false,
+            volume: 0.42
+        });
+    }
+
+    function registerAudioInteraction() {
+        audioState.hasUserInteracted = true;
+    }
+
+    function safePlayAudio(audio) {
+        if (!audio || !audioState.hasUserInteracted) {
+            return Promise.resolve(false);
+        }
+
+        var playPromise = audio.play();
+
+        if (!playPromise || typeof playPromise.then !== 'function') {
+            return Promise.resolve(true);
+        }
+
+        return playPromise.then(function () {
+            return true;
+        }).catch(function (error) {
+            console.warn('Focus Room audio play blocked or failed:', audio.currentSrc || audio.src || 'unknown source', error);
+            return false;
+        });
+    }
+
+    function cancelAudioFade(controller) {
+        if (!controller || !controller.frame) {
+            return;
+        }
+
+        window.cancelAnimationFrame(controller.frame);
+        controller.frame = null;
+    }
+
+    function completeAudioFade(controller, targetVolume, options) {
+        if (!controller || !controller.audio) {
+            return;
+        }
+
+        var config = options || {};
+        var audio = controller.audio;
+        var safeTarget = clamp(targetVolume, 0, 1);
+
+        cancelAudioFade(controller);
+        audio.volume = safeTarget;
+
+        if (safeTarget <= 0.001) {
+            audio.pause();
+
+            if (config.resetOnPause) {
+                try {
+                    audio.currentTime = 0;
+                } catch (error) {
+                    // Some browsers can reject currentTime updates during teardown.
+                }
+            }
+        }
+    }
+
+    function fadeAudioController(controller, targetVolume, duration, options) {
+        if (!controller || !controller.audio) {
+            return;
+        }
+
+        var config = options || {};
+        var audio = controller.audio;
+        var safeTarget = clamp(targetVolume, 0, 1);
+        var fadeDuration = prefersReducedMotion() ? 0 : Math.max(0, Number(duration) || 0);
+
+        cancelAudioFade(controller);
+
+        var beginTween = function () {
+            var startVolume = clamp(Number(audio.volume) || 0, 0, 1);
+
+            if (fadeDuration === 0 || Math.abs(safeTarget - startVolume) < 0.005) {
+                completeAudioFade(controller, safeTarget, config);
+                return;
+            }
+
+            var startedAt = performance.now();
+
+            var step = function (now) {
+                var progress = clamp((now - startedAt) / fadeDuration, 0, 1);
+                audio.volume = clamp(startVolume + ((safeTarget - startVolume) * progress), 0, 1);
+
+                if (progress >= 1) {
+                    completeAudioFade(controller, safeTarget, config);
+                    return;
+                }
+
+                controller.frame = window.requestAnimationFrame(step);
+            };
+
+            controller.frame = window.requestAnimationFrame(step);
+        };
+
+        if (safeTarget > 0.001) {
+            safePlayAudio(audio).then(function (didStart) {
+                if (!didStart) {
+                    return;
+                }
+
+                beginTween();
+            });
+            return;
+        }
+
+        beginTween();
+    }
+
+    function syncLayerAudio(layerName, options) {
+        var controller = audioState.layers[layerName];
+        var config = options || {};
+        var layerState = getLayerState(layerName);
+        var shouldPlay = layerState.enabled && layerState.volume > 0.001 && (sessionState.running || !!config.allowPreview);
+        var targetVolume = shouldPlay ? layerState.volume : 0;
+
+        fadeAudioController(
+            controller,
+            targetVolume,
+            typeof config.duration === 'number' ? config.duration : (shouldPlay ? 850 : 450),
+            {
+                resetOnPause: !!config.resetOnPause
+            }
+        );
+    }
+
+    function syncAllLayerAudio(options) {
+        layerNames.forEach(function (layerName) {
+            syncLayerAudio(layerName, options);
+        });
+    }
+
+    function stopAllLayerAudio(options) {
+        var config = options || {};
+        var fadeDuration = typeof config.duration === 'number' ? config.duration : 500;
+
+        layerNames.forEach(function (layerName) {
+            fadeAudioController(audioState.layers[layerName], 0, fadeDuration, {
+                resetOnPause: !!config.resetOnPause
+            });
+        });
+    }
+
+    function stopCompletionChime() {
+        window.clearTimeout(audioState.completionTimer);
+
+        if (!audioState.chime || !audioState.chime.audio) {
+            return;
+        }
+
+        cancelAudioFade(audioState.chime);
+
+        try {
+            audioState.chime.audio.pause();
+            audioState.chime.audio.currentTime = 0;
+        } catch (error) {
+            // Ignore reset failures; the next play attempt will recover.
+        }
+    }
+
+    function playCompletionChime() {
+        if (!audioState.chime || !audioState.chime.audio || !audioState.hasUserInteracted) {
+            return;
+        }
+
+        stopCompletionChime();
+        audioState.chime.audio.volume = 0.42;
+        safePlayAudio(audioState.chime.audio);
+    }
+
+    function queueCompletionChime(delayMs) {
+        window.clearTimeout(audioState.completionTimer);
+        audioState.completionTimer = window.setTimeout(function () {
+            playCompletionChime();
+        }, Math.max(0, delayMs || 0));
+    }
 
     function findFocusableElements(container) {
         if (!container) {
@@ -553,9 +819,8 @@
         }
 
         var activeLayers = layerNames.filter(function (name) {
-            var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
-            var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
-            return !!(toggle && slider && toggle.checked && Number(slider.value || '0') > 0.03);
+            var layerState = getLayerState(name);
+            return layerState.enabled && layerState.volume > 0.03;
         });
 
         if (!activeLayers.length) {
@@ -563,17 +828,7 @@
             return;
         }
 
-        var readableNames = activeLayers.slice(0, 3).map(function (name) {
-            if (name === 'brownNoise') {
-                return 'Brown Noise';
-            }
-
-            if (name === 'whiteNoise') {
-                return 'White Noise';
-            }
-
-            return name.charAt(0).toUpperCase() + name.slice(1);
-        });
+        var readableNames = activeLayers.slice(0, 3).map(getLayerDisplayName);
 
         appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are already carrying the room. Start immediately or soften the mix first.';
     }
@@ -584,13 +839,12 @@
         }
 
         var activeLayers = layerNames.map(function (name) {
-            var toggle = document.querySelector('[data-app-layer-toggle="' + name + '"]');
-            var slider = document.querySelector('[data-app-layer-volume="' + name + '"]');
+            var layerState = getLayerState(name);
 
             return {
                 name: name,
-                enabled: !!(toggle && toggle.checked),
-                volume: slider ? Number(slider.value || '0') : 0
+                enabled: layerState.enabled,
+                volume: layerState.volume
             };
         }).filter(function (layer) {
             return layer.enabled && layer.volume > 0.03;
@@ -604,23 +858,15 @@
         }
 
         var label = activeLayers.slice(0, 3).map(function (layer) {
-            if (layer.name === 'brownNoise') {
-                return 'Brown Noise';
-            }
-
-            if (layer.name === 'whiteNoise') {
-                return 'White Noise';
-            }
-
-            return layer.name.charAt(0).toUpperCase() + layer.name.slice(1);
+            return getLayerDisplayName(layer.name);
         }).join(', ');
 
         appMixSummary.textContent = 'Mix: ' + label;
     }
 
     function setGhostPanels(isAwake) {
-        var sceneOpacity = isAwake ? 0.94 : (sessionState.running ? 0.18 : 0.46);
-        var railOpacity = isAwake ? 0.98 : (sessionState.running ? 0.72 : 0.9);
+        var sceneOpacity = isAwake ? 0.82 : (sessionState.running ? 0.12 : 0.34);
+        var railOpacity = isAwake ? 0.94 : (sessionState.running ? 0.68 : 0.86);
 
         sceneGhostPanels.forEach(function (panel) {
             panel.classList.toggle('is-awake', isAwake);
@@ -685,6 +931,10 @@
         var displayValue = formatPercent(volume);
         var isAudible = isOn && volume > 0.03;
 
+        if (toggle) {
+            toggle.setAttribute('aria-checked', isOn ? 'true' : 'false');
+        }
+
         valueNodes.forEach(function (node) {
             node.textContent = displayValue;
         });
@@ -723,6 +973,12 @@
         sessionState.startedAt = null;
         sessionState.pausedElapsedMs = 0;
         sessionState.completionVisible = false;
+        window.clearTimeout(audioState.completionTimer);
+        stopCompletionChime();
+        stopAllLayerAudio({
+            duration: 520,
+            resetOnPause: true
+        });
 
         if (sessionState.frame) {
             window.cancelAnimationFrame(sessionState.frame);
@@ -759,6 +1015,12 @@
         sessionState.startedAt = null;
         sessionState.pausedElapsedMs = sessionState.demoDurationMs;
         sessionState.completionVisible = true;
+        sessionState.frame = null;
+        stopAllLayerAudio({
+            duration: 900,
+            resetOnPause: true
+        });
+        queueCompletionChime(prefersReducedMotion() ? 0 : 220);
 
         if (appStartButton) {
             appStartButton.textContent = 'Start Another Session';
@@ -826,6 +1088,10 @@
             sessionState.running = false;
             sessionState.pausedElapsedMs += sessionState.startedAt ? performance.now() - sessionState.startedAt : 0;
             sessionState.startedAt = null;
+            stopAllLayerAudio({
+                duration: 420,
+                resetOnPause: false
+            });
 
             if (sessionState.frame) {
                 window.cancelAnimationFrame(sessionState.frame);
@@ -849,6 +1115,8 @@
             sessionState.pausedElapsedMs = 0;
         }
 
+        stopCompletionChime();
+
         if (appCompletionNote) {
             appCompletionNote.classList.remove('is-visible');
         }
@@ -863,6 +1131,10 @@
 
         updateRoomNote();
         wakeGhostUI();
+        syncAllLayerAudio({
+            duration: 900,
+            resetOnPause: false
+        });
         sessionState.frame = window.requestAnimationFrame(tickSession);
     }
 
@@ -1112,6 +1384,11 @@
         cancelThresholdHold();
         stopAppThresholdLoop();
         window.clearTimeout(sessionState.ghostTimer);
+        stopCompletionChime();
+        stopAllLayerAudio({
+            duration: prefersReducedMotion() ? 0 : 320,
+            resetOnPause: true
+        });
 
         if (sessionState.running) {
             sessionState.running = false;
@@ -1376,6 +1653,7 @@
 
     if (appStartButton) {
         appStartButton.addEventListener('click', function () {
+            registerAudioInteraction();
             startSession();
             wakeGhostUI();
         });
@@ -1392,7 +1670,14 @@
 
     layerToggles.forEach(function (toggle) {
         toggle.addEventListener('change', function () {
-            syncLayerVisual(toggle.getAttribute('data-app-layer-toggle'));
+            var layerName = toggle.getAttribute('data-app-layer-toggle');
+            registerAudioInteraction();
+            syncLayerVisual(layerName);
+            syncLayerAudio(layerName, {
+                duration: 360,
+                allowPreview: true,
+                resetOnPause: false
+            });
             saveSettings();
             updateMixSummary();
             updateRoomNote();
@@ -1402,7 +1687,14 @@
 
     layerSliders.forEach(function (slider) {
         slider.addEventListener('input', function () {
-            syncLayerVisual(slider.getAttribute('data-app-layer-volume'));
+            var layerName = slider.getAttribute('data-app-layer-volume');
+            registerAudioInteraction();
+            syncLayerVisual(layerName);
+            syncLayerAudio(layerName, {
+                duration: 220,
+                allowPreview: true,
+                resetOnPause: false
+            });
             saveSettings();
             updateMixSummary();
             updateRoomNote();
@@ -1416,6 +1708,7 @@
         });
     });
 
+    initializeAudioEngine();
     applyStoredSettings();
     syncAllLayers();
     resetSession();
