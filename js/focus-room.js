@@ -78,9 +78,13 @@
     var appResetButton = document.querySelector('[data-app-session-reset]');
     var appMixerPanel = document.querySelector('[data-app-mixer-panel]');
     var appMixerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-mixer-toggle]'));
+    var sceneStage = document.querySelector('[data-scene-stage]');
+    var sceneVideo = document.querySelector('[data-scene-video]');
+    var sceneButtons = Array.prototype.slice.call(document.querySelectorAll('[data-scene-key]'));
+    var sceneSource = sceneVideo ? sceneVideo.querySelector('source') : null;
 
     var hudGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-room__hud[data-app-ghost-panel]'));
-    var consoleGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-rack[data-app-ghost-panel], .fr-transport-bar[data-app-ghost-panel]'));
+    var consoleGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-rack[data-app-ghost-panel], .fr-transport-bar[data-app-ghost-panel], .fr-scene-switcher[data-app-ghost-panel]'));
     var layerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-toggle]'));
     var layerSliders = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-volume]'));
     var atmosphereInputs = Array.prototype.slice.call(document.querySelectorAll('[data-app-atmosphere]'));
@@ -105,6 +109,38 @@
         wind: './swiftui-prototype/public/audio/wind/arctic-cold-wind.mp3',
         water: './swiftui-prototype/public/audio/water/mountain-stream.mp3',
         chime: './swiftui-prototype/public/audio/chime/wind-chime-toll.mp3'
+    };
+    var SCENE_VIDEOS = {
+        midnight: {
+            label: 'Windowlight at Midnight',
+            sub: 'Rain-lit glass / warm desk light',
+            src: './swiftui-prototype/public/video/Windowlight%20at%20Midnight.mp4'
+        },
+        sanctuary: {
+            label: 'The Focus Sanctuary',
+            sub: 'Protected interior / slow quiet rain',
+            src: './swiftui-prototype/public/video/The%20Focus%20Sanctuary.mp4'
+        },
+        coffee: {
+            label: 'Coffee at Midnight',
+            sub: 'Warm cafe shadows / soft city rain',
+            src: './swiftui-prototype/public/video/Coffee%20at%20Midnight.mp4'
+        },
+        calmCafe: {
+            label: 'The Calm Cafe',
+            sub: 'Gentle amber / easier room tone',
+            src: './swiftui-prototype/public/video/The%20Calm%20Caf%C3%A9.mp4'
+        },
+        cloister: {
+            label: 'The Cloister Silence',
+            sub: 'Stone stillness / sacred quiet',
+            src: './swiftui-prototype/public/video/The%20Cloister%20Silence.mp4'
+        },
+        library: {
+            label: 'The Library of Night',
+            sub: 'Quiet archive / deeper shadow',
+            src: './swiftui-prototype/public/video/The%20Library%20of%20Night.mp4'
+        }
     };
     var storageKey = 'focus-room.web-settings';
 
@@ -141,7 +177,8 @@
         frame: null,
         completionVisible: false,
         ghostTimer: null,
-        mixerExpanded: false
+        mixerExpanded: false,
+        sceneKey: 'midnight'
     };
 
     var audioState = {
@@ -315,6 +352,65 @@
             enabled: !!(elements.toggle && elements.toggle.checked),
             volume: elements.slider ? clamp(Number(elements.slider.value || '0'), 0, 1) : 0
         };
+    }
+
+    function syncSceneVideoPlayback() {
+        if (!sceneVideo) {
+            return;
+        }
+
+        sceneVideo.muted = true;
+        sceneVideo.loop = true;
+        sceneVideo.playsInline = true;
+
+        if (prefersReducedMotion() || !appState.isOpen || appState.phase !== 'room') {
+            sceneVideo.pause();
+            return;
+        }
+
+        var playPromise = sceneVideo.play();
+
+        if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {});
+        }
+    }
+
+    function setSceneVideo(sceneKey, shouldSave) {
+        var nextKey = Object.prototype.hasOwnProperty.call(SCENE_VIDEOS, sceneKey) ? sceneKey : 'midnight';
+        var scene = SCENE_VIDEOS[nextKey];
+
+        sessionState.sceneKey = nextKey;
+
+        if (sceneStage) {
+            sceneStage.setAttribute('data-scene-active', nextKey);
+        }
+
+        sceneButtons.forEach(function (button) {
+            button.classList.toggle('is-active', button.getAttribute('data-scene-key') === nextKey);
+        });
+
+        if (appSceneLabel) {
+            appSceneLabel.textContent = scene.label;
+        }
+
+        if (appSceneSub) {
+            appSceneSub.textContent = scene.sub;
+        }
+
+        if (sceneVideo && sceneSource) {
+            if (sceneSource.getAttribute('src') !== scene.src) {
+                sceneSource.setAttribute('src', scene.src);
+                sceneVideo.load();
+            }
+
+            sceneVideo.setAttribute('aria-label', scene.label);
+        }
+
+        syncSceneVideoPlayback();
+
+        if (shouldSave) {
+            saveSettings();
+        }
     }
 
     function safePreloadAudio(audio) {
@@ -712,6 +808,8 @@
                 ? 'Keep the room gentle. Start when the mix already feels right.'
                 : 'Press and hold to let the room surface.';
         }
+
+        syncSceneVideoPlayback();
     }
 
     function setThresholdPromptCopy() {
@@ -1056,47 +1154,26 @@
         var focusDepth = clamp(atmosphereState.focusDepth + windValue * 0.16 + visualState.progress * 0.16, 0, 1);
         var fog = clamp(atmosphereState.fog + rainValue * 0.14 + windValue * 0.08, 0, 1);
         var rainStrength = clamp(Math.max(0.06, rainValue) + visualState.rainDensityBoost, 0.06, 1);
-        var skyGlow = clamp(0.22 + rainStrength * 0.22 + (1 - focusDepth) * 0.08, 0.18, 0.72);
         var roomCalm = clamp(0.28 + (1 - cafeValue) * 0.18 + (1 - windValue) * 0.10, 0.18, 0.84);
-        var deskReflectionWarmth = clamp((warmth * 0.74) + (visualState.progress * 0.24) + (waterValue * 0.14), 0.08, 1);
-        var sceneName = 'Deep Rain';
-        var sceneSub = 'Warm desk / cold glass';
+        var videoBrightness = clamp(0.03 + focusDepth * 0.08 + visualState.progress * 0.04 - rainStrength * 0.03, 0.02, 0.16);
+        var videoContrast = clamp(0.06 + focusDepth * 0.14 + visualState.progress * 0.04, 0.04, 0.24);
+        var videoSaturation = clamp(0.04 + warmth * 0.16 - fog * 0.04, 0.03, 0.22);
+        var videoZoom = clamp(visualState.progress * 0.008 + focusDepth * 0.01, 0, 0.022);
+        var fogOverlay = clamp(0.04 + fog * 0.24 + rainStrength * 0.06, 0.04, 0.42);
+        var warmthOverlay = clamp(0.04 + warmth * 0.22 + visualState.progress * 0.08, 0.04, 0.38);
+        var glassOverlay = clamp(0.05 + rainStrength * 0.18 + waterValue * 0.06, 0.05, 0.32);
 
-        appRoomShell.style.setProperty('--fr-rain-strength', rainStrength.toFixed(3));
-        appRoomShell.style.setProperty('--fr-window-fog-level', fog.toFixed(3));
-        appRoomShell.style.setProperty('--fr-lamp-warmth', warmth.toFixed(3));
         appRoomShell.style.setProperty('--fr-focus-depth', focusDepth.toFixed(3));
         appRoomShell.style.setProperty('--fr-room-calm', roomCalm.toFixed(3));
-        appRoomShell.style.setProperty('--fr-water-shimmer', waterValue.toFixed(3));
-        appRoomShell.style.setProperty('--fr-sky-glow', skyGlow.toFixed(3));
-        appRoomShell.style.setProperty('--fr-desk-reflection-warmth', deskReflectionWarmth.toFixed(3));
         appRoomShell.style.setProperty('--fr-console-dim', clamp(visualState.consoleDim + focusDepth * 0.10, 0.08, 0.42).toFixed(3));
         appRoomShell.style.setProperty('--fr-hud-fade', clamp(visualState.hudFade - focusDepth * 0.10, 0.48, 1).toFixed(3));
-
-        if (sessionState.completionVisible) {
-            sceneName = 'Soft Return';
-            sceneSub = 'Warm spill / quiet glass';
-        } else if (warmth > 0.68) {
-            sceneName = 'Warm Console';
-            sceneSub = 'Tungsten spill / softened desk';
-        } else if (rainStrength > 0.72) {
-            sceneName = 'Storm Focus';
-            sceneSub = 'Dense field / deepened glass';
-        } else if (focusDepth > 0.62) {
-            sceneName = 'Night Focus';
-            sceneSub = 'Dimmed HUD / longer room';
-        } else if (waterValue > 0.34) {
-            sceneName = 'Low Current';
-            sceneSub = 'Rain field / water shimmer';
-        }
-
-        if (appSceneLabel) {
-            appSceneLabel.textContent = sceneName;
-        }
-
-        if (appSceneSub) {
-            appSceneSub.textContent = sceneSub;
-        }
+        appRoomShell.style.setProperty('--fr-video-brightness', videoBrightness.toFixed(3));
+        appRoomShell.style.setProperty('--fr-video-contrast', videoContrast.toFixed(3));
+        appRoomShell.style.setProperty('--fr-video-saturation', videoSaturation.toFixed(3));
+        appRoomShell.style.setProperty('--fr-video-zoom', videoZoom.toFixed(4));
+        appRoomShell.style.setProperty('--fr-fog-overlay', fogOverlay.toFixed(3));
+        appRoomShell.style.setProperty('--fr-warmth-overlay', warmthOverlay.toFixed(3));
+        appRoomShell.style.setProperty('--fr-glass-overlay', glassOverlay.toFixed(3));
     }
 
     function updateDurationButtons(activeMinutes) {
@@ -1278,6 +1355,7 @@
     function saveSettings() {
         var payload = {
             selectedMinutes: sessionState.selectedMinutes,
+            sceneKey: sessionState.sceneKey,
             layers: {},
             atmosphere: {
                 warmth: atmosphereState.warmth,
@@ -1347,6 +1425,10 @@
                 sessionState.selectedMinutes = Number(matchingButton.getAttribute('data-app-duration') || '25');
                 sessionState.demoDurationMs = Number(matchingButton.getAttribute('data-app-demo-seconds') || '90') * 1000;
             }
+        }
+
+        if (typeof parsed.sceneKey === 'string' && Object.prototype.hasOwnProperty.call(SCENE_VIDEOS, parsed.sceneKey)) {
+            sessionState.sceneKey = parsed.sceneKey;
         }
 
         if (parsed.layers) {
@@ -1539,6 +1621,7 @@
         }
 
         appState.isOpen = false;
+        syncSceneVideoPlayback();
         cancelThresholdHold();
         stopAppThresholdLoop();
         window.clearTimeout(sessionState.ghostTimer);
@@ -1876,6 +1959,19 @@
         });
     });
 
+    if (sceneVideo) {
+        sceneVideo.addEventListener('loadeddata', function () {
+            syncSceneVideoPlayback();
+        });
+    }
+
+    sceneButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            setSceneVideo(button.getAttribute('data-scene-key'), true);
+            wakeGhostUI();
+        });
+    });
+
     codeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             loadCodeFile(button);
@@ -1884,6 +1980,7 @@
 
     initializeAudioEngine();
     applyStoredSettings();
+    setSceneVideo(sessionState.sceneKey, false);
     syncAtmosphereInputs();
     syncAllLayers();
     resetSession();
@@ -1909,6 +2006,7 @@
     if (mediaQuery) {
         var handleMotionPreferenceChange = function () {
             beginPreviewLoop();
+            syncSceneVideoPlayback();
 
             if (appState.isOpen && appState.phase === 'threshold') {
                 beginAppThresholdLoop();
