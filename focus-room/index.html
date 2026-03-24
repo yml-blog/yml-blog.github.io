@@ -395,10 +395,14 @@
       <header class="fr-app-topbar">
         <div class="fr-app-topbar-copy">
           <span class="fr-panel-label" data-app-phase-label>Threshold</span>
-          <strong id="frAppTitle">Focus Room</strong>
+          <strong id="frAppTitle" data-app-room-title>Focus Room</strong>
           <span class="fr-app-topbar-note">A quiet room for deep work.</span>
         </div>
         <div class="fr-app-topbar-actions">
+          <div class="fr-app-mode-switch" role="toolbar" aria-label="Room mode">
+            <button class="fr-app-mode-button is-active" data-app-mode-control="focus" type="button" aria-pressed="true">Focus Room</button>
+            <button class="fr-app-mode-button" data-app-mode-control="writing" type="button" aria-pressed="false">Writing Room</button>
+          </div>
           <span class="fr-app-chip" data-app-mix-summary>Default mix: Piano, Rain, Wind</span>
           <button class="fr-button secondary fr-app-exit" data-close-room type="button">Exit</button>
         </div>
@@ -433,8 +437,8 @@
 
               <div class="fr-threshold-copy">
                 <div class="fr-threshold-orb" aria-hidden="true"></div>
-                <h2>Focus Room</h2>
-                <p>A quiet room for deep work.</p>
+                <h2 data-app-entry-title>Focus Room</h2>
+                <p data-app-entry-description>A quiet room for deep work.</p>
                 <button class="fr-threshold-trigger" data-app-threshold-trigger type="button">
                   <span data-app-threshold-label>Hold to Enter</span>
                 </button>
@@ -461,11 +465,11 @@
 
         <section class="fr-app-phase fr-app-phase-room" data-app-phase="room" hidden>
           <div class="fr-room-layout fr-app-room-layout">
-            <section class="fr-console-room is-piano-active" data-app-room-shell>
+            <section class="fr-console-room is-piano-active" data-app-room-shell data-app-mode="focus">
               <div class="fr-console-room__hud fr-ghost-panel" data-app-ghost-panel>
                 <div class="fr-hud-block fr-hud-block--session">
                   <span class="fr-hud-label">Session</span>
-                  <div class="fr-hud-clock" data-app-session-clock>25:00</div>
+                  <div class="fr-hud-clock" data-app-session-clock>10:00</div>
                   <div class="fr-hud-status" data-app-session-status aria-live="polite">Ready</div>
                   <div class="fr-hud-progress" aria-hidden="true">
                     <span data-app-ring-progress></span>
@@ -490,12 +494,57 @@
                   <div class="fr-scene-stage__warmth"></div>
                   <div class="fr-scene-stage__glass"></div>
 
-                  <div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel>
-                    <div class="fr-scene-switcher__head">
-                      <span class="fr-console-kicker">Rooms</span>
-                      <strong>Scene Library</strong>
+                  <section class="fr-writing-shell" data-writing-shell hidden aria-hidden="true">
+                    <div class="fr-writing-shell__head">
+                      <label class="fr-writing-task" for="fr-writing-task">
+                        <span>Intent</span>
+                        <input id="fr-writing-task" data-writing-task type="text" maxlength="180" placeholder="Draft intro / journal / proposal...">
+                      </label>
+
+                      <div class="fr-writing-status" aria-live="polite">
+                        <span data-writing-state-label>Settling in</span>
+                        <span data-writing-word-count>0 words</span>
+                        <span data-writing-cadence>0 cpm</span>
+                      </div>
                     </div>
 
+                    <div class="fr-writing-editor-wrap">
+                      <div
+                        class="fr-writing-editor"
+                        data-writing-editor
+                        contenteditable="true"
+                        spellcheck="true"
+                        role="textbox"
+                        aria-label="Writing editor"
+                        aria-multiline="true"
+                        data-placeholder="Begin when the sentence is ready."
+                      ></div>
+
+                      <p class="fr-writing-whisper" data-writing-whisper aria-live="polite">Let the sentence arrive.</p>
+                    </div>
+                  </section>
+
+                </div>
+
+                <div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel data-scene-switcher data-scene-switcher-open="false">
+                  <div class="fr-scene-switcher__head">
+                    <div class="fr-scene-switcher__copy">
+                      <span class="fr-console-kicker">Rooms</span>
+                      <strong>Scene Library</strong>
+                      <span class="fr-scene-switcher__active" data-scene-switcher-active>Windowlight at Midnight</span>
+                    </div>
+                    <button
+                      class="fr-scene-switcher__toggle"
+                      data-scene-switcher-toggle
+                      type="button"
+                      aria-expanded="false"
+                      aria-controls="frSceneSwitcherBody"
+                    >
+                      Rooms
+                    </button>
+                  </div>
+
+                  <div class="fr-scene-switcher__body" data-scene-switcher-body id="frSceneSwitcherBody" hidden>
                     <div class="fr-scene-switcher__grid" data-scene-grid role="toolbar" aria-label="Choose a cinematic room"></div>
                   </div>
                 </div>
@@ -509,97 +558,20 @@
                     <button class="fr-console-rack__toggle" data-app-mixer-toggle type="button">Hide Console</button>
                   </div>
 
-                  <div class="fr-channel-strip-list" role="group" aria-label="Ambient channel strips">
-                    <section class="fr-channel-strip" data-app-layer-card="piano">
-                      <div class="fr-channel-strip__top">
-                        <div class="fr-channel-strip__copy">
-                          <span class="fr-channel-strip__name">Piano</span>
-                          <span class="fr-channel-strip__hint">Warm keys</span>
-                        </div>
-                        <label class="fr-console-mini-toggle">
-                          <input checked data-app-layer-toggle="piano" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Piano layer">
-                          <span></span>
-                        </label>
+                  <section class="fr-layer-drawer" data-app-layer-drawer id="frLayerDrawer" hidden aria-label="Sound options">
+                    <div class="fr-layer-drawer__head">
+                      <div class="fr-layer-drawer__copy">
+                        <span class="fr-console-kicker">Sound Variants</span>
+                        <strong data-app-layer-drawer-title>Piano</strong>
+                        <span class="fr-layer-drawer__meta" data-app-layer-drawer-meta>2 sounds</span>
                       </div>
-                      <div class="fr-channel-strip__meter"></div>
-                      <div class="fr-channel-strip__fader">
-                        <input class="fr-console-fader" data-app-layer-volume="piano" max="1" min="0" step="0.01" type="range" value="0.42" aria-label="Piano level">
-                      </div>
-                      <div class="fr-channel-strip__value" data-app-layer-value="piano">42%</div>
-                    </section>
+                      <button class="fr-layer-drawer__close" data-app-layer-drawer-close type="button">Close</button>
+                    </div>
 
-                    <section class="fr-channel-strip" data-app-layer-card="rain">
-                      <div class="fr-channel-strip__top">
-                        <div class="fr-channel-strip__copy">
-                          <span class="fr-channel-strip__name">Rain</span>
-                          <span class="fr-channel-strip__hint">Window rain</span>
-                        </div>
-                        <label class="fr-console-mini-toggle">
-                          <input checked data-app-layer-toggle="rain" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Rain layer">
-                          <span></span>
-                        </label>
-                      </div>
-                      <div class="fr-channel-strip__meter"></div>
-                      <div class="fr-channel-strip__fader">
-                        <input class="fr-console-fader" data-app-layer-volume="rain" max="1" min="0" step="0.01" type="range" value="0.58" aria-label="Rain level">
-                      </div>
-                      <div class="fr-channel-strip__value" data-app-layer-value="rain">58%</div>
-                    </section>
+                    <div class="fr-layer-drawer__tracks" data-app-layer-drawer-tracks role="list"></div>
+                  </section>
 
-                    <section class="fr-channel-strip" data-app-layer-card="wind">
-                      <div class="fr-channel-strip__top">
-                        <div class="fr-channel-strip__copy">
-                          <span class="fr-channel-strip__name">Wind</span>
-                          <span class="fr-channel-strip__hint">Cold air</span>
-                        </div>
-                        <label class="fr-console-mini-toggle">
-                          <input checked data-app-layer-toggle="wind" type="checkbox" role="switch" aria-checked="true" aria-label="Toggle Wind layer">
-                          <span></span>
-                        </label>
-                      </div>
-                      <div class="fr-channel-strip__meter"></div>
-                      <div class="fr-channel-strip__fader">
-                        <input class="fr-console-fader" data-app-layer-volume="wind" max="1" min="0" step="0.01" type="range" value="0.34" aria-label="Wind level">
-                      </div>
-                      <div class="fr-channel-strip__value" data-app-layer-value="wind">34%</div>
-                    </section>
-
-                    <section class="fr-channel-strip" data-app-layer-card="cafe">
-                      <div class="fr-channel-strip__top">
-                        <div class="fr-channel-strip__copy">
-                          <span class="fr-channel-strip__name">Cafe</span>
-                          <span class="fr-channel-strip__hint">Soft room</span>
-                        </div>
-                        <label class="fr-console-mini-toggle">
-                          <input data-app-layer-toggle="cafe" type="checkbox" role="switch" aria-checked="false" aria-label="Toggle Cafe layer">
-                          <span></span>
-                        </label>
-                      </div>
-                      <div class="fr-channel-strip__meter"></div>
-                      <div class="fr-channel-strip__fader">
-                        <input class="fr-console-fader" data-app-layer-volume="cafe" max="1" min="0" step="0.01" type="range" value="0.18" aria-label="Cafe level">
-                      </div>
-                      <div class="fr-channel-strip__value" data-app-layer-value="cafe">18%</div>
-                    </section>
-
-                    <section class="fr-channel-strip" data-app-layer-card="water">
-                      <div class="fr-channel-strip__top">
-                        <div class="fr-channel-strip__copy">
-                          <span class="fr-channel-strip__name">Water</span>
-                          <span class="fr-channel-strip__hint">Stream bed</span>
-                        </div>
-                        <label class="fr-console-mini-toggle">
-                          <input data-app-layer-toggle="water" type="checkbox" role="switch" aria-checked="false" aria-label="Toggle Water layer">
-                          <span></span>
-                        </label>
-                      </div>
-                      <div class="fr-channel-strip__meter"></div>
-                      <div class="fr-channel-strip__fader">
-                        <input class="fr-console-fader" data-app-layer-volume="water" max="1" min="0" step="0.01" type="range" value="0.12" aria-label="Water level">
-                      </div>
-                      <div class="fr-channel-strip__value" data-app-layer-value="water">12%</div>
-                    </section>
-                  </div>
+                  <div class="fr-channel-strip-list" data-app-layer-list role="group" aria-label="Ambient channel strips"></div>
 
                   <div class="fr-console-atmosphere" role="group" aria-label="Atmosphere controls">
                     <div class="fr-console-knob" data-console-knob="warmth">
@@ -628,9 +600,10 @@
 
               <div class="fr-transport-bar fr-ghost-panel" data-app-ghost-panel>
                 <div class="fr-transport-bar__group fr-transport-bar__group--duration" role="toolbar" aria-label="Session duration options">
-                  <button class="fr-transport-chip is-active" data-app-duration="25" data-app-demo-seconds="90" type="button">25m</button>
-                  <button class="fr-transport-chip" data-app-duration="50" data-app-demo-seconds="120" type="button">50m</button>
-                  <button class="fr-transport-chip" data-app-duration="75" data-app-demo-seconds="105" type="button">75m</button>
+                  <button class="fr-transport-chip is-active" data-app-duration="10" data-app-demo-seconds="600" type="button">10m</button>
+                  <button class="fr-transport-chip" data-app-duration="30" data-app-demo-seconds="1800" type="button">30m</button>
+                  <button class="fr-transport-chip" data-app-duration="60" data-app-demo-seconds="3600" type="button">1h</button>
+                  <button class="fr-transport-chip" data-app-duration="180" data-app-demo-seconds="10800" type="button">3h</button>
                 </div>
 
                 <div class="fr-transport-bar__group fr-transport-bar__group--actions">
