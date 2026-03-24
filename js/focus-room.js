@@ -66,8 +66,34 @@
             .replace(/^-+|-+$/g, '');
     }
 
+    function resolveFocusRoomPath(path) {
+        var normalized = String(path || '').replace(/\\/g, '/').trim();
+
+        if (!normalized) {
+            return '';
+        }
+
+        if (/^(?:[a-z]+:)?\/\//i.test(normalized) || /^(?:data|blob|mailto|tel):/i.test(normalized)) {
+            return normalized;
+        }
+
+        if (normalized.indexOf('../focus-room/') === 0) {
+            return normalized;
+        }
+
+        if (normalized.indexOf('./') === 0) {
+            normalized = normalized.slice(2);
+        }
+
+        if (normalized.indexOf('focus-room/') === 0) {
+            return '../' + normalized;
+        }
+
+        return '../focus-room/' + normalized;
+    }
+
     function encodeSceneFileSource(fileName) {
-        return './swiftui-prototype/public/video/' + encodeURIComponent(fileName).replace(/%2F/g, '/');
+        return resolveFocusRoomPath('swiftui-prototype/public/video/' + encodeURIComponent(fileName).replace(/%2F/g, '/'));
     }
 
     function describeSceneTitle(title) {
@@ -232,7 +258,7 @@
     var codeStatus = document.querySelector('[data-code-status]');
 
     function soundAsset(fileName) {
-        return './swiftui-prototype/public/audio/sound/' + fileName;
+        return resolveFocusRoomPath('swiftui-prototype/public/audio/sound/' + fileName);
     }
 
     var AMBIENT_LAYER_LIBRARY = {
@@ -468,6 +494,7 @@
 
     var audioState = {
         hasUserInteracted: false,
+        hasPrimedPlayback: false,
         layers: {},
         completionChime: null,
         completionTimer: null
@@ -1935,8 +1962,43 @@
         }
     }
 
+    function primeLayerPlaybackForInteraction() {
+        if (audioState.hasPrimedPlayback) {
+            return;
+        }
+
+        audioState.hasPrimedPlayback = true;
+
+        layerNames.forEach(function (layerName) {
+            var controller = audioState.layers[layerName];
+            var layerState = getLayerState(layerName);
+            var audio = controller && controller.audio ? controller.audio : null;
+            var playPromise = null;
+
+            if (!audio || !layerState.enabled || layerState.volume <= 0.001) {
+                return;
+            }
+
+            audio.volume = 0;
+
+            try {
+                playPromise = audio.play();
+            } catch (error) {
+                console.warn('Focus Room audio warmup failed:', audio.currentSrc || audio.src || layerName, error);
+                return;
+            }
+
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(function (error) {
+                    console.warn('Focus Room audio warmup failed:', audio.currentSrc || audio.src || layerName, error);
+                });
+            }
+        });
+    }
+
     function registerAudioInteraction() {
         audioState.hasUserInteracted = true;
+        primeLayerPlaybackForInteraction();
     }
 
     function safePlayAudio(audio) {
@@ -3096,6 +3158,11 @@
             setAppPhase('room');
             setMixerExpanded(defaultMixerExpanded());
             stopAppThresholdLoop();
+            syncAllLayerAudio({
+                allowPreview: true,
+                duration: prefersReducedMotion() ? 0 : 900,
+                resetOnPause: false
+            });
             wakeGhostUI(2600);
 
             if (appModeState.mode === 'writing') {
@@ -3136,6 +3203,7 @@
             event.preventDefault();
         }
 
+        registerAudioInteraction();
         thresholdState.active = true;
         thresholdState.startedAt = 0;
 
@@ -3351,7 +3419,10 @@
             return;
         }
 
-        var pathLabel = filePath.replace('./swiftui-prototype/', 'swiftui-prototype/');
+        var resolvedPath = resolveFocusRoomPath(filePath);
+        var marker = 'swiftui-prototype/';
+        var markerIndex = filePath.indexOf(marker);
+        var pathLabel = markerIndex >= 0 ? filePath.slice(markerIndex) : filePath;
         var fallback = fallbackContentFor(button, filePath);
 
         updateActiveCodeButtons(filePath);
@@ -3362,7 +3433,7 @@
             return;
         }
 
-        fetch(filePath)
+        fetch(resolvedPath)
             .then(function (response) {
                 if (!response.ok) {
                     throw new Error('Unable to load file');
@@ -3411,6 +3482,7 @@
 
     openRoomButtons.forEach(function (button) {
         button.addEventListener('click', function () {
+            registerAudioInteraction();
             openRoom(button);
         });
     });
