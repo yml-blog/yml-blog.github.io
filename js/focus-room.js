@@ -27,6 +27,97 @@
         return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
     }
 
+    function sanitizeSceneTitle(title) {
+        return String(title || '')
+            .replace(/\.mp4$/i, '')
+            .replace(/\u00e9/g, 'e')
+            .trim();
+    }
+
+    function sceneKeyFromTitle(title) {
+        return sanitizeSceneTitle(title)
+            .toLowerCase()
+            .replace(/&/g, ' and ')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    }
+
+    function encodeSceneFileSource(fileName) {
+        return './swiftui-prototype/public/video/' + encodeURIComponent(fileName).replace(/%2F/g, '/');
+    }
+
+    function describeSceneTitle(title) {
+        var lower = sanitizeSceneTitle(title).toLowerCase();
+        var cues = [];
+
+        function pushCue(cue) {
+            if (cues.indexOf(cue) === -1) {
+                cues.push(cue);
+            }
+        }
+
+        if (/(midnight|night|late hour)/.test(lower)) {
+            pushCue('night frame');
+        }
+
+        if (/(rain|drops|mist|water|still water)/.test(lower)) {
+            pushCue('weather hush');
+        }
+
+        if (/(cafe|coffee)/.test(lower)) {
+            pushCue('public hush');
+        }
+
+        if (/(library|study|archive|investigation|room|sanctuary|cloister)/.test(lower)) {
+            pushCue('interior focus');
+        }
+
+        if (/(light|lantern|luminous|warmth|windowlight|star)/.test(lower)) {
+            pushCue('tungsten glow');
+        }
+
+        if (/(silence|quiet|stillness|natural state|empty)/.test(lower)) {
+            pushCue('still air');
+        }
+
+        if (/(engineering|system|rules|contract|noir)/.test(lower)) {
+            pushCue('noir edge');
+        }
+
+        if (/(horizon|beyond time|world|depths)/.test(lower)) {
+            pushCue('wide depth');
+        }
+
+        return cues.slice(0, 2).join(' / ') || 'cinematic room / ambient console';
+    }
+
+    function buildSceneCatalog(definitions) {
+        var map = {};
+        var order = [];
+
+        definitions.forEach(function (definition) {
+            var file = definition.file;
+            var label = sanitizeSceneTitle(definition.label || file);
+            var key = definition.key || sceneKeyFromTitle(label);
+
+            if (!file || map[key]) {
+                return;
+            }
+
+            map[key] = {
+                label: label,
+                sub: definition.sub || describeSceneTitle(label),
+                src: definition.src || encodeSceneFileSource(file)
+            };
+            order.push(key);
+        });
+
+        return {
+            map: map,
+            order: order
+        };
+    }
+
     function setHidden(element, shouldHide) {
         if (!element) {
             return;
@@ -80,7 +171,8 @@
     var appMixerToggles = Array.prototype.slice.call(document.querySelectorAll('[data-app-mixer-toggle]'));
     var sceneStage = document.querySelector('[data-scene-stage]');
     var sceneVideo = document.querySelector('[data-scene-video]');
-    var sceneButtons = Array.prototype.slice.call(document.querySelectorAll('[data-scene-key]'));
+    var sceneGrid = document.querySelector('[data-scene-grid]');
+    var sceneButtons = [];
     var sceneSource = sceneVideo ? sceneVideo.querySelector('source') : null;
 
     var hudGhostPanels = Array.prototype.slice.call(document.querySelectorAll('.fr-console-room__hud[data-app-ghost-panel]'));
@@ -110,38 +202,50 @@
         water: './swiftui-prototype/public/audio/water/mountain-stream.mp3',
         chime: './swiftui-prototype/public/audio/chime/wind-chime-toll.mp3'
     };
-    var SCENE_VIDEOS = {
-        midnight: {
-            label: 'Windowlight at Midnight',
-            sub: 'Rain-lit glass / warm desk light',
-            src: './swiftui-prototype/public/video/Windowlight%20at%20Midnight.mp4'
-        },
-        sanctuary: {
-            label: 'The Focus Sanctuary',
-            sub: 'Protected interior / slow quiet rain',
-            src: './swiftui-prototype/public/video/The%20Focus%20Sanctuary.mp4'
-        },
-        coffee: {
-            label: 'Coffee at Midnight',
-            sub: 'Warm cafe shadows / soft city rain',
-            src: './swiftui-prototype/public/video/Coffee%20at%20Midnight.mp4'
-        },
-        calmCafe: {
-            label: 'The Calm Cafe',
-            sub: 'Gentle amber / easier room tone',
-            src: './swiftui-prototype/public/video/The%20Calm%20Caf%C3%A9.mp4'
-        },
-        cloister: {
-            label: 'The Cloister Silence',
-            sub: 'Stone stillness / sacred quiet',
-            src: './swiftui-prototype/public/video/The%20Cloister%20Silence.mp4'
-        },
-        library: {
-            label: 'The Library of Night',
-            sub: 'Quiet archive / deeper shadow',
-            src: './swiftui-prototype/public/video/The%20Library%20of%20Night.mp4'
-        }
-    };
+    var SCENE_VIDEO_DEFINITIONS = [
+        { key: 'midnight', file: 'Windowlight at Midnight.mp4', sub: 'rain-lit glass / warm desk light' },
+        { key: 'sanctuary', file: 'The Focus Sanctuary.mp4', sub: 'protected interior / slow quiet rain' },
+        { key: 'coffee', file: 'Coffee at Midnight.mp4', sub: 'warm cafe shadows / soft city rain' },
+        { key: 'calmCafe', file: 'The Calm Café.mp4', label: 'The Calm Cafe', sub: 'gentle amber / easier room tone' },
+        { key: 'cloister', file: 'The Cloister Silence.mp4', sub: 'stone stillness / sacred quiet' },
+        { key: 'library', file: 'The Library of Night.mp4', sub: 'quiet archive / deeper shadow' },
+        { file: 'A Study in Motion.mp4' },
+        { file: 'A Train Across Still Water.mp4' },
+        { file: 'Above Distraction.mp4' },
+        { file: 'Above the World A Study in Silence.mp4' },
+        { file: 'Before Meaning.mp4' },
+        { file: 'Before the Day Begins.mp4' },
+        { file: 'Behind the Water.mp4' },
+        { file: 'Between Lights and Silence.mp4' },
+        { file: 'Black Marble Silence.mp4' },
+        { file: 'Digital Stillness.mp4' },
+        { file: 'Form and Silence.mp4' },
+        { file: 'Noir Study The Silent Contract.mp4' },
+        { file: 'Rain in the Attic.mp4' },
+        { file: 'The Depths Are Watching.mp4' },
+        { file: 'The Empty System.mp4' },
+        { file: 'The Engineering Mind.mp4' },
+        { file: 'The Infinite Archive.mp4' },
+        { file: 'The Investigation Room.mp4' },
+        { file: 'The Late Hour.mp4' },
+        { file: 'The Library of Rules.mp4' },
+        { file: 'The Luminous Study.mp4' },
+        { file: 'The Natural State of Focus.mp4' },
+        { file: 'The Room Beyond Time.mp4' },
+        { file: 'The Shape of Quiet.mp4' },
+        { file: 'The Sound of Rain on Stone.mp4' },
+        { file: 'The Space Between Drops.mp4' },
+        { file: 'The Unstable Horizon.mp4' },
+        { file: 'The Way of Quiet Water.mp4' },
+        { file: 'The Weight of Light.mp4' },
+        { file: 'Where the Lanterns Remember.mp4' },
+        { file: 'Where the Mist Lingers.mp4' },
+        { file: 'Where the Star Breathes.mp4' },
+        { file: 'Where Warmth Stays.mp4' }
+    ];
+    var sceneCatalog = buildSceneCatalog(SCENE_VIDEO_DEFINITIONS);
+    var SCENE_VIDEOS = sceneCatalog.map;
+    var SCENE_VIDEO_ORDER = sceneCatalog.order;
     var storageKey = 'focus-room.web-settings';
 
     var previewState = {
@@ -386,7 +490,10 @@
         }
 
         sceneButtons.forEach(function (button) {
-            button.classList.toggle('is-active', button.getAttribute('data-scene-key') === nextKey);
+            var isActive = button.getAttribute('data-scene-key') === nextKey;
+
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
 
         if (appSceneLabel) {
@@ -411,6 +518,33 @@
         if (shouldSave) {
             saveSettings();
         }
+    }
+
+    function renderSceneButtons() {
+        if (!sceneGrid) {
+            return;
+        }
+
+        sceneGrid.innerHTML = '';
+        sceneButtons = [];
+
+        SCENE_VIDEO_ORDER.forEach(function (key) {
+            var scene = SCENE_VIDEOS[key];
+            var button = document.createElement('button');
+
+            if (!scene) {
+                return;
+            }
+
+            button.type = 'button';
+            button.className = 'fr-scene-chip';
+            button.setAttribute('data-scene-key', key);
+            button.setAttribute('aria-pressed', 'false');
+            button.textContent = scene.label;
+            button.title = scene.label;
+            sceneGrid.appendChild(button);
+            sceneButtons.push(button);
+        });
     }
 
     function safePreloadAudio(audio) {
@@ -1965,12 +2099,18 @@
         });
     }
 
-    sceneButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
+    if (sceneGrid) {
+        sceneGrid.addEventListener('click', function (event) {
+            var button = event.target.closest('[data-scene-key]');
+
+            if (!button || !sceneGrid.contains(button)) {
+                return;
+            }
+
             setSceneVideo(button.getAttribute('data-scene-key'), true);
             wakeGhostUI();
         });
-    });
+    }
 
     codeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
@@ -1980,6 +2120,7 @@
 
     initializeAudioEngine();
     applyStoredSettings();
+    renderSceneButtons();
     setSceneVideo(sessionState.sceneKey, false);
     syncAtmosphereInputs();
     syncAllLayers();
