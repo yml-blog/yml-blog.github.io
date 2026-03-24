@@ -266,10 +266,12 @@
             label: 'Piano',
             hint: 'Warm keys',
             defaultEnabled: true,
-            defaultVolume: 0.42,
+            defaultVolume: 0.5,
             defaultTrack: 'last-night',
+            gain: 1.12,
+            previewVolume: 0.68,
             tracks: [
-                { key: 'last-night', label: 'Last Night', src: soundAsset('piano-last-night.mp3') },
+                { key: 'last-night', label: 'Last Night', src: soundAsset('piano-last-night.mp3'), previewStart: 3.55 },
                 { key: 'barcarolle', label: 'June Barcarolle', src: soundAsset('tchaikovsky-june-barcarolle.mp3') }
             ]
         },
@@ -277,8 +279,10 @@
             label: 'Rain',
             hint: 'Weather field',
             defaultEnabled: true,
-            defaultVolume: 0.58,
+            defaultVolume: 0.4,
             defaultTrack: 'light-rain',
+            gain: 0.82,
+            previewVolume: 0.5,
             tracks: [
                 { key: 'light-rain', label: 'Light Rain', src: soundAsset('light-rain.mp3') },
                 { key: 'steady-rain', label: 'Steady Rain', src: soundAsset('steady-rain.mp3') },
@@ -294,8 +298,10 @@
             label: 'Wind',
             hint: 'Cold air',
             defaultEnabled: true,
-            defaultVolume: 0.34,
+            defaultVolume: 0.48,
             defaultTrack: 'arctic-cold',
+            gain: 1.16,
+            previewVolume: 0.62,
             tracks: [
                 { key: 'arctic-cold', label: 'Arctic Cold', src: soundAsset('arctic-cold-wind.mp3') },
                 { key: 'arctic-cold-alt', label: 'Arctic Cold Alt', src: soundAsset('arctic-cold-wind-alt.mp3') }
@@ -305,8 +311,10 @@
             label: 'Water',
             hint: 'Stream bed',
             defaultEnabled: false,
-            defaultVolume: 0.12,
-            defaultTrack: 'mountain-stream',
+            defaultVolume: 0.28,
+            defaultTrack: 'waves-hawaii',
+            gain: 1.34,
+            previewVolume: 0.64,
             tracks: [
                 { key: 'mountain-stream', label: 'Mountain Stream', src: soundAsset('mountain-stream.mp3') },
                 { key: 'waves-hawaii', label: 'Hawaii Waves', src: soundAsset('waves-hawaii.mp3') }
@@ -318,6 +326,8 @@
             defaultEnabled: false,
             defaultVolume: 0.16,
             defaultTrack: 'rain-thunder',
+            gain: 1,
+            previewVolume: 0.48,
             tracks: [
                 { key: 'rain-thunder', label: 'Rain Thunder', src: soundAsset('rain-thunder-4.mp3') },
                 { key: 'close-thunder', label: 'Close Thunder', src: soundAsset('thunder-close-rain.mp3') }
@@ -329,6 +339,8 @@
             defaultEnabled: false,
             defaultVolume: 0.08,
             defaultTrack: 'wall-clock',
+            gain: 1,
+            previewVolume: 0.46,
             tracks: [
                 { key: 'wall-clock', label: 'Wall Clock', src: soundAsset('wall-clock-ticking.mp3') }
             ]
@@ -339,6 +351,8 @@
             defaultEnabled: false,
             defaultVolume: 0.1,
             defaultTrack: 'glass-chimes',
+            gain: 0.96,
+            previewVolume: 0.44,
             tracks: [
                 { key: 'glass-chimes', label: 'Glass Chimes', src: soundAsset('glass-chimes.mp3') },
                 { key: 'wind-chimes-a', label: 'Wind Chimes A', src: soundAsset('wind-chimes-a.mp3') },
@@ -495,6 +509,9 @@
     var audioState = {
         hasUserInteracted: false,
         hasPrimedPlayback: false,
+        previewLayer: '',
+        previewRestoreAllowPreview: false,
+        previewTimer: null,
         layers: {},
         completionChime: null,
         completionTimer: null
@@ -754,6 +771,38 @@
         return variantCount + ' sound' + (variantCount === 1 ? '' : 's');
     }
 
+    function getLayerOutputGain(layerName) {
+        var config = getLayerConfig(layerName);
+        return clamp(config && typeof config.gain === 'number' ? config.gain : 1, 0.2, 2);
+    }
+
+    function getEffectiveLayerVolume(layerName, volume) {
+        return clamp((Number(volume) || 0) * getLayerOutputGain(layerName), 0, 1);
+    }
+
+    function getLayerPreviewVolume(layerName) {
+        var config = getLayerConfig(layerName);
+        var layerState = getLayerState(layerName);
+        var basePreview = config && typeof config.previewVolume === 'number'
+            ? config.previewVolume
+            : Math.max(layerState.volume, 0.58);
+
+        return getEffectiveLayerVolume(layerName, basePreview);
+    }
+
+    function syncLayerPreviewUI() {
+        layerNames.forEach(function (layerName) {
+            var isPreviewing = audioState.previewLayer === layerName;
+            var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-app-layer-preview="' + layerName + '"]'));
+
+            buttons.forEach(function (button) {
+                button.classList.toggle('is-previewing', isPreviewing);
+                button.setAttribute('aria-pressed', isPreviewing ? 'true' : 'false');
+                button.textContent = isPreviewing ? 'Previewing' : 'Preview';
+            });
+        });
+    }
+
     function renderLayerDrawer(layerName) {
         var config = getLayerConfig(layerName);
         var selectedTrack = getSelectedLayerTrack(layerName);
@@ -869,6 +918,7 @@
                             '<input ' + (layerSetting.enabled ? 'checked ' : '') + 'data-app-layer-toggle="' + layerName + '" type="checkbox" role="switch" aria-checked="' + (layerSetting.enabled ? 'true' : 'false') + '" aria-label="Toggle ' + config.label + ' layer">' +
                             '<span></span>' +
                         '</label>' +
+                        '<button class="fr-channel-strip__preview" data-app-layer-preview="' + layerName + '" type="button" aria-pressed="false">Preview</button>' +
                         '<button class="fr-channel-strip__expand" data-app-layer-expand="' + layerName + '" type="button" aria-expanded="false" aria-controls="frLayerDrawer">' + getLayerExpandLabel(layerName, false) + '</button>' +
                     '</div>' +
                 '</div>' +
@@ -890,6 +940,7 @@
             syncLayerTrackUI(layerName);
         });
 
+        syncLayerPreviewUI();
         syncLayerExpandUI();
     }
 
@@ -998,6 +1049,7 @@
     }
 
     function handleLayerToggleChange(layerName) {
+        stopLayerPreview(true);
         registerAudioInteraction();
         syncLayerVisual(layerName);
         syncLayerAudio(layerName, {
@@ -1012,6 +1064,7 @@
     }
 
     function handleLayerVolumeChange(layerName) {
+        stopLayerPreview(true);
         registerAudioInteraction();
         syncLayerVisual(layerName);
         syncLayerAudio(layerName, {
@@ -1949,6 +2002,7 @@
         }
 
         layerTrackState[layerName] = nextTrack.key;
+        stopLayerPreview(true);
         syncLayerTrackUI(layerName);
         replaceLayerAudioController(layerName);
         syncLayerAudio(layerName, {
@@ -1999,6 +2053,82 @@
     function registerAudioInteraction() {
         audioState.hasUserInteracted = true;
         primeLayerPlaybackForInteraction();
+    }
+
+    function stopLayerPreview(shouldRestore) {
+        var restoreAudio = shouldRestore !== false;
+        var shouldRestorePreview = audioState.previewRestoreAllowPreview;
+
+        window.clearTimeout(audioState.previewTimer);
+        audioState.previewTimer = null;
+
+        if (!audioState.previewLayer) {
+            return;
+        }
+
+        audioState.previewLayer = '';
+        audioState.previewRestoreAllowPreview = false;
+        syncLayerPreviewUI();
+
+        if (!restoreAudio) {
+            return;
+        }
+
+        syncAllLayerAudio({
+            allowPreview: shouldRestorePreview,
+            duration: prefersReducedMotion() ? 0 : 260,
+            resetOnPause: !sessionState.running
+        });
+    }
+
+    function previewLayerAudio(layerName) {
+        var controller = audioState.layers[layerName];
+        var audio = controller && controller.audio ? controller.audio : null;
+        var selectedTrack = getSelectedLayerTrack(layerName);
+
+        if (!audio || !selectedTrack) {
+            return;
+        }
+
+        stopLayerPreview(false);
+        registerAudioInteraction();
+
+        audioState.previewRestoreAllowPreview = !sessionState.running && layerNames.some(function (name) {
+            var currentController = audioState.layers[name];
+            var currentAudio = currentController && currentController.audio ? currentController.audio : null;
+
+            return !!(currentAudio && !currentAudio.paused && currentAudio.volume > 0.001);
+        });
+        audioState.previewLayer = layerName;
+        syncLayerPreviewUI();
+
+        layerNames.forEach(function (name) {
+            var targetController = audioState.layers[name];
+
+            if (name === layerName) {
+                if (typeof selectedTrack.previewStart === 'number') {
+                    try {
+                        audio.currentTime = clamp(selectedTrack.previewStart, 0, Math.max(0, (audio.duration || selectedTrack.previewStart) - 0.25));
+                    } catch (error) {
+                        // Ignore preview seek failures and continue from the current frame.
+                    }
+                }
+
+                fadeAudioController(targetController, getLayerPreviewVolume(layerName), prefersReducedMotion() ? 0 : 160, {
+                    resetOnPause: false
+                });
+                return;
+            }
+
+            fadeAudioController(targetController, 0, prefersReducedMotion() ? 0 : 140, {
+                resetOnPause: false
+            });
+        });
+
+        audioState.previewTimer = window.setTimeout(function () {
+            stopLayerPreview(true);
+        }, prefersReducedMotion() ? 1200 : 2600);
+        wakeGhostUI(2600);
     }
 
     function safePlayAudio(audio) {
@@ -2110,7 +2240,7 @@
         var config = options || {};
         var layerState = getLayerState(layerName);
         var shouldPlay = layerState.enabled && layerState.volume > 0.001 && (sessionState.running || !!config.allowPreview);
-        var targetVolume = shouldPlay ? layerState.volume : 0;
+        var targetVolume = shouldPlay ? getEffectiveLayerVolume(layerName, layerState.volume) : 0;
 
         fadeAudioController(
             controller,
@@ -2796,6 +2926,7 @@
     }
 
     function resetSession() {
+        stopLayerPreview(false);
         sessionState.running = false;
         sessionState.startedAt = null;
         sessionState.pausedElapsedMs = 0;
@@ -2911,6 +3042,7 @@
     }
 
     function startSession() {
+        stopLayerPreview(false);
         if (sessionState.running) {
             sessionState.running = false;
             sessionState.pausedElapsedMs += sessionState.startedAt ? performance.now() - sessionState.startedAt : 0;
@@ -3279,6 +3411,7 @@
             return;
         }
 
+        stopLayerPreview(false);
         appState.isOpen = false;
         commitWritingFocusDuration();
         syncSceneVideoPlayback();
@@ -3645,6 +3778,7 @@
         layerList.addEventListener('pointerdown', function (event) {
             var interactiveTarget = findLayerEventTarget(event, 'data-app-layer-volume') ||
                 findLayerEventTarget(event, 'data-app-layer-toggle') ||
+                findLayerEventTarget(event, 'data-app-layer-preview') ||
                 findLayerEventTarget(event, 'data-app-layer-expand');
 
             if (interactiveTarget && layerList.contains(interactiveTarget)) {
@@ -3653,7 +3787,13 @@
         });
 
         layerList.addEventListener('click', function (event) {
+            var previewButton = findLayerEventTarget(event, 'data-app-layer-preview');
             var expandButton = findLayerEventTarget(event, 'data-app-layer-expand');
+
+            if (previewButton && layerList.contains(previewButton)) {
+                previewLayerAudio(previewButton.getAttribute('data-app-layer-preview'));
+                return;
+            }
 
             if (expandButton && layerList.contains(expandButton)) {
                 toggleLayerExpanded(expandButton.getAttribute('data-app-layer-expand'));
