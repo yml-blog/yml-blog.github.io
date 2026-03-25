@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/focus-room.css">
+  <link rel="stylesheet" href="../css/focus-room.css?v=20260324-5">
 </head>
 <body class="focus-room-page">
   <main class="fr-page" data-page-content>
@@ -526,7 +526,7 @@
 
                 </div>
 
-                <div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel data-scene-switcher data-scene-switcher-open="false">
+                <div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel data-scene-switcher data-scene-switcher-open="true">
                   <div class="fr-scene-switcher__head">
                     <div class="fr-scene-switcher__copy">
                       <span class="fr-console-kicker">Rooms</span>
@@ -537,14 +537,14 @@
                       class="fr-scene-switcher__toggle"
                       data-scene-switcher-toggle
                       type="button"
-                      aria-expanded="false"
+                      aria-expanded="true"
                       aria-controls="frSceneSwitcherBody"
                     >
-                      Rooms
+                      Hide
                     </button>
                   </div>
 
-                  <div class="fr-scene-switcher__body" data-scene-switcher-body id="frSceneSwitcherBody" hidden>
+                  <div class="fr-scene-switcher__body" data-scene-switcher-body id="frSceneSwitcherBody">
                     <div class="fr-scene-switcher__grid" data-scene-grid role="toolbar" aria-label="Choose a cinematic room"></div>
                   </div>
                 </div>
@@ -613,7 +613,7 @@
                 </div>
 
                 <div class="fr-transport-note" data-app-room-note>
-                  Rain, Piano, and Wind are already carrying the room. Roll transport when it feels right.
+                  Choose your channels, then roll transport to bring the room in.
                 </div>
               </div>
 
@@ -627,6 +627,6 @@
     </div>
   </div>
 
-  <script defer src="../js/focus-room.js"></script>
+  <script defer src="../js/focus-room.js?v=20260324-5"></script>
 </body>
 </html>

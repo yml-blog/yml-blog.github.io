@@ -2,6 +2,7 @@
     'use strict';
 
     var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var FOCUS_ROOM_ASSET_VERSION = '20260324-5';
 
     function prefersReducedMotion() {
         return !!(mediaQuery && mediaQuery.matches);
@@ -92,8 +93,18 @@
         return '../focus-room/' + normalized;
     }
 
+    function appendAssetVersion(path) {
+        var resolved = resolveFocusRoomPath(path);
+
+        if (!resolved) {
+            return '';
+        }
+
+        return resolved + (resolved.indexOf('?') === -1 ? '?' : '&') + 'v=' + encodeURIComponent(FOCUS_ROOM_ASSET_VERSION);
+    }
+
     function encodeSceneFileSource(fileName) {
-        return resolveFocusRoomPath('swiftui-prototype/public/video/' + encodeURIComponent(fileName).replace(/%2F/g, '/'));
+        return appendAssetVersion('swiftui-prototype/public/video/' + encodeURIComponent(fileName).replace(/%2F/g, '/'));
     }
 
     function describeSceneTitle(title) {
@@ -258,7 +269,7 @@
     var codeStatus = document.querySelector('[data-code-status]');
 
     function soundAsset(fileName) {
-        return resolveFocusRoomPath('swiftui-prototype/public/audio/sound/' + fileName);
+        return appendAssetVersion('swiftui-prototype/public/audio/sound/' + fileName);
     }
 
     var AMBIENT_LAYER_LIBRARY = {
@@ -512,6 +523,7 @@
         previewLayer: '',
         previewRestoreAllowPreview: false,
         previewTimer: null,
+        sessionRecoveryTimer: null,
         layers: {},
         completionChime: null,
         completionTimer: null
@@ -561,7 +573,7 @@
     };
 
     var sceneSwitcherState = {
-        expanded: false
+        expanded: true
     };
 
     var layerTrackState = {};
@@ -1034,6 +1046,44 @@
         };
     }
 
+    function getAudibleLayerNames() {
+        return layerNames.filter(function (layerName) {
+            var layerState = getLayerState(layerName);
+            return layerState.enabled && layerState.volume > 0.001;
+        });
+    }
+
+    function reviveEnabledMutedLayers() {
+        var revivedAny = false;
+
+        layerNames.forEach(function (layerName) {
+            var elements = getLayerElements(layerName);
+            var config = getLayerConfig(layerName);
+            var defaultVolume = clamp(Number(config && config.defaultVolume ? config.defaultVolume : 0.35), 0.08, 1);
+
+            if (!elements.toggle || !elements.slider || !elements.toggle.checked) {
+                return;
+            }
+
+            if (Number(elements.slider.value || '0') > 0.001) {
+                return;
+            }
+
+            elements.slider.value = defaultVolume.toFixed(2);
+            syncLayerVisual(layerName);
+            revivedAny = true;
+        });
+
+        if (!revivedAny) {
+            return false;
+        }
+
+        updateMixSummary();
+        updateRoomNote();
+        saveSettings();
+        return true;
+    }
+
     function findLayerEventTarget(event, attributeName) {
         var target = event ? event.target : null;
 
@@ -1051,10 +1101,11 @@
     function handleLayerToggleChange(layerName) {
         stopLayerPreview(true);
         registerAudioInteraction();
+        reviveEnabledMutedLayers();
         syncLayerVisual(layerName);
         syncLayerAudio(layerName, {
             duration: 360,
-            allowPreview: true,
+            allowPreview: sessionState.running,
             resetOnPause: false
         });
         saveSettings();
@@ -1069,7 +1120,7 @@
         syncLayerVisual(layerName);
         syncLayerAudio(layerName, {
             duration: 160,
-            allowPreview: true,
+            allowPreview: sessionState.running,
             resetOnPause: false
         });
         saveSettings();
@@ -1765,6 +1816,8 @@
 
         if (nextMode === 'writing') {
             setSceneSwitcherExpanded(false);
+        } else if (appState.phase === 'room') {
+            setSceneSwitcherExpanded(defaultSceneSwitcherExpanded());
         }
 
         syncModePresentation();
@@ -2007,7 +2060,7 @@
         replaceLayerAudioController(layerName);
         syncLayerAudio(layerName, {
             duration: 320,
-            allowPreview: true,
+            allowPreview: sessionState.running,
             resetOnPause: false
         });
 
@@ -2077,7 +2130,8 @@
         syncAllLayerAudio({
             allowPreview: shouldRestorePreview,
             duration: prefersReducedMotion() ? 0 : 260,
-            resetOnPause: !sessionState.running
+            resetOnPause: !sessionState.running,
+            keepAliveOnZero: !sessionState.running
         });
     }
 
@@ -2121,7 +2175,8 @@
             }
 
             fadeAudioController(targetController, 0, prefersReducedMotion() ? 0 : 140, {
-                resetOnPause: false
+                resetOnPause: false,
+                keepAliveOnZero: true
             });
         });
 
@@ -2172,6 +2227,10 @@
         audio.volume = safeTarget;
 
         if (safeTarget <= 0.001) {
+            if (config.keepAliveOnZero) {
+                return;
+            }
+
             audio.pause();
 
             if (config.resetOnPause) {
@@ -2241,13 +2300,15 @@
         var layerState = getLayerState(layerName);
         var shouldPlay = layerState.enabled && layerState.volume > 0.001 && (sessionState.running || !!config.allowPreview);
         var targetVolume = shouldPlay ? getEffectiveLayerVolume(layerName, layerState.volume) : 0;
+        var shouldKeepAliveOnZero = !shouldPlay && !!config.keepAliveOnZero && layerState.enabled && layerState.volume > 0.001;
 
         fadeAudioController(
             controller,
             targetVolume,
             typeof config.duration === 'number' ? config.duration : (shouldPlay ? 850 : 450),
             {
-                resetOnPause: !!config.resetOnPause
+                resetOnPause: !!config.resetOnPause,
+                keepAliveOnZero: shouldKeepAliveOnZero
             }
         );
     }
@@ -2267,6 +2328,56 @@
                 resetOnPause: !!config.resetOnPause
             });
         });
+    }
+
+    function warmAudibleLayers() {
+        getAudibleLayerNames().forEach(function (layerName) {
+            var controller = audioState.layers[layerName];
+            var audio = controller && controller.audio ? controller.audio : null;
+
+            if (!audio) {
+                return;
+            }
+
+            if (audio.readyState === 0) {
+                safePreloadAudio(audio);
+            }
+
+            if (!audio.paused) {
+                return;
+            }
+
+            audio.volume = 0;
+            safePlayAudio(audio);
+        });
+    }
+
+    function scheduleSessionAudioRecovery() {
+        window.clearTimeout(audioState.sessionRecoveryTimer);
+        audioState.sessionRecoveryTimer = null;
+
+        audioState.sessionRecoveryTimer = window.setTimeout(function () {
+            var audibleLayers = getAudibleLayerNames();
+            var hasLiveLayer = audibleLayers.some(function (layerName) {
+                var controller = audioState.layers[layerName];
+                var audio = controller && controller.audio ? controller.audio : null;
+
+                return !!(audio && !audio.paused);
+            });
+
+            if (!audibleLayers.length) {
+                return;
+            }
+
+            if (!hasLiveLayer) {
+                warmAudibleLayers();
+            }
+
+            syncAllLayerAudio({
+                duration: prefersReducedMotion() ? 0 : 320,
+                resetOnPause: false
+            });
+        }, prefersReducedMotion() ? 0 : 220);
     }
 
     function stopCompletionChime() {
@@ -2659,7 +2770,7 @@
 
         var readableNames = activeLayers.slice(0, 3).map(getLayerDisplayName);
 
-        appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are already carrying the room. Roll transport when it feels right.';
+        appRoomNote.textContent = readableNames.join(', ') + (activeLayers.length > 3 ? ', and more' : '') + ' are ready. Roll transport to bring them into the room.';
     }
 
     function updateMixSummary() {
@@ -2714,6 +2825,10 @@
 
     function defaultMixerExpanded() {
         return true;
+    }
+
+    function defaultSceneSwitcherExpanded() {
+        return appModeState.mode !== 'writing';
     }
 
     function canCollapseConsole() {
@@ -2931,6 +3046,8 @@
         sessionState.startedAt = null;
         sessionState.pausedElapsedMs = 0;
         sessionState.completionVisible = false;
+        window.clearTimeout(audioState.sessionRecoveryTimer);
+        audioState.sessionRecoveryTimer = null;
         window.clearTimeout(audioState.completionTimer);
         stopCompletionChime();
         stopAllLayerAudio({
@@ -2974,6 +3091,8 @@
         sessionState.pausedElapsedMs = sessionState.demoDurationMs;
         sessionState.completionVisible = true;
         sessionState.frame = null;
+        window.clearTimeout(audioState.sessionRecoveryTimer);
+        audioState.sessionRecoveryTimer = null;
         stopAllLayerAudio({
             duration: 900,
             resetOnPause: true
@@ -3075,6 +3194,7 @@
         }
 
         stopCompletionChime();
+        reviveEnabledMutedLayers();
 
         if (appCompletionNote) {
             appCompletionNote.classList.remove('is-visible');
@@ -3083,6 +3203,7 @@
         sessionState.completionVisible = false;
         sessionState.running = true;
         sessionState.startedAt = null;
+        warmAudibleLayers();
 
         if (appStartButton) {
             appStartButton.textContent = 'Pause Session';
@@ -3094,6 +3215,7 @@
             duration: 900,
             resetOnPause: false
         });
+        scheduleSessionAudioRecovery();
         sessionState.frame = window.requestAnimationFrame(tickSession);
     }
 
@@ -3291,7 +3413,7 @@
             setMixerExpanded(defaultMixerExpanded());
             stopAppThresholdLoop();
             syncAllLayerAudio({
-                allowPreview: true,
+                allowPreview: false,
                 duration: prefersReducedMotion() ? 0 : 900,
                 resetOnPause: false
             });
@@ -3382,7 +3504,7 @@
         closeLayerDrawer();
         syncLayerExpandUI();
         setMixerExpanded(defaultMixerExpanded());
-        setSceneSwitcherExpanded(false);
+        setSceneSwitcherExpanded(defaultSceneSwitcherExpanded());
         syncAllLayers();
         saveSettings();
 
@@ -3418,6 +3540,8 @@
         cancelThresholdHold();
         stopAppThresholdLoop();
         window.clearTimeout(sessionState.ghostTimer);
+        window.clearTimeout(audioState.sessionRecoveryTimer);
+        audioState.sessionRecoveryTimer = null;
         stopCompletionChime();
         stopAllLayerAudio({
             duration: prefersReducedMotion() ? 0 : 320,
@@ -3689,10 +3813,6 @@
     if (appRoomShell) {
         ['pointermove', 'pointerdown', 'touchstart', 'focusin'].forEach(function (eventName) {
             appRoomShell.addEventListener(eventName, function (event) {
-                if (sceneSwitcherState.expanded && eventName === 'pointerdown' && sceneSwitcher && event && !sceneSwitcher.contains(event.target)) {
-                    setSceneSwitcherExpanded(false);
-                }
-
                 wakeGhostUI();
             }, { passive: true });
         });
@@ -3889,7 +4009,6 @@
             backgroundState.userSceneOverrideUntil = performance.now() + 90000;
             backgroundState.lastSceneChangeAt = performance.now();
             setSceneVideo(button.getAttribute('data-scene-key'), true);
-            setSceneSwitcherExpanded(false);
             wakeGhostUI();
         });
     }
@@ -3905,7 +4024,7 @@
     initializeAudioEngine();
     syncWritingInputsFromState();
     renderSceneButtons();
-    setSceneSwitcherExpanded(false);
+    setSceneSwitcherExpanded(defaultSceneSwitcherExpanded());
     setSceneVideo(sessionState.sceneKey, false);
     syncAtmosphereInputs();
     syncAllLayers();

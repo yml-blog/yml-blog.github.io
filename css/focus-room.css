@@ -5212,9 +5212,9 @@ body.fr-no-scroll {
 /* Rain Console video-driven scene stage */
 
 .fr-console-room__stage {
-    grid-template-columns: minmax(0, 1fr) minmax(236px, 280px) minmax(360px, 460px);
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 360px) minmax(360px, 460px);
     gap: 18px;
-    align-items: start;
+    align-items: stretch;
 }
 
 .fr-scene-stage {
@@ -5506,11 +5506,13 @@ body.fr-no-scroll {
     bottom: auto;
     left: auto;
     z-index: 8;
-    align-self: start;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
     justify-self: stretch;
     width: 100%;
-    max-width: 280px;
-    margin-top: 30px;
+    max-width: none;
+    margin-top: 0;
     padding: 12px;
     border-radius: 22px;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -5527,7 +5529,17 @@ body.fr-no-scroll {
         opacity 220ms ease;
 }
 
+.fr-scene-switcher[data-scene-switcher-open="true"] {
+    height: min(78vh, 840px);
+    max-height: min(78vh, 840px);
+    overflow: hidden;
+}
+
 .fr-scene-switcher[data-scene-switcher-open="false"] {
+    align-self: start;
+    height: auto;
+    max-height: none;
+    overflow: visible;
     background:
         linear-gradient(180deg, rgba(11, 16, 26, 0.58), rgba(8, 12, 20, 0.7));
     box-shadow:
@@ -5602,13 +5614,18 @@ body.fr-no-scroll {
 
 .fr-scene-switcher__body {
     margin-top: 12px;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
 }
 
 .fr-scene-switcher__grid {
     display: grid;
     grid-template-columns: 1fr;
+    flex: 1 1 auto;
     gap: 6px;
-    max-height: 224px;
+    max-height: none;
+    min-height: 0;
     overflow-y: auto;
     padding-right: 4px;
     align-content: start;
@@ -5741,6 +5758,7 @@ body.fr-no-scroll {
         margin-top: 0;
         width: min(320px, 100%);
         max-width: none;
+        align-self: start;
         justify-self: start;
     }
 }
@@ -5778,12 +5796,23 @@ body.fr-no-scroll {
         width: min(320px, 100%);
         max-width: none;
         padding: 14px;
+        align-self: start;
     }
 
     .fr-console-room[data-app-mode="writing"] .fr-scene-switcher {
         margin-top: 0;
         width: min(320px, 100%);
         max-width: none;
+    }
+
+    .fr-scene-switcher[data-scene-switcher-open="true"] {
+        height: auto;
+        max-height: none;
+    }
+
+    .fr-scene-switcher__body {
+        display: block;
+        flex: none;
     }
 
     .fr-scene-switcher__grid {
