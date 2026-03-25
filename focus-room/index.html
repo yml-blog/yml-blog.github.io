@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/focus-room.css?v=20260324-5">
+  <link rel="stylesheet" href="../css/focus-room.css?v=20260325-5">
 </head>
 <body class="focus-room-page">
   <main class="fr-page" data-page-content>
@@ -476,6 +476,14 @@
                   </div>
                 </div>
 
+                <div class="fr-hud-block fr-hud-block--presence">
+                  <div class="fr-hud-presence-head">
+                    <span class="fr-hud-label">Shared Room</span>
+                  </div>
+                  <div class="fr-hud-presence-count" data-app-presence-count aria-live="polite">36 anonymous in room</div>
+                  <div class="fr-hud-presence-grid" data-app-presence-grid aria-hidden="true"></div>
+                </div>
+
                 <div class="fr-hud-block fr-hud-block--scene">
                   <span class="fr-hud-label">Scene</span>
                   <div class="fr-hud-scene-name" data-app-scene-label>Windowlight at Midnight</div>
@@ -493,6 +501,14 @@
                   <div class="fr-scene-stage__fog"></div>
                   <div class="fr-scene-stage__warmth"></div>
                   <div class="fr-scene-stage__glass"></div>
+                  <div class="fr-scene-stage__presence-cloud" aria-hidden="true">
+                    <span class="fr-scene-stage__presence-dot"></span>
+                    <span class="fr-scene-stage__presence-dot"></span>
+                    <span class="fr-scene-stage__presence-dot"></span>
+                    <span class="fr-scene-stage__presence-dot"></span>
+                    <span class="fr-scene-stage__presence-dot"></span>
+                    <span class="fr-scene-stage__presence-dot"></span>
+                  </div>
 
                   <section class="fr-writing-shell" data-writing-shell hidden aria-hidden="true">
                     <div class="fr-writing-shell__head">
@@ -627,6 +643,6 @@
     </div>
   </div>
 
-  <script defer src="../js/focus-room.js?v=20260324-5"></script>
+  <script defer src="../js/focus-room.js?v=20260325-5"></script>
 </body>
 </html>

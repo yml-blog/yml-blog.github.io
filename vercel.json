@@ -2,6 +2,9 @@
     "functions": {
         "api/ask-yangming.js": {
             "maxDuration": 15
+        },
+        "api/focus-room-presence.js": {
+            "maxDuration": 10
         }
     }
 }

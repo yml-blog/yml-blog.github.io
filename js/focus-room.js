@@ -2,7 +2,7 @@
     'use strict';
 
     var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-    var FOCUS_ROOM_ASSET_VERSION = '20260324-5';
+    var FOCUS_ROOM_ASSET_VERSION = '20260325-5';
 
     function prefersReducedMotion() {
         return !!(mediaQuery && mediaQuery.matches);
@@ -10,6 +10,14 @@
 
     function clamp(value, min, max) {
         return Math.min(max, Math.max(min, value));
+    }
+
+    function randomBetween(min, max) {
+        return min + (Math.random() * (max - min));
+    }
+
+    function randomInt(min, max) {
+        return Math.floor(randomBetween(min, max + 1));
     }
 
     function smoothstep(value) {
@@ -227,6 +235,8 @@
     var appSessionClock = document.querySelector('[data-app-session-clock]');
     var appSessionStatus = document.querySelector('[data-app-session-status]');
     var appRingProgress = document.querySelector('[data-app-ring-progress]');
+    var appPresenceCount = document.querySelector('[data-app-presence-count]');
+    var appPresenceGrid = document.querySelector('[data-app-presence-grid]');
     var appSceneLabel = document.querySelector('[data-app-scene-label]');
     var appSceneSub = document.querySelector('[data-app-scene-sub]');
     var appDurationButtons = Array.prototype.slice.call(document.querySelectorAll('[data-app-duration]'));
@@ -268,8 +278,12 @@
     var codeContent = document.querySelector('[data-code-content]');
     var codeStatus = document.querySelector('[data-code-status]');
 
+    function audioAsset(relativePath) {
+        return appendAssetVersion('swiftui-prototype/public/audio/' + relativePath);
+    }
+
     function soundAsset(fileName) {
-        return appendAssetVersion('swiftui-prototype/public/audio/sound/' + fileName);
+        return audioAsset('sound/' + fileName);
     }
 
     var AMBIENT_LAYER_LIBRARY = {
@@ -316,6 +330,33 @@
             tracks: [
                 { key: 'arctic-cold', label: 'Arctic Cold', src: soundAsset('arctic-cold-wind.mp3') },
                 { key: 'arctic-cold-alt', label: 'Arctic Cold Alt', src: soundAsset('arctic-cold-wind-alt.mp3') }
+            ]
+        },
+        cafe: {
+            label: 'Companion',
+            hint: 'Quiet desks',
+            defaultEnabled: true,
+            defaultVolume: 0.12,
+            defaultTrack: 'soft-room',
+            gain: 0.68,
+            previewVolume: 0.22,
+            tracks: [
+                { key: 'soft-room', label: 'Soft Room', src: audioAsset('cafe/cafe-ambience-soft.mp3'), previewStart: 8 }
+            ]
+        },
+        presence: {
+            label: 'Ambient Presence',
+            hint: 'Anonymous signals',
+            defaultEnabled: false,
+            defaultVolume: 0.08,
+            defaultTrack: 'soft-typing',
+            gain: 0.56,
+            previewVolume: 0.16,
+            tracks: [
+                { key: 'soft-typing', label: 'Soft Typing', src: audioAsset('keyboard_mouse/keyboard_typing_3.mp3'), previewStart: 4.2 },
+                { key: 'light-typing', label: 'Light Keyboard', src: audioAsset('keyboard_mouse/keyboard_typing_2.mp3'), previewStart: 2.4 },
+                { key: 'mechanical', label: 'Mechanical Keyboard', src: audioAsset('keyboard_mouse/mechanical_keyboard_typing_1.mp3'), previewStart: 5.8 },
+                { key: 'mouse-clicks', label: 'Mouse Clicks', src: audioAsset('keyboard_mouse/mouse_click_sounds.mp3'), previewStart: 0.8 }
             ]
         },
         water: {
@@ -588,6 +629,23 @@
         rainDensityBoost: 0,
         consoleDim: 0.08,
         hudFade: 1
+    };
+
+    var presenceState = {
+        sessionId: '',
+        heartbeatTimer: null,
+        pending: null,
+        reportedCount: 28,
+        count: 36,
+        targetCount: 36,
+        nextCountShiftAt: 0,
+        nextCountStepAt: 0,
+        sceneKey: 'midnight',
+        activity: 0.26,
+        pulseMs: 5600,
+        source: 'signal',
+        enteredLast10m: 12,
+        recentAction: 'Someone returned to their work'
     };
 
     var codeFallbacks = {
@@ -1111,6 +1169,7 @@
         saveSettings();
         updateMixSummary();
         updateRoomNote();
+        renderPresence(makeFallbackPresenceSnapshot(Date.now()));
         wakeGhostUI();
     }
 
@@ -1126,6 +1185,7 @@
         saveSettings();
         updateMixSummary();
         updateRoomNote();
+        renderPresence(makeFallbackPresenceSnapshot(Date.now()));
         wakeGhostUI();
     }
 
@@ -1214,6 +1274,7 @@
         }
 
         syncSceneVideoPlayback();
+        renderPresence(makeFallbackPresenceSnapshot(Date.now()));
 
         if (shouldSave) {
             saveSettings();
@@ -1825,6 +1886,9 @@
             allowSceneSwitch: config.allowSceneSwitch,
             forceWhisper: config.forceWhisper,
             forceRoomNote: true
+        });
+        refreshPresence({
+            force: true
         });
 
         if (config.focusSurface && nextMode === 'writing') {
@@ -2582,6 +2646,9 @@
 
         syncModePresentation();
         syncSceneVideoPlayback();
+        refreshPresence({
+            force: true
+        });
     }
 
     function setThresholdPromptCopy() {
@@ -2804,6 +2871,379 @@
         appMixSummary.textContent = 'Mix: ' + label;
     }
 
+    function getPresenceSessionId() {
+        if (presenceState.sessionId) {
+            return presenceState.sessionId;
+        }
+
+        var storageKeyName = 'focus-room.presence-session';
+        var nextId = '';
+
+        try {
+            nextId = window.sessionStorage.getItem(storageKeyName) || '';
+        } catch (error) {
+            nextId = '';
+        }
+
+        if (!nextId) {
+            if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+                nextId = window.crypto.randomUUID();
+            } else {
+                nextId = 'fr-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+            }
+
+            try {
+                window.sessionStorage.setItem(storageKeyName, nextId);
+            } catch (error) {
+                // Ignore storage failures and keep the in-memory id for this tab.
+            }
+        }
+
+        presenceState.sessionId = nextId;
+        return nextId;
+    }
+
+    function isPresenceActive() {
+        return !!(appState.isOpen && appState.phase === 'room' && !document.hidden);
+    }
+
+    function getPresenceEndpoint() {
+        if (!window.location || window.location.protocol === 'file:' || !window.location.origin || window.location.origin === 'null') {
+            return '';
+        }
+
+        return window.location.origin + '/api/focus-room-presence';
+    }
+
+    function computeAmbientPresenceBase(hours) {
+        if (hours < 6) {
+            return 12;
+        }
+
+        if (hours < 9) {
+            return 18;
+        }
+
+        if (hours < 12) {
+            return 32;
+        }
+
+        if (hours < 17) {
+            return 36;
+        }
+
+        if (hours < 23) {
+            return 42;
+        }
+
+        return 20;
+    }
+
+    function makeFallbackPresenceSnapshot(now) {
+        var timestamp = typeof now === 'number' ? now : Date.now();
+        var date = new Date(timestamp);
+        var hours = date.getHours() + (date.getMinutes() / 60);
+        var minuteOfDay = (date.getHours() * 60) + date.getMinutes();
+        var activeLayerCount = getAudibleLayerNames().length;
+        var sceneConfig = SCENE_VIDEOS[sessionState.sceneKey] || null;
+        var sceneLabel = sceneConfig ? sanitizeSceneTitle(sceneConfig.label || sessionState.sceneKey) : '';
+        var sceneBoost = /(coffee|cafe)/i.test(sceneLabel) ? 2 : 0;
+        var drift = (Math.sin((minuteOfDay / 1440) * Math.PI * 4 + (date.getDay() + 1) * 0.72) * 1.8) +
+            (Math.cos((minuteOfDay / 1440) * Math.PI * 2 - 0.8) * 0.9);
+        var base = computeAmbientPresenceBase(hours);
+        var runningBoost = isPresenceActive() && sessionState.running ? 3 : 0;
+        var writingBoost = isPresenceActive() && appModeState.mode === 'writing' ? 2 : 0;
+        var count = Math.max(12, Math.round(base + drift + runningBoost + writingBoost + Math.min(4, activeLayerCount) + sceneBoost));
+        var enteredLast10m = Math.max(4, Math.round((count * 0.28) + (writingBoost * 0.8) + (runningBoost * 0.6) + Math.max(0, drift)));
+        var activity = clamp(0.18 + (count * 0.028) + (sessionState.running ? 0.10 : 0) + (appModeState.mode === 'writing' ? 0.04 : 0), 0.22, 0.92);
+        var pulseMs = Math.round(clamp(7800 - (count * 120) - (sessionState.running ? 500 : 0), 2900, 7800));
+        var actionPool = [
+            'Someone returned to their work',
+            'A few desks settled back in',
+            'Someone entered the room',
+            'The room filled in quietly'
+        ];
+        var recentAction = actionPool[Math.abs(Math.round((minuteOfDay / 3) + count + writingBoost)) % actionPool.length];
+
+        return {
+            count: count,
+            enteredLast10m: enteredLast10m,
+            recentAction: recentAction,
+            activity: activity,
+            pulseMs: pulseMs,
+            source: 'signal'
+        };
+    }
+
+    function normalizePresenceSnapshot(payload) {
+        var rawActivity = Number(payload && payload.activity);
+        var rawPulseMs = Number(payload && payload.pulseMs);
+        var rawEntered = Number(payload && payload.enteredLast10m);
+
+        return {
+            count: Math.max(0, Math.round(Number(payload && payload.count) || 0)),
+            enteredLast10m: Math.max(0, Math.round(isNaN(rawEntered) ? 0 : rawEntered)),
+            recentAction: String(payload && payload.recentAction || '').trim(),
+            activity: clamp(isNaN(rawActivity) ? 0.24 : rawActivity, 0.18, 0.96),
+            pulseMs: Math.round(clamp(isNaN(rawPulseMs) ? 5600 : rawPulseMs, 2800, 8200)),
+            source: payload && payload.source === 'live' ? 'live' : 'signal'
+        };
+    }
+
+    function getPresenceHoldDuration() {
+        return Math.round(randomBetween(5.2 * 60 * 1000, 14 * 60 * 1000));
+    }
+
+    function getPresenceStepDuration() {
+        return Math.round(randomBetween(18 * 1000, 42 * 1000));
+    }
+
+    function getScenePresenceRange(sceneKey) {
+        var sceneConfig = SCENE_VIDEOS[sceneKey] || null;
+        var title = sceneConfig ? sanitizeSceneTitle(sceneConfig.label || sceneConfig.file || sceneKey) : sanitizeSceneTitle(sceneKey);
+        var normalized = sceneKeyFromTitle(title);
+        var keywords = normalized.split('-');
+
+        function hasKeyword(keyword) {
+            return keywords.indexOf(keyword) !== -1;
+        }
+
+        if (sceneKey === 'coffee' || sceneKey === 'calmCafe' || hasKeyword('cafe') || hasKeyword('coffee')) {
+            return { min: 44, max: 88, base: 58 };
+        }
+
+        if (sceneKey === 'library' || hasKeyword('library') || hasKeyword('archive') || hasKeyword('study')) {
+            return { min: 24, max: 62, base: 36 };
+        }
+
+        if (sceneKey === 'sanctuary' || sceneKey === 'cloister' || hasKeyword('sanctuary') || hasKeyword('quiet') || hasKeyword('silence') || hasKeyword('still') || hasKeyword('stone') || hasKeyword('empty')) {
+            return { min: 6, max: 22, base: 12 };
+        }
+
+        if (sceneKey === 'midnight' || hasKeyword('midnight') || hasKeyword('late') || hasKeyword('lanterns') || hasKeyword('warmth') || hasKeyword('night')) {
+            return { min: 14, max: 42, base: 28 };
+        }
+
+        if (hasKeyword('train') || hasKeyword('world') || hasKeyword('motion') || hasKeyword('horizon')) {
+            return { min: 18, max: 48, base: 30 };
+        }
+
+        return { min: 12, max: 54, base: 26 };
+    }
+
+    function getScenePresenceBaseCount(sceneKey) {
+        var range = getScenePresenceRange(sceneKey);
+
+        return clamp(range.base, range.min, range.max);
+    }
+
+    function getRandomPresenceCountInRange(range) {
+        var safeRange = range || { min: 1, max: 200, base: 36 };
+
+        return clamp(randomInt(safeRange.min, safeRange.max), safeRange.min, safeRange.max);
+    }
+
+    function updatePresenceCountTrajectory(now) {
+        var timestamp = typeof now === 'number' ? now : Date.now();
+        var activeSceneKey = sessionState.sceneKey || 'midnight';
+        var sceneRange = getScenePresenceRange(activeSceneKey);
+        var reseededCount = 0;
+
+        if (presenceState.sceneKey !== activeSceneKey) {
+            reseededCount = getRandomPresenceCountInRange(sceneRange);
+            presenceState.sceneKey = activeSceneKey;
+            presenceState.count = reseededCount;
+            presenceState.targetCount = reseededCount;
+            presenceState.nextCountStepAt = 0;
+            presenceState.nextCountShiftAt = timestamp + getPresenceHoldDuration();
+            return presenceState.count;
+        }
+
+        if (!presenceState.nextCountShiftAt) {
+            presenceState.sceneKey = activeSceneKey;
+            presenceState.count = clamp(Math.round(Number(presenceState.count) || getScenePresenceBaseCount(activeSceneKey)), sceneRange.min, sceneRange.max);
+            presenceState.targetCount = presenceState.count;
+            presenceState.nextCountStepAt = 0;
+            presenceState.nextCountShiftAt = timestamp + getPresenceHoldDuration();
+            return presenceState.count;
+        }
+
+        if (presenceState.count !== presenceState.targetCount) {
+            if (timestamp >= presenceState.nextCountStepAt) {
+                presenceState.count += presenceState.targetCount > presenceState.count ? 1 : -1;
+
+                if (presenceState.count === presenceState.targetCount) {
+                    presenceState.nextCountStepAt = 0;
+                    presenceState.nextCountShiftAt = timestamp + getPresenceHoldDuration();
+                } else {
+                    presenceState.nextCountStepAt = timestamp + getPresenceStepDuration();
+                }
+            }
+
+            return presenceState.count;
+        }
+
+        if (timestamp < presenceState.nextCountShiftAt) {
+            return presenceState.count;
+        }
+
+        var delta = randomInt(1, 9);
+        var direction = Math.random() < 0.5 ? -1 : 1;
+
+        if (presenceState.count <= sceneRange.min) {
+            direction = 1;
+        } else if (presenceState.count >= sceneRange.max) {
+            direction = -1;
+        }
+
+        var nextTarget = clamp(presenceState.count + (direction * delta), sceneRange.min, sceneRange.max);
+
+        if (nextTarget === presenceState.count) {
+            nextTarget = clamp(presenceState.count + ((direction * -1) * delta), sceneRange.min, sceneRange.max);
+        }
+
+        presenceState.targetCount = nextTarget;
+        presenceState.nextCountStepAt = timestamp + getPresenceStepDuration();
+        return presenceState.count;
+    }
+
+    function getPresenceDisplayLine(count) {
+        var safeCount = Math.max(1, Math.round(Number(count) || 36));
+
+        return safeCount + ' anonymous in room';
+    }
+
+    function renderPresenceGrid(count) {
+        if (!appPresenceGrid) {
+            return;
+        }
+
+        var safeCount = Math.max(1, Math.min(200, Math.round(Number(count) || 36)));
+        var rows = 3;
+        var columns = Math.max(1, Math.ceil(safeCount / rows));
+        var availableWidth = Math.max(180, appPresenceGrid.clientWidth || 212);
+        var gap = columns >= 56 ? 1 : (columns >= 28 ? 2 : 3);
+        var dotSize = Math.floor((availableWidth - ((columns - 1) * gap)) / columns);
+        var safeDotSize = clamp(dotSize, 2, 6);
+        var dots = '';
+        var index = 0;
+
+        for (index = 0; index < safeCount; index += 1) {
+            dots += '<span class="fr-hud-presence-dot"></span>';
+        }
+
+        appPresenceGrid.style.setProperty('--fr-presence-grid-columns', String(columns));
+        appPresenceGrid.style.setProperty('--fr-presence-dot-size', safeDotSize + 'px');
+        appPresenceGrid.style.setProperty('--fr-presence-dot-gap', gap + 'px');
+        appPresenceGrid.innerHTML = dots;
+    }
+
+    function renderPresence(snapshot) {
+        var timestamp = Date.now();
+        var nextSnapshot = snapshot || makeFallbackPresenceSnapshot(timestamp);
+
+        presenceState.reportedCount = nextSnapshot.count;
+        presenceState.enteredLast10m = nextSnapshot.enteredLast10m;
+        presenceState.recentAction = nextSnapshot.recentAction;
+        presenceState.activity = nextSnapshot.activity;
+        presenceState.pulseMs = nextSnapshot.pulseMs;
+        presenceState.source = nextSnapshot.source;
+        presenceState.count = updatePresenceCountTrajectory(timestamp);
+
+        if (appPresenceCount) {
+            appPresenceCount.textContent = getPresenceDisplayLine(presenceState.count);
+        }
+
+        renderPresenceGrid(presenceState.count);
+
+        if (appRoomShell) {
+            appRoomShell.style.setProperty('--fr-presence-activity', nextSnapshot.activity.toFixed(3));
+            appRoomShell.style.setProperty('--fr-presence-meter', nextSnapshot.activity.toFixed(3));
+            appRoomShell.style.setProperty('--fr-presence-pulse-ms', nextSnapshot.pulseMs + 'ms');
+            appRoomShell.style.setProperty('--fr-presence-glow', clamp(0.02 + (nextSnapshot.activity * 0.16), 0.02, 0.18).toFixed(3));
+        }
+    }
+
+    function refreshPresence(options) {
+        var config = options || {};
+        var fallbackSnapshot = makeFallbackPresenceSnapshot(Date.now());
+        var endpoint = config.preferNetwork === false ? '' : getPresenceEndpoint();
+
+        if (!endpoint || typeof window.fetch !== 'function') {
+            renderPresence(fallbackSnapshot);
+            return Promise.resolve(fallbackSnapshot);
+        }
+
+        if (presenceState.pending && !config.force) {
+            return presenceState.pending;
+        }
+
+        var request = null;
+        request = window.fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sessionId: getPresenceSessionId(),
+                present: isPresenceActive(),
+                phase: appState.phase,
+                running: !!(sessionState.running && isPresenceActive()),
+                mode: appModeState.mode
+            }),
+            cache: 'no-store',
+            credentials: 'same-origin',
+            keepalive: !!config.keepalive
+        }).then(function (response) {
+            if (!response.ok) {
+                throw new Error('Presence request failed with status ' + response.status);
+            }
+
+            return response.json();
+        }).then(function (payload) {
+            var liveSnapshot = normalizePresenceSnapshot(payload);
+            var snapshot = liveSnapshot.count > 0
+                ? liveSnapshot
+                : {
+                    count: fallbackSnapshot.count,
+                    enteredLast10m: fallbackSnapshot.enteredLast10m,
+                    recentAction: fallbackSnapshot.recentAction,
+                    activity: clamp(Math.max(fallbackSnapshot.activity, liveSnapshot.activity * 0.74), 0.22, 0.92),
+                    pulseMs: Math.round(clamp(Math.min(fallbackSnapshot.pulseMs, liveSnapshot.pulseMs + 400), 2800, 8200)),
+                    source: 'signal'
+                };
+
+            renderPresence(snapshot);
+            return snapshot;
+        }).catch(function () {
+            renderPresence(fallbackSnapshot);
+            return fallbackSnapshot;
+        }).finally(function () {
+            if (presenceState.pending === request) {
+                presenceState.pending = null;
+            }
+        });
+
+        presenceState.pending = request;
+        return request;
+    }
+
+    function beginPresenceHeartbeat() {
+        if (presenceState.heartbeatTimer) {
+            return;
+        }
+
+        if (!presenceState.pending) {
+            refreshPresence({
+                force: true
+            });
+        }
+
+        presenceState.heartbeatTimer = window.setInterval(function () {
+            refreshPresence();
+        }, 22000);
+    }
+
     function setGhostPanels(isAwake) {
         var hudOpacity = isAwake ? 0.96 : (sessionState.running ? 0.58 : 0.82);
         var consoleOpacity = isAwake ? 1 : 0.98;
@@ -2934,6 +3374,7 @@
         });
         updateMixSummary();
         updateRoomNote();
+        renderPresence(makeFallbackPresenceSnapshot(Date.now()));
     }
 
     function syncAtmosphereInputs() {
@@ -2971,6 +3412,7 @@
         var piano = getLayerState('piano');
         var wind = getLayerState('wind');
         var cafe = getLayerState('cafe');
+        var presence = getLayerState('presence');
         var water = getLayerState('water');
         var storm = getLayerState('storm');
         var utility = getLayerState('utility');
@@ -2980,23 +3422,24 @@
         var pianoValue = piano.enabled ? piano.volume : 0;
         var windValue = wind.enabled ? wind.volume : 0;
         var cafeValue = cafe.enabled ? cafe.volume : 0;
+        var presenceValue = presence.enabled ? presence.volume : 0;
         var waterValue = water.enabled ? water.volume : 0;
         var stormValue = storm.enabled ? storm.volume : 0;
         var utilityValue = utility.enabled ? utility.volume : 0;
         var chimeValue = chime.enabled ? chime.volume : 0;
 
         var warmth = clamp(atmosphereState.warmth + pianoValue * 0.24 + cafeValue * 0.14 + stormValue * 0.04 + visualState.lampWarmthBoost, 0, 1);
-        var focusDepth = clamp(atmosphereState.focusDepth + windValue * 0.16 + utilityValue * 0.12 + chimeValue * 0.05 + visualState.progress * 0.16, 0, 1);
+        var focusDepth = clamp(atmosphereState.focusDepth + windValue * 0.16 + utilityValue * 0.12 + chimeValue * 0.05 + presenceValue * 0.08 + visualState.progress * 0.16, 0, 1);
         var fog = clamp(atmosphereState.fog + rainValue * 0.14 + windValue * 0.08 + stormValue * 0.18 + waterValue * 0.04, 0, 1);
         var rainStrength = clamp(Math.max(0.06, rainValue + stormValue * 0.46) + visualState.rainDensityBoost, 0.06, 1);
-        var roomCalm = clamp(0.28 + (1 - cafeValue) * 0.18 + (1 - windValue) * 0.10 + waterValue * 0.08 + chimeValue * 0.03 - utilityValue * 0.08, 0.18, 0.84);
+        var roomCalm = clamp(0.28 + (1 - cafeValue) * 0.18 + (1 - windValue) * 0.10 + waterValue * 0.08 + chimeValue * 0.03 - utilityValue * 0.08 - presenceValue * 0.04, 0.18, 0.84);
         var videoBrightness = clamp(0.03 + focusDepth * 0.08 + visualState.progress * 0.04 + chimeValue * 0.02 - rainStrength * 0.03 - stormValue * 0.02, 0.02, 0.16);
         var videoContrast = clamp(0.06 + focusDepth * 0.14 + stormValue * 0.06 + utilityValue * 0.05 + visualState.progress * 0.04, 0.04, 0.24);
         var videoSaturation = clamp(0.04 + warmth * 0.16 + chimeValue * 0.04 - fog * 0.04, 0.03, 0.22);
         var videoZoom = clamp(visualState.progress * 0.008 + focusDepth * 0.01 + utilityValue * 0.003 + stormValue * 0.002, 0, 0.022);
         var fogOverlay = clamp(0.04 + fog * 0.24 + rainStrength * 0.06 + stormValue * 0.08, 0.04, 0.42);
-        var warmthOverlay = clamp(0.04 + warmth * 0.22 + visualState.progress * 0.08 + cafeValue * 0.04 + stormValue * 0.03, 0.04, 0.38);
-        var glassOverlay = clamp(0.05 + rainStrength * 0.18 + waterValue * 0.06 + stormValue * 0.08 + chimeValue * 0.05, 0.05, 0.32);
+        var warmthOverlay = clamp(0.04 + warmth * 0.22 + visualState.progress * 0.08 + cafeValue * 0.04 + stormValue * 0.03 + presenceValue * 0.02, 0.04, 0.38);
+        var glassOverlay = clamp(0.05 + rainStrength * 0.18 + waterValue * 0.06 + stormValue * 0.08 + chimeValue * 0.05 + presenceValue * 0.04, 0.05, 0.32);
         var writingDescriptor = appModeState.mode === 'writing' ? backgroundState.descriptor : null;
         var writingVisuals = writingDescriptor && writingDescriptor.visual ? writingDescriptor.visual : null;
         var writingClarity = 0.44;
@@ -3029,6 +3472,7 @@
         appRoomShell.style.setProperty('--fr-fog-overlay', fogOverlay.toFixed(3));
         appRoomShell.style.setProperty('--fr-warmth-overlay', warmthOverlay.toFixed(3));
         appRoomShell.style.setProperty('--fr-glass-overlay', glassOverlay.toFixed(3));
+        appRoomShell.style.setProperty('--fr-presence-layer', presenceValue.toFixed(3));
         appRoomShell.style.setProperty('--fr-writing-clarity', writingClarity.toFixed(3));
         appRoomShell.style.setProperty('--fr-writing-softness', writingSoftness.toFixed(3));
         appRoomShell.style.setProperty('--fr-writing-support', writingSupport.toFixed(3));
@@ -3082,6 +3526,9 @@
 
         applySessionVisuals(0);
         updateRoomNote();
+        refreshPresence({
+            force: true
+        });
         setGhostPanels(false);
     }
 
@@ -3121,6 +3568,9 @@
 
         applySessionVisuals(1);
         updateRoomNote();
+        refreshPresence({
+            force: true
+        });
         wakeGhostUI(2600);
     }
 
@@ -3185,6 +3635,9 @@
             }
 
             updateRoomNote();
+            refreshPresence({
+                force: true
+            });
             wakeGhostUI();
             return;
         }
@@ -3210,6 +3663,9 @@
         }
 
         updateRoomNote();
+        refreshPresence({
+            force: true
+        });
         wakeGhostUI();
         syncAllLayerAudio({
             duration: 900,
@@ -3537,6 +3993,10 @@
         appState.isOpen = false;
         commitWritingFocusDuration();
         syncSceneVideoPlayback();
+        refreshPresence({
+            force: true,
+            keepalive: true
+        });
         cancelThresholdHold();
         stopAppThresholdLoop();
         window.clearTimeout(sessionState.ghostTimer);
@@ -4036,6 +4496,7 @@
         allowSceneSwitch: false,
         forceWhisper: true
     });
+    beginPresenceHeartbeat();
     beginPreviewLoop();
 
     writingRuntimeState.pulseTimer = window.setInterval(function () {
@@ -4054,6 +4515,20 @@
         }
 
         setMixerExpanded(sessionState.mixerExpanded);
+    });
+
+    document.addEventListener('visibilitychange', function () {
+        refreshPresence({
+            force: true,
+            keepalive: document.hidden
+        });
+    });
+
+    window.addEventListener('pagehide', function () {
+        refreshPresence({
+            force: true,
+            keepalive: true
+        });
     });
 
     if (codeButtons.length) {
