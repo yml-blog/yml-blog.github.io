@@ -41,7 +41,7 @@ export function renderRoomScreen(context) {
             '<div class="fr1-screen__content fr1-room-shell">' +
                 '<div class="fr1-room-topbar">' +
                     '<div class="fr1-panel fr1-panel--ghost fr1-room-pill">' +
-                        '<span class="fr1-kicker">Focus Room V1</span>' +
+                        '<span class="fr1-kicker">Quieta</span>' +
                     '</div>' +
                     '<button class="fr1-button fr1-button--ghost" data-fr1-toggle-audio type="button" data-fr1-audio-label>' + escapeHtml(context.derived.audioLabel) + '</button>' +
                 '</div>' +

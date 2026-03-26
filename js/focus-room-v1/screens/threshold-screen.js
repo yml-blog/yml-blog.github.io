@@ -20,9 +20,9 @@ export function renderThresholdScreen(context) {
             renderStage(context.derived.scene) +
             '<div class="fr1-screen__content fr1-threshold-layout">' +
                 '<div class="fr1-panel fr1-panel--ghost fr1-threshold-card">' +
-                    '<span class="fr1-kicker">Focus Room V1</span>' +
+                    '<span class="fr1-kicker">Quieta</span>' +
                     '<h1 class="fr1-title">Enter gently</h1>' +
-                    '<p class="fr1-copy">A quieter way to start, return, and continue.</p>' +
+                    '<p class="fr1-copy">A calm space to start, return, and continue.</p>' +
                     '<button class="fr1-hold-button" data-fr1-hold-trigger data-holding="false" type="button" aria-describedby="fr1ThresholdPrompt">' +
                         '<span class="fr1-hold-label" data-fr1-hold-label>Hold to Enter</span>' +
                     '</button>' +
