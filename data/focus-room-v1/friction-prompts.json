@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "prompts": [
+    {
+      "id": "foggy-start",
+      "label": "Starting feels foggy",
+      "support": "Shrink the return into one visible motion."
+    },
+    {
+      "id": "too-many-tabs",
+      "label": "Too many open loops",
+      "support": "Choose the next thing that can be clarified, not the whole pile."
+    },
+    {
+      "id": "low-energy",
+      "label": "My energy is low",
+      "support": "Let the first two minutes stay gentle. Presence matters more than pace."
+    },
+    {
+      "id": "afraid-of-quality",
+      "label": "I am bracing for quality",
+      "support": "Use the room to continue, not to prove anything."
+    }
+  ]
+}
