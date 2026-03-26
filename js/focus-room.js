@@ -2,7 +2,7 @@
     'use strict';
 
     var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
-    var FOCUS_ROOM_ASSET_VERSION = '20260325-5';
+    var FOCUS_ROOM_ASSET_VERSION = '20260325-6';
 
     function prefersReducedMotion() {
         return !!(mediaQuery && mediaQuery.matches);
@@ -330,18 +330,6 @@
             tracks: [
                 { key: 'arctic-cold', label: 'Arctic Cold', src: soundAsset('arctic-cold-wind.mp3') },
                 { key: 'arctic-cold-alt', label: 'Arctic Cold Alt', src: soundAsset('arctic-cold-wind-alt.mp3') }
-            ]
-        },
-        cafe: {
-            label: 'Companion',
-            hint: 'Quiet desks',
-            defaultEnabled: true,
-            defaultVolume: 0.12,
-            defaultTrack: 'soft-room',
-            gain: 0.68,
-            previewVolume: 0.22,
-            tracks: [
-                { key: 'soft-room', label: 'Soft Room', src: audioAsset('cafe/cafe-ambience-soft.mp3'), previewStart: 8 }
             ]
         },
         presence: {
@@ -3411,7 +3399,6 @@
         var rain = getLayerState('rain');
         var piano = getLayerState('piano');
         var wind = getLayerState('wind');
-        var cafe = getLayerState('cafe');
         var presence = getLayerState('presence');
         var water = getLayerState('water');
         var storm = getLayerState('storm');
@@ -3421,24 +3408,23 @@
         var rainValue = rain.enabled ? rain.volume : 0;
         var pianoValue = piano.enabled ? piano.volume : 0;
         var windValue = wind.enabled ? wind.volume : 0;
-        var cafeValue = cafe.enabled ? cafe.volume : 0;
         var presenceValue = presence.enabled ? presence.volume : 0;
         var waterValue = water.enabled ? water.volume : 0;
         var stormValue = storm.enabled ? storm.volume : 0;
         var utilityValue = utility.enabled ? utility.volume : 0;
         var chimeValue = chime.enabled ? chime.volume : 0;
 
-        var warmth = clamp(atmosphereState.warmth + pianoValue * 0.24 + cafeValue * 0.14 + stormValue * 0.04 + visualState.lampWarmthBoost, 0, 1);
+        var warmth = clamp(atmosphereState.warmth + pianoValue * 0.24 + presenceValue * 0.04 + stormValue * 0.04 + visualState.lampWarmthBoost, 0, 1);
         var focusDepth = clamp(atmosphereState.focusDepth + windValue * 0.16 + utilityValue * 0.12 + chimeValue * 0.05 + presenceValue * 0.08 + visualState.progress * 0.16, 0, 1);
         var fog = clamp(atmosphereState.fog + rainValue * 0.14 + windValue * 0.08 + stormValue * 0.18 + waterValue * 0.04, 0, 1);
         var rainStrength = clamp(Math.max(0.06, rainValue + stormValue * 0.46) + visualState.rainDensityBoost, 0.06, 1);
-        var roomCalm = clamp(0.28 + (1 - cafeValue) * 0.18 + (1 - windValue) * 0.10 + waterValue * 0.08 + chimeValue * 0.03 - utilityValue * 0.08 - presenceValue * 0.04, 0.18, 0.84);
+        var roomCalm = clamp(0.42 + (1 - windValue) * 0.10 + waterValue * 0.08 + chimeValue * 0.03 - utilityValue * 0.08 - presenceValue * 0.04, 0.18, 0.84);
         var videoBrightness = clamp(0.03 + focusDepth * 0.08 + visualState.progress * 0.04 + chimeValue * 0.02 - rainStrength * 0.03 - stormValue * 0.02, 0.02, 0.16);
         var videoContrast = clamp(0.06 + focusDepth * 0.14 + stormValue * 0.06 + utilityValue * 0.05 + visualState.progress * 0.04, 0.04, 0.24);
         var videoSaturation = clamp(0.04 + warmth * 0.16 + chimeValue * 0.04 - fog * 0.04, 0.03, 0.22);
         var videoZoom = clamp(visualState.progress * 0.008 + focusDepth * 0.01 + utilityValue * 0.003 + stormValue * 0.002, 0, 0.022);
         var fogOverlay = clamp(0.04 + fog * 0.24 + rainStrength * 0.06 + stormValue * 0.08, 0.04, 0.42);
-        var warmthOverlay = clamp(0.04 + warmth * 0.22 + visualState.progress * 0.08 + cafeValue * 0.04 + stormValue * 0.03 + presenceValue * 0.02, 0.04, 0.38);
+        var warmthOverlay = clamp(0.04 + warmth * 0.22 + visualState.progress * 0.08 + stormValue * 0.03 + presenceValue * 0.03, 0.04, 0.38);
         var glassOverlay = clamp(0.05 + rainStrength * 0.18 + waterValue * 0.06 + stormValue * 0.08 + chimeValue * 0.05 + presenceValue * 0.04, 0.05, 0.32);
         var writingDescriptor = appModeState.mode === 'writing' ? backgroundState.descriptor : null;
         var writingVisuals = writingDescriptor && writingDescriptor.visual ? writingDescriptor.visual : null;
