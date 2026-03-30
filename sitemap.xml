@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-03-29T23:39:35Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
@@ -37,16 +37,16 @@
     <lastmod>2026-01-14T21:50:51Z</lastmod>
   </url>
   <url>
-    <loc>https://yangmingli.com/email-templates/simple.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
-  </url>
-  <url>
     <loc>https://yangmingli.com/engineering/ab-test-engineering-guide.html</loc>
     <lastmod>2026-01-14T21:50:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/engineering/python-package-guide.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-03-18T07:00:33Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/focus-room/</loc>
+    <lastmod>2026-03-29T23:39:35Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/glm-overview.html</loc>
@@ -58,7 +58,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/jira-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-03-18T05:46:59Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/key-statistical-tests-survey-analysis.html</loc>
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/machine-unlearning-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-03-18T05:46:59Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mcp-protocol-guide.html</loc>
@@ -121,10 +121,6 @@
     <lastmod>2026-01-14T21:50:52Z</lastmod>
   </url>
   <url>
-    <loc>https://yangmingli.com/nha-cai/10439/08249712.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
-  </url>
-  <url>
     <loc>https://yangmingli.com/polars-guide.html</loc>
     <lastmod>2026-01-14T21:50:52Z</lastmod>
   </url>
@@ -134,11 +130,11 @@
   </url>
   <url>
     <loc>https://yangmingli.com/product/</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-01-14T22:49:31Z</lastmod>
   </url>
   <url>
-    <loc>https://yangmingli.com/focus-room/</loc>
-    <lastmod>2026-03-22T00:00:00Z</lastmod>
+    <loc>https://yangmingli.com/pytorch-review01.html</loc>
+    <lastmod>2026-02-02T23:31:25Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/random-forest-guide.html</loc>
@@ -158,15 +154,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/taste-in-science-and-technology.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yangmingli.com/templates/blog_template.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yangmingli.com/templates/leetcode_template.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-03-18T05:46:59Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/trust-worth-machine-learning-1.html</loc>

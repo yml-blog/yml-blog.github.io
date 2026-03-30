@@ -2,5 +2,8 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /private/
+Disallow: /templates/
+Disallow: /email-templates/
+Disallow: /api/
 
 Sitemap: https://yangmingli.com/sitemap.xml
