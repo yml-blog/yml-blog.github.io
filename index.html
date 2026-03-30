@@ -308,7 +308,7 @@ h2, h3, p {
     position: relative;
     margin-bottom: 20px;
 }
-.profile-img img {
+.profile-img video {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -316,9 +316,10 @@ h2, h3, p {
     left: 0;
     opacity: 0;
     object-fit: cover;
+    background: #05070d;
     transition: opacity 1s ease;
 }
-.profile-img img.active {
+.profile-img video.active {
     opacity: 1;
     z-index: 1; /* Add z-index to ensure active image is on top */
 }
@@ -2001,7 +2002,7 @@ section[id], h2[id], h3[id] {
             position: relative;
             margin-bottom: 20px;
         }
-        .profile-img img {
+        .profile-img video {
             width: 100%;
             height: 100%;
             position: absolute;
@@ -2009,9 +2010,10 @@ section[id], h2[id], h3[id] {
             left: 0;
             opacity: 0;
             object-fit: cover;
+            background: #05070d;
             transition: opacity 1s ease;
         }
-        .profile-img img.active {
+        .profile-img video.active {
             opacity: 1;
             z-index: 1; /* Add z-index to ensure active image is on top */
         }
@@ -3731,19 +3733,24 @@ section[id], h2[id], h3[id] {
 </p>
 </div>
 <div class="profile-img">
-<img alt="Yangming Li – product data scientist" class="active" loading="lazy" src="img/sd1.jpg" width="1200" height="800"/>
-<img alt="Yangming Li – AI/ML 专家" loading="lazy" src="img/sd2.jpg" width="1200" height="800"/>
-<img alt="Yangming Li – 产品设计专家" loading="lazy" src="img/sd3.png" width="1200" height="800"/>
-<img alt="Yangming Li - Data Science Expert" loading="lazy" src="img/sd4.png" width="1200" height="800"/>
-<img alt="Yangming Li - Machine Learning Engineer" loading="lazy" src="img/sd13.png" width="1200" height="800"/>
-<img alt="Yangming Li - Information Visualization Researcher" loading="lazy" src="img/sd6.jpg"/>
-<img alt="Yangming Li - Technology Professional" loading="lazy" src="img/sd7.jpg"/>
-<img alt="Yangming Li - AI Product Manager" loading="lazy" src="img/sd8.png"/>
-<img alt="Yangming Li - Data Analytics Specialist" loading="lazy" src="img/sd9.png"/>
-<img alt="Yangming Li - Engineering Blog Author" loading="lazy" src="img/sd10.jpg"/>
-<img alt="Yangming Li - Technical Writer" loading="lazy" src="img/sd11.png"/>
-<img alt="Yangming Li - Product & Data Enthusiast" loading="lazy" src="img/sd12.jpg"/>
-<img alt="Yangming Li - Cloud Computing Specialist" loading="lazy" src="img/Cloud.png"/>
+<video aria-hidden="true" autoplay="" class="active" loop="" muted="" playsinline="" preload="auto">
+<source src="img/cover/cover1.mp4" type="video/mp4"/>
+</video>
+<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<source src="img/cover/cover2.mp4" type="video/mp4"/>
+</video>
+<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<source src="img/cover/cover3.mp4" type="video/mp4"/>
+</video>
+<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<source src="img/cover/cover4.mp4" type="video/mp4"/>
+</video>
+<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<source src="img/cover/cover5.mp4" type="video/mp4"/>
+</video>
+<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<source src="img/cover/cover6.mp4" type="video/mp4"/>
+</video>
 </div>
 </header>
 </div>
@@ -5530,44 +5537,73 @@ section[id], h2[id], h3[id] {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // Debug: Check which images are loading
-            const images = document.querySelectorAll('.profile-img img');
-            images.forEach((img, index) => {
-                img.addEventListener('load', () => {
-                    console.log(`Image ${index + 1} loaded:`, img.src);
-                });
-                img.addEventListener('error', () => {
-                    console.log(`Image ${index + 1} failed to load:`, img.src);
-                });
-            });
+            const profileVideos = Array.from(document.querySelectorAll('.profile-img video'));
 
-            // Image Slider
-            let currentIndex = 0;
-            
-            // Remove any existing intervals
+            function playProfileVideo(video, restart) {
+                if (!video) {
+                    return;
+                }
+
+                if (restart) {
+                    try {
+                        video.currentTime = 0;
+                    } catch (error) {
+                        // Ignore reset failures until metadata is ready.
+                    }
+                }
+
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                        // Muted autoplay can still be deferred by some browsers.
+                    });
+                }
+            }
+
+            function setActiveProfileVideo(index, restart) {
+                profileVideos.forEach((video, videoIndex) => {
+                    const isActive = videoIndex === index;
+                    video.classList.toggle('active', isActive);
+
+                    if (isActive) {
+                        playProfileVideo(video, restart);
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+
             if (window.imageInterval) {
                 clearInterval(window.imageInterval);
             }
-            
-            function showNextImage() {
-                // Debug: Log current image change
-                console.log(`Changing to image ${currentIndex + 1}`);
-                
-                // Remove active class from all images
-                images.forEach(img => img.classList.remove('active'));
-                
-                // Add active class to current image
-                images[currentIndex].classList.add('active');
-                
-                // Move to next image
-                currentIndex = (currentIndex + 1) % images.length;
+
+            if (window.profileVideoInterval) {
+                clearInterval(window.profileVideoInterval);
             }
-            
-            // Start the sequence and store the interval
-            window.imageInterval = setInterval(showNextImage, 5000);
-            
-            // Ensure first image is showing
-            images[0].classList.add('active');
+
+            if (profileVideos.length) {
+                let currentProfileVideoIndex = 0;
+
+                setActiveProfileVideo(currentProfileVideoIndex, false);
+                currentProfileVideoIndex = (currentProfileVideoIndex + 1) % profileVideos.length;
+
+                if (profileVideos.length > 1) {
+                    window.profileVideoInterval = setInterval(() => {
+                        setActiveProfileVideo(currentProfileVideoIndex, true);
+                        currentProfileVideoIndex = (currentProfileVideoIndex + 1) % profileVideos.length;
+                    }, 5000);
+                }
+
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        profileVideos.forEach(video => video.pause());
+                        return;
+                    }
+
+                    const activeVideo = document.querySelector('.profile-img video.active');
+                    playProfileVideo(activeVideo, false);
+                });
+            }
 
             const typingTargets = Array.from(document.querySelectorAll('.typing-line, .typing-block'));
             const heroCta = document.querySelector('.hero-cta');
