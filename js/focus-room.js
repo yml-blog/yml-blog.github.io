@@ -297,7 +297,17 @@
             previewVolume: 0.68,
             tracks: [
                 { key: 'last-night', label: 'Last Night', src: soundAsset('piano-last-night.mp3'), previewStart: 3.55 },
-                { key: 'barcarolle', label: 'June Barcarolle', src: soundAsset('tchaikovsky-june-barcarolle.mp3') }
+                { key: 'barcarolle', label: 'June Barcarolle', src: soundAsset('tchaikovsky-june-barcarolle.mp3') },
+                { key: 'autumn-memory', label: '秋的思念', src: audioAsset('piano/秋的思念.mp3') },
+                { key: 'ocean-of-flowers', label: '花海', src: audioAsset('piano/花海.mp3') },
+                { key: 'kikujiro-summer', label: '菊次郎的夏天', src: audioAsset('piano/菊次郎的夏天.mp3') },
+                { key: 'those-years', label: '那些年', src: audioAsset('piano/那些年.mp3') },
+                { key: 'summer', label: 'Summer', src: audioAsset('piano/summer.mp3') },
+                { key: 'the-rain', label: 'The Rain', src: audioAsset('piano/The rain.mp3') },
+                { key: 'true-happiness', label: '你不是真正的快乐', src: audioAsset('piano/你不是真正的快乐.mp3') },
+                { key: 'quiet-afternoon', label: '安静的午后', src: audioAsset('piano/安静的午后.mp3') },
+                { key: 'ming-ming-jiu', label: '明明就', src: audioAsset('piano/明明就.mp3') },
+                { key: 'eternal-moment', label: '瞬间的永恒', src: audioAsset('piano/瞬间的永恒.mp3') }
             ]
         },
         rain: {
