@@ -3,10 +3,18 @@
 <channel>
   <title>Yangming Li's Blog</title>
   <link>https://yangmingli.com/</link>
-  <description>AI/ML, Product and Engineering insights by Yangming Li</description>
+  <description>AI/ML, Product, Engineering, and Investing insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 01 Jul 2024 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 09 Apr 2026 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>风险投资其实是“防风险投资”</title>
+    <link>https://yangmingli.com/investing-vc-risk-control-notes.html</link>
+    <description>张师傅的退休实验室关于 VC 本质、Vintage、投人、一级与二级市场差异，以及投资智慧的一篇长文。</description>
+    <pubDate>Thu, 09 Apr 2026 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/investing-vc-risk-control-notes.html</guid>
+  </item>
   
   <item>
     <title>Docker in Machine Learning: Ensuring Reproducibility and Seamless Deployment</title>

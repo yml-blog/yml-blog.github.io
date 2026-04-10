@@ -30,6 +30,9 @@ function inferArticleSection() {
     if (path.includes('taste-in-science') || path.includes('thought')) {
         return 'Thoughts';
     }
+    if (path.includes('investing')) {
+        return 'Investing';
+    }
     if (path.includes('jira') || path.includes('building-product') || path.includes('product-success')) {
         return 'Product';
     }
@@ -412,6 +415,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="${link('glm-overview.html')}">GLM Overview</a></li>
                     </ul>
                 </li>
+                <li><a href="${link('index.html#investing')}">Investing</a></li>
                 <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
             </ul>
             <div class="mobile-menu">
@@ -455,6 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="${link('glm-overview.html')}">GLM Overview</a></li>
                         </ul>
                     </li>
+                    <li><a href="${link('index.html#investing')}">Investing</a></li>
                     <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
                     <li><a href="#" class="subscribe-link">Subscribe to Newsletter</a></li>
                 </ul>

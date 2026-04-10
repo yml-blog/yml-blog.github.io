@@ -34,6 +34,12 @@ const blogList = [
         displayTitle: "JAX: The Future of High-Performance Deep Learning?",
         url: "jax-guide.html",
         category: "Machine Learning"
+    },
+    {
+        title: "风险投资其实是“防风险投资”",
+        displayTitle: "风险投资其实是“防风险投资”",
+        url: "investing-vc-risk-control-notes.html",
+        category: "Investing"
     }
 ];
 
