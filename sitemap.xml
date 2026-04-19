@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-04-10T03:29:56Z</lastmod>
+    <lastmod>2026-04-18T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
@@ -139,6 +139,10 @@
   <url>
     <loc>https://yangmingli.com/pytorch-review01.html</loc>
     <lastmod>2026-02-02T23:31:25Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/question-delete-before-automation.html</loc>
+    <lastmod>2026-04-18T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/random-forest-guide.html</loc>

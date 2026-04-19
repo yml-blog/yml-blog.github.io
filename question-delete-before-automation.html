@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>做产品和工程优化时，先别急着自动化 | Yangming Li Blog</title>
+    <meta name="description" content="把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。">
+    <meta name="keywords" content="需求管理, 流程优化, 自动化, 产品管理, 工程管理, 流程设计, Elon Musk, 第一性原理">
+    <meta name="author" content="Yangming Li">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <meta property="article:section" content="Product &amp; Engineering">
+    <link rel="canonical" href="https://yangmingli.com/question-delete-before-automation.html">
+    <link rel="icon" href="favicon.png">
+
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:title" content="做产品和工程优化时，先别急着自动化">
+    <meta property="og:description" content="真正有效的顺序不是自动化、不是提速，而是先怀疑需求本身，再大胆删减。">
+    <meta property="og:url" content="https://yangmingli.com/question-delete-before-automation.html">
+    <meta property="og:image" content="https://yangmingli.com/Logo.png">
+    <meta property="og:site_name" content="Yangming Li Blog">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="做产品和工程优化时，先别急着自动化">
+    <meta name="twitter:description" content="先质疑需求，再删除步骤，再优化、提速，最后才自动化。">
+    <meta name="twitter:image" content="https://yangmingli.com/Logo.png">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/blog_post.css" rel="stylesheet">
+    <link href="css/nav.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="js/loadHeader.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "做产品和工程优化时，先别急着自动化",
+      "description": "把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。",
+      "author": {
+        "@type": "Person",
+        "name": "Yangming Li"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Yangming Li Blog",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yangmingli.com/Logo.png"
+        }
+      },
+      "datePublished": "2026-04-18",
+      "dateModified": "2026-04-18",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yangmingli.com/question-delete-before-automation.html"
+      },
+      "keywords": "需求管理, 流程优化, 自动化, 产品管理, 工程管理, 流程设计",
+      "inLanguage": "zh-CN"
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Hind', 'Noto Sans SC', sans-serif;
+            line-height: 1.9;
+            color: #223042;
+            background:
+                radial-gradient(circle at top right, rgba(245, 158, 11, 0.12), transparent 24%),
+                radial-gradient(circle at left 12%, rgba(14, 116, 144, 0.11), transparent 20%),
+                #f7f8fb;
+        }
+        .blog-container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 40px 20px 72px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: #9a3412;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .back-link:hover,
+        .back-link:focus {
+            color: #7c2d12;
+            text-decoration: none;
+        }
+        .article-shell {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 28px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
+            overflow: hidden;
+            backdrop-filter: blur(16px);
+        }
+        .blog-header {
+            padding: 48px 42px 32px;
+            background:
+                linear-gradient(135deg, rgba(146, 64, 14, 0.96), rgba(180, 83, 9, 0.92)),
+                linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0));
+            color: #fff7ed;
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.18);
+            font-size: 0.92rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 20px;
+        }
+        .blog-title {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 0 0 18px;
+        }
+        .blog-subtitle {
+            font-size: 1.12rem;
+            max-width: 760px;
+            color: rgba(255, 247, 237, 0.88);
+            margin-bottom: 20px;
+        }
+        .blog-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            font-size: 0.98rem;
+            color: rgba(255, 247, 237, 0.86);
+        }
+        .blog-content {
+            padding: 38px 42px 46px;
+            font-size: 1.08rem;
+        }
+        .article-content h2 {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 40px;
+            margin-bottom: 16px;
+        }
+        .article-content h3 {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #9a3412;
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+        .article-content p,
+        .article-content li {
+            margin-bottom: 14px;
+        }
+        .article-content strong {
+            color: #0f172a;
+        }
+        .source-card,
+        .summary-card,
+        .sequence-card,
+        .checklist-card,
+        .application-card,
+        .example-card,
+        .closing-card {
+            padding: 22px 24px;
+            border-radius: 20px;
+            margin-bottom: 26px;
+        }
+        .source-card {
+            background: linear-gradient(180deg, rgba(14, 116, 144, 0.08), rgba(14, 116, 144, 0.03));
+            border: 1px solid rgba(14, 116, 144, 0.16);
+        }
+        .summary-card {
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.11), rgba(245, 158, 11, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.18);
+        }
+        .sequence-card {
+            background: #fffaf0;
+            border: 1px solid rgba(217, 119, 6, 0.18);
+        }
+        .sequence-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+        .sequence-step {
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.75);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+        }
+        .sequence-step span {
+            display: block;
+            font-size: 0.9rem;
+            color: #9a3412;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .principle-grid,
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .principle-card {
+            padding: 22px;
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            background: rgba(255,255,255,0.72);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+        }
+        .principle-card .step-no {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #9a3412;
+            color: #fff7ed;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+        .principle-card h3 {
+            margin-top: 0;
+        }
+        .example-card {
+            background: linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(15, 118, 110, 0.03));
+            border: 1px solid rgba(15, 118, 110, 0.16);
+        }
+        .timeline {
+            margin: 18px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .timeline li {
+            position: relative;
+            padding-left: 22px;
+        }
+        .timeline li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #0f766e;
+        }
+        .checklist-card {
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+        }
+        .checklist-card ul,
+        .application-card ul {
+            margin-bottom: 0;
+            padding-left: 22px;
+        }
+        .application-card {
+            background: rgba(255,255,255,0.74);
+            border: 1px solid rgba(148, 163, 184, 0.14);
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
+        }
+        .closing-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.92));
+            color: #e2e8f0;
+            border: 1px solid rgba(148, 163, 184, 0.12);
+        }
+        .closing-card strong {
+            color: #ffffff;
+        }
+        blockquote {
+            margin: 22px 0;
+            padding: 18px 20px;
+            border-left: 4px solid #9a3412;
+            background: rgba(154, 52, 18, 0.06);
+            border-radius: 12px;
+        }
+        a {
+            color: #9a3412;
+        }
+        a:hover,
+        a:focus {
+            color: #7c2d12;
+        }
+        .share-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: #9a3412;
+            color: #ffffff;
+            text-decoration: none;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .share-btn:hover,
+        .share-btn:focus {
+            color: #ffffff;
+            text-decoration: none;
+            transform: translateY(-1px);
+            opacity: 0.94;
+        }
+        .share-btn.secondary {
+            background: #0f766e;
+        }
+        code {
+            font-family: Consolas, Monaco, monospace;
+            background: rgba(15, 23, 42, 0.06);
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+        body.dark-mode {
+            background:
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.10), transparent 22%),
+                radial-gradient(circle at left 20%, rgba(34, 211, 238, 0.08), transparent 18%),
+                #0f172a;
+            color: #e2e8f0;
+        }
+        body.dark-mode .article-shell {
+            background: rgba(15, 23, 42, 0.84);
+            border-color: rgba(148, 163, 184, 0.16);
+            box-shadow: 0 24px 60px rgba(2, 6, 23, 0.36);
+        }
+        body.dark-mode .article-content,
+        body.dark-mode .article-content h2,
+        body.dark-mode .article-content p,
+        body.dark-mode .article-content li,
+        body.dark-mode blockquote,
+        body.dark-mode .principle-card,
+        body.dark-mode .application-card,
+        body.dark-mode .sequence-step {
+            color: #e2e8f0;
+        }
+        body.dark-mode .article-content strong,
+        body.dark-mode .closing-card strong {
+            color: #ffffff;
+        }
+        body.dark-mode .article-content h3,
+        body.dark-mode a,
+        body.dark-mode .back-link {
+            color: #fdba74;
+        }
+        body.dark-mode .source-card {
+            background: rgba(14, 116, 144, 0.12);
+            border-color: rgba(34, 211, 238, 0.18);
+        }
+        body.dark-mode .summary-card {
+            background: rgba(180, 83, 9, 0.18);
+            border-color: rgba(251, 191, 36, 0.18);
+        }
+        body.dark-mode .sequence-card,
+        body.dark-mode .checklist-card,
+        body.dark-mode .principle-card,
+        body.dark-mode .application-card {
+            background: rgba(30, 41, 59, 0.72);
+            border-color: rgba(148, 163, 184, 0.18);
+        }
+        body.dark-mode .example-card {
+            background: rgba(15, 118, 110, 0.14);
+            border-color: rgba(45, 212, 191, 0.18);
+        }
+        body.dark-mode blockquote,
+        body.dark-mode code {
+            background: rgba(255,255,255,0.06);
+        }
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 24px 14px 56px;
+            }
+            .blog-header,
+            .blog-content {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+            .blog-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <a class="back-link" href="index.html">&larr; 返回首页</a>
+
+        <article class="article-shell">
+            <header class="blog-header">
+                <div class="eyebrow">Product · Engineering · Process Design</div>
+                <h1 class="blog-title">做产品和工程优化时，先别急着自动化</h1>
+                <p class="blog-subtitle">真正有效的顺序，不是先优化、先提速、先上自动化，而是先怀疑需求本身，再大胆删掉不必要的零件、步骤和流程。</p>
+                <div class="blog-meta">
+                    <span>2026-04-18</span>
+                    <span>中文技术博客</span>
+                    <span>产品 / 工程 / 流程优化</span>
+                    <span>约 8 分钟</span>
+                </div>
+            </header>
+
+            <div class="blog-content">
+                <div class="source-card">
+                    <p><strong>这篇文章写给谁：</strong>如果你常常在做需求评审、流程改造、提效项目、自动化改造，或者经常听到“这个流程太慢了，我们得优化一下”，那这套方法几乎一定会帮到你。</p>
+                    <p><strong>内容来源说明：</strong>本文基于一段关于工程改进五步法的英文 transcript 整理，重点不是逐句翻译，而是把它变成适合产品、工程、运营团队直接使用的中文版本。</p>
+                </div>
+
+                <div class="summary-card">
+                    <p><strong>一句话总结：</strong>复杂度很多时候不是能力，而是没人愿意追问“这个东西到底要不要存在”。</p>
+                    <p>所以顺序一定不能反：先质疑，后删除；先做减法，再做加法；最后才谈提速和自动化。</p>
+                </div>
+
+                <section class="article-content">
+                    <div class="sequence-card">
+                        <h2 style="margin-top: 0;">正确顺序只有一个</h2>
+                        <p>很多团队一遇到低效流程，直觉就是“优化一下”或者“自动化一下”。但如果那个流程本身就是错的、旧的、没人真正负责的，后面的所有努力都会变成高效地做错事。</p>
+                        <div class="sequence-list">
+                            <div class="sequence-step">
+                                <span>Step 1</span>
+                                先让需求没那么蠢
+                            </div>
+                            <div class="sequence-step">
+                                <span>Step 2</span>
+                                尽量删掉零件、步骤、流程
+                            </div>
+                            <div class="sequence-step">
+                                <span>Step 3</span>
+                                然后才简化或优化
+                            </div>
+                            <div class="sequence-step">
+                                <span>Step 4</span>
+                                接着再加快速度
+                            </div>
+                            <div class="sequence-step">
+                                <span>Step 5</span>
+                                最后才自动化
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>1. 先让需求没那么蠢</h2>
+                    <p>第一步不是设计方案，而是怀疑需求。任何需求都可能有问题，不管是谁提的，哪怕是很聪明的人提的。越是“聪明人提的需求”，越容易让团队放弃追问，这反而更危险。</p>
+                    <blockquote>
+                        需求不是因为来自老板、专家、某个大部门，就天然成立。真正成立的需求，应该能被解释、被承担，也能被推翻。
+                    </blockquote>
+                    <p>一个特别重要的规则是：<strong>每个需求都必须对应到一个具体的人，而不是一个部门。</strong>“法务要求的”“运营那边说的”“客户成功团队希望的”都不够，因为部门不会回答问题，也不会承担后果，只有具体的人会。</p>
+                    <div class="checklist-card">
+                        <p><strong>评审需求时，至少追问这四个问题：</strong></p>
+                        <ul>
+                            <li>这个需求真的必要吗？如果不做，具体会出什么问题？</li>
+                            <li>谁是这个需求的 owner？谁愿意为它负责？</li>
+                            <li>这个需求解决的是现实问题，还是“以防万一”的想象问题？</li>
+                            <li>如果今天从零开始设计，我们还会不会把它加回来？</li>
+                        </ul>
+                    </div>
+
+                    <h2>2. 尽量删掉零件、步骤、流程</h2>
+                    <p>这是整套方法里最重要的一步，也是最反直觉的一步。大多数组织的默认倾向都是加东西，因为“先留着吧，以后说不定有用”。于是零件越来越多，审批越来越多，系统越来越绕，历史包袱越来越重。</p>
+                    <p>真正难的是做减法。删掉一个字段、去掉一个审批节点、取消一个机器人动作、合并两个表单、砍掉一个没人看的报表，这些动作往往比“再加一个配置项”更需要判断力。</p>
+                    <p>这里有个非常狠但很好用的判断标准：<strong>如果你删掉东西之后，几乎从来不需要加回来，那说明你删得还不够狠。</strong></p>
+
+                    <h2>3. 然后才简化或优化</h2>
+                    <p>最常见的工程错误不是写错代码，而是拼命优化一个本来就不该存在的东西。一个多余的审批流，就算页面再顺滑、接口再快、自动通知再完整，它也还是多余的。</p>
+                    <p>所以“优化”一定排在第三步，而不是第一步。只有当你确认这个东西确实该存在，而且已经删掉了大部分冗余，优化才有意义。</p>
+                    <div class="principle-grid">
+                        <article class="principle-card">
+                            <div class="step-no">1</div>
+                            <h3>先怀疑</h3>
+                            <p>别急着做方案，先确认问题是不是问题，需求是不是需求。</p>
+                        </article>
+                        <article class="principle-card">
+                            <div class="step-no">2</div>
+                            <h3>先删除</h3>
+                            <p>删掉不必要的环节，复杂度会比性能问题更先拖垮系统。</p>
+                        </article>
+                        <article class="principle-card">
+                            <div class="step-no">3</div>
+                            <h3>再优化</h3>
+                            <p>只优化那些被证明值得保留的部分，而不是给历史包袱打蜡。</p>
+                        </article>
+                    </div>
+
+                    <h2>4. 接着再加快速度</h2>
+                    <p>提速当然重要，但提速的前提是路线先走对。否则你只是让错误的流程跑得更快，让错误更早扩散，让团队更快地消耗耐心。</p>
+                    <p>很多组织喜欢把“周期缩短 30%”当成胜利，但如果缩短的是一个没人需要的流程，那本质上只是更高效地浪费时间。</p>
+
+                    <h2>5. 最后才自动化</h2>
+                    <p>自动化是最后一步，不是第一步。因为一旦自动化了，组织会更不愿意再碰它，流程就会被“固化”为系统现实。一个坏流程手动执行时还容易被人发现；一旦自动化，它会以更低摩擦、更高频率、也更隐蔽的方式持续制造问题。</p>
+                    <p>只有那些<strong>必要、稳定、值得重复执行</strong>的动作，才应该进入自动化阶段。</p>
+
+                    <h2>一个特别经典的例子：Model 3 电池包上的五块垫片</h2>
+                    <div class="example-card">
+                        <p>这个例子几乎把整个方法论讲透了。</p>
+                        <ul class="timeline">
+                            <li>在 Model 3 电池包生产线上，有五块玻璃纤维垫片一度让产线卡住。</li>
+                            <li>第一反应是改机器人自动化，让它更稳定，这是典型的“先自动化”。</li>
+                            <li>接着又想加快节奏，再优化这个步骤，这是“先提速、再优化”。</li>
+                            <li>最后才回过头问：这五块垫片到底是干什么的？</li>
+                            <li>结果不同团队给出的答案居然不一致，有人说是降噪减震，有人说是防火。</li>
+                            <li>于是团队直接做实验，对比装和不装的差别，发现几乎没有可感知区别。</li>
+                            <li>最终直接删除垫片，也顺便绕开了一个价值 200 万美元的机器人方案。</li>
+                        </ul>
+                    </div>
+                    <p>这件事真正值得记住的，不是“删掉了五块垫片”，而是：<strong>如果你不先追问“它到底为什么存在”，后面所有的优化都会围绕错误前提展开。</strong></p>
+
+                    <h2>这背后的管理哲学，其实很硬</h2>
+                    <p>这套方法不是“反流程”，也不是“反工程”，而是在提醒我们：不要把历史残留、组织惯性、模糊责任、部门口径，当成真实需求。</p>
+                    <p>它真正反对的是下面这几件事：</p>
+                    <ul>
+                        <li>迷信既有需求，觉得既然已经存在就一定有道理。</li>
+                        <li>迷信流程本身，把流程当成秩序，把删减当成冒险。</li>
+                        <li>为了“以防万一”不断加功能、加节点、加字段、加同步。</li>
+                        <li>把优化能力浪费在不该存在的东西上。</li>
+                    </ul>
+                    <p>很多团队嘴上说自己在做系统化，实际上做的是复杂化。真正的系统感，不是东西越来越多，而是结构越来越清晰。</p>
+
+                    <h2>怎么落到产品、工程、流程优化里</h2>
+                    <div class="application-grid">
+                        <section class="application-card">
+                            <h3>产品场景</h3>
+                            <ul>
+                                <li>看到“用户需要更多配置项”时，先问是不是因为默认设计太差。</li>
+                                <li>看到“要加一个审批状态”时，先问当前风险能不能通过更简单的机制解决。</li>
+                                <li>看到“要做一个自动提醒系统”时，先问这个动作本身是不是应该存在。</li>
+                            </ul>
+                        </section>
+                        <section class="application-card">
+                            <h3>工程场景</h3>
+                            <ul>
+                                <li>别急着给低效任务做脚本，先确认这个任务是不是还需要继续运行。</li>
+                                <li>别急着优化接口性能，先确认这个接口是不是仍然被真实使用。</li>
+                                <li>别急着搭监控和告警，先确认被监控的流程本身是不是冗余链路。</li>
+                            </ul>
+                        </section>
+                        <section class="application-card">
+                            <h3>流程场景</h3>
+                            <ul>
+                                <li>别把“多人会签”当成安全感，很多时候它只是责任被稀释。</li>
+                                <li>别让“部门要求”成为终点，始终追到具体 owner。</li>
+                                <li>流程优化会真正见效，往往不是因为流程更精致，而是因为步骤更少。</li>
+                            </ul>
+                        </section>
+                    </div>
+
+                    <h2>一个我很建议团队直接拿去用的检查清单</h2>
+                    <div class="checklist-card">
+                        <p>下次再做“提效”“优化”“自动化”项目时，可以先过一遍这份清单：</p>
+                        <ul>
+                            <li><code>Requirement</code> 这件事到底是谁提出的？名字是什么？</li>
+                            <li><code>Delete</code> 如果我们直接删掉这一步，会发生什么？</li>
+                            <li><code>Evidence</code> 有没有真实数据或实验，而不是口头传说？</li>
+                            <li><code>Simplify</code> 在保留必要性的前提下，能不能砍掉一半？</li>
+                            <li><code>Accelerate</code> 只有流程已经正确后，提速才值得做。</li>
+                            <li><code>Automate</code> 只有稳定、必要、重复、高频的动作才值得自动化。</li>
+                        </ul>
+                    </div>
+
+                    <div class="closing-card">
+                        <p><strong>最后一句：</strong>成熟团队和普通团队的差别，往往不在于谁更会加东西，而在于谁更敢删东西。</p>
+                        <p>因为真正难的，从来不是“做一个更复杂的系统”，而是在复杂性已经长出来之后，还愿意承认有些东西本来就不该存在。</p>
+                    </div>
+
+                    <div class="share-buttons">
+                        <a href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank')" class="share-btn">Share on Twitter</a>
+                        <a href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title),'_blank')" class="share-btn secondary">Share on LinkedIn</a>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || localStorage.getItem('theme') === 'dark-mode') {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+</body>
+</html>

@@ -5,8 +5,16 @@
   <link>https://yangmingli.com/</link>
   <description>AI/ML, Product, Engineering, and Investing insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 09 Apr 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 18 Apr 2026 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>做产品和工程优化时，先别急着自动化</title>
+    <link>https://yangmingli.com/question-delete-before-automation.html</link>
+    <description>把“先质疑需求，再删除步骤，然后才优化、提速、自动化”整理成一篇适合产品、工程、流程团队直接落地的中文方法论。</description>
+    <pubDate>Sat, 18 Apr 2026 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/question-delete-before-automation.html</guid>
+  </item>
 
   <item>
     <title>风险投资其实是“防风险投资”</title>
