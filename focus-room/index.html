@@ -1,37 +1,38 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Focus Room is a SwiftUI deep work focus app prototype with a calm entry ritual, ambient sound mixer, subtle timer, fullscreen study room, and writing mode.">
-  <meta name="keywords" content="SwiftUI prototype, focus app, ambient sound mixer, deep work, product design, interaction design, Focus Room, Yangming Li">
-  <meta name="author" content="Yangming Li">
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-  <link rel="canonical" href="https://yangmingli.com/focus-room/">
-  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://yangmingli.com/sitemap.xml">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Yangming Li">
-  <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Focus Room | Deep Work Focus App and Ambient Study Room">
-  <meta property="og:description" content="Explore a deep work focus app prototype with a calm entry ritual, layered ambient audio, subtle session timer, fullscreen study room, and writing mode.">
-  <meta property="og:url" content="https://yangmingli.com/focus-room/">
-  <meta property="og:image" content="https://yangmingli.com/focus-room-room-shell-shot-3.png">
-  <meta property="og:image:alt" content="Focus Room interface with a rain-lit study scene, subtle timer, and ambient controls.">
-  <meta property="og:image:width" content="1600">
-  <meta property="og:image:height" content="1100">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Focus Room | Deep Work Focus App and Ambient Study Room">
-  <meta name="twitter:description" content="A calm deep work experience designed in SwiftUI with a soft entry ritual, ambient mixer, subtle timer, fullscreen study room, and writing mode.">
-  <meta name="twitter:image" content="https://yangmingli.com/focus-room-room-shell-shot-3.png">
-  <meta name="theme-color" content="#05070d">
-  <title>Focus Room | Deep Work Focus App and Ambient Study Room</title>
-  <link rel="icon" href="../favicon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/focus-room.css?v=20260325-5">
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Focus Room is a SwiftUI deep work focus app prototype with a calm entry ritual, ambient sound mixer, subtle timer, fullscreen study room, and writing mode." name="description"/>
+
+<meta content="Yangming Li" name="author"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="googlebot"/>
+
+<link href="https://yangmingli.com/sitemap.xml" rel="sitemap" title="Sitemap" type="application/xml"/>
+<meta content="website" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Focus Room | Deep Work Focus App and Ambient Study Room | Yangming Li" property="og:title"/>
+<meta content="Focus Room is a SwiftUI deep work focus app prototype with a calm entry ritual, ambient sound mixer, subtle timer, fullscreen study room, and writing mode." property="og:description"/>
+<meta content="https://yangmingli.com/focus-room/" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Focus Room interface with a rain-lit study scene, subtle timer, and ambient controls." property="og:image:alt"/>
+<meta content="1600" property="og:image:width"/>
+<meta content="1100" property="og:image:height"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Focus Room | Deep Work Focus App and Ambient Study Room | Yangming Li" name="twitter:title"/>
+<meta content="Focus Room is a SwiftUI deep work focus app prototype with a calm entry ritual, ambient sound mixer, subtle timer, fullscreen study room, and writing mode." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="#05070d" name="theme-color"/>
+<title>Focus Room | Deep Work Focus App and Ambient Study Room | Yangming Li</title>
+<link href="../favicon.png" rel="icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../css/focus-room.css?v=20260325-5" rel="stylesheet"/>
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -145,703 +146,632 @@
       ]
     }
   </script>
-</head>
+<link href="https://yangmingli.com/focus-room/" rel="canonical"/></head>
 <body class="focus-room-page">
-  <main class="fr-page" data-page-content>
-    <header class="fr-topbar">
-      <a class="fr-brand" href="../index.html">
-        <span class="fr-brand-mark"></span>
-        <span>Yangming Li</span>
-      </a>
-      <nav class="fr-topbar-nav" aria-label="Focus Room sections">
-        <button class="fr-topbar-enter" data-open-room type="button">Enter Room</button>
-        <a href="#experience">How It Works</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#source">Source</a>
-        <a href="../index.html">Home</a>
-      </nav>
-    </header>
-
-    <section class="fr-section fr-hero">
-      <div class="fr-hero-copy">
-        <span class="fr-eyebrow">Featured Interactive Experience</span>
-        <h1 class="fr-title">Focus Room</h1>
-        <p class="fr-hero-deck">Not another timer. A room you return to.</p>
-        <p class="fr-body fr-hero-body">Built to reduce friction before focus, with a calm entry ritual, ambient sound mixer, low-visibility controls, and a fullscreen study room that settles deeper as the session unfolds.</p>
-        <div class="fr-hero-metrics" aria-label="Focus Room highlights">
-          <span class="fr-stat-chip"><strong>5</strong><em>ambient layers</em></span>
-          <span class="fr-stat-chip"><strong>Local</strong><em>persistence</em></span>
-          <span class="fr-stat-chip"><strong>Ghost</strong><em>controls</em></span>
-          <span class="fr-stat-chip"><strong>Session</strong><em>evolution</em></span>
-        </div>
-        <div class="fr-actions fr-actions-hero">
-          <button class="fr-button primary fr-button-hero" data-open-room type="button">Enter the Room</button>
-          <a class="fr-button tertiary" href="#architecture">View Architecture</a>
-        </div>
-        <p class="fr-note">The landing page stays light. The real product now opens as a fullscreen room, separate from the build notes and source browser below.</p>
-      </div>
-
-      <div class="fr-threshold-stage fr-hero-preview" data-preview-stage tabindex="0" aria-label="Focus Room preview">
-        <div class="fr-threshold-backdrop">
-          <div class="fr-threshold-shell">
-            <div class="fr-scene-stars" aria-hidden="true">
-              <span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
-              <span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
-              <span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
-              <span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
-            </div>
-            <div class="fr-scene-window" aria-hidden="true">
-              <div class="fr-scene-rain">
-                <span></span><span></span><span></span><span></span>
-                <span></span><span></span><span></span><span></span>
-              </div>
-            </div>
-            <div class="fr-scene-lamp" aria-hidden="true"></div>
-            <div class="fr-scene-desk" aria-hidden="true"></div>
-            <div class="fr-scene-record" aria-hidden="true"></div>
-            <div class="fr-scene-book" aria-hidden="true"></div>
-            <div class="fr-scene-cup" aria-hidden="true"></div>
-            <div class="fr-threshold-demo-note" aria-hidden="true">Good work. Take a breath.</div>
-          </div>
-        </div>
-
-        <div class="fr-threshold-copy">
-          <div class="fr-threshold-orb" aria-hidden="true"></div>
-          <h2>Focus Room</h2>
-          <p>A quiet room for deep work.</p>
-          <button class="fr-threshold-trigger" data-open-room type="button">
-            <span>Open Fullscreen Room</span>
-          </button>
-          <p class="fr-threshold-footnote" data-preview-prompt aria-live="polite">Hover wakes the room. Open the fullscreen experience to begin.</p>
-        </div>
-
-        <div class="fr-stage-caption">
-          <div class="fr-stage-chip-row">
-            <span class="fr-stage-chip fr-stage-chip-live">Preview</span>
-            <span class="fr-stage-chip">Hover wakes rain</span>
-            <span class="fr-stage-chip">Fullscreen app</span>
-          </div>
-          <div class="fr-stage-loop">
-            <span class="fr-stage-loop-label">8s room cycle</span>
-            <div class="fr-stage-loop-track"><span data-preview-track></span></div>
-            <span class="fr-stage-loop-status" data-preview-status aria-live="polite">Room settling</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="fr-section fr-experience" id="experience">
-      <span class="fr-eyebrow">App Mode</span>
-      <h2>The product now opens as a true room, not another section on the page</h2>
-      <p class="fr-body">The landing page introduces the idea. The actual experience opens separately, locks the page behind it, and keeps the first-use path simple: enter, keep or tune the mix, start, finish softly.</p>
-
-      <div class="fr-flow-layout">
-        <div class="fr-flow-steps" aria-label="First-use flow">
-          <article class="fr-flow-card">
-            <span class="fr-flow-step">01</span>
-            <strong>Enter the room</strong>
-            <p>The first screen is a threshold, not a settings page. Hold to enter and let the room come forward.</p>
-          </article>
-          <article class="fr-flow-card">
-            <span class="fr-flow-step">02</span>
-            <strong>Keep the default mix</strong>
-            <p>Rain, Piano, and Brown Noise are already active. Users can begin immediately or tune the room gently.</p>
-          </article>
-          <article class="fr-flow-card">
-            <span class="fr-flow-step">03</span>
-            <strong>Start a session</strong>
-            <p>The timer stays quiet and peripheral so the room remains primary while work begins.</p>
-          </article>
-          <article class="fr-flow-card">
-            <span class="fr-flow-step">04</span>
-            <strong>Finish softly</strong>
-            <p>Completion lands as a small intimate state instead of a loud productivity reward.</p>
-          </article>
-        </div>
-
-        <aside class="fr-flow-panel">
-          <span class="fr-panel-label">First Session</span>
-          <h3>Open the app, keep the room, begin.</h3>
-          <p>What used to be embedded in the document now opens as a fullscreen app layer. Architecture and source stay on the page. The focus ritual lives outside it.</p>
-          <div class="fr-pill-row">
-            <span class="fr-pill">Threshold ritual</span>
-            <span class="fr-pill">Default mix ready</span>
-            <span class="fr-pill">Fullscreen room</span>
-            <span class="fr-pill">Soft completion</span>
-          </div>
-          <div class="fr-actions">
-            <button class="fr-button primary" data-open-room type="button">Open the App</button>
-            <a class="fr-button secondary" href="#source">View the Build</a>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="fr-section" id="use-cases">
-      <span class="fr-eyebrow">What It Is</span>
-      <h2>A deep work focus app, virtual study room, and ambient sound mixer in one</h2>
-      <p class="fr-body">Focus Room is designed for people looking for a focus app, study room app, writing room, or deep work timer. The experience stays intentionally calm: enter the room, keep the default mix, and begin without a setup-heavy dashboard.</p>
-
-      <div class="fr-arch-summary-row" aria-label="Focus Room use cases">
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Focus App</span>
-          <strong>Reduce activation energy</strong>
-          <p>Instead of opening into forms and toggles, the experience starts with a threshold ritual that makes beginning feel lighter.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Study Room</span>
-          <strong>Fullscreen room, not a dashboard</strong>
-          <p>The room becomes the primary interface so attention stays on work, atmosphere, and gentle progression instead of busy controls.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Ambient Audio</span>
-          <strong>Layered sound mixing</strong>
-          <p>Rain, piano, wind, and other channels can be kept as defaults or tuned softly for different deep work and writing sessions.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Writing Room</span>
-          <strong>Quiet timer, clear intent</strong>
-          <p>Writing mode keeps the timer peripheral and the editor central, helping longer sessions feel steady rather than gamified.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="fr-section" id="architecture">
-      <span class="fr-eyebrow">Architecture</span>
-      <h2>Technical credibility, surfaced with less weight</h2>
-      <p class="fr-body">The prototype still reads like a real SwiftUI handoff, but the first scan starts with the four decisions that make the experience believable: orchestration, persistence, audio seams, and reusable views.</p>
-
-      <div class="fr-arch-summary-row" aria-label="Architecture highlights">
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Orchestration</span>
-          <strong>AppState + ViewModel</strong>
-          <p>One observable root owns dependencies while a single room view model drives entry, timer, ghost UI, and completion.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Persistence</span>
-          <strong>Local by design</strong>
-          <p>Sound selections, volumes, and last duration persist through a small <code>UserDefaults</code> seam without introducing account friction.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Audio</span>
-          <strong>Mockable playback seam</strong>
-          <p>The prototype stays visually honest while deferring real fade-aware audio layering until the next phase.</p>
-        </article>
-        <article class="fr-arch-summary-card">
-          <span class="fr-panel-label">Views</span>
-          <strong>Reusable composition</strong>
-          <p>Threshold, room, timer, mixer, background, and completion remain isolated enough to move directly into an app target.</p>
-        </article>
-      </div>
-
-      <div class="fr-arch-layout">
-        <article class="fr-arch-spotlight">
-          <span class="fr-panel-label">System Shape</span>
-          <h3>One orchestrator, small seams, reusable views</h3>
-          <p>The architecture keeps interaction quality central. State lives in one place, derived atmosphere values keep visuals coherent, and services stay thin enough to swap without rewriting the room.</p>
-          <div class="fr-tree" aria-label="SwiftUI view tree">
-            <div>FocusRoomApp</div>
-            <div>`-- AppState</div>
-            <div>    `-- FocusRoomViewModel</div>
-            <div>        |-- ThresholdView</div>
-            <div>        |-- FocusRoomView</div>
-            <div>        |-- RoomBackgroundView</div>
-            <div>        |-- FocusTimerView</div>
-            <div>        |-- AmbientMixerView</div>
-            <div>        `-- SessionCompletionView</div>
-          </div>
-        </article>
-
-        <div class="fr-disclosure-stack">
-          <details class="fr-disclosure" open>
-            <summary>
-              <span>AppState / ViewModel orchestration</span>
-              <span>Single source of truth for phase, timer, mixer, and room atmosphere.</span>
-            </summary>
-            <div class="fr-disclosure-body">
-              <p><code>AppState</code> owns dependencies. <code>FocusRoomViewModel</code> centralizes threshold entry, session timing, ghost UI idling, completion messaging, and derived room evolution so the visuals never feel bolted together.</p>
-              <div class="fr-disclosure-points">
-                <span>Entry ritual, idle fade, and completion share one mental model instead of scattering state across views.</span>
-                <span>Derived <code>RoomAtmosphere</code> values keep lamp warmth, rain depth, and background calm in sync.</span>
-              </div>
-            </div>
-          </details>
-
-          <details class="fr-disclosure">
-            <summary>
-              <span>Local persistence</span>
-              <span>Preferences survive without login or backend ceremony.</span>
-            </summary>
-            <div class="fr-disclosure-body">
-              <p><code>FocusRoomPreferencesStoring</code> isolates persistence behind a protocol, so the room can remember last-used sound layers and duration while keeping countdown runtime state ephemeral.</p>
-              <div class="fr-disclosure-points">
-                <span><code>UserDefaultsPreferencesStore</code> is production-friendly for a first version.</span>
-                <span><code>InMemoryPreferencesStore</code> keeps previews and local iteration fast.</span>
-              </div>
-            </div>
-          </details>
-
-          <details class="fr-disclosure">
-            <summary>
-              <span>Mock audio seam</span>
-              <span>Visual and interaction quality can mature before real assets land.</span>
-            </summary>
-            <div class="fr-disclosure-body">
-              <p>The audio layer is intentionally abstracted behind <code>AmbientAudioControlling</code>. That keeps the prototype believable today and ready for fade-aware playback tomorrow.</p>
-              <div class="fr-disclosure-points">
-                <span>Preview fade-in and session completion fade-out can later map to real audio without redesigning the interface.</span>
-                <span>The mock engine preserves product behavior while avoiding placeholder asset debt.</span>
-              </div>
-            </div>
-          </details>
-
-          <details class="fr-disclosure">
-            <summary>
-              <span>Reusable view structure</span>
-              <span>Each layer is scoped tightly enough to migrate into Xcode cleanly.</span>
-            </summary>
-            <div class="fr-disclosure-body">
-              <p>The UI is split into the same components a production app would want: threshold ritual, background composition, timer, mixer, and completion. The room stays primary because each piece knows its role.</p>
-              <div class="fr-disclosure-points">
-                <span><code>GhostGlassPanel</code> standardizes the low-visibility control language.</span>
-                <span>Preview data and theme tokens support iteration without turning the project into a demo-only codebase.</span>
-              </div>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="fr-section" id="source">
-      <span class="fr-eyebrow">Source</span>
-      <h2>Start with the code that makes the prototype believable</h2>
-      <p class="fr-body">Rather than giving every file equal weight, the page starts with the two seams that matter most on first read: the room orchestrator and the local persistence layer. The full browser is still here when you want the whole tree.</p>
-
-      <div class="fr-source-layout">
-        <aside class="fr-source-sidebar">
-          <div class="fr-source-highlight-grid">
-            <button class="fr-code-highlight is-active" data-code-file="./swiftui-prototype/ViewModels/FocusRoomViewModel.swift" data-code-fallback-key="viewModel" type="button">
-              <span class="fr-panel-label">Best Excerpt 01</span>
-              <strong>FocusRoomViewModel.swift</strong>
-              <p>Coordinates threshold entry, timer progress, ghost UI fading, completion, and derived room atmosphere so the experience behaves like one system.</p>
-              <span class="fr-source-tag">Interaction orchestration</span>
-            </button>
-
-            <button class="fr-code-highlight" data-code-file="./swiftui-prototype/Services/UserPreferencesStore.swift" data-code-fallback-key="preferences" type="button">
-              <span class="fr-panel-label">Best Excerpt 02</span>
-              <strong>UserPreferencesStore.swift</strong>
-              <p>Keeps persistence small and replaceable, which makes local storage practical now and future sync strategies possible later.</p>
-              <span class="fr-source-tag">Local persistence seam</span>
-            </button>
-          </div>
-
-          <div class="fr-source-strip" aria-label="Prototype capabilities">
-            <span>Threshold ritual</span>
-            <span>Ghost controls</span>
-            <span>Mock audio seam</span>
-            <span>Reusable views</span>
-          </div>
-
-          <details class="fr-code-drawer">
-            <summary>
-              <span>Browse the full SwiftUI prototype</span>
-              <span>18 Swift files</span>
-            </summary>
-            <div class="fr-code-button-list fr-code-button-grid">
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/FocusRoomApp.swift" type="button">
-                <strong>FocusRoomApp.swift</strong>
-                <span>App entry and root scene</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/App/AppState.swift" data-code-fallback-key="appState" type="button">
-                <strong>AppState.swift</strong>
-                <span>Dependency ownership</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Design/FocusRoomTheme.swift" type="button">
-                <strong>FocusRoomTheme.swift</strong>
-                <span>Shared tokens and styling</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/ViewModels/FocusRoomViewModel.swift" data-code-fallback-key="viewModel" type="button">
-                <strong>FocusRoomViewModel.swift</strong>
-                <span>Entry, timer, mixer, completion</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Models/AmbientLayer.swift" type="button">
-                <strong>AmbientLayer.swift</strong>
-                <span>Ambient layer model and defaults</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Models/RoomSoundscape.swift" data-code-fallback-key="soundscape" type="button">
-                <strong>RoomSoundscape.swift</strong>
-                <span>Room strategies and mix behavior</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Models/FocusRoomPreferences.swift" type="button">
-                <strong>FocusRoomPreferences.swift</strong>
-                <span>Stored preferences and state types</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Services/UserPreferencesStore.swift" data-code-fallback-key="preferences" type="button">
-                <strong>UserPreferencesStore.swift</strong>
-                <span>UserDefaults and in-memory storage</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Services/FocusRoomHaptics.swift" data-code-fallback-key="haptics" type="button">
-                <strong>FocusRoomHaptics.swift</strong>
-                <span>Threshold haptic feedback driver</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Services/MockAmbientAudioEngine.swift" type="button">
-                <strong>MockAmbientAudioEngine.swift</strong>
-                <span>Preview-safe audio seam</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/Components/GhostGlassPanel.swift" type="button">
-                <strong>GhostGlassPanel.swift</strong>
-                <span>Low-visibility control shell</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/ThresholdView.swift" type="button">
-                <strong>ThresholdView.swift</strong>
-                <span>Hold-to-enter ritual</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/FocusRoomView.swift" type="button">
-                <strong>FocusRoomView.swift</strong>
-                <span>Main room composition</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/RoomBackgroundView.swift" type="button">
-                <strong>RoomBackgroundView.swift</strong>
-                <span>2.5D room layers and motion</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/AmbientMixerView.swift" type="button">
-                <strong>AmbientMixerView.swift</strong>
-                <span>Ambient sound controls</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/FocusTimerView.swift" type="button">
-                <strong>FocusTimerView.swift</strong>
-                <span>Minimal timer and presets</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/Views/SessionCompletionView.swift" type="button">
-                <strong>SessionCompletionView.swift</strong>
-                <span>Completion state treatment</span>
-              </button>
-              <button class="fr-code-button" data-code-file="./swiftui-prototype/SampleData/PreviewContent.swift" type="button">
-                <strong>PreviewContent.swift</strong>
-                <span>Sample data and placeholders</span>
-              </button>
-            </div>
-          </details>
-        </aside>
-
-        <div class="fr-code-viewer">
-          <div class="fr-code-header">
-            <span class="fr-code-path" data-code-path>swiftui-prototype/ViewModels/FocusRoomViewModel.swift</span>
-            <span class="fr-code-status" data-code-status aria-live="polite">Loading</span>
-          </div>
-          <pre><code data-code-content>Loading source...</code></pre>
-        </div>
-      </div>
-
-      <div class="fr-section-footer">
-        <span>Focus first, then inspect the structure behind it.</span>
-        <span>Mock audio and local persistence are intentional seams, not missing pieces.</span>
-      </div>
-      <p class="fr-footer-note">On local <code>file://</code> previews, the highlighted excerpts still surface real code even when browser fetch rules block the full file viewer.</p>
-    </section>
-
-    <section class="fr-section" id="faq">
-      <span class="fr-eyebrow">FAQ</span>
-      <h2>Questions people usually ask before trying Focus Room</h2>
-      <p class="fr-body">This page is intentionally static enough for search engines to parse and descriptive enough for product, design, and engineering readers to understand what the experience does.</p>
-
-      <div class="fr-disclosure-stack">
-        <details class="fr-disclosure" open>
-          <summary>
-            <span>What is Focus Room?</span>
-            <span>A deep work experience built as a SwiftUI prototype.</span>
-          </summary>
-          <div class="fr-disclosure-body">
-            <p>Focus Room combines a calm entry ritual, a fullscreen study room, layered ambient sound, and a quiet session timer so starting work feels lighter than opening a typical productivity dashboard.</p>
-          </div>
-        </details>
-
-        <details class="fr-disclosure">
-          <summary>
-            <span>Is Focus Room a focus timer or an ambient study room?</span>
-            <span>It is both, with the timer kept intentionally peripheral.</span>
-          </summary>
-          <div class="fr-disclosure-body">
-            <p>The room, soundscape, and writing or focus modes stay central. The timer is present to support deep work, but it does not dominate the experience.</p>
-          </div>
-        </details>
-
-        <details class="fr-disclosure">
-          <summary>
-            <span>What makes Focus Room different from a standard focus app?</span>
-            <span>It prioritizes lower setup friction and calmer interaction design.</span>
-          </summary>
-          <div class="fr-disclosure-body">
-            <p>Users can keep a ready-made sound mix, hold to enter, and begin in seconds instead of configuring every setting up front. The product aims to feel like a room you return to, not a dashboard you manage.</p>
-          </div>
-        </details>
-
-        <details class="fr-disclosure">
-          <summary>
-            <span>Is Focus Room a live product or a prototype?</span>
-            <span>This page showcases a production-style SwiftUI prototype.</span>
-          </summary>
-          <div class="fr-disclosure-body">
-            <p>The page demonstrates product thinking, interaction design, architecture, and source structure. It is a public interactive showcase rather than an App Store release.</p>
-          </div>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <div class="fr-app-shell" data-app-shell hidden aria-hidden="true">
-    <div class="fr-app-frame" data-app-dialog role="dialog" aria-modal="true" aria-labelledby="frAppTitle" tabindex="-1">
-      <header class="fr-app-topbar">
-        <div class="fr-app-topbar-copy">
-          <span class="fr-panel-label" data-app-phase-label>Threshold</span>
-          <strong id="frAppTitle" data-app-room-title>Focus Room</strong>
-          <span class="fr-app-topbar-note">A quiet room for deep work.</span>
-        </div>
-        <div class="fr-app-topbar-actions">
-          <div class="fr-app-mode-switch" role="toolbar" aria-label="Room mode">
-            <button class="fr-app-mode-button is-active" data-app-mode-control="focus" type="button" aria-pressed="true">Focus Room</button>
-            <button class="fr-app-mode-button" data-app-mode-control="writing" type="button" aria-pressed="false">Writing Room</button>
-          </div>
-          <span class="fr-app-chip" data-app-mix-summary>Default mix: Piano, Rain, Wind</span>
-          <button class="fr-button secondary fr-app-exit" data-close-room type="button">Exit</button>
-        </div>
-      </header>
-
-      <div class="fr-app-phase-wrap">
-        <section class="fr-app-phase fr-app-phase-threshold" data-app-phase="threshold">
-          <div class="fr-app-threshold-layout">
-            <div class="fr-threshold-stage fr-app-threshold-stage" data-app-threshold-stage aria-label="Threshold screen">
-              <div class="fr-threshold-backdrop">
-                <div class="fr-threshold-shell">
-                  <div class="fr-scene-stars" aria-hidden="true">
-                    <span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
-                    <span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
-                    <span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
-                    <span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
-                  </div>
-                  <div class="fr-scene-window" aria-hidden="true">
-                    <div class="fr-scene-rain">
-                      <span></span><span></span><span></span><span></span>
-                      <span></span><span></span><span></span><span></span>
-                    </div>
-                  </div>
-                  <div class="fr-scene-lamp" aria-hidden="true"></div>
-                  <div class="fr-scene-desk" aria-hidden="true"></div>
-                  <div class="fr-scene-record" aria-hidden="true"></div>
-                  <div class="fr-scene-book" aria-hidden="true"></div>
-                  <div class="fr-scene-cup" aria-hidden="true"></div>
-                  <div class="fr-threshold-demo-note" aria-hidden="true">Good work. Take a breath.</div>
-                </div>
-              </div>
-
-              <div class="fr-threshold-copy">
-                <div class="fr-threshold-orb" aria-hidden="true"></div>
-                <h2 data-app-entry-title>Focus Room</h2>
-                <p data-app-entry-description>A quiet room for deep work.</p>
-                <button class="fr-threshold-trigger" data-app-threshold-trigger type="button">
-                  <span data-app-threshold-label>Hold to Enter</span>
-                </button>
-                <div class="fr-threshold-progress" aria-hidden="true">
-                  <span data-app-threshold-progress></span>
-                </div>
-                <p class="fr-threshold-footnote" data-app-threshold-prompt aria-live="polite">Press and hold to let the room surface.</p>
-              </div>
-
-              <div class="fr-stage-caption fr-stage-caption-app">
-                <div class="fr-stage-chip-row">
-                  <span class="fr-stage-chip fr-stage-chip-live">Threshold</span>
-                  <span class="fr-stage-chip">Hold to enter</span>
-                  <span class="fr-stage-chip">Fullscreen ritual</span>
-                </div>
-                <div class="fr-stage-loop">
-                  <span class="fr-stage-loop-label">Entry</span>
-                  <span class="fr-stage-loop-status" data-app-threshold-state aria-live="polite">Ready when you are</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="fr-app-phase fr-app-phase-room" data-app-phase="room" hidden>
-          <div class="fr-room-layout fr-app-room-layout">
-            <section class="fr-console-room is-piano-active" data-app-room-shell data-app-mode="focus">
-              <div class="fr-console-room__hud fr-ghost-panel" data-app-ghost-panel>
-                <div class="fr-hud-block fr-hud-block--session">
-                  <span class="fr-hud-label">Session</span>
-                  <div class="fr-hud-clock" data-app-session-clock>10:00</div>
-                  <div class="fr-hud-status" data-app-session-status aria-live="polite">Ready</div>
-                  <div class="fr-hud-progress" aria-hidden="true">
-                    <span data-app-ring-progress></span>
-                  </div>
-                </div>
-
-                <div class="fr-hud-block fr-hud-block--presence">
-                  <div class="fr-hud-presence-head">
-                    <span class="fr-hud-label">Shared Room</span>
-                  </div>
-                  <div class="fr-hud-presence-count" data-app-presence-count aria-live="polite">36 anonymous in room</div>
-                  <div class="fr-hud-presence-grid" data-app-presence-grid aria-hidden="true"></div>
-                </div>
-
-                <div class="fr-hud-block fr-hud-block--scene">
-                  <span class="fr-hud-label">Scene</span>
-                  <div class="fr-hud-scene-name" data-app-scene-label>Windowlight at Midnight</div>
-                  <div class="fr-hud-scene-sub" data-app-scene-sub>Rain-lit glass / warm desk light</div>
-                </div>
-              </div>
-
-              <div class="fr-console-room__stage">
-                <div class="fr-scene-stage" data-scene-stage>
-                  <video class="fr-scene-stage__video" data-scene-video muted loop playsinline preload="metadata">
-                    <source src="../focus-room/swiftui-prototype/public/video/Windowlight%20at%20Midnight.mp4" type="video/mp4">
-                  </video>
-
-                  <div class="fr-scene-stage__scrim"></div>
-                  <div class="fr-scene-stage__fog"></div>
-                  <div class="fr-scene-stage__warmth"></div>
-                  <div class="fr-scene-stage__glass"></div>
-                  <div class="fr-scene-stage__presence-cloud" aria-hidden="true">
-                    <span class="fr-scene-stage__presence-dot"></span>
-                    <span class="fr-scene-stage__presence-dot"></span>
-                    <span class="fr-scene-stage__presence-dot"></span>
-                    <span class="fr-scene-stage__presence-dot"></span>
-                    <span class="fr-scene-stage__presence-dot"></span>
-                    <span class="fr-scene-stage__presence-dot"></span>
-                  </div>
-
-                  <section class="fr-writing-shell" data-writing-shell hidden aria-hidden="true">
-                    <div class="fr-writing-shell__head">
-                      <label class="fr-writing-task" for="fr-writing-task">
-                        <span>Intent</span>
-                        <input id="fr-writing-task" data-writing-task type="text" maxlength="180" placeholder="Draft intro / journal / proposal...">
-                      </label>
-
-                      <div class="fr-writing-status" aria-live="polite">
-                        <span data-writing-state-label>Settling in</span>
-                        <span data-writing-word-count>0 words</span>
-                        <span data-writing-cadence>0 cpm</span>
-                      </div>
-                    </div>
-
-                    <div class="fr-writing-editor-wrap">
-                      <div
-                        class="fr-writing-editor"
-                        data-writing-editor
-                        contenteditable="true"
-                        spellcheck="true"
-                        role="textbox"
-                        aria-label="Writing editor"
-                        aria-multiline="true"
-                        data-placeholder="Begin when the sentence is ready."
-                      ></div>
-
-                      <p class="fr-writing-whisper" data-writing-whisper aria-live="polite">Let the sentence arrive.</p>
-                    </div>
-                  </section>
-
-                </div>
-
-                <div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel data-scene-switcher data-scene-switcher-open="true">
-                  <div class="fr-scene-switcher__head">
-                    <div class="fr-scene-switcher__copy">
-                      <span class="fr-console-kicker">Rooms</span>
-                      <strong>Scene Library</strong>
-                      <span class="fr-scene-switcher__active" data-scene-switcher-active>Windowlight at Midnight</span>
-                    </div>
-                    <button
-                      class="fr-scene-switcher__toggle"
-                      data-scene-switcher-toggle
-                      type="button"
-                      aria-expanded="true"
-                      aria-controls="frSceneSwitcherBody"
-                    >
+<main class="fr-page" data-page-content="">
+<header class="fr-topbar">
+<a class="fr-brand" href="../index.html">
+<span class="fr-brand-mark"></span>
+<span>Yangming Li</span>
+</a>
+<nav aria-label="Focus Room sections" class="fr-topbar-nav">
+<button class="fr-topbar-enter" data-open-room="" type="button">Enter Room</button>
+<a href="#experience">How It Works</a>
+<a href="#architecture">Architecture</a>
+<a href="#source">Source</a>
+<a href="../index.html">Home</a>
+</nav>
+</header>
+<section class="fr-section fr-hero">
+<div class="fr-hero-copy">
+<span class="fr-eyebrow">Featured Interactive Experience</span>
+<h1 class="fr-title">Focus Room</h1>
+<p class="fr-hero-deck">Not another timer. A room you return to.</p>
+<p class="fr-body fr-hero-body">Built to reduce friction before focus, with a calm entry ritual, ambient sound mixer, low-visibility controls, and a fullscreen study room that settles deeper as the session unfolds.</p>
+<div aria-label="Focus Room highlights" class="fr-hero-metrics">
+<span class="fr-stat-chip"><strong>5</strong><em>ambient layers</em></span>
+<span class="fr-stat-chip"><strong>Local</strong><em>persistence</em></span>
+<span class="fr-stat-chip"><strong>Ghost</strong><em>controls</em></span>
+<span class="fr-stat-chip"><strong>Session</strong><em>evolution</em></span>
+</div>
+<div class="fr-actions fr-actions-hero">
+<button class="fr-button primary fr-button-hero" data-open-room="" type="button">Enter the Room</button>
+<a class="fr-button tertiary" href="#architecture">View Architecture</a>
+</div>
+<p class="fr-note">The landing page stays light. The real product now opens as a fullscreen room, separate from the build notes and source browser below.</p>
+</div>
+<div aria-label="Focus Room preview" class="fr-threshold-stage fr-hero-preview" data-preview-stage="" tabindex="0">
+<div class="fr-threshold-backdrop">
+<div class="fr-threshold-shell">
+<div aria-hidden="true" class="fr-scene-stars">
+<span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
+<span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
+<span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
+<span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
+</div>
+<div aria-hidden="true" class="fr-scene-window">
+<div class="fr-scene-rain">
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div aria-hidden="true" class="fr-scene-lamp"></div>
+<div aria-hidden="true" class="fr-scene-desk"></div>
+<div aria-hidden="true" class="fr-scene-record"></div>
+<div aria-hidden="true" class="fr-scene-book"></div>
+<div aria-hidden="true" class="fr-scene-cup"></div>
+<div aria-hidden="true" class="fr-threshold-demo-note">Good work. Take a breath.</div>
+</div>
+</div>
+<div class="fr-threshold-copy">
+<div aria-hidden="true" class="fr-threshold-orb"></div>
+<h2>Focus Room</h2>
+<p>A quiet room for deep work.</p>
+<button class="fr-threshold-trigger" data-open-room="" type="button">
+<span>Open Fullscreen Room</span>
+</button>
+<p aria-live="polite" class="fr-threshold-footnote" data-preview-prompt="">Hover wakes the room. Open the fullscreen experience to begin.</p>
+</div>
+<div class="fr-stage-caption">
+<div class="fr-stage-chip-row">
+<span class="fr-stage-chip fr-stage-chip-live">Preview</span>
+<span class="fr-stage-chip">Hover wakes rain</span>
+<span class="fr-stage-chip">Fullscreen app</span>
+</div>
+<div class="fr-stage-loop">
+<span class="fr-stage-loop-label">8s room cycle</span>
+<div class="fr-stage-loop-track"><span data-preview-track=""></span></div>
+<span aria-live="polite" class="fr-stage-loop-status" data-preview-status="">Room settling</span>
+</div>
+</div>
+</div>
+</section>
+<section class="fr-section fr-experience" id="experience">
+<span class="fr-eyebrow">App Mode</span>
+<h2>The product now opens as a true room, not another section on the page</h2>
+<p class="fr-body">The landing page introduces the idea. The actual experience opens separately, locks the page behind it, and keeps the first-use path simple: enter, keep or tune the mix, start, finish softly.</p>
+<div class="fr-flow-layout">
+<div aria-label="First-use flow" class="fr-flow-steps">
+<article class="fr-flow-card">
+<span class="fr-flow-step">01</span>
+<strong>Enter the room</strong>
+<p>The first screen is a threshold, not a settings page. Hold to enter and let the room come forward.</p>
+</article>
+<article class="fr-flow-card">
+<span class="fr-flow-step">02</span>
+<strong>Keep the default mix</strong>
+<p>Rain, Piano, and Brown Noise are already active. Users can begin immediately or tune the room gently.</p>
+</article>
+<article class="fr-flow-card">
+<span class="fr-flow-step">03</span>
+<strong>Start a session</strong>
+<p>The timer stays quiet and peripheral so the room remains primary while work begins.</p>
+</article>
+<article class="fr-flow-card">
+<span class="fr-flow-step">04</span>
+<strong>Finish softly</strong>
+<p>Completion lands as a small intimate state instead of a loud productivity reward.</p>
+</article>
+</div>
+<aside class="fr-flow-panel">
+<span class="fr-panel-label">First Session</span>
+<h3>Open the app, keep the room, begin.</h3>
+<p>What used to be embedded in the document now opens as a fullscreen app layer. Architecture and source stay on the page. The focus ritual lives outside it.</p>
+<div class="fr-pill-row">
+<span class="fr-pill">Threshold ritual</span>
+<span class="fr-pill">Default mix ready</span>
+<span class="fr-pill">Fullscreen room</span>
+<span class="fr-pill">Soft completion</span>
+</div>
+<div class="fr-actions">
+<button class="fr-button primary" data-open-room="" type="button">Open the App</button>
+<a class="fr-button secondary" href="#source">View the Build</a>
+</div>
+</aside>
+</div>
+</section>
+<section class="fr-section" id="use-cases">
+<span class="fr-eyebrow">What It Is</span>
+<h2>A deep work focus app, virtual study room, and ambient sound mixer in one</h2>
+<p class="fr-body">Focus Room is designed for people looking for a focus app, study room app, writing room, or deep work timer. The experience stays intentionally calm: enter the room, keep the default mix, and begin without a setup-heavy dashboard.</p>
+<div aria-label="Focus Room use cases" class="fr-arch-summary-row">
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Focus App</span>
+<strong>Reduce activation energy</strong>
+<p>Instead of opening into forms and toggles, the experience starts with a threshold ritual that makes beginning feel lighter.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Study Room</span>
+<strong>Fullscreen room, not a dashboard</strong>
+<p>The room becomes the primary interface so attention stays on work, atmosphere, and gentle progression instead of busy controls.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Ambient Audio</span>
+<strong>Layered sound mixing</strong>
+<p>Rain, piano, wind, and other channels can be kept as defaults or tuned softly for different deep work and writing sessions.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Writing Room</span>
+<strong>Quiet timer, clear intent</strong>
+<p>Writing mode keeps the timer peripheral and the editor central, helping longer sessions feel steady rather than gamified.</p>
+</article>
+</div>
+</section>
+<section class="fr-section" id="architecture">
+<span class="fr-eyebrow">Architecture</span>
+<h2>Technical credibility, surfaced with less weight</h2>
+<p class="fr-body">The prototype still reads like a real SwiftUI handoff, but the first scan starts with the four decisions that make the experience believable: orchestration, persistence, audio seams, and reusable views.</p>
+<div aria-label="Architecture highlights" class="fr-arch-summary-row">
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Orchestration</span>
+<strong>AppState + ViewModel</strong>
+<p>One observable root owns dependencies while a single room view model drives entry, timer, ghost UI, and completion.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Persistence</span>
+<strong>Local by design</strong>
+<p>Sound selections, volumes, and last duration persist through a small <code>UserDefaults</code> seam without introducing account friction.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Audio</span>
+<strong>Mockable playback seam</strong>
+<p>The prototype stays visually honest while deferring real fade-aware audio layering until the next phase.</p>
+</article>
+<article class="fr-arch-summary-card">
+<span class="fr-panel-label">Views</span>
+<strong>Reusable composition</strong>
+<p>Threshold, room, timer, mixer, background, and completion remain isolated enough to move directly into an app target.</p>
+</article>
+</div>
+<div class="fr-arch-layout">
+<article class="fr-arch-spotlight">
+<span class="fr-panel-label">System Shape</span>
+<h3>One orchestrator, small seams, reusable views</h3>
+<p>The architecture keeps interaction quality central. State lives in one place, derived atmosphere values keep visuals coherent, and services stay thin enough to swap without rewriting the room.</p>
+<div aria-label="SwiftUI view tree" class="fr-tree">
+<div>FocusRoomApp</div>
+<div>`-- AppState</div>
+<div>    `-- FocusRoomViewModel</div>
+<div>        |-- ThresholdView</div>
+<div>        |-- FocusRoomView</div>
+<div>        |-- RoomBackgroundView</div>
+<div>        |-- FocusTimerView</div>
+<div>        |-- AmbientMixerView</div>
+<div>        `-- SessionCompletionView</div>
+</div>
+</article>
+<div class="fr-disclosure-stack">
+<details class="fr-disclosure" open="">
+<summary>
+<span>AppState / ViewModel orchestration</span>
+<span>Single source of truth for phase, timer, mixer, and room atmosphere.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p><code>AppState</code> owns dependencies. <code>FocusRoomViewModel</code> centralizes threshold entry, session timing, ghost UI idling, completion messaging, and derived room evolution so the visuals never feel bolted together.</p>
+<div class="fr-disclosure-points">
+<span>Entry ritual, idle fade, and completion share one mental model instead of scattering state across views.</span>
+<span>Derived <code>RoomAtmosphere</code> values keep lamp warmth, rain depth, and background calm in sync.</span>
+</div>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>Local persistence</span>
+<span>Preferences survive without login or backend ceremony.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p><code>FocusRoomPreferencesStoring</code> isolates persistence behind a protocol, so the room can remember last-used sound layers and duration while keeping countdown runtime state ephemeral.</p>
+<div class="fr-disclosure-points">
+<span><code>UserDefaultsPreferencesStore</code> is production-friendly for a first version.</span>
+<span><code>InMemoryPreferencesStore</code> keeps previews and local iteration fast.</span>
+</div>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>Mock audio seam</span>
+<span>Visual and interaction quality can mature before real assets land.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>The audio layer is intentionally abstracted behind <code>AmbientAudioControlling</code>. That keeps the prototype believable today and ready for fade-aware playback tomorrow.</p>
+<div class="fr-disclosure-points">
+<span>Preview fade-in and session completion fade-out can later map to real audio without redesigning the interface.</span>
+<span>The mock engine preserves product behavior while avoiding placeholder asset debt.</span>
+</div>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>Reusable view structure</span>
+<span>Each layer is scoped tightly enough to migrate into Xcode cleanly.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>The UI is split into the same components a production app would want: threshold ritual, background composition, timer, mixer, and completion. The room stays primary because each piece knows its role.</p>
+<div class="fr-disclosure-points">
+<span><code>GhostGlassPanel</code> standardizes the low-visibility control language.</span>
+<span>Preview data and theme tokens support iteration without turning the project into a demo-only codebase.</span>
+</div>
+</div>
+</details>
+</div>
+</div>
+</section>
+<section class="fr-section" id="source">
+<span class="fr-eyebrow">Source</span>
+<h2>Start with the code that makes the prototype believable</h2>
+<p class="fr-body">Rather than giving every file equal weight, the page starts with the two seams that matter most on first read: the room orchestrator and the local persistence layer. The full browser is still here when you want the whole tree.</p>
+<div class="fr-source-layout">
+<aside class="fr-source-sidebar">
+<div class="fr-source-highlight-grid">
+<button class="fr-code-highlight is-active" data-code-fallback-key="viewModel" data-code-file="./swiftui-prototype/ViewModels/FocusRoomViewModel.swift" type="button">
+<span class="fr-panel-label">Best Excerpt 01</span>
+<strong>FocusRoomViewModel.swift</strong>
+<p>Coordinates threshold entry, timer progress, ghost UI fading, completion, and derived room atmosphere so the experience behaves like one system.</p>
+<span class="fr-source-tag">Interaction orchestration</span>
+</button>
+<button class="fr-code-highlight" data-code-fallback-key="preferences" data-code-file="./swiftui-prototype/Services/UserPreferencesStore.swift" type="button">
+<span class="fr-panel-label">Best Excerpt 02</span>
+<strong>UserPreferencesStore.swift</strong>
+<p>Keeps persistence small and replaceable, which makes local storage practical now and future sync strategies possible later.</p>
+<span class="fr-source-tag">Local persistence seam</span>
+</button>
+</div>
+<div aria-label="Prototype capabilities" class="fr-source-strip">
+<span>Threshold ritual</span>
+<span>Ghost controls</span>
+<span>Mock audio seam</span>
+<span>Reusable views</span>
+</div>
+<details class="fr-code-drawer">
+<summary>
+<span>Browse the full SwiftUI prototype</span>
+<span>18 Swift files</span>
+</summary>
+<div class="fr-code-button-list fr-code-button-grid">
+<button class="fr-code-button" data-code-file="./swiftui-prototype/FocusRoomApp.swift" type="button">
+<strong>FocusRoomApp.swift</strong>
+<span>App entry and root scene</span>
+</button>
+<button class="fr-code-button" data-code-fallback-key="appState" data-code-file="./swiftui-prototype/App/AppState.swift" type="button">
+<strong>AppState.swift</strong>
+<span>Dependency ownership</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Design/FocusRoomTheme.swift" type="button">
+<strong>FocusRoomTheme.swift</strong>
+<span>Shared tokens and styling</span>
+</button>
+<button class="fr-code-button" data-code-fallback-key="viewModel" data-code-file="./swiftui-prototype/ViewModels/FocusRoomViewModel.swift" type="button">
+<strong>FocusRoomViewModel.swift</strong>
+<span>Entry, timer, mixer, completion</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Models/AmbientLayer.swift" type="button">
+<strong>AmbientLayer.swift</strong>
+<span>Ambient layer model and defaults</span>
+</button>
+<button class="fr-code-button" data-code-fallback-key="soundscape" data-code-file="./swiftui-prototype/Models/RoomSoundscape.swift" type="button">
+<strong>RoomSoundscape.swift</strong>
+<span>Room strategies and mix behavior</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Models/FocusRoomPreferences.swift" type="button">
+<strong>FocusRoomPreferences.swift</strong>
+<span>Stored preferences and state types</span>
+</button>
+<button class="fr-code-button" data-code-fallback-key="preferences" data-code-file="./swiftui-prototype/Services/UserPreferencesStore.swift" type="button">
+<strong>UserPreferencesStore.swift</strong>
+<span>UserDefaults and in-memory storage</span>
+</button>
+<button class="fr-code-button" data-code-fallback-key="haptics" data-code-file="./swiftui-prototype/Services/FocusRoomHaptics.swift" type="button">
+<strong>FocusRoomHaptics.swift</strong>
+<span>Threshold haptic feedback driver</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Services/MockAmbientAudioEngine.swift" type="button">
+<strong>MockAmbientAudioEngine.swift</strong>
+<span>Preview-safe audio seam</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/Components/GhostGlassPanel.swift" type="button">
+<strong>GhostGlassPanel.swift</strong>
+<span>Low-visibility control shell</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/ThresholdView.swift" type="button">
+<strong>ThresholdView.swift</strong>
+<span>Hold-to-enter ritual</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/FocusRoomView.swift" type="button">
+<strong>FocusRoomView.swift</strong>
+<span>Main room composition</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/RoomBackgroundView.swift" type="button">
+<strong>RoomBackgroundView.swift</strong>
+<span>2.5D room layers and motion</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/AmbientMixerView.swift" type="button">
+<strong>AmbientMixerView.swift</strong>
+<span>Ambient sound controls</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/FocusTimerView.swift" type="button">
+<strong>FocusTimerView.swift</strong>
+<span>Minimal timer and presets</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/Views/SessionCompletionView.swift" type="button">
+<strong>SessionCompletionView.swift</strong>
+<span>Completion state treatment</span>
+</button>
+<button class="fr-code-button" data-code-file="./swiftui-prototype/SampleData/PreviewContent.swift" type="button">
+<strong>PreviewContent.swift</strong>
+<span>Sample data and placeholders</span>
+</button>
+</div>
+</details>
+</aside>
+<div class="fr-code-viewer">
+<div class="fr-code-header">
+<span class="fr-code-path" data-code-path="">swiftui-prototype/ViewModels/FocusRoomViewModel.swift</span>
+<span aria-live="polite" class="fr-code-status" data-code-status="">Loading</span>
+</div>
+<pre><code data-code-content="">Loading source...</code></pre>
+</div>
+</div>
+<div class="fr-section-footer">
+<span>Focus first, then inspect the structure behind it.</span>
+<span>Mock audio and local persistence are intentional seams, not missing pieces.</span>
+</div>
+<p class="fr-footer-note">On local <code>file://</code> previews, the highlighted excerpts still surface real code even when browser fetch rules block the full file viewer.</p>
+</section>
+<section class="fr-section" id="faq">
+<span class="fr-eyebrow">FAQ</span>
+<h2>Questions people usually ask before trying Focus Room</h2>
+<p class="fr-body">This page is intentionally static enough for search engines to parse and descriptive enough for product, design, and engineering readers to understand what the experience does.</p>
+<div class="fr-disclosure-stack">
+<details class="fr-disclosure" open="">
+<summary>
+<span>What is Focus Room?</span>
+<span>A deep work experience built as a SwiftUI prototype.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>Focus Room combines a calm entry ritual, a fullscreen study room, layered ambient sound, and a quiet session timer so starting work feels lighter than opening a typical productivity dashboard.</p>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>Is Focus Room a focus timer or an ambient study room?</span>
+<span>It is both, with the timer kept intentionally peripheral.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>The room, soundscape, and writing or focus modes stay central. The timer is present to support deep work, but it does not dominate the experience.</p>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>What makes Focus Room different from a standard focus app?</span>
+<span>It prioritizes lower setup friction and calmer interaction design.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>Users can keep a ready-made sound mix, hold to enter, and begin in seconds instead of configuring every setting up front. The product aims to feel like a room you return to, not a dashboard you manage.</p>
+</div>
+</details>
+<details class="fr-disclosure">
+<summary>
+<span>Is Focus Room a live product or a prototype?</span>
+<span>This page showcases a production-style SwiftUI prototype.</span>
+</summary>
+<div class="fr-disclosure-body">
+<p>The page demonstrates product thinking, interaction design, architecture, and source structure. It is a public interactive showcase rather than an App Store release.</p>
+</div>
+</details>
+</div>
+</section>
+</main>
+<div aria-hidden="true" class="fr-app-shell" data-app-shell="" hidden="">
+<div aria-labelledby="frAppTitle" aria-modal="true" class="fr-app-frame" data-app-dialog="" role="dialog" tabindex="-1">
+<header class="fr-app-topbar">
+<div class="fr-app-topbar-copy">
+<span class="fr-panel-label" data-app-phase-label="">Threshold</span>
+<strong data-app-room-title="" id="frAppTitle">Focus Room</strong>
+<span class="fr-app-topbar-note">A quiet room for deep work.</span>
+</div>
+<div class="fr-app-topbar-actions">
+<div aria-label="Room mode" class="fr-app-mode-switch" role="toolbar">
+<button aria-pressed="true" class="fr-app-mode-button is-active" data-app-mode-control="focus" type="button">Focus Room</button>
+<button aria-pressed="false" class="fr-app-mode-button" data-app-mode-control="writing" type="button">Writing Room</button>
+</div>
+<span class="fr-app-chip" data-app-mix-summary="">Default mix: Piano, Rain, Wind</span>
+<button class="fr-button secondary fr-app-exit" data-close-room="" type="button">Exit</button>
+</div>
+</header>
+<div class="fr-app-phase-wrap">
+<section class="fr-app-phase fr-app-phase-threshold" data-app-phase="threshold">
+<div class="fr-app-threshold-layout">
+<div aria-label="Threshold screen" class="fr-threshold-stage fr-app-threshold-stage" data-app-threshold-stage="">
+<div class="fr-threshold-backdrop">
+<div class="fr-threshold-shell">
+<div aria-hidden="true" class="fr-scene-stars">
+<span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
+<span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
+<span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
+<span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
+</div>
+<div aria-hidden="true" class="fr-scene-window">
+<div class="fr-scene-rain">
+<span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span>
+</div>
+</div>
+<div aria-hidden="true" class="fr-scene-lamp"></div>
+<div aria-hidden="true" class="fr-scene-desk"></div>
+<div aria-hidden="true" class="fr-scene-record"></div>
+<div aria-hidden="true" class="fr-scene-book"></div>
+<div aria-hidden="true" class="fr-scene-cup"></div>
+<div aria-hidden="true" class="fr-threshold-demo-note">Good work. Take a breath.</div>
+</div>
+</div>
+<div class="fr-threshold-copy">
+<div aria-hidden="true" class="fr-threshold-orb"></div>
+<h2 data-app-entry-title="">Focus Room</h2>
+<p data-app-entry-description="">A quiet room for deep work.</p>
+<button class="fr-threshold-trigger" data-app-threshold-trigger="" type="button">
+<span data-app-threshold-label="">Hold to Enter</span>
+</button>
+<div aria-hidden="true" class="fr-threshold-progress">
+<span data-app-threshold-progress=""></span>
+</div>
+<p aria-live="polite" class="fr-threshold-footnote" data-app-threshold-prompt="">Press and hold to let the room surface.</p>
+</div>
+<div class="fr-stage-caption fr-stage-caption-app">
+<div class="fr-stage-chip-row">
+<span class="fr-stage-chip fr-stage-chip-live">Threshold</span>
+<span class="fr-stage-chip">Hold to enter</span>
+<span class="fr-stage-chip">Fullscreen ritual</span>
+</div>
+<div class="fr-stage-loop">
+<span class="fr-stage-loop-label">Entry</span>
+<span aria-live="polite" class="fr-stage-loop-status" data-app-threshold-state="">Ready when you are</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="fr-app-phase fr-app-phase-room" data-app-phase="room" hidden="">
+<div class="fr-room-layout fr-app-room-layout">
+<section class="fr-console-room is-piano-active" data-app-mode="focus" data-app-room-shell="">
+<div class="fr-console-room__hud fr-ghost-panel" data-app-ghost-panel="">
+<div class="fr-hud-block fr-hud-block--session">
+<span class="fr-hud-label">Session</span>
+<div class="fr-hud-clock" data-app-session-clock="">10:00</div>
+<div aria-live="polite" class="fr-hud-status" data-app-session-status="">Ready</div>
+<div aria-hidden="true" class="fr-hud-progress">
+<span data-app-ring-progress=""></span>
+</div>
+</div>
+<div class="fr-hud-block fr-hud-block--presence">
+<div class="fr-hud-presence-head">
+<span class="fr-hud-label">Shared Room</span>
+</div>
+<div aria-live="polite" class="fr-hud-presence-count" data-app-presence-count="">36 anonymous in room</div>
+<div aria-hidden="true" class="fr-hud-presence-grid" data-app-presence-grid=""></div>
+</div>
+<div class="fr-hud-block fr-hud-block--scene">
+<span class="fr-hud-label">Scene</span>
+<div class="fr-hud-scene-name" data-app-scene-label="">Windowlight at Midnight</div>
+<div class="fr-hud-scene-sub" data-app-scene-sub="">Rain-lit glass / warm desk light</div>
+</div>
+</div>
+<div class="fr-console-room__stage">
+<div class="fr-scene-stage" data-scene-stage="">
+<video class="fr-scene-stage__video" data-scene-video="" loop="" muted="" playsinline="" preload="metadata">
+<source src="../focus-room/swiftui-prototype/public/video/Windowlight%20at%20Midnight.mp4" type="video/mp4"/>
+</video>
+<div class="fr-scene-stage__scrim"></div>
+<div class="fr-scene-stage__fog"></div>
+<div class="fr-scene-stage__warmth"></div>
+<div class="fr-scene-stage__glass"></div>
+<div aria-hidden="true" class="fr-scene-stage__presence-cloud">
+<span class="fr-scene-stage__presence-dot"></span>
+<span class="fr-scene-stage__presence-dot"></span>
+<span class="fr-scene-stage__presence-dot"></span>
+<span class="fr-scene-stage__presence-dot"></span>
+<span class="fr-scene-stage__presence-dot"></span>
+<span class="fr-scene-stage__presence-dot"></span>
+</div>
+<section aria-hidden="true" class="fr-writing-shell" data-writing-shell="" hidden="">
+<div class="fr-writing-shell__head">
+<label class="fr-writing-task" for="fr-writing-task">
+<span>Intent</span>
+<input data-writing-task="" id="fr-writing-task" maxlength="180" placeholder="Draft intro / journal / proposal..." type="text"/>
+</label>
+<div aria-live="polite" class="fr-writing-status">
+<span data-writing-state-label="">Settling in</span>
+<span data-writing-word-count="">0 words</span>
+<span data-writing-cadence="">0 cpm</span>
+</div>
+</div>
+<div class="fr-writing-editor-wrap">
+<div aria-label="Writing editor" aria-multiline="true" class="fr-writing-editor" contenteditable="true" data-placeholder="Begin when the sentence is ready." data-writing-editor="" role="textbox" spellcheck="true"></div>
+<p aria-live="polite" class="fr-writing-whisper" data-writing-whisper="">Let the sentence arrive.</p>
+</div>
+</section>
+</div>
+<div class="fr-scene-switcher fr-ghost-panel" data-app-ghost-panel="" data-scene-switcher="" data-scene-switcher-open="true">
+<div class="fr-scene-switcher__head">
+<div class="fr-scene-switcher__copy">
+<span class="fr-console-kicker">Rooms</span>
+<strong>Scene Library</strong>
+<span class="fr-scene-switcher__active" data-scene-switcher-active="">Windowlight at Midnight</span>
+</div>
+<button aria-controls="frSceneSwitcherBody" aria-expanded="true" class="fr-scene-switcher__toggle" data-scene-switcher-toggle="" type="button">
                       Hide
                     </button>
-                  </div>
-
-                  <div class="fr-scene-switcher__body" data-scene-switcher-body id="frSceneSwitcherBody">
-                    <div class="fr-scene-switcher__grid" data-scene-grid role="toolbar" aria-label="Choose a cinematic room"></div>
-                  </div>
-                </div>
-
-                <aside class="fr-console-rack fr-ghost-panel" data-app-ghost-panel data-app-mixer-panel>
-                  <div class="fr-console-rack__header">
-                    <div>
-                      <span class="fr-console-kicker">Rain Console</span>
-                      <strong>Shape the room</strong>
-                    </div>
-                    <button class="fr-console-rack__toggle" data-app-mixer-toggle type="button">Hide Console</button>
-                  </div>
-
-                  <section class="fr-layer-drawer" data-app-layer-drawer id="frLayerDrawer" hidden aria-label="Sound options">
-                    <div class="fr-layer-drawer__head">
-                      <div class="fr-layer-drawer__copy">
-                        <span class="fr-console-kicker">Sound Variants</span>
-                        <strong data-app-layer-drawer-title>Piano</strong>
-                        <span class="fr-layer-drawer__meta" data-app-layer-drawer-meta>12 sounds</span>
-                      </div>
-                      <button class="fr-layer-drawer__close" data-app-layer-drawer-close type="button">Close</button>
-                    </div>
-
-                    <div class="fr-layer-drawer__tracks" data-app-layer-drawer-tracks role="list"></div>
-                  </section>
-
-                  <div class="fr-channel-strip-list" data-app-layer-list role="group" aria-label="Ambient channel strips"></div>
-
-                  <div class="fr-console-atmosphere" role="group" aria-label="Atmosphere controls">
-                    <div class="fr-console-knob" data-console-knob="warmth">
-                      <label for="fr-atmosphere-warmth">Warmth</label>
-                      <div class="fr-console-knob__dial" aria-hidden="true"></div>
-                      <input class="fr-console-knob__input" data-app-atmosphere="warmth" id="fr-atmosphere-warmth" max="1" min="0" step="0.01" type="range" value="0.42" aria-label="Warmth control">
-                      <span data-app-atmosphere-value="warmth">42%</span>
-                    </div>
-
-                    <div class="fr-console-knob" data-console-knob="focusDepth">
-                      <label for="fr-atmosphere-depth">Focus Depth</label>
-                      <div class="fr-console-knob__dial" aria-hidden="true"></div>
-                      <input class="fr-console-knob__input" data-app-atmosphere="focusDepth" id="fr-atmosphere-depth" max="1" min="0" step="0.01" type="range" value="0.36" aria-label="Focus depth control">
-                      <span data-app-atmosphere-value="focusDepth">36%</span>
-                    </div>
-
-                    <div class="fr-console-knob" data-console-knob="fog">
-                      <label for="fr-atmosphere-fog">Window Fog</label>
-                      <div class="fr-console-knob__dial" aria-hidden="true"></div>
-                      <input class="fr-console-knob__input" data-app-atmosphere="fog" id="fr-atmosphere-fog" max="1" min="0" step="0.01" type="range" value="0.28" aria-label="Window fog control">
-                      <span data-app-atmosphere-value="fog">28%</span>
-                    </div>
-                  </div>
-                </aside>
-              </div>
-
-              <div class="fr-transport-bar fr-ghost-panel" data-app-ghost-panel>
-                <div class="fr-transport-bar__group fr-transport-bar__group--duration" role="toolbar" aria-label="Session duration options">
-                  <button class="fr-transport-chip is-active" data-app-duration="10" data-app-demo-seconds="600" type="button">10m</button>
-                  <button class="fr-transport-chip" data-app-duration="30" data-app-demo-seconds="1800" type="button">30m</button>
-                  <button class="fr-transport-chip" data-app-duration="60" data-app-demo-seconds="3600" type="button">1h</button>
-                  <button class="fr-transport-chip" data-app-duration="180" data-app-demo-seconds="10800" type="button">3h</button>
-                </div>
-
-                <div class="fr-transport-bar__group fr-transport-bar__group--actions">
-                  <button class="fr-transport-button fr-transport-button--primary" data-app-session-start type="button">Start Session</button>
-                  <button class="fr-transport-button" data-app-session-reset type="button">Reset</button>
-                  <button class="fr-transport-button fr-transport-console-toggle" data-app-mixer-toggle type="button">Console</button>
-                </div>
-
-                <div class="fr-transport-note" data-app-room-note>
+</div>
+<div class="fr-scene-switcher__body" data-scene-switcher-body="" id="frSceneSwitcherBody">
+<div aria-label="Choose a cinematic room" class="fr-scene-switcher__grid" data-scene-grid="" role="toolbar"></div>
+</div>
+</div>
+<aside class="fr-console-rack fr-ghost-panel" data-app-ghost-panel="" data-app-mixer-panel="">
+<div class="fr-console-rack__header">
+<div>
+<span class="fr-console-kicker">Rain Console</span>
+<strong>Shape the room</strong>
+</div>
+<button class="fr-console-rack__toggle" data-app-mixer-toggle="" type="button">Hide Console</button>
+</div>
+<section aria-label="Sound options" class="fr-layer-drawer" data-app-layer-drawer="" hidden="" id="frLayerDrawer">
+<div class="fr-layer-drawer__head">
+<div class="fr-layer-drawer__copy">
+<span class="fr-console-kicker">Sound Variants</span>
+<strong data-app-layer-drawer-title="">Piano</strong>
+<span class="fr-layer-drawer__meta" data-app-layer-drawer-meta="">12 sounds</span>
+</div>
+<button class="fr-layer-drawer__close" data-app-layer-drawer-close="" type="button">Close</button>
+</div>
+<div class="fr-layer-drawer__tracks" data-app-layer-drawer-tracks="" role="list"></div>
+</section>
+<div aria-label="Ambient channel strips" class="fr-channel-strip-list" data-app-layer-list="" role="group"></div>
+<div aria-label="Atmosphere controls" class="fr-console-atmosphere" role="group">
+<div class="fr-console-knob" data-console-knob="warmth">
+<label for="fr-atmosphere-warmth">Warmth</label>
+<div aria-hidden="true" class="fr-console-knob__dial"></div>
+<input aria-label="Warmth control" class="fr-console-knob__input" data-app-atmosphere="warmth" id="fr-atmosphere-warmth" max="1" min="0" step="0.01" type="range" value="0.42"/>
+<span data-app-atmosphere-value="warmth">42%</span>
+</div>
+<div class="fr-console-knob" data-console-knob="focusDepth">
+<label for="fr-atmosphere-depth">Focus Depth</label>
+<div aria-hidden="true" class="fr-console-knob__dial"></div>
+<input aria-label="Focus depth control" class="fr-console-knob__input" data-app-atmosphere="focusDepth" id="fr-atmosphere-depth" max="1" min="0" step="0.01" type="range" value="0.36"/>
+<span data-app-atmosphere-value="focusDepth">36%</span>
+</div>
+<div class="fr-console-knob" data-console-knob="fog">
+<label for="fr-atmosphere-fog">Window Fog</label>
+<div aria-hidden="true" class="fr-console-knob__dial"></div>
+<input aria-label="Window fog control" class="fr-console-knob__input" data-app-atmosphere="fog" id="fr-atmosphere-fog" max="1" min="0" step="0.01" type="range" value="0.28"/>
+<span data-app-atmosphere-value="fog">28%</span>
+</div>
+</div>
+</aside>
+</div>
+<div class="fr-transport-bar fr-ghost-panel" data-app-ghost-panel="">
+<div aria-label="Session duration options" class="fr-transport-bar__group fr-transport-bar__group--duration" role="toolbar">
+<button class="fr-transport-chip is-active" data-app-demo-seconds="600" data-app-duration="10" type="button">10m</button>
+<button class="fr-transport-chip" data-app-demo-seconds="1800" data-app-duration="30" type="button">30m</button>
+<button class="fr-transport-chip" data-app-demo-seconds="3600" data-app-duration="60" type="button">1h</button>
+<button class="fr-transport-chip" data-app-demo-seconds="10800" data-app-duration="180" type="button">3h</button>
+</div>
+<div class="fr-transport-bar__group fr-transport-bar__group--actions">
+<button class="fr-transport-button fr-transport-button--primary" data-app-session-start="" type="button">Start Session</button>
+<button class="fr-transport-button" data-app-session-reset="" type="button">Reset</button>
+<button class="fr-transport-button fr-transport-console-toggle" data-app-mixer-toggle="" type="button">Console</button>
+</div>
+<div class="fr-transport-note" data-app-room-note="">
                   Choose your channels, then roll transport to bring the room in.
                 </div>
-              </div>
-
-              <div class="fr-completion-reflection" data-app-completion-note aria-live="polite">
-                <span>Good work. Take a breath.</span>
-              </div>
-            </section>
-          </div>
-        </section>
-      </div>
-    </div>
-  </div>
-
-  <script defer src="../js/focus-room.js?v=20260325-6"></script>
+</div>
+<div aria-live="polite" class="fr-completion-reflection" data-app-completion-note="">
+<span>Good work. Take a breath.</span>
+</div>
+</section>
+</div>
+</section>
+</div>
+</div>
+</div>
+<script defer="" src="../js/focus-room.js?v=20260325-6"></script>
 </body>
 </html>

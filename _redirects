@@ -1,2 +1,6 @@
-# 旧 .shtml 文件重定向到 .html
+# Legacy redirects for static hosts that support Netlify-style _redirects.
+/product  /blog/  301!
+/product/  /blog/  301!
+/sitemap/google.xml  /sitemap.xml  301!
+/sitemap.txt  /sitemap.xml  301!
 /nha-cai/10439/08249712.shtml  /nha-cai/10439/08249712.html  301!

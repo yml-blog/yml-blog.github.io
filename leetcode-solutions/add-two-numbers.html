@@ -1,37 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <!-- SEO metadata -->
-    <title>2. Add Two Numbers | LeetCode Solutions | Yangming Li Tech Blog</title>
-    <meta name="description"
-          content="Detailed solution and explanation for LeetCode problem: Add Two Numbers"/>
-    <link href="../favicon.png" rel="icon"/>
-    <link href="https://yangmingli.com/leetcode-solutions/add-two-numbers.html" rel="canonical"/>
-    <meta name="robots" content="index,follow,max-image-preview:large"/>
-    <meta name="keywords" content="leetcode, coding interview, algorithms, data structures, programming, python, linked list, add two numbers"/>
-    <meta name="author" content="Yangming Li"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- SEO metadata -->
+<title>2. Add Two Numbers | LeetCode Solutions | Yangming Li</title>
+<meta content="Detailed solution and explanation for LeetCode problem: Add Two Numbers" name="description"/>
+<link href="../favicon.png" rel="icon"/>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article"/>
-    <meta property="og:locale" content="en_CA"/>
-    <meta property="og:title" content="2. Add Two Numbers | LeetCode Solutions | Yangming Li Tech Blog"/>
-    <meta property="og:description"
-          content="Detailed solution and explanation for LeetCode problem: Add Two Numbers"/>
-    <meta property="og:url" content="https://yangmingli.com/leetcode-solutions/add-two-numbers.html"/>
-    <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
-    <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
 
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <link href="../css/blog_post.css" rel="stylesheet"/>
-    
-    <style>
+<meta content="Yangming Li" name="author"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="en_CA" property="og:locale"/>
+<meta content="2. Add Two Numbers | LeetCode Solutions | Yangming Li" property="og:title"/>
+<meta content="Detailed solution and explanation for LeetCode problem: Add Two Numbers" property="og:description"/>
+<meta content="https://yangmingli.com/leetcode-solutions/add-two-numbers.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/blog_post.css" rel="stylesheet"/>
+<style>
         body {
             font-family: 'Hind', sans-serif;
             line-height: 1.6;
@@ -200,70 +196,62 @@
             color: #8bc4ff;
         }
     </style>
-</head>
-
+<link href="https://yangmingli.com/leetcode-solutions/add-two-numbers.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="2. Add Two Numbers | LeetCode Solutions | Yangming Li" name="twitter:title"/><meta content="Detailed solution and explanation for LeetCode problem: Add Two Numbers" name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
 <body>
-    <div class="theme-switch-wrapper">
-        <span>Light</span>
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
-        <span>Dark</span>
-    </div>
-
-    <div class="header-section">
-        <div class="container">
-            <h1 style="color: white;">2. Add Two Numbers</h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <a href="../courses.html" class="back-button"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
-        
-        <div class="solution-section">
-            <h2>Problem Description</h2>
-            <p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each node contains a single digit. Add the two numbers and return the sum as a linked list.</p>
-            <p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
-            
-            <div class="example">
-                <h3>Example:</h3>
-                <pre><code>Input: l1 = [2,4,3], l2 = [5,6,4]
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="header-section">
+<div class="container">
+<h1 style="color: white;">2. Add Two Numbers</h1>
+</div>
+</div>
+<div class="container">
+<a class="back-button" href="../courses.html"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
+<div class="solution-section">
+<h2>Problem Description</h2>
+<p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each node contains a single digit. Add the two numbers and return the sum as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<div class="example">
+<h3>Example:</h3>
+<pre><code>Input: l1 = [2,4,3], l2 = [5,6,4]
 Output: [7,0,8]
 Explanation: 342 + 465 = 807.</code></pre>
-            </div>
-        </div>
-        
-        <div class="solution-section">
-            <h2>Solution Approach</h2>
-            <p>We can solve this problem by simulating the addition process digit by digit:</p>
-            <ol>
-                <li>Initialize a dummy head node to simplify the edge cases</li>
-                <li>Maintain a current pointer and a carry value</li>
-                <li>Iterate through both lists simultaneously:</li>
-                <ul>
-                    <li>Get values from current nodes or 0 if a list ends</li>
-                    <li>Calculate sum: v1 + v2 + carry</li>
-                    <li>Update carry and the digit for the current node</li>
-                    <li>Move to the next nodes in both lists</li>
-                </ul>
-                <li>After iteration, if there's a remaining carry, add one more node</li>
-                <li>Return the linked list starting from dummy.next</li>
-            </ol>
-            
-            <div class="complexity">
-                <p><strong>Time Complexity:</strong> O(max(m, n)) where m and n are the lengths of the two linked lists.</p>
-                <p><strong>Space Complexity:</strong> O(max(m, n)) for the result linked list.</p>
-            </div>
-            
-            <h3>Python Implementation:</h3>
-            <pre><code>class ListNode:
+</div>
+</div>
+<div class="solution-section">
+<h2>Solution Approach</h2>
+<p>We can solve this problem by simulating the addition process digit by digit:</p>
+<ol>
+<li>Initialize a dummy head node to simplify the edge cases</li>
+<li>Maintain a current pointer and a carry value</li>
+<li>Iterate through both lists simultaneously:</li>
+<ul>
+<li>Get values from current nodes or 0 if a list ends</li>
+<li>Calculate sum: v1 + v2 + carry</li>
+<li>Update carry and the digit for the current node</li>
+<li>Move to the next nodes in both lists</li>
+</ul>
+<li>After iteration, if there's a remaining carry, add one more node</li>
+<li>Return the linked list starting from dummy.next</li>
+</ol>
+<div class="complexity">
+<p><strong>Time Complexity:</strong> O(max(m, n)) where m and n are the lengths of the two linked lists.</p>
+<p><strong>Space Complexity:</strong> O(max(m, n)) for the result linked list.</p>
+</div>
+<h3>Python Implementation:</h3>
+<pre><code>class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 class Solution:
-    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
         dummy = ListNode(0)
         cur, carry = dummy, 0
         
@@ -283,18 +271,16 @@ class Solution:
             l2 = l2.next if l2 else None
             
         return dummy.next</code></pre>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>© 2023 Yangming Li. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p>© 2023 Yangming Li. All rights reserved.</p>
+</div>
+</footer>
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
         

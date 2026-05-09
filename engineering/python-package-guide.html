@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li</title>
-    <meta name="description" content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation.">
-    <meta name="keywords" content="Python, packaging, PyPI, setuptools, pyproject.toml, CI/CD, open source, Yangming Li, engineering">
-    <link href="../favicon.png" rel="icon">
-    <meta name="robots" content="index,follow,max-image-preview:large">
-    <link href="https://yangmingli.com/engineering/python-package-guide.html" rel="canonical">
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style_blog.css" rel="stylesheet">
-    <link href="../css/blog_post.css" rel="stylesheet">
-    <link href="../css/nav.css" rel="stylesheet">
-    <script src="../js/loadHeader.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li</title>
+<meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." name="description"/>
+
+<link href="../favicon.png" rel="icon"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../css/style_blog.css" rel="stylesheet"/>
+<link href="../css/blog_post.css" rel="stylesheet"/>
+<link href="../css/nav.css" rel="stylesheet"/>
+<script src="../js/loadHeader.js"></script>
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -248,7 +249,7 @@
             margin-top: 10px;
         }
     </style>
-</head>
+<link href="https://yangmingli.com/engineering/python-package-guide.html" rel="canonical"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" property="og:title"/><meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." property="og:description"/><meta content="https://yangmingli.com/engineering/python-package-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" name="twitter:title"/><meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
 <body>
 <div class="main-content">
 <div class="container">
@@ -277,9 +278,9 @@
 </div>
 <!-- Social sharing buttons -->
 <div class="blog-share-buttons">
-<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
 <a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
-<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
 </div>
 <main>
 <section class="intro">
@@ -287,7 +288,7 @@
 <p>Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and publishing a modern Python package, following best practices and official recommendations.</p>
 </section>
 <section class="step-box">
-<h2>1. Project Structure & Initialization</h2>
+<h2>1. Project Structure &amp; Initialization</h2>
 <p>Start with a clean directory layout. The recommended structure is:</p>
 <div class="code-box"><pre><code>my_package/
 ├── src/
@@ -318,7 +319,7 @@ __all__ = ["add"]
 <h2>3. Configuration: setup.py vs pyproject.toml</h2>
 <p><strong>Modern (recommended):</strong></p>
 <div class="code-box"><pre><code class="language-toml">[build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools&gt;=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -326,7 +327,7 @@ name = "my-package"
 version = "0.1.0"
 description = "Example Python package"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = "&gt;=3.7"
 dependencies = []
 </code></pre></div>
 <p><strong>Legacy (setup.py):</strong></p>
@@ -352,7 +353,7 @@ setup(
 <p>Testing ensures your package works as expected and is essential for CI/CD.</p>
 </section>
 <section class="step-box">
-<h2>5. Documentation & Licensing</h2>
+<h2>5. Documentation &amp; Licensing</h2>
 <ul>
 <li><strong>README.md</strong>: Explain installation, usage, and examples.</li>
 <li><strong>LICENSE</strong>: Choose a license (MIT, Apache, etc.).</li>
@@ -360,7 +361,7 @@ setup(
 </ul>
 </section>
 <section class="step-box">
-<h2>6. Build & Deploy</h2>
+<h2>6. Build &amp; Deploy</h2>
 <p>Install build tools and create a distribution:</p>
 <div class="code-box"><pre><code class="language-bash">pip install wheel build twine
 python -m build
@@ -374,7 +375,7 @@ python -m twine upload dist/*
 <p>Once published, users can install with <code>pip install my-package</code>.</p>
 </section>
 <section class="step-box">
-<h2>7. Versioning & Automation</h2>
+<h2>7. Versioning &amp; Automation</h2>
 <ul>
 <li>Use Git and tag-based versioning.</li>
 <li>Maintain a <code>CHANGELOG.md</code>.</li>
@@ -432,7 +433,7 @@ jobs:
 <h2>8. Recommended Resources</h2>
 <ul>
 <li><a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank">Packaging Python Projects (official tutorial)</a></li>
-<li><a href="https://py-pkgs.org/" target="_blank">Python Packages by Beuzen & Timbers</a></li>
+<li><a href="https://py-pkgs.org/" target="_blank">Python Packages by Beuzen &amp; Timbers</a></li>
 <li><a href="https://pyopensci.org/python-package-guide/" target="_blank">pyOpenSci Python Packaging 101</a></li>
 <li><a href="https://blog.datatraininglab.com/how-to-create-and-publish-python-package/" target="_blank">Datatraininglab step-by-step guide</a></li>
 </ul>
@@ -445,7 +446,7 @@ jobs:
 <h2>References</h2>
 <ol>
 <li>Python Packaging Authority. (2023). <i>Packaging Python Projects</i>. Python Packaging User Guide. <a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank">https://packaging.python.org/tutorials/packaging-projects/</a></li>
-<li>Beuzen, T., & Timbers, T. (2022). <i>Python Packages</i>. <a href="https://py-pkgs.org/" target="_blank">https://py-pkgs.org/</a></li>
+<li>Beuzen, T., &amp; Timbers, T. (2022). <i>Python Packages</i>. <a href="https://py-pkgs.org/" target="_blank">https://py-pkgs.org/</a></li>
 <li>pyOpenSci. (2023). <i>Python Packaging Guide</i>. <a href="https://pyopensci.org/python-package-guide/" target="_blank">https://pyopensci.org/python-package-guide/</a></li>
 <li>Hillard, D. (2022). <i>Publishing Python Packages</i>. Manning Publications.</li>
 <li>PyPA. (2023). <i>PEP 518 -- Specifying Minimum Build System Requirements for Python Projects</i>. <a href="https://peps.python.org/pep-0518/" target="_blank">https://peps.python.org/pep-0518/</a></li>
@@ -460,9 +461,9 @@ jobs:
 <!-- jquery -->
 <script src="../js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
-<script defer src="../js/bootstrap.min.js"></script>
-<script defer src="../js/scripts.js"></script>
-<script defer src="../js/blogPanel.js"></script>
+<script defer="" src="../js/bootstrap.min.js"></script>
+<script defer="" src="../js/scripts.js"></script>
+<script defer="" src="../js/blogPanel.js"></script>
 <script>
     // Check for saved theme preference
     const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;

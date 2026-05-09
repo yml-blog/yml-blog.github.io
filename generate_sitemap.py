@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(".")
 BASE_URL = "https://yangmingli.com"
-EXCLUDE_DIRS = {"admin", "private", ".git", "templates", "email-templates"}
+EXCLUDE_DIRS = {"admin", "private", ".git", "templates", "email-templates", "nha-cai"}
 EXCLUDE_FILES = {"google6a208e5b3409387b.html", "readme.htm"}
 EXCLUDE_PATHS = {Path("focus-room/v1/index.html")}
 CANONICAL_RE = re.compile(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)["\']', re.IGNORECASE)

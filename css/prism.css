@@ -1,0 +1,26 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #1f2933;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.6;
+  tab-size: 2;
+  hyphens: none;
+}
+
+pre[class*="language-"] {
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #f5f7fa;
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: #f5f7fa;
+}

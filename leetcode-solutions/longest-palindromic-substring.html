@@ -1,37 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <!-- SEO metadata -->
-    <title>5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li Tech Blog</title>
-    <meta name="description"
-          content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring"/>
-    <link href="../favicon.png" rel="icon"/>
-    <link href="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" rel="canonical"/>
-    <meta name="robots" content="index,follow,max-image-preview:large"/>
-    <meta name="keywords" content="leetcode, coding interview, algorithms, data structures, programming, python, dynamic programming, strings, palindrome"/>
-    <meta name="author" content="Yangming Li"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- SEO metadata -->
+<title>5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li</title>
+<meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" name="description"/>
+<link href="../favicon.png" rel="icon"/>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article"/>
-    <meta property="og:locale" content="en_CA"/>
-    <meta property="og:title" content="5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li Tech Blog"/>
-    <meta property="og:description"
-          content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring"/>
-    <meta property="og:url" content="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html"/>
-    <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
-    <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
 
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <link href="../css/blog_post.css" rel="stylesheet"/>
-    
-    <style>
+<meta content="Yangming Li" name="author"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="en_CA" property="og:locale"/>
+<meta content="5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li" property="og:title"/>
+<meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" property="og:description"/>
+<meta content="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/blog_post.css" rel="stylesheet"/>
+<style>
         body {
             font-family: 'Hind', sans-serif;
             line-height: 1.6;
@@ -200,69 +196,60 @@
             color: #8bc4ff;
         }
     </style>
-</head>
-
+<link href="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li" name="twitter:title"/><meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
 <body>
-    <div class="theme-switch-wrapper">
-        <span>Light</span>
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
-        <span>Dark</span>
-    </div>
-
-    <div class="header-section">
-        <div class="container">
-            <h1 style="color: white;">5. Longest Palindromic Substring</h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <a href="../courses.html" class="back-button"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
-        
-        <div class="solution-section">
-            <h2>Problem Description</h2>
-            <p>Given a string <code>s</code>, return the longest palindromic substring in <code>s</code>.</p>
-            <p>A palindrome is a string that reads the same backward as forward, such as "madam" or "racecar".</p>
-            
-            <div class="example">
-                <h3>Examples:</h3>
-                <pre><code>Input: s = "babad"
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="header-section">
+<div class="container">
+<h1 style="color: white;">5. Longest Palindromic Substring</h1>
+</div>
+</div>
+<div class="container">
+<a class="back-button" href="../courses.html"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
+<div class="solution-section">
+<h2>Problem Description</h2>
+<p>Given a string <code>s</code>, return the longest palindromic substring in <code>s</code>.</p>
+<p>A palindrome is a string that reads the same backward as forward, such as "madam" or "racecar".</p>
+<div class="example">
+<h3>Examples:</h3>
+<pre><code>Input: s = "babad"
 Output: "bab"
 Explanation: "aba" is also a valid answer.
 
 Input: s = "cbbd"
 Output: "bb"</code></pre>
-            </div>
-        </div>
-        
-        <div class="solution-section">
-            <h2>Solution Approach</h2>
-            <p>There are multiple approaches to solve this problem, including:</p>
-            <ul>
-                <li>Brute force (check all substrings) - O(n³) time complexity</li>
-                <li>Dynamic programming - O(n²) time and space complexity</li>
-                <li>Expand around center - O(n²) time and O(1) space complexity</li>
-                <li>Manacher's algorithm - O(n) time complexity (advanced)</li>
-            </ul>
-            
-            <p>In this solution, I'll implement the "expand around center" approach, which is efficient and intuitive:</p>
-            <ol>
-                <li>For each position in the string, treat it as a potential center of a palindrome</li>
-                <li>For each center, expand outward and check if characters match</li>
-                <li>Consider both odd-length palindromes (single character center) and even-length palindromes (two character centers)</li>
-                <li>Keep track of the longest palindrome found</li>
-            </ol>
-            
-            <div class="complexity">
-                <p><strong>Time Complexity:</strong> O(n²) where n is the length of the string. For each of the n positions, we might expand up to n/2 times.</p>
-                <p><strong>Space Complexity:</strong> O(1) as we only use a constant amount of extra space.</p>
-            </div>
-            
-            <h3>Python Implementation:</h3>
-            <pre><code>class Solution:
-    def longestPalindrome(self, s: str) -> str:
+</div>
+</div>
+<div class="solution-section">
+<h2>Solution Approach</h2>
+<p>There are multiple approaches to solve this problem, including:</p>
+<ul>
+<li>Brute force (check all substrings) - O(n³) time complexity</li>
+<li>Dynamic programming - O(n²) time and space complexity</li>
+<li>Expand around center - O(n²) time and O(1) space complexity</li>
+<li>Manacher's algorithm - O(n) time complexity (advanced)</li>
+</ul>
+<p>In this solution, I'll implement the "expand around center" approach, which is efficient and intuitive:</p>
+<ol>
+<li>For each position in the string, treat it as a potential center of a palindrome</li>
+<li>For each center, expand outward and check if characters match</li>
+<li>Consider both odd-length palindromes (single character center) and even-length palindromes (two character centers)</li>
+<li>Keep track of the longest palindrome found</li>
+</ol>
+<div class="complexity">
+<p><strong>Time Complexity:</strong> O(n²) where n is the length of the string. For each of the n positions, we might expand up to n/2 times.</p>
+<p><strong>Space Complexity:</strong> O(1) as we only use a constant amount of extra space.</p>
+</div>
+<h3>Python Implementation:</h3>
+<pre><code>class Solution:
+    def longestPalindrome(self, s: str) -&gt; str:
         if not s:
             return ""
             
@@ -277,32 +264,30 @@ Output: "bb"</code></pre>
             max_len = max(len1, len2)
             
             # Update result indices if we found a longer palindrome
-            if max_len > end - start:
+            if max_len &gt; end - start:
                 start = i - (max_len - 1) // 2
                 end = i + max_len // 2
                 
         return s[start:end+1]
     
-    def expand_around_center(self, s: str, left: int, right: int) -> int:
+    def expand_around_center(self, s: str, left: int, right: int) -&gt; int:
         """Expand around center and return palindrome length."""
-        while left >= 0 and right < len(s) and s[left] == s[right]:
+        while left &gt;= 0 and right &lt; len(s) and s[left] == s[right]:
             left -= 1
             right += 1
         
         # Return palindrome length (right-left-1)
         return right - left - 1</code></pre>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>© 2023 Yangming Li. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p>© 2023 Yangming Li. All rights reserved.</p>
+</div>
+</footer>
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
         

@@ -1,50 +1,46 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li</title>
-    <meta name="description" content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power & MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources.">
-    <meta name="keywords" content="A/B testing, experimentation, engineering, feature gate, CUPED, sequential testing, MDE, power, experiment platform, variance reduction, Yangming Li, engineering">
-    <link href="../favicon.png" rel="icon">
-    <meta name="robots" content="index,follow,max-image-preview:large">
-    <link href="https://yangmingli.com/engineering/ab-test-engineering-guide.html" rel="canonical">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015)">
-    <meta property="og:description" content="Practical engineering of A/B testing at scale, including CUPED, sequential testing, and SOPs.">
-    <meta property="og:url" content="https://yangmingli.com/engineering/ab-test-engineering-guide.html">
-    <meta property="og:image" content="https://yangmingli.com/img/Logo.png">
-    <meta property="og:site_name" content="Yangming Li - AI/ML Blog">
-    <meta property="og:locale" content="en_US">
-    <meta property="article:author" content="Yangming Li">
-    <meta property="article:published_time" content="2024-12-19T00:00:00+00:00">
-    <meta property="article:modified_time" content="2024-12-19T00:00:00+00:00">
-    <meta property="article:section" content="Engineering">
-    <meta property="article:tag" content="A/B测试, 实验设计, 工程化, CUPED, 序贯检验">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Feature Gates = Experiments: An Engineering Guide to A/B">
-    <meta name="twitter:description" content="Engineering A/B at scale: CUPED, sequential testing, platform design, SOPs.">
-    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png">
-    
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/style_blog.css" rel="stylesheet">
-    <link href="../css/blog_post.css" rel="stylesheet">
-    <link href="../css/nav.css" rel="stylesheet">
-    
-    <!-- Prism.js for code highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet">
-    
-    <script src="../js/loadHeader.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li</title>
+<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." name="description"/>
+
+<link href="../favicon.png" rel="icon"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" property="og:title"/>
+<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." property="og:description"/>
+<meta content="https://yangmingli.com/engineering/ab-test-engineering-guide.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2024-12-19T00:00:00+00:00" property="article:published_time"/>
+<meta content="2024-12-19T00:00:00+00:00" property="article:modified_time"/>
+<meta content="Engineering" property="article:section"/>
+<meta content="A/B测试, 实验设计, 工程化, CUPED, 序贯检验" property="article:tag"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" name="twitter:title"/>
+<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../css/style_blog.css" rel="stylesheet"/>
+<link href="../css/blog_post.css" rel="stylesheet"/>
+<link href="../css/nav.css" rel="stylesheet"/>
+<!-- Prism.js for code highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet"/>
+<script src="../js/loadHeader.js"></script>
+<style>
         body {
             margin: 0;
             padding: 0;
@@ -456,9 +452,8 @@
             background-color: #e26c00;
         }
     </style>
-    
-    <!-- JSON-LD structured data -->
-    <script type="application/ld+json">
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -506,9 +501,8 @@
       "abstract": "Engineering A/B testing at scale with CUPED, sequential testing, platform design, SOPs, and governance."
     }
     </script>
-    
-    <!-- Breadcrumb structured data -->
-    <script type="application/ld+json">
+<!-- Breadcrumb structured data -->
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -534,274 +528,222 @@
       ]
     }
     </script>
-</head>
+<link href="https://yangmingli.com/engineering/ab-test-engineering-guide.html" rel="canonical"/></head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="content text-center">
-                <h1>Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)</h1>
-                <p class="lead">By Yangming Li</p>
-            </div>
-        </header>
-        
-        <!-- Dark mode toggle -->
-        <div class="theme-switch-wrapper">
-            <span>Light</span>
-            <label class="theme-switch" for="checkbox">
-                <input type="checkbox" id="checkbox" />
-                <div class="slider round"></div>
-            </label>
-            <span>Dark</span>
-        </div>
-        
-        <div class="article-metadata">
-            <p><i class="fa fa-calendar"></i> Published: 2024-12-19</p>
-            <p><i class="fa fa-tags"></i> Tags: A/B testing, Experimentation, CUPED, Sequential Testing, Feature Gates</p>
-            <p><i class="fa fa-folder"></i> Category: Engineering</p>
-        </div>
-        
-        <!-- Social sharing buttons -->
-        <div class="blog-share-buttons">
-            <a href="#" class="twitter" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
-                <i class="fa fa-twitter"></i> Share on Twitter
+<div class="container">
+<header class="header">
+<div class="content text-center">
+<h1>Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)</h1>
+<p class="lead">By Yangming Li</p>
+</div>
+</header>
+<!-- Dark mode toggle -->
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-metadata">
+<p><i class="fa fa-calendar"></i> Published: 2024-12-19</p>
+<p><i class="fa fa-tags"></i> Tags: A/B testing, Experimentation, CUPED, Sequential Testing, Feature Gates</p>
+<p><i class="fa fa-folder"></i> Category: Engineering</p>
+</div>
+<!-- Social sharing buttons -->
+<div class="blog-share-buttons">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;">
+<i class="fa fa-twitter"></i> Share on Twitter
             </a>
-            <a href="#" class="linkedin" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
-                <i class="fa fa-linkedin"></i> Share on LinkedIn
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;">
+<i class="fa fa-linkedin"></i> Share on LinkedIn
             </a>
-            <a href="#" class="email" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
-                <i class="fa fa-envelope"></i> Share via Email
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;">
+<i class="fa fa-envelope"></i> Share via Email
             </a>
-        </div>
-        
-        <main>
-            <!-- TL;DR section with reading time -->
-            <div class="tldr-container">
-                <div class="tldr-box">
-                    <h4><i class="fa fa-clock-o"></i> Reading time: 15 minutes</h4>
-                    <div class="tldr-en">
-                        <h5>TL;DR</h5>
-                        <p>The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting (default-on). This guide covers culture and value, platform evolution from 5/year to 50,000/year, power & MDE, CUPED/CURE, Bayesian vs frequentist, sequential testing, SOPs, pitfalls, and resources.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Table of Contents -->
-            <div class="toc-container">
-                <h4>Contents</h4>
-                <div id="toc"></div>
-            </div>
-            
-            <!-- Key Points box -->
-            <div class="key-points">
-                <h4>Highlights</h4>
-                <ul>
-                    <li><strong>Core value</strong>: experiments surface surprises; prune bad ideas and amplify unexpected wins</li>
-                    <li><strong>Default-on experimentation</strong>: unify feature gates and experiments; shipping equals experimenting</li>
-                    <li><strong>Hard tech</strong>: CUPED/CURE, sequential testing, Bayesian vs frequentist without dogma</li>
-                    <li><strong>Execution</strong>: checklists, SOPs, and a two-week pilot plan</li>
-                </ul>
-            </div>
-            
-            <!-- Main content -->
-            <article class="article-content">
-                <h2 id="why-experiments">1. Why Experiments: Value, Culture, and Intellectual Honesty</h2>
-                
-                <h3>Value comes from surprises</h3>
-                <p>Large-scale online experiments show that many seemingly correct ideas fail in reality, while tiny changes can yield massive upside. Both positive surprises (low expectation → high return) and negative surprises (confident but harmful) compound into experimentation’s core value.</p>
-                
-                <div class="technical-box">
-                    <h4>💡 Key insight</h4>
-                    <p>Experimentation is not about proving intuition; it systematically discovers surprises. Controlled experiments provide causal evidence and prevent intuition-driven regressions in complex systems.</p>
-                </div>
-                
-                <h3>Engineering culture</h3>
-                <p>When feature gates and experiments are unified and default-on, engineers can ship first and falsify later, replacing consensus meetings with data. Gradual rollouts (1% → 10% → 100%) become a default safety net. Facebook’s PlanOut is a classic example of parameterized experimentation embedded in services.</p>
-                
-                <h3>Intellectual honesty</h3>
-                <p>Human intuition fails frequently in complex systems. Controlled experiments provide causal proofs that reduce the long-term costs and externalities of shipping the wrong changes.</p>
-                
-                <h2 id="system-building">2. Platform Evolution: From 5/year to 50,000/year</h2>
-                
-                <h3>Three-stage evolution</h3>
-                <ol>
-                    <li><strong>Manual analytics (Notebook/SQL)</strong>: quick to start, error-prone, non-reusable.</li>
-                    <li><strong>Compute automation (pipelines)</strong>: automate extraction and stats, still heavy setup per experiment.</li>
-                    <li><strong>Gate–Experiment unified infra</strong>: treating gates and experiments as the same object; default-on with built-in randomization and stats engine; metrics catalog for centralized definitions and lineage.</li>
-                </ol>
-                
-                <h3>Engineering essentials</h3>
-                <ul>
-                    <li><strong>Conditional distribution</strong>: configure by region/platform/user/gradual rollout; unify randomization (user/session/request), stable hashing with salt rotation.</li>
-                    <li><strong>Parallelism at scale</strong>: orthogonal experiments are normal; interactions rarely block scaling; pre-flag extreme conflicts.</li>
-                    <li><strong>Metric trust</strong>: productize metric definitions (dimensions, filters, dedup, windows), full lineage; trustworthiness precedes scale.</li>
-                </ul>
-                
-                <h2 id="statistical-fundamentals">3. Statistical Keys: Power, MDE, Parallel Experiments</h2>
-                
-                <p>Sample size is roughly constrained by the business. Optimize to detect smaller effects (lower MDE) or shorten duration, essentially by reducing variance.</p>
-                
-                <div class="technical-box">
-                    <h4>📊 Statistical power</h4>
-                    <p>Power = P(reject H₀ | H₁ true) = 1 − β. Higher power increases the probability of detecting true effects.</p>
-                </div>
-                
-                <p>Parallel experiments with orthogonal bucketing are feasible and necessary. The real risks are peeking and metric drift, not interaction effects.</p>
-                
-                <h2 id="variance-reduction">4. Variance Reduction: CUPED/CURE in Practice</h2>
-                
-                <h3>CUPED (Controlled-experiment Using Pre-Experiment Data)</h3>
-                <p>Use pre-experiment baselines (or covariates) to regress out variance from outcome Y and compare treatment effects on residuals. This shrinks variance/intervals and reduces sample/time.</p>
-                
-                <div class="technical-box">
-                    <h4>🔬 CUPED formula</h4>
-                    <p>Given outcome Y and baseline X, define Y' = Y − θ(X − X̄), with θ from regression; analyze treatment differences on Y'.</p>
-                </div>
-                
-                <h3>Multivariate extensions (CURE / RA)</h3>
-                <p>Add stable, interpretable covariates (long-term activity, device attributes) for further denoising. Handle new users separately when baseline is absent.</p>
-                
-                <h3>Practice notes</h3>
-                <p>Well-engineered CUPED usually captures most variance reduction; chasing exotic methods has poor ROI.</p>
-                
-                <h2 id="bayesian-vs-frequentist">5. Bayesian vs Frequentist: What Matters (and What Doesn’t)</h2>
-                
-                <h3>Same data, different lenses</h3>
-                <p>With weak or non-informative priors, both approaches converge in large samples. Don’t burn execution energy on ideology.</p>
-                
-                <h3>Be careful with strong priors</h3>
-                <p>Strong point priors invite bias. Prefer interval robustness to reduce over-launch risk.</p>
-                
-                <h3>Industry lens</h3>
-                <p>Balance interpretability, communication cost, and platform support. Pick a stable playbook and stick to it.</p>
-                
-                <h2 id="sequential-testing">6. Sequential Testing: Anti-Peeking and FDR Control</h2>
-                
-                <h3>The core issue</h3>
-                <p>Frequent looks and early stopping inflate false positives. Always-valid p-values/CI and mSPRT provide principled sequential inference already deployed at scale.</p>
-                
-                <h3>Engineering strategies</h3>
-                <ul>
-                    <li>Use conservative sequential boundaries (wider early CI that narrows over time).</li>
-                    <li>Assume unlimited peeking; apply beta/alpha-spending schedules.</li>
-                    <li>Stop early for significant harm; for wins, decide at pre-specified duration.</li>
-                </ul>
-                
-                <h3>Multiple testing and FDR</h3>
-                <p>For large parallel portfolios, control false discovery rate (e.g., Benjamini–Hochberg) as organizational hygiene.</p>
-                
-                <h2 id="implementation-checklist">7. Implementation Checklist & SOP (Copy-Paste Ready)</h2>
-                
-                <h3>Architecture & platform</h3>
-                <ul>
-                    <li>Unified SDK for Feature Gate + Experiment (server-first; mirrored on client).</li>
-                    <li>Configurable bucketing by region/platform/account/time; staged rollout 1% → 10% → 100%.</li>
-                    <li>Unified randomization units: user/session/request; stable hashing; salt rotation; A/A monitoring.</li>
-                    <li>Metrics catalog with lineage and versioning to avoid inconsistent definitions.</li>
-                    <li>Experiment templates: hypothesis, primary/guardrail metrics, stop rules, sample & power, risk & rollback.</li>
-                </ul>
-                
-                <h3>Statistics & governance</h3>
-                <ul>
-                    <li>Pre-compute sample, power, and MDE (α=0.05; power=0.8/0.9).</li>
-                    <li>Enable CUPED/multivariate RA by default; split cohorts for new vs existing users.</li>
-                    <li>Use sequential testing (conservative boundaries; early-stop for harm; on-time decisions for wins).</li>
-                    <li>Allow orthogonal parallel experiments by default; pre-mark extreme conflicts.</li>
-                    <li>Quarterly FDR/TPR dashboard; tighten thresholds if FDR spikes.</li>
-                    <li>Result narrative: absolute/relative effect, intervals, coverage, concurrency, denoising method, data versions.</li>
-                </ul>
-                
-                <h3>Two-week pilot plan</h3>
-                <div class="technical-box">
-                    <h4>📅 Schedule</h4>
-                    <ul>
-                        <li><strong>D1–3</strong>: Define 3–5 North Star/guardrail metrics → catalog + lineage.</li>
-                        <li><strong>D4–6</strong>: Integrate Gate+Experiment SDK for one pilot; choose unit and hashing.</li>
-                        <li><strong>D7–9</strong>: Enable CUPED + conservative sequential; run 3–5 lightweight changes in parallel.</li>
-                        <li><strong>D10–14</strong>: First review (effects, FDR, data quality, alerts); harden templates and launch criteria.</li>
-                    </ul>
-                </div>
-                
-                <h2 id="common-mistakes">8. Common Pitfalls and Anti-Patterns</h2>
-                
-                <ul>
-                    <li><strong>Only testing “safe” ideas</strong> → low information gain, no compounding.</li>
-                    <li><strong>Confusing complexity with value</strong>: fancy models hurt readability and extensibility; max out CUPED first.</li>
-                    <li><strong>Peeking without sequential correction</strong> → FPR/FDR spikes and wrong launches accumulate.</li>
-                    <li><strong>Untrusted metrics</strong>: fragmented definitions and no lineage → teams ignore results.</li>
-                    <li><strong>Serializing due to interaction fear</strong> → pace collapses; opportunity costs explode.</li>
-                </ul>
-                
-                <h2 id="resources">9. Further Resources (Papers | Docs | Videos)</h2>
-                
-                <h3>Papers / Surveys</h3>
-                <ul>
-                    <li><strong>Trustworthy Online Controlled Experiments</strong> (Kohavi et al.): industry-standard book combining engineering and culture with billion-dollar micro-change cases.</li>
-                    <li><strong>CUPED original paper</strong> (Microsoft, WSDM’13): regression-adjustment using pre-experiment data for sensitivity gains.</li>
-                    <li><strong>Sensitivity enhancements</strong> (KDD’16): compares stratification, post-stratification, CUPED, etc.</li>
-                    <li><strong>Always-valid inference</strong> (Johari et al.): sequential validity for “look anytime, stop anytime.”</li>
-                    <li><strong>FDR control: Benjamini–Hochberg</strong>: practical control under many parallel tests.</li>
-                </ul>
-                
-                <h3>Engineering Docs / Platforms</h3>
-                <ul>
-                    <li><strong>Facebook PlanOut</strong>: parameterized experiments as a language/library decoupled from product code (paper & GitHub).</li>
-                    <li><strong>Statsig docs/blog</strong>: sequential testing, mSPRT, CUPED practice and productization.</li>
-                </ul>
-                
-                <h3>Videos / YouTube</h3>
-                <ul>
-                    <li><strong>Ronny Kohavi talks</strong> (Airbnb, CXL, AMA): myths, traps, and scale lessons.</li>
-                    <li><strong>Statsig platform strategy</strong> (demos/overviews/B2B): scaling from 5 to 5,000, holdouts/bandits, result interpretation.</li>
-                </ul>
-                
-                <h2 id="conclusion">Conclusion & Quotables</h2>
-                
-                <div class="technical-box">
-                    <h4>💎 Quotables</h4>
-                    <blockquote>
-                        <p><strong>"The value of experimentation comes from surprises."</strong></p>
-                        <p><strong>"Make feature gates and experiments the same object; default-on experimentation."</strong></p>
-                    </blockquote>
-                </div>
-                
-                <p>With systematic engineering, A/B testing evolves from occasional validation to a continuous value discovery engine. The key is integrating experimentation into every product step so that data-driven decision-making becomes cultural.</p>
-                
-                <p>Remember: experimentation is a starting line, not a finish line. Each run explores the unknown; each surprise reframes product value.</p>
-            </article>
-            
-            
-        </main>
-        
-        <!-- Email Subscription -->
-        <div class="subscription-box">
-            <h3>Subscribe for Updates</h3>
-            <p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered to your inbox.</p>
-            <p class="en-sub-text">We send occasional, high-signal updates only.</p>
-            <form class="subscription-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                <input type="email" name="email" placeholder="Your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-        
-        <footer class="footer text-center">
-            <p>&copy; 2024 Yangming Li. All rights reserved. | <a href="../">Home</a></p>
-        </footer>
-    </div>
-
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
-    <script src="../js/blogPanel.js"></script>
-    <script src="../js/toc.js"></script>
-    
-    <!-- Prism.js for code highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-    <script src="../js/copyCodeButton.js"></script>
-    
-    <script>
+</div>
+<main>
+<!-- TL;DR section with reading time -->
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> Reading time: 15 minutes</h4>
+<div class="tldr-en">
+<h5>TL;DR</h5>
+<p>The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting (default-on). This guide covers culture and value, platform evolution from 5/year to 50,000/year, power &amp; MDE, CUPED/CURE, Bayesian vs frequentist, sequential testing, SOPs, pitfalls, and resources.</p>
+</div>
+</div>
+</div>
+<!-- Table of Contents -->
+<div class="toc-container">
+<h4>Contents</h4>
+<div id="toc"></div>
+</div>
+<!-- Key Points box -->
+<div class="key-points">
+<h4>Highlights</h4>
+<ul>
+<li><strong>Core value</strong>: experiments surface surprises; prune bad ideas and amplify unexpected wins</li>
+<li><strong>Default-on experimentation</strong>: unify feature gates and experiments; shipping equals experimenting</li>
+<li><strong>Hard tech</strong>: CUPED/CURE, sequential testing, Bayesian vs frequentist without dogma</li>
+<li><strong>Execution</strong>: checklists, SOPs, and a two-week pilot plan</li>
+</ul>
+</div>
+<!-- Main content -->
+<article class="article-content">
+<h2 id="why-experiments">1. Why Experiments: Value, Culture, and Intellectual Honesty</h2>
+<h3>Value comes from surprises</h3>
+<p>Large-scale online experiments show that many seemingly correct ideas fail in reality, while tiny changes can yield massive upside. Both positive surprises (low expectation → high return) and negative surprises (confident but harmful) compound into experimentation’s core value.</p>
+<div class="technical-box">
+<h4>💡 Key insight</h4>
+<p>Experimentation is not about proving intuition; it systematically discovers surprises. Controlled experiments provide causal evidence and prevent intuition-driven regressions in complex systems.</p>
+</div>
+<h3>Engineering culture</h3>
+<p>When feature gates and experiments are unified and default-on, engineers can ship first and falsify later, replacing consensus meetings with data. Gradual rollouts (1% → 10% → 100%) become a default safety net. Facebook’s PlanOut is a classic example of parameterized experimentation embedded in services.</p>
+<h3>Intellectual honesty</h3>
+<p>Human intuition fails frequently in complex systems. Controlled experiments provide causal proofs that reduce the long-term costs and externalities of shipping the wrong changes.</p>
+<h2 id="system-building">2. Platform Evolution: From 5/year to 50,000/year</h2>
+<h3>Three-stage evolution</h3>
+<ol>
+<li><strong>Manual analytics (Notebook/SQL)</strong>: quick to start, error-prone, non-reusable.</li>
+<li><strong>Compute automation (pipelines)</strong>: automate extraction and stats, still heavy setup per experiment.</li>
+<li><strong>Gate–Experiment unified infra</strong>: treating gates and experiments as the same object; default-on with built-in randomization and stats engine; metrics catalog for centralized definitions and lineage.</li>
+</ol>
+<h3>Engineering essentials</h3>
+<ul>
+<li><strong>Conditional distribution</strong>: configure by region/platform/user/gradual rollout; unify randomization (user/session/request), stable hashing with salt rotation.</li>
+<li><strong>Parallelism at scale</strong>: orthogonal experiments are normal; interactions rarely block scaling; pre-flag extreme conflicts.</li>
+<li><strong>Metric trust</strong>: productize metric definitions (dimensions, filters, dedup, windows), full lineage; trustworthiness precedes scale.</li>
+</ul>
+<h2 id="statistical-fundamentals">3. Statistical Keys: Power, MDE, Parallel Experiments</h2>
+<p>Sample size is roughly constrained by the business. Optimize to detect smaller effects (lower MDE) or shorten duration, essentially by reducing variance.</p>
+<div class="technical-box">
+<h4>📊 Statistical power</h4>
+<p>Power = P(reject H₀ | H₁ true) = 1 − β. Higher power increases the probability of detecting true effects.</p>
+</div>
+<p>Parallel experiments with orthogonal bucketing are feasible and necessary. The real risks are peeking and metric drift, not interaction effects.</p>
+<h2 id="variance-reduction">4. Variance Reduction: CUPED/CURE in Practice</h2>
+<h3>CUPED (Controlled-experiment Using Pre-Experiment Data)</h3>
+<p>Use pre-experiment baselines (or covariates) to regress out variance from outcome Y and compare treatment effects on residuals. This shrinks variance/intervals and reduces sample/time.</p>
+<div class="technical-box">
+<h4>🔬 CUPED formula</h4>
+<p>Given outcome Y and baseline X, define Y' = Y − θ(X − X̄), with θ from regression; analyze treatment differences on Y'.</p>
+</div>
+<h3>Multivariate extensions (CURE / RA)</h3>
+<p>Add stable, interpretable covariates (long-term activity, device attributes) for further denoising. Handle new users separately when baseline is absent.</p>
+<h3>Practice notes</h3>
+<p>Well-engineered CUPED usually captures most variance reduction; chasing exotic methods has poor ROI.</p>
+<h2 id="bayesian-vs-frequentist">5. Bayesian vs Frequentist: What Matters (and What Doesn’t)</h2>
+<h3>Same data, different lenses</h3>
+<p>With weak or non-informative priors, both approaches converge in large samples. Don’t burn execution energy on ideology.</p>
+<h3>Be careful with strong priors</h3>
+<p>Strong point priors invite bias. Prefer interval robustness to reduce over-launch risk.</p>
+<h3>Industry lens</h3>
+<p>Balance interpretability, communication cost, and platform support. Pick a stable playbook and stick to it.</p>
+<h2 id="sequential-testing">6. Sequential Testing: Anti-Peeking and FDR Control</h2>
+<h3>The core issue</h3>
+<p>Frequent looks and early stopping inflate false positives. Always-valid p-values/CI and mSPRT provide principled sequential inference already deployed at scale.</p>
+<h3>Engineering strategies</h3>
+<ul>
+<li>Use conservative sequential boundaries (wider early CI that narrows over time).</li>
+<li>Assume unlimited peeking; apply beta/alpha-spending schedules.</li>
+<li>Stop early for significant harm; for wins, decide at pre-specified duration.</li>
+</ul>
+<h3>Multiple testing and FDR</h3>
+<p>For large parallel portfolios, control false discovery rate (e.g., Benjamini–Hochberg) as organizational hygiene.</p>
+<h2 id="implementation-checklist">7. Implementation Checklist &amp; SOP (Copy-Paste Ready)</h2>
+<h3>Architecture &amp; platform</h3>
+<ul>
+<li>Unified SDK for Feature Gate + Experiment (server-first; mirrored on client).</li>
+<li>Configurable bucketing by region/platform/account/time; staged rollout 1% → 10% → 100%.</li>
+<li>Unified randomization units: user/session/request; stable hashing; salt rotation; A/A monitoring.</li>
+<li>Metrics catalog with lineage and versioning to avoid inconsistent definitions.</li>
+<li>Experiment templates: hypothesis, primary/guardrail metrics, stop rules, sample &amp; power, risk &amp; rollback.</li>
+</ul>
+<h3>Statistics &amp; governance</h3>
+<ul>
+<li>Pre-compute sample, power, and MDE (α=0.05; power=0.8/0.9).</li>
+<li>Enable CUPED/multivariate RA by default; split cohorts for new vs existing users.</li>
+<li>Use sequential testing (conservative boundaries; early-stop for harm; on-time decisions for wins).</li>
+<li>Allow orthogonal parallel experiments by default; pre-mark extreme conflicts.</li>
+<li>Quarterly FDR/TPR dashboard; tighten thresholds if FDR spikes.</li>
+<li>Result narrative: absolute/relative effect, intervals, coverage, concurrency, denoising method, data versions.</li>
+</ul>
+<h3>Two-week pilot plan</h3>
+<div class="technical-box">
+<h4>📅 Schedule</h4>
+<ul>
+<li><strong>D1–3</strong>: Define 3–5 North Star/guardrail metrics → catalog + lineage.</li>
+<li><strong>D4–6</strong>: Integrate Gate+Experiment SDK for one pilot; choose unit and hashing.</li>
+<li><strong>D7–9</strong>: Enable CUPED + conservative sequential; run 3–5 lightweight changes in parallel.</li>
+<li><strong>D10–14</strong>: First review (effects, FDR, data quality, alerts); harden templates and launch criteria.</li>
+</ul>
+</div>
+<h2 id="common-mistakes">8. Common Pitfalls and Anti-Patterns</h2>
+<ul>
+<li><strong>Only testing “safe” ideas</strong> → low information gain, no compounding.</li>
+<li><strong>Confusing complexity with value</strong>: fancy models hurt readability and extensibility; max out CUPED first.</li>
+<li><strong>Peeking without sequential correction</strong> → FPR/FDR spikes and wrong launches accumulate.</li>
+<li><strong>Untrusted metrics</strong>: fragmented definitions and no lineage → teams ignore results.</li>
+<li><strong>Serializing due to interaction fear</strong> → pace collapses; opportunity costs explode.</li>
+</ul>
+<h2 id="resources">9. Further Resources (Papers | Docs | Videos)</h2>
+<h3>Papers / Surveys</h3>
+<ul>
+<li><strong>Trustworthy Online Controlled Experiments</strong> (Kohavi et al.): industry-standard book combining engineering and culture with billion-dollar micro-change cases.</li>
+<li><strong>CUPED original paper</strong> (Microsoft, WSDM’13): regression-adjustment using pre-experiment data for sensitivity gains.</li>
+<li><strong>Sensitivity enhancements</strong> (KDD’16): compares stratification, post-stratification, CUPED, etc.</li>
+<li><strong>Always-valid inference</strong> (Johari et al.): sequential validity for “look anytime, stop anytime.”</li>
+<li><strong>FDR control: Benjamini–Hochberg</strong>: practical control under many parallel tests.</li>
+</ul>
+<h3>Engineering Docs / Platforms</h3>
+<ul>
+<li><strong>Facebook PlanOut</strong>: parameterized experiments as a language/library decoupled from product code (paper &amp; GitHub).</li>
+<li><strong>Statsig docs/blog</strong>: sequential testing, mSPRT, CUPED practice and productization.</li>
+</ul>
+<h3>Videos / YouTube</h3>
+<ul>
+<li><strong>Ronny Kohavi talks</strong> (Airbnb, CXL, AMA): myths, traps, and scale lessons.</li>
+<li><strong>Statsig platform strategy</strong> (demos/overviews/B2B): scaling from 5 to 5,000, holdouts/bandits, result interpretation.</li>
+</ul>
+<h2 id="conclusion">Conclusion &amp; Quotables</h2>
+<div class="technical-box">
+<h4>💎 Quotables</h4>
+<blockquote>
+<p><strong>"The value of experimentation comes from surprises."</strong></p>
+<p><strong>"Make feature gates and experiments the same object; default-on experimentation."</strong></p>
+</blockquote>
+</div>
+<p>With systematic engineering, A/B testing evolves from occasional validation to a continuous value discovery engine. The key is integrating experimentation into every product step so that data-driven decision-making becomes cultural.</p>
+<p>Remember: experimentation is a starting line, not a finish line. Each run explores the unknown; each surprise reframes product value.</p>
+</article>
+</main>
+<!-- Email Subscription -->
+<div class="subscription-box">
+<h3>Subscribe for Updates</h3>
+<p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered to your inbox.</p>
+<p class="en-sub-text">We send occasional, high-signal updates only.</p>
+<form action="https://formspree.io/f/YOUR_FORM_ID" class="subscription-form" method="POST">
+<input name="email" placeholder="Your email address" required="" type="email"/>
+<button type="submit">Subscribe</button>
+</form>
+</div>
+<footer class="footer text-center">
+<p>© 2024 Yangming Li. All rights reserved. | <a href="../">Home</a></p>
+</footer>
+</div>
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/scripts.js"></script>
+<script src="../js/blogPanel.js"></script>
+<script src="../js/toc.js"></script>
+<!-- Prism.js for code highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script src="../js/copyCodeButton.js"></script>
+<script>
         // Add code language headers to code blocks
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">SISA machine unlearning architecture</title>
+  <desc id="desc">Diagram showing data shards, isolated model slices, aggregation, and targeted shard retraining for machine unlearning.</desc>
+  <rect width="960" height="520" fill="#f7f8fb"/>
+  <text x="48" y="60" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#111827">SISA Machine Unlearning Flow</text>
+  <text x="48" y="96" font-family="Arial, sans-serif" font-size="16" fill="#52606d">Shard data, train isolated slices, aggregate predictions, and retrain only affected slices when deletion is requested.</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="58" y="154" width="170" height="78" rx="8" fill="#e0f2fe" stroke="#0284c7"/>
+    <text x="90" y="190" font-size="18" font-weight="700" fill="#075985">Training Data</text>
+    <text x="88" y="214" font-size="14" fill="#075985">records to partition</text>
+    <path d="M236 193h70" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="318" y="118" width="150" height="54" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <rect x="318" y="187" width="150" height="54" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <rect x="318" y="256" width="150" height="54" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="358" y="151" font-size="16" font-weight="700" fill="#166534">Shard 1</text>
+    <text x="358" y="220" font-size="16" font-weight="700" fill="#166534">Shard 2</text>
+    <text x="358" y="289" font-size="16" font-weight="700" fill="#166534">Shard 3</text>
+    <path d="M478 145h70M478 214h70M478 283h70" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="560" y="118" width="150" height="54" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <rect x="560" y="187" width="150" height="54" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <rect x="560" y="256" width="150" height="54" rx="8" fill="#fef3c7" stroke="#d97706"/>
+    <text x="594" y="151" font-size="16" font-weight="700" fill="#92400e">Slice Model</text>
+    <text x="594" y="220" font-size="16" font-weight="700" fill="#92400e">Slice Model</text>
+    <text x="594" y="289" font-size="16" font-weight="700" fill="#92400e">Slice Model</text>
+    <path d="M720 214h68" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="800" y="176" width="118" height="78" rx="8" fill="#ede9fe" stroke="#7c3aed"/>
+    <text x="822" y="209" font-size="17" font-weight="700" fill="#5b21b6">Aggregate</text>
+    <text x="827" y="233" font-size="14" fill="#5b21b6">prediction</text>
+    <path d="M394 342v64h226v-64" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrow-red)"/>
+    <text x="342" y="446" font-size="16" font-weight="700" fill="#b91c1c">Deletion request retrains only impacted shard/slice</text>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+</svg>

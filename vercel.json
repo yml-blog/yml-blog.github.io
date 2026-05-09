@@ -1,4 +1,26 @@
 {
+    "redirects": [
+        {
+            "source": "/product",
+            "destination": "/blog/",
+            "permanent": true
+        },
+        {
+            "source": "/product/",
+            "destination": "/blog/",
+            "permanent": true
+        },
+        {
+            "source": "/sitemap/google.xml",
+            "destination": "/sitemap.xml",
+            "permanent": true
+        },
+        {
+            "source": "/sitemap.txt",
+            "destination": "/sitemap.xml",
+            "permanent": true
+        }
+    ],
     "functions": {
         "api/ask-yangming.js": {
             "maxDuration": 15

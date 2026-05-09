@@ -25,8 +25,8 @@ h1 {
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li</title>
-<meta content="Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter..." name="description"/>
+<title>Introduction to Ray (Popularized 2019-2021) | Yangming Li</title>
+<meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." name="description"/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -162,9 +162,9 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><link href="https://yangmingli.com/ray_explanation.html" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li" property="og:title"/><meta content="Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter..." property="og:description"/><meta content="https://yangmingli.com/ray_explanation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li" name="twitter:title"/><meta content="Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter..." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li", "description": "Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/ray_explanation.html"}}</script>  <!-- Canonical URL -->
-  <link rel="canonical" href="https://yangmingli.com/ray_explanation.html">
-  </head>
+</style><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" property="og:title"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." property="og:description"/><meta content="https://yangmingli.com/ray_explanation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" name="twitter:title"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li", "description": "Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/ray_explanation.html"}}</script> <!-- Canonical URL -->
+
+<link href="https://yangmingli.com/ray_explanation.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
 <body>
 <div class="main-content">
 <div class="container">
@@ -357,39 +357,37 @@ for i in range(1000):
 </ul>
 </div>
 </section>
-
 <!-- External References Section -->
 <section class="external-references">
-    <h2>External Resources & References</h2>
-    <p>For more information about Ray and distributed computing for machine learning, check out these official resources:</p>
-    <div class="references-grid">
-        <div class="reference-item">
-            <h4><a href="https://www.ray.io/" target="_blank" rel="noopener">Ray Official Website</a></h4>
-            <p>The official Ray project website with documentation, tutorials, and resources.</p>
-        </div>
-        <div class="reference-item">
-            <h4><a href="https://docs.ray.io/" target="_blank" rel="noopener">Ray Documentation</a></h4>
-            <p>Comprehensive guides and API reference for all Ray modules.</p>
-        </div>
-        <div class="reference-item">
-            <h4><a href="https://github.com/ray-project/ray" target="_blank" rel="noopener">Ray GitHub Repository</a></h4>
-            <p>Open source code repository with examples, issues, and community contributions.</p>
-        </div>
-        <div class="reference-item">
-            <h4><a href="https://www.anyscale.com/" target="_blank" rel="noopener">Anyscale</a></h4>
-            <p>Company founded by Ray creators offering managed Ray services and enterprise support.</p>
-        </div>
-        <div class="reference-item">
-            <h4><a href="https://docs.ray.io/en/latest/ray-overview/index.html" target="_blank" rel="noopener">Ray Architecture Overview</a></h4>
-            <p>Detailed explanation of Ray's architecture and core concepts.</p>
-        </div>
-        <div class="reference-item">
-            <h4><a href="https://www.ray.io/ray-air" target="_blank" rel="noopener">Ray AIR</a></h4>
-            <p>Ray's unified toolkit for scalable AI and machine learning workloads.</p>
-        </div>
-    </div>
+<h2>External Resources &amp; References</h2>
+<p>For more information about Ray and distributed computing for machine learning, check out these official resources:</p>
+<div class="references-grid">
+<div class="reference-item">
+<h4><a href="https://www.ray.io/" rel="noopener" target="_blank">Ray Official Website</a></h4>
+<p>The official Ray project website with documentation, tutorials, and resources.</p>
+</div>
+<div class="reference-item">
+<h4><a href="https://docs.ray.io/" rel="noopener" target="_blank">Ray Documentation</a></h4>
+<p>Comprehensive guides and API reference for all Ray modules.</p>
+</div>
+<div class="reference-item">
+<h4><a href="https://github.com/ray-project/ray" rel="noopener" target="_blank">Ray GitHub Repository</a></h4>
+<p>Open source code repository with examples, issues, and community contributions.</p>
+</div>
+<div class="reference-item">
+<h4><a href="https://www.anyscale.com/" rel="noopener" target="_blank">Anyscale</a></h4>
+<p>Company founded by Ray creators offering managed Ray services and enterprise support.</p>
+</div>
+<div class="reference-item">
+<h4><a href="https://docs.ray.io/en/latest/ray-overview/index.html" rel="noopener" target="_blank">Ray Architecture Overview</a></h4>
+<p>Detailed explanation of Ray's architecture and core concepts.</p>
+</div>
+<div class="reference-item">
+<h4><a href="https://www.ray.io/ray-air" rel="noopener" target="_blank">Ray AIR</a></h4>
+<p>Ray's unified toolkit for scalable AI and machine learning workloads.</p>
+</div>
+</div>
 </section>
-
 <!-- Add styles for the external references section -->
 <style>
     /* External References Section */
@@ -454,7 +452,6 @@ for i in range(1000):
         color: #bbb;
     }
 </style>
-
 <footer class="footer text-center">
 <p>© 2024 Yangming Li. All rights reserved.</p>
 </footer>

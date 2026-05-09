@@ -2,174 +2,190 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-04-18T12:00:00Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/about.html</loc>
+    <lastmod>2026-05-09T21:06:44Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/blog/</loc>
+    <lastmod>2026-05-09T21:06:44Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-product-scales-company.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/cmu-nlp-notes.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/contact.html</loc>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/courses.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/databricks-comprehensive-guide.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/decoder-only-architectures.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/deep-neural-networks-explained.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/docker-in-ml.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/engineering/ab-test-engineering-guide.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/engineering/python-package-guide.html</loc>
-    <lastmod>2026-03-18T07:00:33Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/focus-room/</loc>
-    <lastmod>2026-03-30T00:44:41Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/glm-overview.html</loc>
-    <lastmod>2026-01-14T21:50:51Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/investing-vc-risk-control-notes.html</loc>
-    <lastmod>2026-04-10T03:29:56Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/jax-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/jira-guide.html</loc>
-    <lastmod>2026-03-18T05:46:59Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/key-statistical-tests-survey-analysis.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/kubernetes-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/add-two-numbers.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/median-of-two-sorted-arrays.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/two-sum.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/llama-report-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/machine-unlearning-guide.html</loc>
-    <lastmod>2026-03-18T05:46:59Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mcp-protocol-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-computation-structures-notes.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-computer-systems-notes.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-datastructure-notes.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mlops-essential-skills.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/n8n-ai-workflows.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/polars-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/product-success-essence.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
-    <loc>https://yangmingli.com/product/</loc>
-    <lastmod>2026-01-14T22:49:31Z</lastmod>
+    <loc>https://yangmingli.com/projects.html</loc>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/pytorch-review01.html</loc>
-    <lastmod>2026-02-02T23:31:25Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/question-delete-before-automation.html</loc>
-    <lastmod>2026-04-18T12:00:00Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/random-forest-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/ray_explanation.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/resume.html</loc>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/sentiment-analysis-fine-tune-with-bert.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/sentiment-analysis-fine-tune-with-bert2.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/taste-in-science-and-technology.html</loc>
-    <lastmod>2026-03-18T05:46:59Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/trust-worth-machine-learning-1.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/uqlm-teaching-guide.html</loc>
-    <lastmod>2026-01-14T21:50:52Z</lastmod>
+    <lastmod>2026-05-09T21:11:51Z</lastmod>
   </url>
 </urlset>

@@ -1,37 +1,33 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <!-- SEO metadata -->
-    <title>3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li Tech Blog</title>
-    <meta name="description"
-          content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters"/>
-    <link href="../favicon.png" rel="icon"/>
-    <link href="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" rel="canonical"/>
-    <meta name="robots" content="index,follow,max-image-preview:large"/>
-    <meta name="keywords" content="leetcode, coding interview, algorithms, data structures, programming, python, string, sliding window"/>
-    <meta name="author" content="Yangming Li"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- SEO metadata -->
+<title>3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li</title>
+<meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" name="description"/>
+<link href="../favicon.png" rel="icon"/>
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="article"/>
-    <meta property="og:locale" content="en_CA"/>
-    <meta property="og:title" content="3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li Tech Blog"/>
-    <meta property="og:description"
-          content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters"/>
-    <meta property="og:url" content="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html"/>
-    <meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
-    <meta property="og:image:alt" content="Yangming Li Tech Blog Logo"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
 
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&display=swap" rel="stylesheet"/>
-    <link href="../css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-    <link href="../css/blog_post.css" rel="stylesheet"/>
-    
-    <style>
+<meta content="Yangming Li" name="author"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="en_CA" property="og:locale"/>
+<meta content="3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li" property="og:title"/>
+<meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" property="og:description"/>
+<meta content="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="../css/font-awesome.min.css" rel="stylesheet"/>
+<link href="../css/bootstrap.min.css" rel="stylesheet"/>
+<link href="../css/style.css" rel="stylesheet"/>
+<link href="../css/blog_post.css" rel="stylesheet"/>
+<style>
         body {
             font-family: 'Hind', sans-serif;
             line-height: 1.6;
@@ -200,34 +196,29 @@
             color: #8bc4ff;
         }
     </style>
-</head>
-
+<link href="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li" name="twitter:title"/><meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
 <body>
-    <div class="theme-switch-wrapper">
-        <span>Light</span>
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round"></div>
-        </label>
-        <span>Dark</span>
-    </div>
-
-    <div class="header-section">
-        <div class="container">
-            <h1 style="color: white;">3. Longest Substring Without Repeating Characters</h1>
-        </div>
-    </div>
-
-    <div class="container">
-        <a href="../courses.html" class="back-button"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
-        
-        <div class="solution-section">
-            <h2>Problem Description</h2>
-            <p>Given a string <code>s</code>, find the length of the longest substring without repeating characters.</p>
-            
-            <div class="example">
-                <h3>Example:</h3>
-                <pre><code>Input: s = "abcabcbb"
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="header-section">
+<div class="container">
+<h1 style="color: white;">3. Longest Substring Without Repeating Characters</h1>
+</div>
+</div>
+<div class="container">
+<a class="back-button" href="../courses.html"><i class="fa fa-arrow-left"></i> Back to Certificates</a>
+<div class="solution-section">
+<h2>Problem Description</h2>
+<p>Given a string <code>s</code>, find the length of the longest substring without repeating characters.</p>
+<div class="example">
+<h3>Example:</h3>
+<pre><code>Input: s = "abcabcbb"
 Output: 3
 Explanation: The answer is "abc", with the length of 3.
 
@@ -239,28 +230,25 @@ Input: s = "pwwkew"
 Output: 3
 Explanation: The answer is "wke", with the length of 3.
 Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.</code></pre>
-            </div>
-        </div>
-        
-        <div class="solution-section">
-            <h2>Solution Approach</h2>
-            <p>We can use a sliding window approach to solve this problem:</p>
-            <ol>
-                <li>Maintain a set to track characters in current window</li>
-                <li>Use two pointers (left and right) to represent the window</li>
-                <li>Expand the window (right pointer) as long as no duplicates are found</li>
-                <li>When a duplicate is found, shrink window from left until the duplicate is removed</li>
-                <li>Keep track of the maximum window size seen so far</li>
-            </ol>
-            
-            <div class="complexity">
-                <p><strong>Time Complexity:</strong> O(n) where n is the length of the string. Each character is processed at most twice (once by right pointer, once by left pointer).</p>
-                <p><strong>Space Complexity:</strong> O(min(m, n)) where m is the size of the character set. In the worst case, the set may contain all characters in the string.</p>
-            </div>
-            
-            <h3>Python Implementation:</h3>
-            <pre><code>class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+</div>
+</div>
+<div class="solution-section">
+<h2>Solution Approach</h2>
+<p>We can use a sliding window approach to solve this problem:</p>
+<ol>
+<li>Maintain a set to track characters in current window</li>
+<li>Use two pointers (left and right) to represent the window</li>
+<li>Expand the window (right pointer) as long as no duplicates are found</li>
+<li>When a duplicate is found, shrink window from left until the duplicate is removed</li>
+<li>Keep track of the maximum window size seen so far</li>
+</ol>
+<div class="complexity">
+<p><strong>Time Complexity:</strong> O(n) where n is the length of the string. Each character is processed at most twice (once by right pointer, once by left pointer).</p>
+<p><strong>Space Complexity:</strong> O(min(m, n)) where m is the size of the character set. In the worst case, the set may contain all characters in the string.</p>
+</div>
+<h3>Python Implementation:</h3>
+<pre><code>class Solution:
+    def lengthOfLongestSubstring(self, s: str) -&gt; int:
         seen = set()
         left = 0
         max_len = 0
@@ -278,18 +266,16 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
             max_len = max(max_len, right - left + 1)
             
         return max_len</code></pre>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>© 2023 Yangming Li. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+<p>© 2023 Yangming Li. All rights reserved.</p>
+</div>
+</footer>
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
         

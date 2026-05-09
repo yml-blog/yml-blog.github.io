@@ -1,54 +1,49 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li</title>
-    <meta name="description" content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation.">
-    <meta name="keywords" content="Deep Neural Networks, DNN, Forward Propagation, Backpropagation, PyTorch, Machine Learning, Deep Learning, Neural Networks, Yangming Li">
-    <link href="favicon.png" rel="icon">
-    <meta name="robots" content="index,follow,max-image-preview:large">
-    <link href="https://yangmingli.com/deep-neural-networks-explained.html" rel="canonical">
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li">
-    <meta property="og:description" content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation.">
-    <meta property="og:url" content="https://yangmingli.com/deep-neural-networks-explained.html">
-    <meta property="og:image" content="https://yangmingli.com/img/Logo.png">
-    <meta property="og:site_name" content="Yangming Li - AI/ML Blog">
-    <meta property="og:locale" content="en_US">
-    <meta property="article:author" content="Yangming Li">
-    <meta property="article:published_time" content="2023-08-15">
-    <meta property="article:modified_time" content="2023-08-15">
-    <meta property="article:section" content="Machine Learning">
-    <meta property="article:tag" content="Deep Neural Networks, DNN, Forward Propagation, Backpropagation, PyTorch">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li">
-    <meta name="twitter:description" content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation.">
-    <meta name="twitter:image" content="https://yangmingli.com/img/Logo.png">
-    
-    <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style_blog.css" rel="stylesheet">
-    <link href="css/blog_post.css" rel="stylesheet">
-    <link href="css/nav.css" rel="stylesheet">
-    
-    <!-- MathJax for rendering equations -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <!-- Prism.js for code highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet">
-    
-    <script src="js/loadHeader.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li</title>
+<meta content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation." name="description"/>
+
+<link href="favicon.png" rel="icon"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+
+<!-- Open Graph -->
+<meta content="article" property="og:type"/>
+<meta content="Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li" property="og:title"/>
+<meta content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation." property="og:description"/>
+<meta content="https://yangmingli.com/deep-neural-networks-explained.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2023-08-15" property="article:published_time"/>
+<meta content="2023-08-15" property="article:modified_time"/>
+<meta content="Machine Learning" property="article:section"/>
+<meta content="Deep Neural Networks, DNN, Forward Propagation, Backpropagation, PyTorch" property="article:tag"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Deep Neural Networks (DNN) Explained (Popularized 2012-2016) | Yangming Li" name="twitter:title"/>
+<meta content="A comprehensive guide to understanding deep neural networks (DNNs), including forward and backward propagation, optimization algorithms, and PyTorch implementation." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<!-- MathJax for rendering equations -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- Prism.js for code highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet"/>
+<script src="js/loadHeader.js"></script>
+<style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
             display: flex;
@@ -263,136 +258,123 @@
             margin-bottom: 0.75rem;
         }
     </style>
-</head>
+<link href="https://yangmingli.com/deep-neural-networks-explained.html" rel="canonical"/></head>
 <body>
-    <div id="header-placeholder"></div>
-    
-    <div class="container">
-        <div class="theme-switch-wrapper">
-            <span>Light</span>
-            <label class="theme-switch" for="checkbox">
-                <input type="checkbox" id="checkbox" />
-                <div class="slider round"></div>
-            </label>
-            <span>Dark</span>
-        </div>
-        
-        <div class="header">
-            <div class="content">
-                <h1>Deep Neural Networks (DNN) Explained (Popularized 2012-2016)</h1>
-                <div class="article-metadata">
-                    <span><i class="fa fa-calendar"></i> August 15, 2023</span>
-                    <span><i class="fa fa-tags"></i> Machine Learning, Deep Learning</span>
-                    <span><i class="fa fa-clock-o"></i> 15 min read</span>
-                </div>
-                <div class="blog-share-buttons">
-                    <a class="share-btn twitter" href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title),'_blank')" title="Share on Twitter">
-                        <i class="fa fa-twitter"></i> Tweet
+<div id="header-placeholder"></div>
+<div class="container">
+<div class="theme-switch-wrapper">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="header">
+<div class="content">
+<h1>Deep Neural Networks (DNN) Explained (Popularized 2012-2016)</h1>
+<div class="article-metadata">
+<span><i class="fa fa-calendar"></i> August 15, 2023</span>
+<span><i class="fa fa-tags"></i> Machine Learning, Deep Learning</span>
+<span><i class="fa fa-clock-o"></i> 15 min read</span>
+</div>
+<div class="blog-share-buttons">
+<a class="share-btn twitter" href="javascript:void(0);" onclick="window.open('https://twitter.com/intent/tweet?url='+encodeURIComponent(window.location.href)+'&amp;text='+encodeURIComponent(document.title),'_blank')" title="Share on Twitter">
+<i class="fa fa-twitter"></i> Tweet
                     </a>
-                    <a class="share-btn linkedin" href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title),'_blank')" title="Share on LinkedIn">
-                        <i class="fa fa-linkedin"></i> Share
+<a class="share-btn linkedin" href="javascript:void(0);" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&amp;url='+encodeURIComponent(window.location.href)+'&amp;title='+encodeURIComponent(document.title),'_blank')" title="Share on LinkedIn">
+<i class="fa fa-linkedin"></i> Share
                     </a>
-                    <a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent(document.title)+'&body=Check out this article: '+encodeURIComponent(window.location.href),'_blank')" title="Share via Email">
-                        <i class="fa fa-envelope"></i> Email
+<a class="share-btn email" href="javascript:void(0);" onclick="window.open('mailto:?subject='+encodeURIComponent(document.title)+'&amp;body=Check out this article: '+encodeURIComponent(window.location.href),'_blank')" title="Share via Email">
+<i class="fa fa-envelope"></i> Email
                     </a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="content">
-            <p>Deep Neural Networks (DNNs) have revolutionized machine learning by enabling computers to learn complex patterns from data. The core principles of DNNs can be distilled into two main phases: forward propagation and backpropagation, combined with optimization algorithms like gradient descent. Through these mechanisms and multiple layers of non-linear transformations, DNNs can gradually approximate complex function mappings using large amounts of data.</p>
-            
-            <p>This article breaks down the fundamental concepts of DNNs and provides practical implementation examples using PyTorch.</p>
-
-            <div class="step-box">
-                <h3>1. Network Architecture: Multi-Layer Perceptron (MLP)</h3>
-                <p>A basic DNN consists of multiple layers of interconnected neurons:</p>
-                <ul>
-                    <li><strong>Input Layer:</strong> Receives the original feature vector \(x \in \mathbb{R}^n\).</li>
-                    <li><strong>Hidden Layers:</strong> Multiple layers ("depth") with numerous neurons (nodes). For layer \(l\), the input is the previous layer's output \(h^{(l-1)}\), and the output is:
+</div>
+</div>
+</div>
+<div class="content">
+<p>Deep Neural Networks (DNNs) have revolutionized machine learning by enabling computers to learn complex patterns from data. The core principles of DNNs can be distilled into two main phases: forward propagation and backpropagation, combined with optimization algorithms like gradient descent. Through these mechanisms and multiple layers of non-linear transformations, DNNs can gradually approximate complex function mappings using large amounts of data.</p>
+<p>This article breaks down the fundamental concepts of DNNs and provides practical implementation examples using PyTorch.</p>
+<div class="step-box">
+<h3>1. Network Architecture: Multi-Layer Perceptron (MLP)</h3>
+<p>A basic DNN consists of multiple layers of interconnected neurons:</p>
+<ul>
+<li><strong>Input Layer:</strong> Receives the original feature vector \(x \in \mathbb{R}^n\).</li>
+<li><strong>Hidden Layers:</strong> Multiple layers ("depth") with numerous neurons (nodes). For layer \(l\), the input is the previous layer's output \(h^{(l-1)}\), and the output is:
                     \[h^{(l)} = f(W^{(l)}h^{(l-1)} + b^{(l)})\]
                     where \(W^{(l)}\) is the weight matrix, \(b^{(l)}\) is the bias vector, and \(f(\cdot)\) is an activation function (like ReLU, Sigmoid, or Tanh).</li>
-                    <li><strong>Output Layer:</strong> Uses different activations based on the task - Softmax for classification or linear output for regression.</li>
-                </ul>
-            </div>
-
-            <div class="step-box">
-                <h3>2. Forward Propagation</h3>
-                <p>Forward propagation is the process of passing input data through the network to generate predictions:</p>
-                <ol>
-                    <li>Input \(x\) is fed into the network</li>
-                    <li>Each hidden layer computes its output using the formula above</li>
-                    <li>The final layer produces the prediction \(\hat{y}\)</li>
-                </ol>
-                <p>This process essentially applies a series of linear transformations followed by non-linear activations, increasing model capacity with more layers and neurons.</p>
-            </div>
-
-            <div class="step-box">
-                <h3>3. Loss Functions</h3>
-                <p>Loss functions quantify how well the model's predictions match the ground truth:</p>
-                <ul>
-                    <li><strong>Regression:</strong> Mean Squared Error (MSE)
+<li><strong>Output Layer:</strong> Uses different activations based on the task - Softmax for classification or linear output for regression.</li>
+</ul>
+</div>
+<div class="step-box">
+<h3>2. Forward Propagation</h3>
+<p>Forward propagation is the process of passing input data through the network to generate predictions:</p>
+<ol>
+<li>Input \(x\) is fed into the network</li>
+<li>Each hidden layer computes its output using the formula above</li>
+<li>The final layer produces the prediction \(\hat{y}\)</li>
+</ol>
+<p>This process essentially applies a series of linear transformations followed by non-linear activations, increasing model capacity with more layers and neurons.</p>
+</div>
+<div class="step-box">
+<h3>3. Loss Functions</h3>
+<p>Loss functions quantify how well the model's predictions match the ground truth:</p>
+<ul>
+<li><strong>Regression:</strong> Mean Squared Error (MSE)
                     \[L(\hat{y}, y) = \frac{1}{m}\sum_{i=1}^{m} \|\hat{y}_i - y_i\|^2\]</li>
-                    <li><strong>Classification:</strong> Cross-Entropy
+<li><strong>Classification:</strong> Cross-Entropy
                     \[L(\hat{y}, y) = -\frac{1}{m}\sum_{i=1}^{m}\sum_{k} y_{i,k} \log \hat{y}_{i,k}\]</li>
-                </ul>
-                <p>where \(m\) is the batch size.</p>
-            </div>
-
-            <div class="step-box">
-                <h3>4. Backpropagation</h3>
-                <p>Backpropagation efficiently calculates gradients of the loss with respect to all parameters. The key steps are:</p>
-                <ol>
-                    <li><strong>Output Layer Error:</strong>
+</ul>
+<p>where \(m\) is the batch size.</p>
+</div>
+<div class="step-box">
+<h3>4. Backpropagation</h3>
+<p>Backpropagation efficiently calculates gradients of the loss with respect to all parameters. The key steps are:</p>
+<ol>
+<li><strong>Output Layer Error:</strong>
                     \[\delta^{(L)} = \nabla_{a^{(L)}} L \circ f'(z^{(L)})\]
                     where \(\circ\) represents element-wise multiplication, \(z^{(L)} = W^{(L)}h^{(L-1)} + b^{(L)}\), and \(a^{(L)} = f(z^{(L)})\).</li>
-                    <li><strong>Error Propagation:</strong> For layer \(l\):
+<li><strong>Error Propagation:</strong> For layer \(l\):
                     \[\delta^{(l)} = ((W^{(l+1)})^T \delta^{(l+1)}) \circ f'(z^{(l)})\]</li>
-                    <li><strong>Gradient Computation:</strong>
+<li><strong>Gradient Computation:</strong>
                     \[\frac{\partial L}{\partial W^{(l)}} = \delta^{(l)}(h^{(l-1)})^T, \quad \frac{\partial L}{\partial b^{(l)}} = \delta^{(l)}\]</li>
-                </ol>
-            </div>
-
-            <div class="step-box">
-                <h3>5. Parameter Updates: Optimization Algorithms</h3>
-                <p>The most common optimization method is gradient descent and its variants:</p>
-                <ul>
-                    <li><strong>Gradient Descent:</strong>
+</ol>
+</div>
+<div class="step-box">
+<h3>5. Parameter Updates: Optimization Algorithms</h3>
+<p>The most common optimization method is gradient descent and its variants:</p>
+<ul>
+<li><strong>Gradient Descent:</strong>
                     \[W^{(l)} \leftarrow W^{(l)} - \eta \frac{\partial L}{\partial W^{(l)}}, \quad b^{(l)} \leftarrow b^{(l)} - \eta \frac{\partial L}{\partial b^{(l)}}\]
                     where \(\eta\) is the learning rate.</li>
-                    <li><strong>Adam:</strong> Combines momentum and adaptive learning rates for faster convergence and robustness to hyperparameters.</li>
-                </ul>
-            </div>
-
-            <div class="step-box">
-                <h3>6. Regularization Techniques</h3>
-                <p>To prevent overfitting, common regularization methods include:</p>
-                <ul>
-                    <li><strong>L2 Regularization:</strong> Adds weight decay term to the loss</li>
-                    <li><strong>Dropout:</strong> Randomly deactivates hidden units during training</li>
-                    <li><strong>Batch Normalization:</strong> Normalizes layer inputs to stabilize training</li>
-                    <li><strong>Early Stopping:</strong> Monitors validation performance and stops training when performance plateaus</li>
-                </ul>
-            </div>
-
-            <div class="step-box">
-                <h3>7. Overall Training Process</h3>
-                <ol>
-                    <li>Data preprocessing: Normalization/standardization</li>
-                    <li>Weight initialization (e.g., Xavier, He initialization)</li>
-                    <li>Iterative training: Each epoch divided into mini-batches, executing forward + backward + update steps</li>
-                    <li>Validation & hyperparameter tuning: Adjusting network depth, width, learning rate, etc.</li>
-                    <li>Testing & deployment</li>
-                </ol>
-            </div>
-
-            <h2>PyTorch Implementation</h2>
-            <p>Below is a complete example of implementing a DNN for MNIST digit classification using PyTorch:</p>
-
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="code-language">Python</span>
-                </div>
+<li><strong>Adam:</strong> Combines momentum and adaptive learning rates for faster convergence and robustness to hyperparameters.</li>
+</ul>
+</div>
+<div class="step-box">
+<h3>6. Regularization Techniques</h3>
+<p>To prevent overfitting, common regularization methods include:</p>
+<ul>
+<li><strong>L2 Regularization:</strong> Adds weight decay term to the loss</li>
+<li><strong>Dropout:</strong> Randomly deactivates hidden units during training</li>
+<li><strong>Batch Normalization:</strong> Normalizes layer inputs to stabilize training</li>
+<li><strong>Early Stopping:</strong> Monitors validation performance and stops training when performance plateaus</li>
+</ul>
+</div>
+<div class="step-box">
+<h3>7. Overall Training Process</h3>
+<ol>
+<li>Data preprocessing: Normalization/standardization</li>
+<li>Weight initialization (e.g., Xavier, He initialization)</li>
+<li>Iterative training: Each epoch divided into mini-batches, executing forward + backward + update steps</li>
+<li>Validation &amp; hyperparameter tuning: Adjusting network depth, width, learning rate, etc.</li>
+<li>Testing &amp; deployment</li>
+</ol>
+</div>
+<h2>PyTorch Implementation</h2>
+<p>Below is a complete example of implementing a DNN for MNIST digit classification using PyTorch:</p>
+<div class="code-block">
+<div class="code-header">
+<span class="code-language">Python</span>
+</div>
 <pre class="language-python"><code>import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -478,64 +460,56 @@ print(f'Test Accuracy: {100 * correct / total:.2f}%')
 torch.save(model.state_dict(), 'mlp_mnist.pth')
 print('Model saved to mlp_mnist.pth')
 </code></pre>
-            </div>
-
-            <h3>Key Implementation Notes</h3>
-            <ul>
-                <li><strong>Data Normalization:</strong> <code>Normalize((mean,), (std,))</code> helps accelerate convergence.</li>
-                <li><strong>model.train() vs. model.eval():</strong> The former enables training behavior for Dropout/BatchNorm, while the latter fixes their statistics.</li>
-                <li><strong>with torch.no_grad():</strong> Disables gradient computation to increase inference speed and save memory.</li>
-                <li><strong>optimizer.zero_grad():</strong> Clears gradients before each iteration; otherwise, they would accumulate.</li>
-                <li><strong>Model saving:</strong> Only saving <code>state_dict()</code> makes it easier for later loading and deployment.</li>
-            </ul>
-
-            <h2>Common DNN Packages in Python</h2>
-            <p>Several Python libraries are available for implementing DNNs:</p>
-            
-            <ul>
-                <li><strong>PyTorch:</strong> Developed by Meta (Facebook), features dynamic computation graphs, intuitive debugging, and a rapidly growing ecosystem.</li>
-                <li><strong>TensorFlow:</strong> Google's framework with comprehensive tools for production deployment (TensorFlow Serving, TF Lite).</li>
-                <li><strong>Keras:</strong> High-level API now integrated with TensorFlow (tf.keras), known for its simplicity and ease of use.</li>
-                <li><strong>JAX:</strong> Google's functional, composable framework with excellent TPU support and scientific computing capabilities.</li>
-                <li><strong>MXNet:</strong> Apache's framework with multi-language bindings and good performance.</li>
-            </ul>
-
-            <h2>Summary</h2>
-            <p>Deep Neural Networks learn through:</p>
-            <ul>
-                <li>Multiple layers of non-linear transformations to learn complex function mappings</li>
-                <li>Forward propagation to compute outputs, backpropagation to efficiently calculate gradients</li>
-                <li>Optimization algorithms to update parameters based on these gradients</li>
-                <li>Various regularization techniques to prevent overfitting</li>
-            </ul>
-            <p>Understanding these principles provides the foundation for working with more advanced architectures like Convolutional Neural Networks (CNNs), Recurrent Neural Networks (RNNs), and Transformers.</p>
-            
-            <div class="references">
-                <h2>References</h2>
-                <ol>
-                    <li>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning</em>. MIT Press.</li>
-                    <li>Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... & Chintala, S. (2019). PyTorch: An imperative style, high-performance deep learning library. <em>Advances in Neural Information Processing Systems</em>, 32.</li>
-                    <li>LeCun, Y., Bengio, Y., & Hinton, G. (2015). Deep learning. <em>Nature</em>, 521(7553), 436-444.</li>
-                    <li>Rumelhart, D. E., Hinton, G. E., & Williams, R. J. (1986). Learning representations by back-propagating errors. <em>Nature</em>, 323(6088), 533-536.</li>
-                    <li>Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. <em>arXiv preprint arXiv:1412.6980</em>.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
-    
-    <!-- Prism.js for syntax highlighting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-    
-    <!-- Dark mode toggle -->
-    <script>
+</div>
+<h3>Key Implementation Notes</h3>
+<ul>
+<li><strong>Data Normalization:</strong> <code>Normalize((mean,), (std,))</code> helps accelerate convergence.</li>
+<li><strong>model.train() vs. model.eval():</strong> The former enables training behavior for Dropout/BatchNorm, while the latter fixes their statistics.</li>
+<li><strong>with torch.no_grad():</strong> Disables gradient computation to increase inference speed and save memory.</li>
+<li><strong>optimizer.zero_grad():</strong> Clears gradients before each iteration; otherwise, they would accumulate.</li>
+<li><strong>Model saving:</strong> Only saving <code>state_dict()</code> makes it easier for later loading and deployment.</li>
+</ul>
+<h2>Common DNN Packages in Python</h2>
+<p>Several Python libraries are available for implementing DNNs:</p>
+<ul>
+<li><strong>PyTorch:</strong> Developed by Meta (Facebook), features dynamic computation graphs, intuitive debugging, and a rapidly growing ecosystem.</li>
+<li><strong>TensorFlow:</strong> Google's framework with comprehensive tools for production deployment (TensorFlow Serving, TF Lite).</li>
+<li><strong>Keras:</strong> High-level API now integrated with TensorFlow (tf.keras), known for its simplicity and ease of use.</li>
+<li><strong>JAX:</strong> Google's functional, composable framework with excellent TPU support and scientific computing capabilities.</li>
+<li><strong>MXNet:</strong> Apache's framework with multi-language bindings and good performance.</li>
+</ul>
+<h2>Summary</h2>
+<p>Deep Neural Networks learn through:</p>
+<ul>
+<li>Multiple layers of non-linear transformations to learn complex function mappings</li>
+<li>Forward propagation to compute outputs, backpropagation to efficiently calculate gradients</li>
+<li>Optimization algorithms to update parameters based on these gradients</li>
+<li>Various regularization techniques to prevent overfitting</li>
+</ul>
+<p>Understanding these principles provides the foundation for working with more advanced architectures like Convolutional Neural Networks (CNNs), Recurrent Neural Networks (RNNs), and Transformers.</p>
+<div class="references">
+<h2>References</h2>
+<ol>
+<li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep Learning</em>. MIT Press.</li>
+<li>Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., ... &amp; Chintala, S. (2019). PyTorch: An imperative style, high-performance deep learning library. <em>Advances in Neural Information Processing Systems</em>, 32.</li>
+<li>LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature</em>, 521(7553), 436-444.</li>
+<li>Rumelhart, D. E., Hinton, G. E., &amp; Williams, R. J. (1986). Learning representations by back-propagating errors. <em>Nature</em>, 323(6088), 533-536.</li>
+<li>Kingma, D. P., &amp; Ba, J. (2014). Adam: A method for stochastic optimization. <em>arXiv preprint arXiv:1412.6980</em>.</li>
+</ol>
+</div>
+</div>
+</div>
+<!-- JavaScript -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Prism.js for syntax highlighting -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<!-- Dark mode toggle -->
+<script>
         const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
         
         function switchTheme(e) {
