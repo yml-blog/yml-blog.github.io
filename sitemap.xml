@@ -2,15 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-16T23:56:56Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/about.html</loc>
-    <lastmod>2026-05-09T21:06:44Z</lastmod>
+    <lastmod>2026-05-16T23:57:33Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/ai-engineering/</loc>
+    <lastmod>2026-05-11T07:06:18Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/blog/</loc>
-    <lastmod>2026-05-09T21:06:44Z</lastmod>
+    <lastmod>2026-05-16T23:57:44Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
@@ -30,7 +34,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/courses.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-16T23:58:08Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/databricks-comprehensive-guide.html</loc>
@@ -146,7 +150,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/projects.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-16T23:57:40Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/pytorch-review01.html</loc>
@@ -166,7 +170,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/resume.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-16T23:58:15Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/sentiment-analysis-fine-tune-with-bert.html</loc>
@@ -178,7 +182,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/taste-in-science-and-technology.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-16T23:58:22Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/trust-worth-machine-learning-1.html</loc>

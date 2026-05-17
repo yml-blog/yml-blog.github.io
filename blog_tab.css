@@ -39,7 +39,8 @@
 }
 
 .blog-section-content p {
-    font-size: 0.2em;
+    font-size: 1rem;
+    line-height: 1.7;
 }
 
 /* Styling for h4 elements */
@@ -49,7 +50,8 @@
     font-weight: bold;
     margin-top: 20px;
     margin-bottom: 10px;
-    font-size: 44.5em;
+    font-size: 1.25rem;
+    line-height: 1.35;
 }
 
 /* Ensure the entire blog section is aligned properly */
