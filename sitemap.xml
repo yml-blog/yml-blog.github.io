@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-05-16T23:56:56Z</lastmod>
+    <lastmod>2026-05-25T21:29:38Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/about.html</loc>
@@ -10,11 +10,11 @@
   </url>
   <url>
     <loc>https://yangmingli.com/ai-engineering/</loc>
-    <lastmod>2026-05-11T07:06:18Z</lastmod>
+    <lastmod>2026-05-25T21:29:56Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/blog/</loc>
-    <lastmod>2026-05-16T23:57:44Z</lastmod>
+    <lastmod>2026-05-25T21:29:49Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
@@ -183,6 +183,10 @@
   <url>
     <loc>https://yangmingli.com/taste-in-science-and-technology.html</loc>
     <lastmod>2026-05-16T23:58:22Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/testing-evaluating-copilot-agents.html</loc>
+    <lastmod>2026-05-25T21:30:49Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/trust-worth-machine-learning-1.html</loc>

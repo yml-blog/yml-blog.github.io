@@ -5,8 +5,16 @@
   <link>https://yangmingli.com/</link>
   <description>AI/ML, Product, Engineering, and Investing insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 18 Apr 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 25 May 2026 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>Testing and Evaluating Copilot Agents: From Demo to Reliable Workflow</title>
+    <link>https://yangmingli.com/testing-evaluating-copilot-agents.html</link>
+    <description>A schema-first guide to testing Copilot Studio agents with evaluation sets, custom graders, validation gates, human review, and post-publish monitoring.</description>
+    <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/testing-evaluating-copilot-agents.html</guid>
+  </item>
 
   <item>
     <title>做产品和工程优化时，先别急着自动化</title>
