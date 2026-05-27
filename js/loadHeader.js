@@ -139,7 +139,13 @@ function normalizeLegacyArticleLayout(articleBody) {
         '.comments-section'
     ].join(', ');
 
-    const supportNodes = directChildren.filter(child => child.matches && child.matches(supportSelectors));
+    const supportNodes = directChildren.filter(child => {
+        if (!child.matches || !child.matches(supportSelectors)) {
+            return false;
+        }
+
+        return !(child.tagName === 'SECTION' && child.classList.contains('key-points'));
+    });
     const appendixNodes = directChildren.filter(child => child.matches && child.matches(appendixSelectors));
 
     let contentFlow = directChildren.find(child => child.matches && child.matches('article, .article-content, .solution-section, .entry-content, .post-content'));
@@ -391,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="${link('docker-in-ml.html')}">Docker for ML</a></li>
                         <li><a href="${link('random-forest-guide.html')}">Random Forest Guide</a></li>
                         <li><a href="${link('llama-report-guide.html')}">LlamaReport AI Agent</a></li>
-                        <li><a href="${link('n8n-ai-workflows.html')}">n8n AI Workflows</a></li>
+                        <li><a href="${link('n8n-ai-workflows.html')}">n8n AI Systems</a></li>
                         <li><a href="${link('uqlm-teaching-guide.html')}">LLM Uncertainty Quantification</a></li>
                     </ul>
                 </li>
@@ -435,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="${link('docker-in-ml.html')}">Docker for ML</a></li>
                             <li><a href="${link('random-forest-guide.html')}">Random Forest Guide</a></li>
                             <li><a href="${link('llama-report-guide.html')}">LlamaReport AI Agent</a></li>
-                            <li><a href="${link('n8n-ai-workflows.html')}">n8n AI Workflows</a></li>
+                            <li><a href="${link('n8n-ai-workflows.html')}">n8n AI Systems</a></li>
                             <li><a href="${link('uqlm-teaching-guide.html')}">LLM Uncertainty Quantification</a></li>
                         </ul>
                     </li>

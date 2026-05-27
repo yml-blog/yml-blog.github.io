@@ -5,7 +5,7 @@
     const API_PATH = '/api/ask-yangming';
     const QUICK_PROMPTS = [
         'What do you build?',
-        'Which posts should I read if I care about MLOps and LLM workflows?',
+        'Which posts should I read if I care about MLOps and LLM systems?',
         'How can I contact you for AI or data work?'
     ];
     const EMBEDDED_KNOWLEDGE = [
@@ -15,14 +15,14 @@
             url: '/index.html#about-me',
             tags: ['profile', 'about', 'ai', 'ml', 'product', 'data'],
             alwaysInclude: true,
-            content: 'Yangming Li is an AI Engineer and Product Builder based in Vancouver. The site positions him around applied AI systems for real-world workflows, especially LLM systems, statistical ML, data engineering, data products, and experiment infrastructure.'
+            content: 'Yangming Li is an AI Engineer and Product Builder based in Vancouver. The site positions him around applied AI systems and production AI architecture, especially LLM system design, retrieval, evaluation, statistical ML, data engineering, data products, and experiment infrastructure.'
         },
         {
             id: 'profile-builds-serves-outcomes',
             title: 'What Yangming Builds and Who He Serves',
             url: '/index.html#about-me',
             tags: ['llm systems', 'statistical ml', 'data engineering', 'data products', 'experiment infrastructure', 'healthcare', 'finance', 'enterprise'],
-            content: 'The homepage highlights three groups of information: builds, serves, and outcomes. Builds include LLM systems, statistical ML, data engineering, data products, and experiment infrastructure. Serves include healthcare teams, finance teams, and enterprise teams. Outcomes include shipped workflows, faster decision loops, and reusable internal tooling.'
+            content: 'The homepage highlights three groups of information: builds, serves, and outcomes. Builds include AI system architecture, LLM systems, statistical ML, data engineering, data products, and experiment infrastructure. Serves include healthcare teams, finance teams, and enterprise teams. Outcomes include production AI systems, faster decision loops, and reusable internal tooling.'
         },
         {
             id: 'contact-options',
@@ -36,22 +36,22 @@
             id: 'work-style',
             title: 'How Yangming Frames His Work',
             url: '/index.html#about-me',
-            tags: ['applied ai', 'workflow', 'product thinking', 'platforms', 'delivery'],
-            content: 'The hero and about sections describe Yangming as someone working at the intersection of AI engineering, statistical ML, data engineering, and product thinking to ship systems teams can actually use, from LLM-powered workflows to experiment-ready data platforms.'
+            tags: ['applied ai', 'ai system architecture', 'product thinking', 'platforms', 'delivery'],
+            content: 'The hero and about sections describe Yangming as someone working at the intersection of AI engineering, statistical ML, data engineering, and product thinking to design systems teams can actually ship, from retrieval-augmented applications to experiment-ready data platforms.'
         },
         {
             id: 'mlops-article',
             title: 'MLOps Essential Skills',
             url: '/mlops-essential-skills.html',
             tags: ['mlops', 'deployment', 'monitoring', 'infrastructure', 'data engineering'],
-            content: 'This article covers practical MLOps capabilities and is a strong recommendation for visitors who care about production machine learning, deployment workflows, model operations, and the engineering side of AI systems.'
+            content: 'This article covers practical MLOps capabilities and is a strong recommendation for visitors who care about production machine learning, deployment architecture, model operations, and the engineering side of AI systems.'
         },
         {
             id: 'n8n-article',
-            title: 'n8n AI Workflows',
+            title: 'n8n AI Systems',
             url: '/n8n-ai-workflows.html',
-            tags: ['ai workflows', 'automation', 'agents', 'llm', 'integration'],
-            content: 'This article is relevant for people exploring workflow automation, orchestration, and AI-enabled process design. It is especially relevant if the visitor is interested in turning LLM capability into business workflows.'
+            tags: ['ai systems', 'agent architecture', 'agents', 'llm', 'integration'],
+            content: 'This article is relevant for people exploring agent architecture, system integration, and AI-enabled process design. It is especially relevant if the visitor is interested in turning LLM capability into production systems.'
         },
         {
             id: 'mcp-article',
@@ -72,7 +72,7 @@
             title: 'Databricks Comprehensive Guide',
             url: '/databricks-comprehensive-guide.html',
             tags: ['databricks', 'data engineering', 'analytics', 'platforms'],
-            content: 'This article is a strong recommendation when the user asks about data platforms, data engineering, and scalable analytics workflows.'
+            content: 'This article is a strong recommendation when the user asks about data platforms, data engineering, and scalable analytics systems.'
         },
         {
             id: 'polars-article',
@@ -608,15 +608,15 @@
             if (matchesIntent(lower, ['contact', 'email', 'reach', 'linkedin', 'hire', 'work'])) {
                 return [
                     'The clearest way to reach Yangming is email at `liym1@hotmail.com`. LinkedIn is also listed as a contact path, and the contact tab includes GitHub, Google Scholar, and a meeting-booking option.',
-                    'From the site framing, the most relevant work areas are applied AI systems, LLM workflows, statistical ML, data engineering, data products, and experiment infrastructure.'
+                    'From the site framing, the most relevant work areas are applied AI systems, AI system architecture, LLM system design, statistical ML, data engineering, data products, and experiment infrastructure.'
                 ].join('\n\n');
             }
 
             if (matchesIntent(lower, ['build', 'focus', 'work on', 'what do you do'])) {
                 return [
-                    'Yangming\'s site positions him around applied AI systems for real-world workflows.',
-                    'The clearest build areas called out are LLM systems, statistical ML, data engineering, data products, and experiment infrastructure.',
-                    'The homepage also frames the work around shipped workflows, faster decision loops, and reusable internal tooling for healthcare, finance, and enterprise teams.'
+                    'Yangming\'s site positions him around applied AI systems and production AI architecture.',
+                    'The clearest build areas called out are AI system architecture, LLM system design, retrieval, evaluation, statistical ML, data engineering, data products, and experiment infrastructure.',
+                    'The homepage also frames the work around production AI systems, faster decision loops, and reusable internal tooling for healthcare, finance, and enterprise teams.'
                 ].join(' ');
             }
 
@@ -632,7 +632,7 @@
                         return entry.title + ' because ' + trimSentence(entry.content);
                     }).join(' '),
                     queryTokens.includes('mlops') || queryTokens.includes('llm')
-                        ? 'If you care most about production workflows, start with the MLOps and workflow-oriented pieces first, then branch into more specific engineering guides.'
+                        ? 'If you care most about production AI systems, start with the MLOps and AI systems pieces first, then branch into more specific engineering guides.'
                         : 'If you want a tighter path after that, follow the sources below in order.'
                 ].join('\n\n');
             }
@@ -650,7 +650,7 @@
             }
 
             return [
-                profileEntry ? trimSentence(profileEntry.content) : 'Yangming\'s site is centered on applied AI systems and practical workflow delivery.',
+                profileEntry ? trimSentence(profileEntry.content) : 'Yangming\'s site is centered on applied AI systems and production AI architecture.',
                 buildEntry ? trimSentence(buildEntry.content) : '',
                 articleEntries.length ? 'Relevant posts are included in the source links below if you want to go deeper into the engineering side.' : '',
                 contactEntry ? 'If your question is really about project fit or collaboration, the contact section is the best next step.' : ''

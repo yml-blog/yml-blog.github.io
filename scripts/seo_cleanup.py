@@ -17,7 +17,7 @@ EXCLUDE_PATHS = {Path("focus-room/v1/index.html"), Path("nha-cai/10439/08249712.
 
 
 TITLE_OVERRIDES = {
-    "index.html": "Yangming Li | Applied AI Systems, Data Science, and Workflow Automation",
+    "index.html": "Yangming Li | Applied AI Systems, AI Architecture, and Data Products",
     "blog/index.html": "Blog | Yangming Li on AI, Data Science, Product, and Engineering",
     "about.html": "About Yangming Li | Applied AI and Data Product Builder",
     "projects.html": "Projects | Applied AI, Data Products, and Experiment Infrastructure",
@@ -26,11 +26,11 @@ TITLE_OVERRIDES = {
 }
 
 DESCRIPTION_OVERRIDES = {
-    "index.html": "Yangming Li builds applied AI systems for real-world workflows, with work across LLM systems, statistical ML, data engineering, data products, and experiment infrastructure.",
-    "blog/index.html": "Browse Yangming Li's articles on applied AI, data science, NLP, MLOps, product systems, workflow automation, and engineering practice.",
+    "index.html": "Yangming Li designs applied AI systems and production AI architecture, with work across LLM system design, retrieval, evaluation, statistical ML, data engineering, data products, and experiment infrastructure.",
+    "blog/index.html": "Browse Yangming Li's articles on applied AI, AI system architecture, data science, NLP, MLOps, product systems, and engineering practice.",
     "about.html": "Learn about Yangming Li's work across applied AI, LLM systems, statistical ML, data engineering, data products, and experiment infrastructure.",
-    "projects.html": "Explore Yangming Li's selected project themes in applied AI, document workflows, data products, MLOps, A/B testing, and workflow automation.",
-    "contact.html": "Contact Yangming Li for conversations about applied AI systems, data science, product analytics, automation, and technical collaboration.",
+    "projects.html": "Explore Yangming Li's selected project themes in applied AI, document intelligence, AI system architecture, data products, MLOps, and A/B testing.",
+    "contact.html": "Contact Yangming Li for conversations about applied AI systems, AI system architecture, data science, product analytics, and technical collaboration.",
     "resume.html": "A concise resume-style overview of Yangming Li's applied AI, data science, product, engineering, and analytics focus areas.",
 }
 

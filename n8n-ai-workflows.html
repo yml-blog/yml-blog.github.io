@@ -25,7 +25,7 @@ h1 {
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li</title>
+<title>Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -161,7 +161,7 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li Autonomous AI Workflows with n8n (Popularized 2023-2025)  Light Dark 15 min read." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li" property="og:title"/><meta content="Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li Autonomous AI Workflows with n8n (Popularized 2023-2025)  Light Dark 15 min read." property="og:description"/><meta content="https://yangmingli.com/n8n-ai-workflows.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li" name="twitter:title"/><meta content="Autonomous AI Workflows with n8n (Popularized 2023-2025) | Yangming Li Autonomous AI Workflows with n8n (Popularized 2023-2025)  Light Dark 15 min read." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Build Autonomous AI Workflows with n8n: A Technical ... | Yangming Li", "description": "By Yangming Li...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/n8n-ai-workflows.html"}}</script> <!-- Canonical URL -->
+</style><meta content="Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li. A technical guide to agent architecture, tool use, and production AI system integration." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li" property="og:title"/><meta content="Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li. A technical guide to agent architecture, tool use, and production AI system integration." property="og:description"/><meta content="https://yangmingli.com/n8n-ai-workflows.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li" name="twitter:title"/><meta content="Agentic AI Systems with n8n (Popularized 2023-2025) | Yangming Li. A technical guide to agent architecture, tool use, and production AI system integration." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Build Agentic AI Systems with n8n: A Technical Guide | Yangming Li", "description": "By Yangming Li...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/n8n-ai-workflows.html"}}</script> <!-- Canonical URL -->
 
 <link href="https://yangmingli.com/n8n-ai-workflows.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
 <body>
@@ -169,7 +169,7 @@ h1 {
 <div class="container">
 <header class="header">
 <div class="content text-center">
-<h1>Autonomous AI Workflows with n8n (Popularized 2023-2025)</h1>
+<h1>Agentic AI Systems with n8n (Popularized 2023-2025)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
 </header>
@@ -187,7 +187,7 @@ h1 {
 <span class="word-count"><i class="fa fa-file-text-o"></i> Approx. 2000 words</span>
 <span class="token-count"><i class="fa fa-calculator"></i> Estimated 3000 tokens</span>
 <div class="keywords">
-<strong>Keywords:</strong> n8n, AI Agents, Automation, LLM, Workflow, Airtable, OpenAI, Agentic Systems
+<strong>Keywords:</strong> n8n, AI Agents, AI Systems, LLM, System Integration, Airtable, OpenAI, Agentic Systems
                 </div>
 </div>
 <!-- Social sharing buttons -->
@@ -216,13 +216,13 @@ h1 {
 </section>
 <section class="intro" id="why-agents">
 <h2>1. Why talk about agents?</h2>
-<p>Most automation tutorials stick to workflows—a linear series of steps where every output path is pre-wired. Useful, but rigid.</p>
+<p>Most tutorial examples stick to linear process maps where every output path is pre-wired. Useful, but rigid.</p>
 <p>By contrast, an agentic system pairs a Large Language Model (LLM) with a toolbox of actions; at run time the model decides which tool(s) to invoke and how to combine the results. Think of:</p>
 <div class="comparison-table">
 <table class="table">
 <thead>
 <tr>
-<th>Workflow</th>
+<th>Linear process</th>
 <th>Agent</th>
 </tr>
 </thead>
@@ -234,7 +234,7 @@ h1 {
 </tbody>
 </table>
 </div>
-<p>n8n (pronounced "n-eight-n") is one of the first open-source platforms to treat both paradigms as first-class citizens. Its Advanced AI Agent node drops an LLM into any workflow and lets you bolt on tools à-la-carte.</p>
+<p>n8n (pronounced "n-eight-n") is one of the first open-source platforms to treat both paradigms as first-class citizens. Its Advanced AI Agent node drops an LLM into a system canvas and lets you bolt on tools à-la-carte.</p>
 </section>
 <section id="n8n-essentials">
 <h2>2. n8n essentials at a glance</h2>
@@ -251,16 +251,16 @@ h1 {
 <tr>
 <td>Workspace</td>
 <td>Cloud or self-hosted project root</td>
-<td>Holds your credentials, executions, and multiple workflows</td>
+<td>Holds your credentials, executions, and multiple agent projects</td>
 </tr>
 <tr>
 <td>Node</td>
-<td>A single step in a workflow</td>
+<td>A single step in a system graph</td>
 <td>Five families: Triggers, Actions, Utilities, Code, Advanced AI</td>
 </tr>
 <tr>
 <td>Execution</td>
-<td>A run of a workflow/agent</td>
+<td>A run of a system graph or agent</td>
 <td>Every chat message or API hit shows up here for debugging</td>
 </tr>
 <tr>
@@ -382,7 +382,7 @@ Agent: Updated Butter → Current Qty = 2.</code></pre>
 <h2>4. Scaling up with sub-agents</h2>
 <p>Large projects rarely fit in one canvas. n8n lets you:</p>
 <ul>
-<li>Convert a workflow into a callable tool (Trigger → When Called by Another Workflow).</li>
+<li>Convert an existing system graph into a callable tool for another agent.</li>
 <li>Nest agents – A "front-door" agent can route intents to specialised sub-agents:</li>
 </ul>
 <div class="code-block">
@@ -391,7 +391,7 @@ Agent: Updated Butter → Current Qty = 2.</code></pre>
  ├── Order Agent      (Stripe, Shopify)
  └── FAQ Agent        (Vector search, RAG)</code></pre>
 </div>
-<p>Each sub-agent has its own memory, prompt, and credentials—yet the parent agent uses a single Call Workflow tool to orchestrate them.</p>
+<p>Each sub-agent has its own memory, prompt, and credentials—yet the parent agent can coordinate them through a single tool handoff.</p>
 </section>
 <section id="best-practices">
 <h2>5. Best practices &amp; tips</h2>
@@ -435,14 +435,14 @@ Agent: Updated Butter → Current Qty = 2.</code></pre>
                         Deep-dive on fromAI, vector stores, and function calling.</li>
 <li><strong>AI Foundations Community (featured in the video)</strong><br/>
                         25-module course + weekly calls on LLM ops.</li>
-<li><strong>Source-control your workflows</strong><br/>
+<li><strong>Source-control your agent graphs</strong><br/>
                         n8n supports JSON export—check it into Git to diff prompt changes.</li>
 </ul>
 </section>
 <section class="conclusion">
 <h2>Conclusion</h2>
-<p>Agents turn automation upside-down: instead of us defining the path, we define capabilities and let the model think. n8n's new AI Agent node, paired with a vast catalog of Triggers and Actions, makes it one of the fastest ways to prototype and ship production-grade agentic systems—no heavyweight orchestration layer required.</p>
-<p>Spin up a workspace, wire in a chat model, and give your LLM a toolbox. Your first autonomous workflow is only a few nodes away. Happy building!</p>
+<p>Agents invert the path-first pattern: instead of us defining every route, we define capabilities and let the model think. n8n's new AI Agent node, paired with a vast catalog of Triggers and Actions, makes it one of the fastest ways to prototype and ship production-grade agentic systems—no heavyweight orchestration layer required.</p>
+<p>Spin up a workspace, wire in a chat model, and give your LLM a toolbox. Your first agentic AI system is only a few nodes away. Happy building!</p>
 </section>
 </main>
 <footer class="footer text-center">

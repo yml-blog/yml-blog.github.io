@@ -9,7 +9,7 @@
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
 
   <item>
-    <title>Testing and Evaluating Copilot Agents: From Demo to Reliable Workflow</title>
+    <title>Testing and Evaluating Copilot Agents: From Demo to Reliable AI System</title>
     <link>https://yangmingli.com/testing-evaluating-copilot-agents.html</link>
     <description>A schema-first guide to testing Copilot Studio agents with evaluation sets, custom graders, validation gates, human review, and post-publish monitoring.</description>
     <pubDate>Mon, 25 May 2026 12:00:00 GMT</pubDate>
@@ -41,7 +41,7 @@
   </item>
   
   <item>
-    <title>MLOps Essential Skills: Streamlining ML Workflows</title>
+    <title>MLOps Essential Skills: Production ML Systems</title>
     <link>https://yangmingli.com/mlops-essential-skills.html</link>
     <description>Master MLOps principles and implementation with practical examples using MLflow and Weights &amp; Biases for efficient model lifecycle management and automated deployments.</description>
     <pubDate>Sun, 30 Jun 2024 12:00:00 GMT</pubDate>

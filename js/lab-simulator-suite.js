@@ -490,7 +490,7 @@ function initLLMCostSimulator() {
             output: 1300,
             cacheHit: 42,
             retryRate: 8,
-            blurb: 'Workflow agents usually feel healthy in dev, then discover in prod that orchestration retries quietly double the economics.'
+            blurb: 'Agent systems usually feel healthy in dev, then discover in prod that coordination retries quietly double the economics.'
         },
         research: {
             model: 'reasoning',
@@ -672,7 +672,7 @@ function initLLMCostSimulator() {
             notePanel.textContent = 'The system is still shippable, but retries and queueing are becoming part of the economics. This is where architecture choices start to matter more than prompt tuning.';
         } else {
             latencyPill.textContent = 'Queueing dominates';
-            notePanel.textContent = 'The workflow is above its comfortable throughput envelope. At this point, more traffic mostly buys more retries, more wait time, and more budget pressure.';
+            notePanel.textContent = 'The system is above its comfortable throughput envelope. At this point, more traffic mostly buys more retries, more wait time, and more budget pressure.';
         }
     }
 
