@@ -261,9 +261,9 @@ body, html {
             display: none;
         }
         .js .hero-cta {
-            opacity: 0;
-            transform: translateY(12px);
-            pointer-events: none;
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
         }
         .js .hero-cta.is-visible {
             opacity: 1;
