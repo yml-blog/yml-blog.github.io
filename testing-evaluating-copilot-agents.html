@@ -1,32 +1,17 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
+<head><title>Testing and Evaluating Copilot Agents | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Evaluate Copilot Studio agents with schema validation, golden test sets, custom graders, human review, analytics, and release gates for AI systems." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Testing and Evaluating Copilot Agents | Yangming Li" property="og:title"/><meta content="Evaluate Copilot Studio agents with schema validation, golden test sets, custom graders, human review, analytics, and release gates for AI systems." property="og:description"/><meta content="https://yangmingli.com/testing-evaluating-copilot-agents.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Testing and Evaluating Copilot Agents | Yangming Li" name="twitter:title"/><meta content="Evaluate Copilot Studio agents with schema validation, golden test sets, custom graders, human review, analytics, and release gates for AI systems." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Copilot Studio agent evaluation, LLM evaluation framework, schema validation for AI agents, RAG evaluation" name="keywords"/><link href="https://yangmingli.com/testing-evaluating-copilot-agents.html" rel="canonical"/>
 <meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Testing and Evaluating Copilot Agents: From Demo to Reliable AI System | Yangming Li</title>
-<meta name="description" content="A technical guide to testing Microsoft Copilot Studio agents with evaluation sets, structured output contracts, schema validation, custom graders, human review, analytics, and CI/CD style release gates."/>
-<meta name="keywords" content="Copilot Studio, agent evaluation, AI agents, LLM evaluation, structured extraction, schema validation, human review, AI governance, AI system architecture, Yangming Li"/>
-<meta name="robots" content="index,follow,max-image-preview:large"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <link href="favicon.png" rel="icon"/>
-<link href="https://yangmingli.com/testing-evaluating-copilot-agents.html" rel="canonical"/>
-<meta property="og:type" content="article"/>
-<meta property="og:site_name" content="Yangming Li"/>
-<meta property="og:title" content="Testing and Evaluating Copilot Agents: From Demo to Reliable AI System | Yangming Li"/>
-<meta property="og:description" content="A technical guide to testing Copilot Studio agents with golden test sets, evaluation methods, schema validation, human review, analytics, and release gates."/>
-<meta property="og:url" content="https://yangmingli.com/testing-evaluating-copilot-agents.html"/>
-<meta property="og:image" content="https://yangmingli.com/img/Logo.png"/>
-<meta property="article:author" content="Yangming Li"/>
-<meta property="article:published_time" content="2026-05-25"/>
-<meta property="article:modified_time" content="2026-05-25"/>
-<meta property="article:section" content="AI Engineering"/>
-<meta property="article:tag" content="Copilot Studio"/>
-<meta property="article:tag" content="Agent Evaluation"/>
-<meta property="article:tag" content="LLM Systems"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Testing and Evaluating Copilot Agents: From Demo to Reliable AI System"/>
-<meta name="twitter:description" content="How to move a Copilot agent from an impressive demo to a production-ready AI system with test sets, graders, schema checks, and human review."/>
-<meta name="twitter:image" content="https://yangmingli.com/img/Logo.png"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-05-25" property="article:published_time"/>
+<meta content="2026-05-25" property="article:modified_time"/>
+<meta content="AI Engineering" property="article:section"/>
+<meta content="Copilot Studio" property="article:tag"/>
+<meta content="Agent Evaluation" property="article:tag"/>
+<meta content="LLM Systems" property="article:tag"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
@@ -34,7 +19,7 @@
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
 .theme-switch {
   display: inline-block;
@@ -88,52 +73,68 @@ body.blog-post-page .article-share-surface .email {
   background-color: #D44638;
 }
 </style>
-<script type="application/ld+json">
-{
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Testing and Evaluating Copilot Agents: From Demo to Reliable AI System",
-  "description": "A technical guide to testing Microsoft Copilot Studio agents with evaluation sets, structured output contracts, schema validation, custom graders, human review, analytics, and CI/CD style release gates.",
+  "headline": "Testing and Evaluating Copilot Agents",
+  "description": "Evaluate Copilot Studio agents with schema validation, golden test sets, custom graders, human review, analytics, and release gates for AI systems.",
   "image": "https://yangmingli.com/img/Logo.png",
   "author": {
     "@type": "Person",
-    "name": "Yangming Li"
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Yangming Li Blog",
+    "name": "Yangming Li",
     "logo": {
       "@type": "ImageObject",
       "url": "https://yangmingli.com/img/Logo.png"
     }
   },
-  "datePublished": "2026-05-25",
-  "dateModified": "2026-05-25",
+  "dateModified": "2026-05-31",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://yangmingli.com/testing-evaluating-copilot-agents.html"
   },
-  "keywords": "Copilot Studio, agent evaluation, AI agents, LLM evaluation, structured extraction, schema validation, human review, AI governance",
   "articleSection": "AI Engineering",
-  "wordCount": "3000",
-  "inLanguage": "en-US",
-  "isAccessibleForFree": "True"
-}
-</script>
-<script type="application/ld+json">
-{
+  "keywords": [
+    "Copilot Studio agent evaluation",
+    "LLM evaluation framework",
+    "schema validation for AI agents",
+    "RAG evaluation"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2026-05-25"
+}</script><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://yangmingli.com/"},
-    {"@type": "ListItem", "position": 2, "name": "AI Engineering", "item": "https://yangmingli.com/ai-engineering/"},
-    {"@type": "ListItem", "position": 3, "name": "Testing and Evaluating Copilot Agents", "item": "https://yangmingli.com/testing-evaluating-copilot-agents.html"}
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Testing and Evaluating Copilot Agents",
+      "item": "https://yangmingli.com/testing-evaluating-copilot-agents.html"
+    }
   ]
-}
-</script>
-</head>
-<body class="blog-post-page">
-<div class="article-progress-bar" aria-hidden="true"><span></span></div>
+}</script></head>
+<body class="blog-post-page"><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Testing and Evaluating Copilot Agents</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
 <div class="main-content">
 <div class="article-page-container">
 <header class="article-hero text-center">
@@ -144,30 +145,26 @@ body.blog-post-page .article-share-surface .email {
 <h1>Testing and Evaluating Copilot Agents: From Demo to Reliable AI System</h1>
 <p class="lead">By Yangming Li</p>
 <p class="blog-meta"><span>Published May 25, 2026</span><span>12 min read</span><span>Technical guide</span></p>
-</header>
-
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <div class="article-theme-surface">
 <span>Light</span>
 <label class="theme-switch" for="checkbox">
-<input type="checkbox" id="checkbox"/>
+<input id="checkbox" type="checkbox"/>
 <div class="slider round"></div>
 </label>
 <span>Dark</span>
 </div>
-
 <div class="article-meta-surface">
 <span><i class="fa fa-clock-o"></i> 12 min read</span>
 <span><i class="fa fa-file-text-o"></i> Approx. 3000 words</span>
 <span><i class="fa fa-code"></i> Schema-first agent testing</span>
 <p class="keywords"><strong>Keywords:</strong> Copilot Studio, agent evaluation, LLM evaluation, structured extraction, schema validation, custom graders, human review, AI governance.</p>
 </div>
-
 <div class="article-share-surface">
 <a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
 <a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
 <a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
 </div>
-
 <main class="article-prose-surface">
 <div class="article-support-grid">
 <div class="tldr-container">
@@ -186,22 +183,18 @@ body.blog-post-page .article-share-surface .email {
 </ul>
 </div>
 </div>
-
 <div class="toc-container">
 <h4>Contents</h4>
 <div id="toc"></div>
 </div>
-
 <article class="article-content">
 <blockquote>
 <p>This article uses a fully fictional and generalized example. It does not describe any specific organization, internal process, employee information, or production system.</p>
 </blockquote>
-
 <h2 id="why-testing-matters">Why Testing Matters</h2>
 <p>Building an agent in Microsoft Copilot Studio has become much easier than building a traditional custom chatbot. A maker can define instructions in natural language, connect knowledge sources, expose tools, and test a working interaction in the design surface. That speed is useful, but it also creates a trap: the first successful answer can feel like proof of reliability.</p>
 <p>For operational use cases, the harder question is not whether an agent can produce one plausible answer. The harder question is whether it can produce accurate, consistent, auditable output across a distribution of realistic inputs, including inputs that are ambiguous, incomplete, adversarial, or simply boring in the way real business text tends to be.</p>
 <p>Copilot Studio gives teams several layers of feedback: test chat during authoring, agent evaluation with reusable test sets, run-level results, activity maps, resource usage, analytics after release, and review surfaces for transcript and activity inspection. Those features are most useful when wrapped in an engineering process: data contracts, test fixtures, deterministic validators, release gates, and human-in-the-loop controls.</p>
-
 <h2 id="fictional-system">A Fictional Structured Extraction System</h2>
 <p>Imagine a team that receives already approved internal communication text. The team wants help identifying whether the message contains a structured update signal. The communication might mention a person starting a new role, a temporary assignment, a person leaving a role, a responsibility change, or no relevant event at all.</p>
 <p>A Copilot-assisted system can read the approved text and draft structured fields for review:</p>
@@ -222,7 +215,6 @@ body.blog-post-page .article-share-surface .email {
   -&gt; reviewed tracker update
   -&gt; monitoring and evaluation feedback loop</code></pre>
 <p>The important boundary is that the agent drafts; the reviewer decides. That distinction should appear in the agent instructions, the review UI, the evaluation criteria, and the access model.</p>
-
 <h2 id="output-contract">Start With An Output Contract</h2>
 <p>For structured extraction, a prose answer is usually the wrong interface. A reviewer can read prose, but downstream systems need stable fields. The first technical artifact should be an output contract that defines allowed categories, required fields, null behavior, and review gates.</p>
 <p>A simplified contract might look like this:</p>
@@ -245,15 +237,12 @@ body.blog-post-page .article-share-surface .email {
   "items": []
 }</code></pre>
 <p>That empty array is a valid business outcome. It means "no relevant update found." Without this convention, evaluators and reviewers may treat every blank result as a failure, even when the agent did the right thing.</p>
-
 <h2 id="manual-testing-to-evaluation">From Manual Testing To Evaluation Sets</h2>
 <p>Most agent projects start with manual testing. A builder asks a few questions, checks the output, adjusts the instructions, and tries again. This is useful during authoring because it exposes conversation flow, topic routing, tool availability, and obvious instruction gaps.</p>
 <p>Manual testing is not enough for release confidence. It is not repeatable, it is easy to overfit to the last prompt tried, and it rarely captures the edge cases that cause operational damage. The next step is a versioned evaluation set: a collection of input examples, expected outputs, expected tool or capability use, and grading methods.</p>
-
 <h3 id="smoke-test-set">Smoke Test Set</h3>
 <p>The smoke test set checks whether the core behavior still works. It should be small, clear, and boring. Good smoke examples include one clear new appointment, one clear interim assignment, one clear leaving-role case, one clear responsibility change, and one clear no-event case.</p>
 <p>Most smoke cases should pass. If they fail, something foundational is broken: the instructions, schema, knowledge source availability, tool authentication, or routing logic.</p>
-
 <h3 id="challenge-test-set">Challenge Test Set</h3>
 <p>The challenge set is where the system earns trust. It should include ambiguity and near misses:</p>
 <ul>
@@ -266,7 +255,6 @@ body.blog-post-page .article-share-surface .email {
 <li>A message that looks important but should produce <code>{"items": []}</code>.</li>
 </ul>
 <p>Failures in this set are not automatically bad. They are information. They tell the team where to add clearer instructions, stronger schema validation, better escalation rules, or mandatory review.</p>
-
 <h2 id="golden-dataset">Version The Golden Dataset</h2>
 <p>A test set becomes more valuable when treated like code. Each row should have a stable ID, a scenario label, an input fixture, an expected structured output, evaluation methods, and a reason the case exists. Without that metadata, teams forget why an example was added and may delete exactly the case that guards against an old regression.</p>
 <pre><code class="language-yaml">case_id: update_signal_017
@@ -286,7 +274,6 @@ evaluators:
   - custom:human_review_required_when_date_missing
 owner_note: "Protects against forcing inferred dates into the tracker."</code></pre>
 <p>This style makes the evaluation corpus inspectable. It also supports change review: if someone updates the agent instructions, changes a knowledge source, or modifies an action, the test set can show what improved and what regressed.</p>
-
 <h2 id="evaluation-methods">Choose Evaluation Methods By Failure Mode</h2>
 <p>Different evaluation methods answer different questions. A generic quality score is useful, but it should not be the only gate for structured AI systems. The grading method must match the risk.</p>
 <table class="table table-bordered">
@@ -336,7 +323,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 </tbody>
 </table>
 <p>A practical release gate combines several checks. For example: the response must be valid JSON, all smoke tests must pass exact checks for <code>event_type</code>, all no-event cases must return <code>items: []</code>, challenge cases with missing dates must set <code>requires_human_review: true</code>, and capability-use checks must pass when a case requires a specific knowledge source or tool.</p>
-
 <h2 id="empty-output">Empty Output Can Be Correct</h2>
 <p>One of the most common evaluation mistakes is treating empty output as automatically bad. In extraction systems, an empty result can be the best possible answer. If the source text contains no relevant update, the expected response should be:</p>
 <pre><code class="language-json">{
@@ -344,7 +330,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 }</code></pre>
 <p>A meaning-based evaluator may correctly recognize this as "no event found." A broad quality evaluator may see the same response as incomplete because it contains no explanation. That does not mean the agent is wrong. It means the evaluator is mismatched to the task.</p>
 <p>For no-event cases, I would use schema validation, exact match for the empty array, and a custom check that the agent did not invent an event. A reviewer note can still explain the result, but the machine-readable contract should remain clean.</p>
-
 <h2 id="deterministic-validators">Add Deterministic Validators Outside The Agent</h2>
 <p>LLM graders are useful, but they should not carry all quality responsibility. Deterministic validators should run before review and before any write action. These validators are ordinary software checks:</p>
 <ul>
@@ -357,7 +342,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 <li>The agent never returns direct instructions to update a record without review.</li>
 </ul>
 <p>These checks are intentionally simple. They reduce the problem space before a human reviewer or semantic evaluator has to think. They also make audit logs easier to read because a failed validation has a precise reason.</p>
-
 <h2 id="near-misses">Near Misses Matter More Than Obvious Failures</h2>
 <p>The most useful evaluation cases are often near misses. An obvious failure is easy to reject. A near miss looks plausible but quietly creates bad data.</p>
 <p>Examples include:</p>
@@ -369,7 +353,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 <li>The test dataset has an unrealistic expected answer, causing the evaluator to punish the correct cautious behavior.</li>
 </ul>
 <p>Near misses should feed a triage loop. Some indicate prompt or instruction changes. Some indicate schema changes. Some mean the system needs stricter human review. Some mean the test set itself is wrong. The key is to label the failure mode instead of only recording pass or fail.</p>
-
 <h2 id="release-gates">A Release Gate For Agent Changes</h2>
 <p>Agent behavior changes when instructions change, model settings change, knowledge sources change, tool permissions change, or downstream schemas change. Treat those changes as releases. A lightweight release gate can look like this:</p>
 <pre><code class="language-text">1. Update instructions, tools, knowledge, or schema in a development environment.
@@ -381,7 +364,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 7. Approve, rollback, or add new tests.
 8. Publish only when required gates pass.</code></pre>
 <p>The gate should be stricter for high-risk fields. A low-stakes note can tolerate some wording variation. A canonical category, date, or review flag should be graded more tightly. If an agent has write actions, the release gate should also verify that write actions cannot trigger without the intended approval state.</p>
-
 <h2 id="monitoring">Post-Publish Monitoring</h2>
 <p>Evaluation before release is necessary but incomplete. Real users will send inputs that the test set did not anticipate. After publishing, teams should monitor agent analytics, transcripts where appropriate, activity paths, tool errors, fallback rates, and reviewer overrides.</p>
 <p>For a structured extraction system, I would track:</p>
@@ -395,7 +377,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 <li>Regression trends after instruction or data-source updates.</li>
 </ul>
 <p>Monitoring should produce action. If reviewers repeatedly correct the same event type, add a challenge test. If validation failures cluster around dates, improve the date policy. If activity review shows unexpected tool calls, tighten capability instructions or permissions.</p>
-
 <h2 id="governance">Governance As Product Design</h2>
 <p>Governance is not a layer added after the system is built. It is part of the product design. Before scaling an agent, teams should answer concrete questions:</p>
 <ul>
@@ -409,7 +390,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 <li>How long are evaluation results, transcripts, exports, and review decisions retained?</li>
 </ul>
 <p>Good governance makes the system easier to operate. It clarifies ownership, reduces reviewer anxiety, and gives engineers a concrete basis for system boundaries.</p>
-
 <h2 id="practical-pattern">A Practical Pattern</h2>
 <p>The practical pattern is simple but powerful:</p>
 <pre><code class="language-text">Prototype
@@ -423,7 +403,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
   -&gt; analytics and activity monitoring
   -&gt; new tests from real failures</code></pre>
 <p>This is how an agent moves from demo to dependable production support. The agent remains useful because it reduces manual effort. The system remains trustworthy because it is tested, constrained, reviewed, and monitored.</p>
-
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-agent-evaluation-intro" rel="noopener noreferrer" target="_blank">Microsoft Learn: About agent evaluation in Copilot Studio</a></li>
@@ -434,7 +413,6 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 <li><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-overview" rel="noopener noreferrer" target="_blank">Microsoft Learn: Analytics overview</a></li>
 </ul>
 </article>
-
 <div class="related-reading">
 <h3>Related Reading</h3>
 <div class="related-articles">
@@ -459,23 +437,21 @@ owner_note: "Protects against forcing inferred dates into the tracker."</code></
 </div>
 </div>
 </main>
-
 <footer class="footer text-center">
-<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/ai-engineering/">AI Engineering</a></p>
+<p>© 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/ai-engineering/">AI Engineering</a></p>
 </footer>
 </div>
 </div>
-
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/blogPanel.js"></script>
-<script src="js/toc.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="js/copyCodeButton.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="js/toc.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script defer="" src="js/copyCodeButton.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('pre[class*="language-"]').forEach(function(pre) {
@@ -531,5 +507,26 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', updateProgress, { passive: true });
 });
 </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/llm-evaluation.html">LLM Evaluation</a></h3>
+<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing Copilot agents</a></h3>
+<p>Agent evaluation with test sets, graders, and release gates.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

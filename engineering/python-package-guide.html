@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" property="og:title"/><meta content="Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and." property="og:description"/><meta content="https://yangmingli.com/engineering/python-package-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" name="twitter:title"/><meta content="Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Engineering, From, Zero, One, Building, and, Publishing" name="keywords"/><link href="https://yangmingli.com/engineering/python-package-guide.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li</title>
-<meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." name="description"/>
-
 <link href="../favicon.png" rel="icon"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="../css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../css/bootstrap.min.css" rel="stylesheet"/>
 <link href="../css/style_blog.css" rel="stylesheet"/>
 <link href="../css/blog_post.css" rel="stylesheet"/>
 <link href="../css/nav.css" rel="stylesheet"/>
-<script src="../js/loadHeader.js"></script>
+<script defer="" src="../js/loadHeader.js"></script>
 <style>
         body {
             margin: 0;
@@ -249,8 +243,70 @@
             margin-top: 10px;
         }
     </style>
-<link href="https://yangmingli.com/engineering/python-package-guide.html" rel="canonical"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" property="og:title"/><meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." property="og:description"/><meta content="https://yangmingli.com/engineering/python-package-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021) | Yangming Li" name="twitter:title"/><meta content="A step-by-step guide to building, testing, documenting, and publishing a Python package from scratch. Learn best practices for modern Python packaging, testing, and automation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
-<body>
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021)",
+  "description": "Packaging your Python code is the best way to share, reuse, and distribute your work. This guide walks you through every step of building, testing, documenting, and.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/engineering/python-package-guide.html"
+  },
+  "articleSection": "Engineering",
+  "keywords": [
+    "Yangming Li",
+    "Engineering",
+    "From",
+    "Zero",
+    "One",
+    "Building",
+    "and",
+    "Publishing"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021)",
+      "item": "https://yangmingli.com/engineering/python-package-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021)</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
@@ -258,7 +314,7 @@
 <h1>From Zero to One: Building and Publishing a Python Package (Popularized 2018-2021)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -459,7 +515,7 @@ jobs:
 </div>
 </div>
 <!-- jquery -->
-<script src="../js/jquery-2.1.4.min.js"></script>
+<script defer="" src="../js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
 <script defer="" src="../js/bootstrap.min.js"></script>
 <script defer="" src="../js/scripts.js"></script>
@@ -489,5 +545,26 @@ jobs:
         }
     });
 </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI architecture and engineering practices.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Data systems, experiments, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>All technical writing by Yangming Li.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

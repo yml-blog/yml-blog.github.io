@@ -2,198 +2,214 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-05-25T22:18:54Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/about.html</loc>
-    <lastmod>2026-05-16T23:57:33Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/ai-engineering/</loc>
-    <lastmod>2026-05-25T21:42:00Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/ai-product-builder.html</loc>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/blog/</loc>
-    <lastmod>2026-05-25T21:41:28Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-product-scales-company.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/cmu-nlp-notes.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/contact.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/courses.html</loc>
-    <lastmod>2026-05-16T23:58:08Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/data-products.html</loc>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/databricks-comprehensive-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/decoder-only-architectures.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/deep-neural-networks-explained.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/docker-in-ml.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/engineering/ab-test-engineering-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/engineering/python-package-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/focus-room/</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/glm-overview.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/healthcare-ai-analytics.html</loc>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/investing-vc-risk-control-notes.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/jax-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/jira-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/key-statistical-tests-survey-analysis.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/kubernetes-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/add-two-numbers.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/median-of-two-sorted-arrays.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/leetcode-solutions/two-sum.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/llama-report-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/llm-evaluation.html</loc>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
+  </url>
+  <url>
+    <loc>https://yangmingli.com/machine-learning-nlp.html</loc>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/machine-unlearning-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mcp-protocol-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-computation-structures-notes.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-computer-systems-notes.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mit-datastructure-notes.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/mlops-essential-skills.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/n8n-ai-workflows.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/polars-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/product-success-essence.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/projects.html</loc>
-    <lastmod>2026-05-16T23:57:40Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/pytorch-review01.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/question-delete-before-automation.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/random-forest-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/ray_explanation.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/resume.html</loc>
-    <lastmod>2026-05-16T23:58:15Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/sentiment-analysis-fine-tune-with-bert.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
-  </url>
-  <url>
-    <loc>https://yangmingli.com/sentiment-analysis-fine-tune-with-bert2.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/taste-in-science-and-technology.html</loc>
-    <lastmod>2026-05-16T23:58:22Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/testing-evaluating-copilot-agents.html</loc>
-    <lastmod>2026-05-25T21:30:49Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/trust-worth-machine-learning-1.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/uqlm-teaching-guide.html</loc>
-    <lastmod>2026-05-09T21:11:51Z</lastmod>
+    <lastmod>2026-05-31T23:57:32Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><title>LLM Evaluation Frameworks, RAG Evaluation, and AI Agent Testing | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="A practical Yangming Li pillar on LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="LLM Evaluation Frameworks, RAG Evaluation, and AI Agent Testing | Yangming Li" property="og:title"/><meta content="A practical Yangming Li pillar on LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." property="og:description"/><meta content="https://yangmingli.com/llm-evaluation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="LLM Evaluation Frameworks, RAG Evaluation, and AI Agent Testing | Yangming Li" name="twitter:title"/><meta content="A practical Yangming Li pillar on LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="LLM Evaluation, Yangming Li, Applied AI, LLM systems, Data products, AI evaluation" name="keywords"/><link href="https://yangmingli.com/llm-evaluation.html" rel="canonical"/>
+<meta charset="utf-8"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/favicon.png" rel="icon"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<script defer="" src="/js/i18n.js"></script>
+<style>
+body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
+.pillar-page { max-width: 1080px; margin: 0 auto; padding: 40px 20px 64px; }
+.pillar-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+.pillar-nav a, .pillar-page a { color: #0f766e; font-weight: 700; }
+.pillar-hero { border-bottom: 1px solid #d9e2ec; margin-bottom: 30px; padding-bottom: 28px; }
+.eyebrow { color: #b45309; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+h1 { color: #111827; font-size: 44px; line-height: 1.12; margin: 10px 0 16px; }
+h2 { color: #111827; font-size: 25px; margin: 34px 0 13px; }
+h3 { color: #111827; font-size: 19px; margin: 0 0 8px; }
+p, li { color: #52606d; font-size: 17px; line-height: 1.75; }
+.lead { max-width: 830px; color: #52606d; font-size: 18px; line-height: 1.7; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px; }
+.pillar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+.pillar-footer-links { margin-top: 34px; padding-top: 20px; border-top: 1px solid #d9e2ec; }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "LLM Evaluation",
+  "url": "https://yangmingli.com/llm-evaluation.html",
+  "description": "A practical Yangming Li pillar on LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@id": "https://yangmingli.com/#website"
+  },
+  "about": {
+    "@type": "Person",
+    "@id": "https://yangmingli.com/#yangming-li",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/",
+    "image": "https://yangmingli.com/img/Logo.png",
+    "jobTitle": "Applied AI Engineer, Data Scientist, and AI Product Builder",
+    "description": "Yangming Li writes about applied AI systems, LLM systems, RAG, AI evaluation, statistical machine learning, NLP, data engineering, data products, experiment infrastructure, and AI product thinking.",
+    "sameAs": [
+      "https://www.linkedin.com/in/yangming-li-tech/",
+      "https://github.com/yml-blog",
+      "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en"
+    ],
+    "knowsAbout": [
+      "Applied AI",
+      "LLM systems",
+      "Retrieval-Augmented Generation",
+      "AI evaluation",
+      "Schema validation for AI agents",
+      "Statistical machine learning",
+      "Natural language processing",
+      "Data engineering",
+      "AI data products",
+      "Experiment infrastructure",
+      "AI product thinking"
+    ]
+  },
+  "mainEntity": {
+    "@id": "https://yangmingli.com/#yangming-li"
+  }
+}</script>
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "LLM Evaluation Frameworks, RAG Evaluation, and AI Agent Testing",
+      "item": "https://yangmingli.com/llm-evaluation.html"
+    }
+  ]
+}</script></head>
+<body>
+<main class="pillar-page">
+<nav aria-label="Primary" class="pillar-nav">
+<a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
+</nav>
+<section class="pillar-hero">
+<span class="eyebrow">Pillar Page</span>
+<h1>LLM Evaluation</h1>
+<p class="lead">A practical pillar page for evaluating LLM systems, RAG workflows, Copilot-style agents, structured extraction, uncertainty, schema validation, and production monitoring.</p>
+</section>
+<section><h2>Start here</h2>
+<p>LLM evaluation should begin with the product risk, not with a leaderboard metric. A chat assistant, a retrieval answer system, a document extraction workflow, and an agent that calls tools all fail differently. The evaluation design has to match the failure mode. Yangming Li's writing emphasizes repeatable test sets, explicit output contracts, deterministic validators, human review, and monitoring after launch.</p>
+<p>Start with a small golden set: ordinary examples that must pass, edge cases that reveal ambiguity, and no-answer cases that punish invention. Then add graders only after the contract is clear. Model-based graders can help with semantic comparison, but schema validation, exact matching, source checks, and business rules should carry the first layer of trust.</p>
+</section>
+<section><h2>A useful LLM evaluation framework</h2>
+<p>A useful framework has four layers. The first layer is task definition: what the user is trying to accomplish, what sources are allowed, what the model may produce, and when it must refuse or escalate. The second layer is test data: stable fixtures, expected outputs, scenario labels, and reasons each case exists. The third layer is grading: exact match for canonical fields, schema validation for structure, retrieval checks for grounding, semantic comparison for meaning, and custom rules for product constraints. The fourth layer is operations: dashboards, regression history, sampled human review, incident notes, and release decisions.</p>
+<p>This structure keeps evaluation from becoming a single score detached from reality. A system can be fluent and still unsafe. It can retrieve a relevant source and still misread it. It can produce valid JSON and still choose the wrong category. Good evaluation makes those differences visible.</p>
+</section>
+<section><h2>RAG evaluation</h2>
+<p>RAG evaluation needs to inspect both retrieval and generation. Retrieval quality asks whether the system found the right evidence: source recall, chunk relevance, metadata quality, freshness, deduplication, and access control. Generation quality asks whether the answer used the evidence correctly: factual consistency, citation coverage, answer completeness, uncertainty handling, and refusal behavior when the corpus does not support an answer.</p>
+<p>The most common production failure modes are quiet. The system may answer from an outdated chunk, cite a source that only partially supports the claim, summarize across conflicting documents without saying so, or retrieve from the right domain but the wrong policy version. A RAG test set should include stale documents, conflicting sources, missing evidence, ambiguous acronyms, and questions where the correct answer is to ask for clarification.</p>
+</section>
+<section><h2>Schema validation for AI agents</h2>
+<p>Agent evaluation becomes much clearer when the output is structured. If an agent extracts events, writes tickets, updates a tracker, or routes a request, the response should pass a contract before it can affect downstream systems. JSON schema validation can check required fields, enums, date formats, null handling, array lengths, and field-level descriptions. Deterministic checks can then enforce business rules that are not purely syntactic.</p>
+<p>This is not only a backend concern. The schema is also a product artifact. It tells reviewers what the agent is trying to do, shows where uncertainty belongs, and makes human corrections reusable as evaluation data. The agent can draft; the reviewer decides.</p>
+</section>
+<section><h2>Common production failure modes</h2>
+<p>Evaluation should deliberately search for near misses. In RAG, a near miss might retrieve the right policy family but the wrong version. In extraction, it might choose a plausible category that does not match the approved taxonomy. In an agent workflow, it might call a tool successfully while using a stale assumption. These failures are dangerous because they look professional in a demo and only become obvious when a reviewer checks evidence.</p>
+<p>A good LLM evaluation framework therefore includes negative cases, no-answer cases, conflict cases, malformed inputs, and examples where the correct behavior is escalation. It also keeps track of why a case exists. Without that reason, future maintainers may delete the exact scenario that protects the system from repeating an old incident.</p>
+</section>
+<section><h2>Architecture notes</h2>
+<p>For a lightweight implementation, store evaluation cases as versioned data with fields for scenario, input, expected behavior, grading method, and failure rationale. Run deterministic checks first because they are cheap and explainable. Then use model-based graders for semantic comparison where exact matching is too brittle. Keep the results linked to prompt versions, model settings, retrieval index versions, and schema versions so a regression can be traced to a real change.</p>
+</section>
+<section><h2>What to monitor after launch</h2>
+<ul>
+<li>Schema validity, empty-output rate, escalation rate, and human correction rate.</li>
+<li>Retrieval source coverage, citation quality, stale-source usage, and no-answer behavior.</li>
+<li>Latency, token cost, tool-call failures, timeout rate, and retry patterns.</li>
+<li>Regression results by scenario, prompt version, model setting, and knowledge-source version.</li>
+<li>User feedback, reviewer disagreement, incident notes, and examples that should become new tests.</li>
+</ul>
+</section>
+<section aria-labelledby="related-writing-title">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="pillar-grid">
+<article class="pillar-card">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3>
+<p>A concrete agent testing workflow with schema contracts and release gates.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/uqlm-teaching-guide.html">Uncertainty quantification for LLMs</a></h3>
+<p>Confidence and uncertainty signals for safer LLM review workflows.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>The broader production AI architecture pillar.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3>
+<p>Integration boundaries for tool-connected AI systems.</p>
+</article>
+</div>
+</section>
+<section aria-label="Site links" class="pillar-footer-links">
+<p><a href="/">Home</a> · <a href="/about.html">About</a> · <a href="/projects.html">Projects</a> · <a href="/blog/">Blog</a> · <a href="/resume.html">Resume</a> · <a href="/contact.html">Contact</a></p>
+</section>
+</main>
+
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
+</html>

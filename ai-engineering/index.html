@@ -1,99 +1,175 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
+<head><title>AI Engineering | Yangming Li Applied AI Systems</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Yangming Li's AI engineering pillar on LLM systems, RAG, agent evaluation, MLOps, schema validation, observability, and production AI architecture." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="AI Engineering | Yangming Li Applied AI Systems" property="og:title"/><meta content="Yangming Li's AI engineering pillar on LLM systems, RAG, agent evaluation, MLOps, schema validation, observability, and production AI architecture." property="og:description"/><meta content="https://yangmingli.com/ai-engineering/" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="AI Engineering | Yangming Li Applied AI Systems" name="twitter:title"/><meta content="Yangming Li's AI engineering pillar on LLM systems, RAG, agent evaluation, MLOps, schema validation, observability, and production AI architecture." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="AI Engineering, Yangming Li, Applied AI, LLM systems, Data products, AI evaluation" name="keywords"/><link href="https://yangmingli.com/ai-engineering/" rel="canonical"/>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AI Engineering | Yangming Li</title>
-<meta content="AI Engineering notes by Yangming Li on LLM systems, AI system architecture, MLOps, evaluation, deployment, and production data systems." name="description"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="website" property="og:type"/>
-<meta content="Yangming Li" property="og:site_name"/>
-<meta content="AI Engineering | Yangming Li" property="og:title"/>
-<meta content="Practical AI Engineering notes on LLM systems, AI system architecture, MLOps, evaluation, deployment, and production data systems." property="og:description"/>
-<meta content="https://yangmingli.com/ai-engineering/" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="AI Engineering | Yangming Li" name="twitter:title"/>
-<meta content="Practical AI Engineering notes on LLM systems, AI system architecture, MLOps, evaluation, deployment, and production data systems." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="/css/font-awesome.min.css" rel="stylesheet"/>
-<link href="/css/style.css" rel="stylesheet"/>
-<script defer="" src="/js/i18n.js"></script>
-<link href="https://yangmingli.com/ai-engineering/" rel="canonical"/>
-<style>
-  body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
-  .section-page { max-width: 1080px; margin: 0 auto; padding: 40px 20px 64px; }
-  .section-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
-  .section-nav a { color: #0f766e; font-weight: 600; }
-  .hero { border-bottom: 1px solid #d9e2ec; margin-bottom: 30px; padding-bottom: 28px; }
-  .eyebrow { color: #b45309; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  h1 { color: #111827; font-size: 44px; line-height: 1.12; margin: 10px 0 16px; }
-  .lead { color: #52606d; font-size: 18px; line-height: 1.7; max-width: 780px; }
-  h2 { color: #111827; font-size: 24px; margin: 32px 0 16px; }
-  .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-  .article-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; min-height: 178px; }
-  .article-card h3 { font-size: 19px; line-height: 1.35; margin: 0 0 10px; }
-  .article-card a { color: #111827; }
-  .article-card p { color: #52606d; line-height: 1.6; margin: 0; }
-  .tag { display: inline-block; margin-bottom: 12px; color: #0f766e; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-  .note { color: #52606d; line-height: 1.7; max-width: 820px; }
-</style>
 <link href="/css/typography.css" rel="stylesheet"/>
-<script type="application/ld+json">
-{
+<script defer="" src="/js/i18n.js"></script>
+<style>
+body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
+.pillar-page { max-width: 1080px; margin: 0 auto; padding: 40px 20px 64px; }
+.pillar-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+.pillar-nav a, .pillar-page a { color: #0f766e; font-weight: 700; }
+.pillar-hero { border-bottom: 1px solid #d9e2ec; margin-bottom: 30px; padding-bottom: 28px; }
+.eyebrow { color: #b45309; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+h1 { color: #111827; font-size: 44px; line-height: 1.12; margin: 10px 0 16px; }
+h2 { color: #111827; font-size: 25px; margin: 34px 0 13px; }
+h3 { color: #111827; font-size: 19px; margin: 0 0 8px; }
+p, li { color: #52606d; font-size: 17px; line-height: 1.75; }
+.lead { max-width: 830px; color: #52606d; font-size: 18px; line-height: 1.7; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px; }
+.pillar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+.pillar-footer-links { margin-top: 34px; padding-top: 20px; border-top: 1px solid #d9e2ec; }
+</style>
+<script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
+  "@type": "WebPage",
   "name": "AI Engineering",
   "url": "https://yangmingli.com/ai-engineering/",
-  "description": "AI Engineering notes by Yangming Li on LLM systems, AI system architecture, MLOps, evaluation, deployment, and production data systems.",
+  "description": "Yangming Li's AI engineering pillar on LLM systems, RAG, agent evaluation, MLOps, schema validation, observability, and production AI architecture.",
+  "inLanguage": "en",
   "isPartOf": {
-    "@type": "Blog",
-    "name": "Yangming Li Blog",
-    "url": "https://yangmingli.com/blog/"
+    "@id": "https://yangmingli.com/#website"
+  },
+  "about": {
+    "@type": "Person",
+    "@id": "https://yangmingli.com/#yangming-li",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/",
+    "image": "https://yangmingli.com/img/Logo.png",
+    "jobTitle": "Applied AI Engineer, Data Scientist, and AI Product Builder",
+    "description": "Yangming Li writes about applied AI systems, LLM systems, RAG, AI evaluation, statistical machine learning, NLP, data engineering, data products, experiment infrastructure, and AI product thinking.",
+    "sameAs": [
+      "https://www.linkedin.com/in/yangming-li-tech/",
+      "https://github.com/yml-blog",
+      "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en"
+    ],
+    "knowsAbout": [
+      "Applied AI",
+      "LLM systems",
+      "Retrieval-Augmented Generation",
+      "AI evaluation",
+      "Schema validation for AI agents",
+      "Statistical machine learning",
+      "Natural language processing",
+      "Data engineering",
+      "AI data products",
+      "Experiment infrastructure",
+      "AI product thinking"
+    ]
+  },
+  "mainEntity": {
+    "@id": "https://yangmingli.com/#yangming-li"
   }
-}
-</script>
-</head>
+}</script>
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Engineering",
+      "item": "https://yangmingli.com/ai-engineering/"
+    }
+  ]
+}</script></head>
 <body>
-<main class="section-page">
-<nav aria-label="Primary" class="section-nav">
-<a href="/">Home</a>
-<a href="/blog/">Blog</a>
-<a href="/projects.html">Projects</a>
-<a href="/resume.html">Resume</a>
-<a href="/contact.html">Contact</a>
+<main class="pillar-page">
+<nav aria-label="Primary" class="pillar-nav">
+<a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
 </nav>
-<section class="hero">
-<span class="eyebrow">Dedicated Column</span>
+<section class="pillar-hero">
+<span class="eyebrow">Pillar Page</span>
 <h1>AI Engineering</h1>
-<p class="lead">Practical notes on building production AI systems: LLM applications, agent architecture, evaluation, retrieval, MLOps, deployment, observability, and the data platforms underneath them.</p>
+<p class="lead">A crawlable guide to Yangming Li's applied AI engineering focus: LLM systems, retrieval, evaluation, data contracts, MLOps, observability, and the practical work that turns prototypes into reliable products.</p>
 </section>
-<h2>LLM Systems and Agents</h2>
-<div class="article-grid">
-<article class="article-card"><span class="tag">2026 · Agent Evaluation</span><h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3><p>A technical guide to schema contracts, test sets, custom graders, release gates, human review, and monitoring for Copilot Studio agents.</p></article>
-<article class="article-card"><span class="tag">2025 · LLM Systems</span><h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3><p>How connected AI tools use external data, tool calls, and services.</p></article>
-<article class="article-card"><span class="tag">2025 · Agents</span><h3><a href="/n8n-ai-workflows.html">Agentic AI systems with n8n</a></h3><p>A technical guide to agent architecture, system integration, and production constraints.</p></article>
-<article class="article-card"><span class="tag">2025 · Document AI</span><h3><a href="/llama-report-guide.html">Enterprise document transformation agent</a></h3><p>Building document intelligence systems with LlamaReport and LlamaCloud.</p></article>
-<article class="article-card"><span class="tag">2025 · Evaluation</span><h3><a href="/uqlm-teaching-guide.html">Uncertainty quantification for LLMs</a></h3><p>A hands-on guide for understanding confidence and uncertainty in LLM output.</p></article>
+<section><h2>Start here</h2>
+<p>Start with the engineering question behind any AI product: what should the system be allowed to do, how will the output be checked, and what evidence would convince a reviewer that it is ready to ship? Yangming Li's writing treats AI engineering as more than prompt craft. It includes data preparation, retrieval architecture, tool boundaries, schema validation, release gates, human review, and monitoring after launch.</p>
+<p>If you are new to this site, read the Copilot agent evaluation article first, then move to the Model Context Protocol and MLOps notes. Those pieces show the same pattern from different angles: useful AI systems need contracts, test cases, operational feedback, and clear ownership.</p>
+</section>
+<section><h2>What AI engineering means on this site</h2>
+<p>AI engineering sits between machine learning research, software engineering, data engineering, and product design. The model is only one component. A dependable system also needs a knowledge source strategy, a permission model, a data quality story, a review process, and a plan for drift. For LLM applications, the failure modes are often product failures as much as model failures: the agent answers the wrong question, calls the wrong tool, extracts fields in an unusable shape, or produces output that looks plausible but cannot be audited.</p>
+<p>The practical lens here is deliberately conservative. A retrieval or agent workflow should prefer explicit contracts over vague expectations. A structured extraction task should validate JSON before downstream systems touch it. A RAG application should track source coverage and citation quality, not just answer fluency. A product feature should define escalation paths for low confidence, missing evidence, policy conflicts, and ambiguous user intent.</p>
+</section>
+<section><h2>Architecture notes</h2>
+<p>A healthy production AI architecture separates concerns. The application layer owns user experience and workflow boundaries. The orchestration layer owns prompts, tools, schemas, and routing. The retrieval layer owns chunking, indexing, ranking, grounding, and source metadata. The evaluation layer owns fixtures, graders, regression checks, and release gates. The monitoring layer watches quality, cost, latency, refusal patterns, user corrections, and incidents.</p>
+<p>This separation matters because AI systems change frequently. Model settings change, prompts change, knowledge sources change, tool permissions change, and downstream schemas change. Without versioned configuration and repeatable evaluation, teams only discover regressions through user complaints. A lighter but better default is to treat each meaningful change as a release: run smoke cases, run challenge cases, validate schema output, review samples, and record what changed.</p>
+</section>
+<section><h2>Evaluation checklist</h2>
+<ul>
+<li>Define the user task, the allowed sources, the output contract, and the action boundary.</li>
+<li>Build smoke tests for ordinary cases and challenge tests for ambiguity, missing evidence, adversarial wording, and no-answer cases.</li>
+<li>Use deterministic validators for structure, required fields, ranges, and business rules before using model-based graders.</li>
+<li>Measure answer quality, source grounding, schema validity, latency, cost, escalation rate, and human correction rate.</li>
+<li>Document rollback conditions and keep human review where incorrect automation would create operational risk.</li>
+</ul>
+</section>
+<section><h2>Common production failure modes</h2>
+<p>The most useful AI engineering reviews look for boring but expensive failures. A retrieval workflow can silently answer from stale or incomplete sources. An agent can call the right tool with the wrong arguments. A structured extraction system can produce valid JSON that is semantically wrong. A summarizer can erase uncertainty and make weak evidence sound certain. A product can also fail because the review queue, access model, or escalation path was never designed.</p>
+<p>These failures are not solved by a better prompt alone. They need layered controls: source freshness checks, schema validators, deterministic business rules, sample review, prompt and configuration versioning, and incident examples that become regression tests. When a team can explain what broke, which version broke it, and which test will prevent it next time, the AI system starts to behave like an engineered product rather than a one-off experiment.</p>
+</section>
+<section><h2>Related implementation examples</h2>
+<p>A small but realistic implementation might combine a retrieval index, a structured response schema, a validation function, a human review screen, and an evaluation notebook. Another example might connect an agent to a workflow tool but keep writes behind an approval step. A third might score LLM output uncertainty and route low-confidence answers to review. The specific stack can change; the engineering habit is the same: make assumptions explicit, make outputs inspectable, and make regressions repeatable.</p>
+</section>
+<section><h2>Related writing</h2>
+<p>The related articles below connect architecture to implementation. They cover Copilot Studio evaluation, uncertainty quantification for LLMs, MCP integration, agentic workflows, document AI, MLOps, and Docker-based reproducibility. Together they form a practical map for moving from an impressive demo to a system that can be reviewed, monitored, and improved.</p>
+</section>
+<section aria-labelledby="related-writing-title">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="pillar-grid">
+<article class="pillar-card">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3>
+<p>Schema-first evaluation and release gates for agent workflows.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/llm-evaluation.html">LLM evaluation</a></h3>
+<p>Evaluation patterns for RAG, agents, structured extraction, and uncertainty.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3>
+<p>Tool and context integration patterns for connected AI systems.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/mlops-essential-skills.html">MLOps essential skills</a></h3>
+<p>Production ML delivery, monitoring, and operational foundations.</p>
+</article>
 </div>
-<h2>Production ML and MLOps</h2>
-<div class="article-grid">
-<article class="article-card"><span class="tag">2024 · MLOps</span><h3><a href="/mlops-essential-skills.html">MLOps essential skills</a></h3><p>Model management and deployment foundations for production ML work.</p></article>
-<article class="article-card"><span class="tag">2024 · Containers</span><h3><a href="/docker-in-ml.html">Docker for machine learning</a></h3><p>Using Docker for reproducible data science and machine learning environments.</p></article>
-<article class="article-card"><span class="tag">2025 · Distributed ML</span><h3><a href="/ray_explanation.html">Ray for distributed ML</a></h3><p>Distributed compute patterns for machine learning workloads.</p></article>
-<article class="article-card"><span class="tag">2025 · Trust</span><h3><a href="/trust-worth-machine-learning-1.html">Trustworthy machine learning</a></h3><p>Notes on transparency, fairness, privacy, robustness, and accountability.</p></article>
-</div>
-<h2>AI Infrastructure</h2>
-<div class="article-grid">
-<article class="article-card"><span class="tag">2024 · Data Platform</span><h3><a href="/databricks-comprehensive-guide.html">Databricks lakehouse guide</a></h3><p>Delta Lake, MLflow, Unity Catalog, and data platform implementation notes.</p></article>
-<article class="article-card"><span class="tag">2024 · Cloud Native</span><h3><a href="/kubernetes-guide.html">Kubernetes guide</a></h3><p>Container orchestration concepts and implementation patterns.</p></article>
-<article class="article-card"><span class="tag">2025 · ML Frameworks</span><h3><a href="/jax-guide.html">Deep learning engineering with JAX</a></h3><p>High-performance machine learning and numerical computing patterns.</p></article>
-<article class="article-card"><span class="tag">2025 · Packaging</span><h3><a href="/engineering/python-package-guide.html">Building and publishing a Python package</a></h3><p>Modern Python packaging, testing, documentation, and release automation.</p></article>
-</div>
-<h2>Editorial Scope</h2>
-<p class="note">This column is for the engineering layer between AI demos and dependable products: system design, integration, evaluation, reliability, data quality, deployment, and developer tooling. General ML theory still appears in the main blog, while this page collects the posts closest to shipping AI systems.</p>
+</section>
+<section aria-label="Site links" class="pillar-footer-links">
+<p><a href="/">Home</a> · <a href="/about.html">About</a> · <a href="/projects.html">Projects</a> · <a href="/blog/">Blog</a> · <a href="/resume.html">Resume</a> · <a href="/contact.html">Contact</a></p>
+</section>
 </main>
-</body>
+
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

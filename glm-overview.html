@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Generalized Linear Models (GLMs) are a powerful statistical framework designed to address various types of response variables beyond the assumptions of classical." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li" property="og:title"/><meta content="Generalized Linear Models (GLMs) are a powerful statistical framework designed to address various types of response variables beyond the assumptions of classical." property="og:description"/><meta content="https://yangmingli.com/glm-overview.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li" name="twitter:title"/><meta content="Generalized Linear Models (GLMs) are a powerful statistical framework designed to address various types of response variables beyond the assumptions of classical." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Machine Learning &amp; NLP, Generalized, Linear, Models, GLM, Popularized, 1972" name="keywords"/><link href="https://yangmingli.com/glm-overview.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,8 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -33,7 +31,7 @@ h1 {
 <link href="css/style_blog.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -161,10 +159,71 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li Generalized Linear Models (GLM) (Popularized 1972-1985)  Light Dark 20 min read Approx." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li" property="og:title"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li Generalized Linear Models (GLM) (Popularized 1972-1985)  Light Dark 20 min read Approx." property="og:description"/><meta content="https://yangmingli.com/glm-overview.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li" name="twitter:title"/><meta content="Generalized Linear Models (GLM) (Popularized 1972-1985) | Yangming Li Generalized Linear Models (GLM) (Popularized 1972-1985)  Light Dark 20 min read Approx." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Generalized Linear Models (GLM): A Comprehensive Ove... | Yangming Li", "description": "By Yangming Li...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/glm-overview.html"}}</script> <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/glm-overview.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style> <!-- Canonical URL -->
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Generalized Linear Models (GLM) (Popularized 1972-1985)",
+  "description": "Generalized Linear Models (GLMs) are a powerful statistical framework designed to address various types of response variables beyond the assumptions of classical.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/glm-overview.html"
+  },
+  "articleSection": "Machine Learning & NLP",
+  "keywords": [
+    "Yangming Li",
+    "Machine Learning & NLP",
+    "Generalized",
+    "Linear",
+    "Models",
+    "GLM",
+    "Popularized",
+    "1972"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Generalized Linear Models (GLM) (Popularized 1972-1985)",
+      "item": "https://yangmingli.com/glm-overview.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Generalized Linear Models (GLM) (Popularized 1972-1985)</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
@@ -172,7 +231,7 @@ h1 {
 <h1>Generalized Linear Models (GLM) (Popularized 1972-1985)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -395,7 +454,7 @@ print(results.summary())
         }
     </style>
 <!-- Scripts -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
 <script>
@@ -423,5 +482,26 @@ print(results.summary())
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/machine-learning-nlp.html">Machine Learning and NLP</a></h3>
+<p>Statistical ML, NLP, topic modeling, and trustworthy ML.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/healthcare-ai-analytics.html">Healthcare AI analytics</a></h3>
+<p>Healthcare-style NLP, complaint themes, and review workflows.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/trust-worth-machine-learning-1.html">Trustworthy ML</a></h3>
+<p>Transparency, fairness, privacy, robustness, and accountability.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html> 

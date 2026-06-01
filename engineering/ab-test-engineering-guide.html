@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" property="og:title"/><meta content="The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting." property="og:description"/><meta content="https://yangmingli.com/engineering/ab-test-engineering-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" name="twitter:title"/><meta content="The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Engineering, Feature, Gates, Experiments, Practical, Guide" name="keywords"/><link href="https://yangmingli.com/engineering/ab-test-engineering-guide.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li</title>
-<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." name="description"/>
-
 <link href="../favicon.png" rel="icon"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <!-- Open Graph -->
-<meta content="article" property="og:type"/>
-<meta content="Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" property="og:title"/>
-<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." property="og:description"/>
-<meta content="https://yangmingli.com/engineering/ab-test-engineering-guide.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li" property="og:site_name"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="Yangming Li" property="article:author"/>
 <meta content="2024-12-19T00:00:00+00:00" property="article:published_time"/>
@@ -25,10 +13,6 @@
 <meta content="Engineering" property="article:section"/>
 <meta content="A/B测试, 实验设计, 工程化, CUPED, 序贯检验" property="article:tag"/>
 <!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015) | Yangming Li" name="twitter:title"/>
-<meta content="A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power &amp; MDE, CUPED/CURE variance reduction, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <link href="../css/font-awesome.min.css" rel="stylesheet"/>
@@ -39,7 +23,7 @@
 <!-- Prism.js for code highlighting -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet"/>
-<script src="../js/loadHeader.js"></script>
+<script defer="" src="../js/loadHeader.js"></script>
 <style>
         body {
             margin: 0;
@@ -453,90 +437,78 @@
         }
     </style>
 <!-- JSON-LD structured data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Feature Gates = Experiments: An Engineering Guide to A/B Testing (Popularized 2010-2015)",
-      "description": "A practical engineering guide to A/B testing at scale: value and culture, platform evolution, power & MDE, CUPED/CURE, Bayesian vs. frequentist, sequential testing, SOPs, pitfalls, and resources.",
-      "image": "https://yangmingli.com/img/Logo.png",
-      "datePublished": "2024-12-19T00:00:00+00:00",
-      "dateModified": "2024-12-19T00:00:00+00:00",
-      "author": {
-        "@type": "Person",
-        "name": "Yangming Li",
-        "url": "https://yangmingli.com/",
-        "jobTitle": "AI Engineer & Product Manager",
-        "knowsAbout": ["Machine Learning", "Artificial Intelligence", "Data Science", "Product Management", "MLOps", "Deep Learning", "A/B Testing", "Experimental Design"],
-        "alumniOf": ["University of Victoria", "University of Waterloo"],
-        "sameAs": [
-          "https://www.linkedin.com/in/yangmingli/",
-          "https://github.com/yml-blog"
-        ],
-        "knowsLanguage": ["en", "zh"]
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Yangming Li Blog",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://yangmingli.com/img/Logo.png"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://yangmingli.com/engineering/ab-test-engineering-guide.html"
-      },
-      "keywords": "A/B testing, experimentation, engineering, feature gate, CUPED, sequential testing, MDE, power, experiment platform, variance reduction",
-      "articleSection": "Engineering",
-      "wordCount": "8000",
-      "inLanguage": ["en-US"],
-      "about": {
-        "@type": "Thing",
-        "name": "A/B Testing Engineering",
-        "description": "Technical content about A/B testing engineering and experimental design"
-      },
-      "isAccessibleForFree": "True",
-      "timeRequired": "PT15M",
-      "abstract": "Engineering A/B testing at scale with CUPED, sequential testing, platform design, SOPs, and governance."
-    }
-    </script>
 <!-- Breadcrumb structured data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://yangmingli.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Engineering",
-          "item": "https://yangmingli.com/engineering/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Feature Gates = Experiments: An Engineering Guide to A/B",
-          "item": "https://yangmingli.com/engineering/ab-test-engineering-guide.html"
-        }
-      ]
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)",
+  "description": "The value of experimentation comes from surprises — not proving intuition. Make feature gates and experiments the same object so that shipping equals experimenting.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
     }
-    </script>
-<link href="https://yangmingli.com/engineering/ab-test-engineering-guide.html" rel="canonical"/></head>
-<body>
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/engineering/ab-test-engineering-guide.html"
+  },
+  "articleSection": "Engineering",
+  "keywords": [
+    "Yangming Li",
+    "Engineering",
+    "Feature",
+    "Gates",
+    "Experiments",
+    "Practical",
+    "Guide"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2024-12-19"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)",
+      "item": "https://yangmingli.com/engineering/ab-test-engineering-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)</span>
+</nav>
 <div class="container">
 <header class="header">
 <div class="content text-center">
 <h1>Feature Gates = Experiments: A Practical Engineering Guide to A/B Testing (Popularized 2010-2015)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -732,17 +704,17 @@
 <p>© 2024 Yangming Li. All rights reserved. | <a href="../">Home</a></p>
 </footer>
 </div>
-<script src="../js/jquery-2.1.4.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/scripts.js"></script>
-<script src="../js/blogPanel.js"></script>
-<script src="../js/toc.js"></script>
+<script defer="" src="../js/jquery-2.1.4.min.js"></script>
+<script defer="" src="../js/bootstrap.min.js"></script>
+<script defer="" src="../js/scripts.js"></script>
+<script defer="" src="../js/blogPanel.js"></script>
+<script defer="" src="../js/toc.js"></script>
 <!-- Prism.js for code highlighting -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
-<script src="../js/copyCodeButton.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+<script defer="" src="../js/copyCodeButton.js"></script>
 <script>
         // Add code language headers to code blocks
         document.addEventListener('DOMContentLoaded', function() {
@@ -796,5 +768,26 @@
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI architecture and engineering practices.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Data systems, experiments, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>All technical writing by Yangming Li.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

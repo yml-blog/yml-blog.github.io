@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="My study notes from MIT's Computation Structures (6.004) course, covering digital systems design, Boolean logic, computer architecture, and assembly language." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li" property="og:title"/><meta content="My study notes from MIT's Computation Structures (6.004) course, covering digital systems design, Boolean logic, computer architecture, and assembly language." property="og:description"/><meta content="https://yangmingli.com/mit-computation-structures-notes.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li" name="twitter:title"/><meta content="My study notes from MIT's Computation Structures (6.004) course, covering digital systems design, Boolean logic, computer architecture, and assembly language." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Engineering, MIT, Computation, Structures, 004, Course, Notes" name="keywords"/><link href="https://yangmingli.com/mit-computation-structures-notes.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,8 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -33,7 +31,7 @@ h1 {
 <link href="css/style_blog.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         .main-content .container {
             max-width: 98%;
@@ -207,17 +205,78 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li" property="og:title"/><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." property="og:description"/><meta content="https://yangmingli.com/mit-computation-structures-notes.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985) | Yangming Li" name="twitter:title"/><meta content="My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "MIT Computation Structures Course Notes (Popularized 1970-1985) - Yangming's Blog | Yangming Li", "description": "My study notes from MIT's Principles of Computer Systems (6.826) course, covering fundamental principles of computer systems design and implementation.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/mit-computer-systems-notes.html"}}</script> <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/mit-computation-structures-notes.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style> <!-- Canonical URL -->
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985)",
+  "description": "My study notes from MIT's Computation Structures (6.004) course, covering digital systems design, Boolean logic, computer architecture, and assembly language.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/mit-computation-structures-notes.html"
+  },
+  "articleSection": "Engineering",
+  "keywords": [
+    "Yangming Li",
+    "Engineering",
+    "MIT",
+    "Computation",
+    "Structures",
+    "004",
+    "Course",
+    "Notes"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985)",
+      "item": "https://yangmingli.com/mit-computation-structures-notes.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985)</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
 <div class="content text-center">
 <h1>MIT Computation Structures (6.004) Course Notes (Popularized 1970-1985)</h1>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -263,7 +322,7 @@ h1 {
 </div>
 </div>
 <!-- Scripts -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
 <script defer="" src="js/blogPanel.js"></script>
@@ -292,5 +351,26 @@ h1 {
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI architecture and engineering practices.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Data systems, experiments, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>All technical writing by Yangming Li.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html> 

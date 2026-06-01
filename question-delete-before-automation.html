@@ -1,63 +1,19 @@
 <!DOCTYPE html>
 
-<html lang="zh-CN">
-<head>
+<html lang="en">
+<head><title>做产品和工程优化时，先别急着自动化 | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="一个特别重要的规则是： 每个需求都必须对应到一个具体的人，而不是一个部门。 “法务要求的”“运营那边说的”“客户成功团队希望的”都不够，因为部门不会回答问题，也不会承担后果，只有具体的人会。 Includes practical notes on implementation, evaluation, trade-offs." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="做产品和工程优化时，先别急着自动化 | Yangming Li" property="og:title"/><meta content="一个特别重要的规则是： 每个需求都必须对应到一个具体的人，而不是一个部门。 “法务要求的”“运营那边说的”“客户成功团队希望的”都不够，因为部门不会回答问题，也不会承担后果，只有具体的人会。 Includes practical notes on implementation, evaluation, trade-offs." property="og:description"/><meta content="https://yangmingli.com/question-delete-before-automation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="做产品和工程优化时，先别急着自动化 | Yangming Li" name="twitter:title"/><meta content="一个特别重要的规则是： 每个需求都必须对应到一个具体的人，而不是一个部门。 “法务要求的”“运营那边说的”“客户成功团队希望的”都不够，因为部门不会回答问题，也不会承担后果，只有具体的人会。 Includes practical notes on implementation, evaluation, trade-offs." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Blog, Yangming" name="keywords"/><link href="https://yangmingli.com/question-delete-before-automation.html" rel="canonical"/>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>做产品和工程优化时，先别急着自动化 | Yangming Li</title>
-<meta content="把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。" name="description"/>
-
 <meta content="Yangming Li" name="author"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
 <meta content="Product &amp; Engineering" property="article:section"/>
-
 <link href="favicon.png" rel="icon"/>
-<meta content="article" property="og:type"/>
 <meta content="zh_CN" property="og:locale"/>
-<meta content="做产品和工程优化时，先别急着自动化 | Yangming Li" property="og:title"/>
-<meta content="把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。" property="og:description"/>
-<meta content="https://yangmingli.com/question-delete-before-automation.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li" property="og:site_name"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="做产品和工程优化时，先别急着自动化 | Yangming Li" name="twitter:title"/>
-<meta content="把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。" name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "做产品和工程优化时，先别急着自动化",
-      "description": "把一段关于工程五步法的分享整理成适合产品、工程、流程团队落地的中文方法：先质疑需求，再大胆删减，然后才优化、提速，最后自动化。",
-      "author": {
-        "@type": "Person",
-        "name": "Yangming Li"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Yangming Li Blog",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://yangmingli.com/Logo.png"
-        }
-      },
-      "datePublished": "2026-04-18",
-      "dateModified": "2026-04-18",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://yangmingli.com/question-delete-before-automation.html"
-      },
-      "keywords": "需求管理, 流程优化, 自动化, 产品管理, 工程管理, 流程设计",
-      "inLanguage": "zh-CN"
-    }
-    </script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         body {
             font-family: 'Hind', 'Noto Sans SC', sans-serif;
@@ -390,8 +346,66 @@
             }
         }
     </style>
-<link href="https://yangmingli.com/question-delete-before-automation.html" rel="canonical"/></head>
-<body>
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "做产品和工程优化时，先别急着自动化",
+  "description": "一个特别重要的规则是： 每个需求都必须对应到一个具体的人，而不是一个部门。 “法务要求的”“运营那边说的”“客户成功团队希望的”都不够，因为部门不会回答问题，也不会承担后果，只有具体的人会。 Includes practical notes on implementation, evaluation, trade-offs.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/question-delete-before-automation.html"
+  },
+  "articleSection": "Blog",
+  "keywords": [
+    "Yangming Li",
+    "Blog",
+    "Yangming"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2026-04-18"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "做产品和工程优化时，先别急着自动化",
+      "item": "https://yangmingli.com/question-delete-before-automation.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>做产品和工程优化时，先别急着自动化</span>
+</nav>
 <div class="blog-container">
 <a class="back-link" href="index.html">← 返回首页</a>
 <article class="article-shell">
@@ -405,7 +419,7 @@
 <span>产品 / 工程 / 流程优化</span>
 <span>约 8 分钟</span>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <div class="blog-content">
 <div class="source-card">
 <p><strong>这篇文章写给谁：</strong>如果你常常在做需求评审、流程改造、提效项目、自动化改造，或者经常听到“这个流程太慢了，我们得优化一下”，那这套方法几乎一定会帮到你。</p>
@@ -567,5 +581,26 @@
             document.body.classList.add('dark-mode');
         }
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI architecture and engineering practices.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Data systems, experiments, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>All technical writing by Yangming Li.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>Databricks Lakehouse Guide | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Learn Databricks lakehouse concepts including Delta Lake, MLflow, Unity Catalog, data engineering workflows, governance, and practical platform patterns." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Databricks Lakehouse Guide | Yangming Li" property="og:title"/><meta content="Learn Databricks lakehouse concepts including Delta Lake, MLflow, Unity Catalog, data engineering workflows, governance, and practical platform patterns." property="og:description"/><meta content="https://yangmingli.com/databricks-comprehensive-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Databricks Lakehouse Guide | Yangming Li" name="twitter:title"/><meta content="Learn Databricks lakehouse concepts including Delta Lake, MLflow, Unity Catalog, data engineering workflows, governance, and practical platform patterns." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Databricks, data engineering, data products, MLflow" name="keywords"/><link href="https://yangmingli.com/databricks-comprehensive-guide.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,8 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Understanding Databricks: A Lakehouse Guide (Popularized 2015-2018) | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -34,7 +32,7 @@ h1 {
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
 <link href="css/prism.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -323,10 +321,68 @@ h1 {
         body.dark-mode .reference-item p {
             color: #bbb;
         }
-</style><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Understanding Databricks: A Lakehouse Guide (Popularized 2015-2018) | Yangming Li" property="og:title"/><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists." property="og:description"/><meta content="https://yangmingli.com/databricks-comprehensive-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Understanding Databricks: A Lakehouse Guide (Popularized 2015-2018) | Yangming Li" name="twitter:title"/><meta content="Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Understanding Databricks: A Lakehouse Guide (Popularized 2015-2018) | Yangming Li", "description": "Learn about Databricks platform features including Delta Lake, MLflow, and Unity Catalog with practical code examples and best practices for implementation. A comprehensive guide for data engineers and data scientists.", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/databricks-comprehensive-guide.html"}}</script> <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/databricks-comprehensive-guide.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style> <!-- Canonical URL -->
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Databricks Lakehouse Guide",
+  "description": "Learn Databricks lakehouse concepts including Delta Lake, MLflow, Unity Catalog, data engineering workflows, governance, and practical platform patterns.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/databricks-comprehensive-guide.html"
+  },
+  "articleSection": "Data Products",
+  "keywords": [
+    "Databricks",
+    "data engineering",
+    "data products",
+    "MLflow"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2024-07-01"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Databricks Lakehouse Guide",
+      "item": "https://yangmingli.com/databricks-comprehensive-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Databricks Lakehouse Guide</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
@@ -334,7 +390,7 @@ h1 {
 <h1>Understanding Databricks: A Lakehouse Guide (Popularized 2015-2018)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -635,7 +691,7 @@ job_id = jobs_api.create_job(job_config)</code></pre>
 </div>
 </div>
 <!-- Scripts -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
 <script defer="" src="js/prism.js"></script>
@@ -665,5 +721,26 @@ job_id = jobs_api.create_job(job_config)</code></pre>
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Analytics systems, AI data products, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/ai-product-builder.html">AI Product Builder</a></h3>
+<p>Product thinking for applied AI and data workflows.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/databricks-comprehensive-guide.html">Databricks guide</a></h3>
+<p>Lakehouse and data engineering implementation notes.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html> 

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><title>Machine Learning and NLP | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Yangming Li's machine learning and NLP pillar covering statistical ML, topic modeling, sentiment analysis, trustworthy ML, healthcare text analytics, and evaluation." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="website" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Machine Learning and NLP | Yangming Li" property="og:title"/><meta content="Yangming Li's machine learning and NLP pillar covering statistical ML, topic modeling, sentiment analysis, trustworthy ML, healthcare text analytics, and evaluation." property="og:description"/><meta content="https://yangmingli.com/machine-learning-nlp.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Machine Learning and NLP | Yangming Li" name="twitter:title"/><meta content="Yangming Li's machine learning and NLP pillar covering statistical ML, topic modeling, sentiment analysis, trustworthy ML, healthcare text analytics, and evaluation." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Machine Learning and NLP, Yangming Li, Applied AI, LLM systems, Data products, AI evaluation" name="keywords"/><link href="https://yangmingli.com/machine-learning-nlp.html" rel="canonical"/>
+<meta charset="utf-8"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/favicon.png" rel="icon"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<script defer="" src="/js/i18n.js"></script>
+<style>
+body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
+.pillar-page { max-width: 1080px; margin: 0 auto; padding: 40px 20px 64px; }
+.pillar-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
+.pillar-nav a, .pillar-page a { color: #0f766e; font-weight: 700; }
+.pillar-hero { border-bottom: 1px solid #d9e2ec; margin-bottom: 30px; padding-bottom: 28px; }
+.eyebrow { color: #b45309; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+h1 { color: #111827; font-size: 44px; line-height: 1.12; margin: 10px 0 16px; }
+h2 { color: #111827; font-size: 25px; margin: 34px 0 13px; }
+h3 { color: #111827; font-size: 19px; margin: 0 0 8px; }
+p, li { color: #52606d; font-size: 17px; line-height: 1.75; }
+.lead { max-width: 830px; color: #52606d; font-size: 18px; line-height: 1.7; }
+.pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 18px; }
+.pillar-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+.pillar-footer-links { margin-top: 34px; padding-top: 20px; border-top: 1px solid #d9e2ec; }
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Machine Learning and NLP",
+  "url": "https://yangmingli.com/machine-learning-nlp.html",
+  "description": "Yangming Li's machine learning and NLP pillar covering statistical ML, topic modeling, sentiment analysis, trustworthy ML, healthcare text analytics, and evaluation.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@id": "https://yangmingli.com/#website"
+  },
+  "about": {
+    "@type": "Person",
+    "@id": "https://yangmingli.com/#yangming-li",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/",
+    "image": "https://yangmingli.com/img/Logo.png",
+    "jobTitle": "Applied AI Engineer, Data Scientist, and AI Product Builder",
+    "description": "Yangming Li writes about applied AI systems, LLM systems, RAG, AI evaluation, statistical machine learning, NLP, data engineering, data products, experiment infrastructure, and AI product thinking.",
+    "sameAs": [
+      "https://www.linkedin.com/in/yangming-li-tech/",
+      "https://github.com/yml-blog",
+      "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en"
+    ],
+    "knowsAbout": [
+      "Applied AI",
+      "LLM systems",
+      "Retrieval-Augmented Generation",
+      "AI evaluation",
+      "Schema validation for AI agents",
+      "Statistical machine learning",
+      "Natural language processing",
+      "Data engineering",
+      "AI data products",
+      "Experiment infrastructure",
+      "AI product thinking"
+    ]
+  },
+  "mainEntity": {
+    "@id": "https://yangmingli.com/#yangming-li"
+  }
+}</script>
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Machine Learning and NLP",
+      "item": "https://yangmingli.com/machine-learning-nlp.html"
+    }
+  ]
+}</script></head>
+<body>
+<main class="pillar-page">
+<nav aria-label="Primary" class="pillar-nav">
+<a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
+</nav>
+<section class="pillar-hero">
+<span class="eyebrow">Pillar Page</span>
+<h1>Machine Learning and NLP</h1>
+<p class="lead">A guide to Yangming Li's writing on statistical machine learning, natural language processing, topic modeling, sentiment analysis, trustworthy ML, and practical text analytics.</p>
+</section>
+<section><h2>Start here</h2>
+<p>Machine learning and NLP on this site are treated as applied systems work. The goal is not only to understand a model family, but to understand when it is useful, how to evaluate it, how it fails, and how it connects to a product or decision workflow. Start with the trustworthy machine learning notes for the reliability lens, then read the NLP notes, BERT fine-tuning article, and statistical testing guide for implementation context.</p>
+<p>The recurring theme is that useful models need measurement. A classifier needs error analysis and calibration, not just accuracy. A topic model needs human interpretation and stability checks, not just clusters. A text analytics workflow needs sampling, review, and monitoring because language changes over time.</p>
+</section>
+<section><h2>Statistical ML and NLP focus</h2>
+<p>Yangming Li's machine learning writing spans classic ML, deep learning, NLP, and evaluation. The site includes practical notes on random forests, generalized linear models, deep neural networks, BERT sentiment analysis, CMU NLP study notes, trustworthy machine learning, and uncertainty quantification for LLMs. The common thread is applied judgment: knowing what the model is estimating, what assumptions are being made, and how errors would affect a real workflow.</p>
+<p>For text systems, the useful questions are often operational. What labels are reliable enough to train against? Which examples are ambiguous? How will the system handle new vocabulary, domain-specific phrasing, multilingual text, or short complaint snippets? How should reviewers correct the model, and how should those corrections become training or evaluation data?</p>
+</section>
+<section><h2>Healthcare NLP and complaint theme discovery</h2>
+<p>Healthcare NLP and complaint theme discovery are good examples of why text analytics needs careful framing. A workflow might help summarize themes, route issues, or identify emerging categories, but it should not pretend that unsupervised clusters are facts. Topic modeling can reveal candidate themes; human reviewers still need to name, merge, split, and validate those themes. Classifiers can support triage; monitoring should watch for drift, underrepresented categories, and phrases that change meaning across contexts.</p>
+<p>A practical architecture would keep raw text, normalized text, model outputs, reviewer labels, theme definitions, and evaluation examples separate. That separation makes audits easier and keeps the product from confusing a model suggestion with a verified truth.</p>
+</section>
+<section><h2>Evaluation checklist</h2>
+<ul>
+<li>Define the task as classification, extraction, ranking, summarization, clustering, or review support.</li>
+<li>Measure performance by slice: class, source, time period, text length, language, and reviewer confidence.</li>
+<li>Use confusion matrices, calibration checks, stability tests, and representative error examples.</li>
+<li>Track label quality, missing classes, drift, and changes in user vocabulary.</li>
+<li>Keep human-readable explanations and reviewer corrections connected to the evaluation set.</li>
+</ul>
+</section>
+<section><h2>Related implementation examples</h2>
+<p>A complaint theme discovery workflow might begin with unsupervised clustering or embeddings to surface candidate groups. The implementation should then move quickly into human review: name each theme, attach examples, mark ambiguous comments, and decide whether the theme is stable enough to become a label. A supervised classifier can be trained only after those labels have operational meaning.</p>
+<p>A sentiment analysis workflow has a different shape. It needs representative labels, clear handling for neutral or mixed sentiment, evaluation by slice, and a plan for drift. A BERT or PEFT-based model may be appropriate when context matters, but the product still needs a fallback for low-confidence text and a review process for examples that carry business risk.</p>
+<p>A trustworthy ML review should ask whether the model is understandable enough for its use, whether groups are harmed differently, whether data handling is appropriate, and whether monitoring can detect degradation before users lose trust. These questions are part of the system, not a final compliance pass.</p>
+</section>
+<section><h2>Trade-offs and limitations</h2>
+<p>ML and NLP systems are only as useful as their measurement and feedback loop. More complex models may improve representation but increase cost, latency, and debugging difficulty. Simpler models may be easier to explain but miss subtle context. Topic models can discover patterns but can also create unstable or misleading themes. LLMs can summarize and reason over text but require grounding, uncertainty handling, and review for sensitive workflows.</p>
+<p>The practical compromise is to match the model to the review burden. If the workflow needs transparent categories, a simpler classifier with strong error analysis may beat a larger model. If the workflow needs rich language understanding, a transformer or LLM can help, but the product should budget for evaluation data, monitoring, and reviewer feedback from the start.</p>
+</section>
+<section aria-labelledby="related-writing-title">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="pillar-grid">
+<article class="pillar-card">
+<h3><a href="/trust-worth-machine-learning-1.html">Trustworthy machine learning</a></h3>
+<p>Responsible AI notes on transparency, fairness, privacy, robustness, and accountability.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/sentiment-analysis-fine-tune-with-bert.html">BERT sentiment analysis</a></h3>
+<p>Fine-tuning BERT with PEFT, LoRA, and evaluation notes.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/cmu-nlp-notes.html">Advanced NLP notes</a></h3>
+<p>Study notes across language models, sequence modeling, and NLP foundations.</p>
+</article>
+<article class="pillar-card">
+<h3><a href="/healthcare-ai-analytics.html">Healthcare AI analytics</a></h3>
+<p>Text analytics, theme discovery, and evaluation for healthcare-style workflows.</p>
+</article>
+</div>
+</section>
+<section aria-label="Site links" class="pillar-footer-links">
+<p><a href="/">Home</a> · <a href="/about.html">About</a> · <a href="/projects.html">Projects</a> · <a href="/blog/">Blog</a> · <a href="/resume.html">Resume</a> · <a href="/contact.html">Contact</a></p>
+</section>
+</main>
+
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
+</html>

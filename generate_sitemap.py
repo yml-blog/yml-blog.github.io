@@ -2,13 +2,13 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+
 ROOT = Path(".")
 BASE_URL = "https://yangmingli.com"
 EXCLUDE_DIRS = {"admin", "private", ".git", "templates", "email-templates", "nha-cai"}
 EXCLUDE_FILES = {"google6a208e5b3409387b.html", "readme.htm"}
 EXCLUDE_PATHS = {Path("focus-room/v1/index.html")}
-CANONICAL_RE = re.compile(r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\']([^"\']+)["\']', re.IGNORECASE)
-ROBOTS_RE = re.compile(r'<meta[^>]+name=["\'](?:robots|googlebot)["\'][^>]+content=["\']([^"\']+)["\']', re.IGNORECASE)
 
 
 def is_excluded(path: Path) -> bool:
@@ -51,15 +51,28 @@ def read_html(path: Path) -> str:
 
 
 def is_noindex(html: str) -> bool:
-    return any("noindex" in content.lower() for content in ROBOTS_RE.findall(html))
+    soup = BeautifulSoup(html, "html.parser")
+    for tag in soup.find_all("meta"):
+        if (tag.get("name") or "").lower() in {"robots", "googlebot"}:
+            if "noindex" in (tag.get("content") or "").lower():
+                return True
+    return False
 
 
 def canonical_points_elsewhere(html: str, expected_url: str) -> bool:
-    match = CANONICAL_RE.search(html)
-    if not match:
+    soup = BeautifulSoup(html, "html.parser")
+    canonical = None
+    for tag in soup.find_all("link"):
+        rels = tag.get("rel") or []
+        rels = rels if isinstance(rels, list) else [rels]
+        if any(str(rel).lower() == "canonical" for rel in rels):
+            canonical = tag.get("href")
+            break
+
+    if not canonical:
         return False
 
-    return normalize_url(match.group(1)) != normalize_url(expected_url)
+    return normalize_url(canonical) != normalize_url(expected_url)
 
 
 def should_include(path: Path) -> bool:

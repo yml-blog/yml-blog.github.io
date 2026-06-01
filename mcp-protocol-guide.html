@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>Model Context Protocol Guide | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="A practical MCP guide for connected AI systems, tool calls, context boundaries, integration design, security considerations, and production AI workflows." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Model Context Protocol Guide | Yangming Li" property="og:title"/><meta content="A practical MCP guide for connected AI systems, tool calls, context boundaries, integration design, security considerations, and production AI workflows." property="og:description"/><meta content="https://yangmingli.com/mcp-protocol-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Model Context Protocol Guide | Yangming Li" name="twitter:title"/><meta content="A practical MCP guide for connected AI systems, tool calls, context boundaries, integration design, security considerations, and production AI workflows." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Model Context Protocol, MCP, AI tools, LLM systems" name="keywords"/><link href="https://yangmingli.com/mcp-protocol-guide.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,9 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li</title>
-<meta content="The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li The Model Context Protocol (MCP): Connected AI Tools (Popularized." name="description"/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -34,7 +31,7 @@ h1 {
 <link href="css/style_blog.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -162,10 +159,67 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li" property="og:title"/><meta content="The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li The Model Context Protocol (MCP): Connected AI Tools (Popularized." property="og:description"/><meta content="https://yangmingli.com/mcp-protocol-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li" name="twitter:title"/><meta content="The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025) | Yangming Li The Model Context Protocol (MCP): Connected AI Tools (Popularized." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Model Context Protocol (MCP) Guide: Connect AI Tools... | Yangming Li", "description": "Master the Model Context Protocol (MCP) for AI integration. Learn to connect AI assistants to external data, tools and services with this comprehensive ...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/mcp-protocol-guide.html"}}</script> <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/mcp-protocol-guide.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style> <!-- Canonical URL -->
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Model Context Protocol Guide",
+  "description": "A practical MCP guide for connected AI systems, tool calls, context boundaries, integration design, security considerations, and production AI workflows.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/mcp-protocol-guide.html"
+  },
+  "articleSection": "AI Engineering",
+  "keywords": [
+    "Model Context Protocol",
+    "MCP",
+    "AI tools",
+    "LLM systems"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Model Context Protocol Guide",
+      "item": "https://yangmingli.com/mcp-protocol-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Model Context Protocol Guide</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
@@ -173,7 +227,7 @@ h1 {
 <h1>The Model Context Protocol (MCP): Connected AI Tools (Popularized 2024-2025)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -440,7 +494,7 @@ docs = loader.load()</code></pre>
 </div>
 </div>
 <!-- jquery -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
@@ -470,5 +524,26 @@ docs = loader.load()</code></pre>
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/llm-evaluation.html">LLM Evaluation</a></h3>
+<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing Copilot agents</a></h3>
+<p>Agent evaluation with test sets, graders, and release gates.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html> 

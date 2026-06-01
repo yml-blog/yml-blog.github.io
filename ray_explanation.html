@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>Introduction to Ray (Popularized 2019-2021) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" property="og:title"/><meta content="Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for." property="og:description"/><meta content="https://yangmingli.com/ray_explanation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" name="twitter:title"/><meta content="Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, AI Engineering, Introduction, Ray, Popularized, 2019, 2021, Yangming" name="keywords"/><link href="https://yangmingli.com/ray_explanation.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,9 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Introduction to Ray (Popularized 2019-2021) | Yangming Li</title>
-<meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." name="description"/>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -34,7 +31,7 @@ h1 {
 <link href="css/style_blog.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -162,10 +159,71 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" property="og:title"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." property="og:description"/><meta content="https://yangmingli.com/ray_explanation.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li" name="twitter:title"/><meta content="Introduction to Ray (Popularized 2019-2021) | Yangming Li Introduction to Ray (Popularized 2019-2021)  Light Dark 7 min read Approx. 800 words Estimated 1200." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Ray Framework Guide: Distributed Computing for ML Ap... | Yangming Li", "description": "Learn Ray's powerful distributed computing capabilities for ML workflows. Practical code examples for data preprocessing, model training, hyperparameter...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/ray_explanation.html"}}</script> <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/ray_explanation.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style> <!-- Canonical URL -->
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Introduction to Ray (Popularized 2019-2021)",
+  "description": "Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/ray_explanation.html"
+  },
+  "articleSection": "AI Engineering",
+  "keywords": [
+    "Yangming Li",
+    "AI Engineering",
+    "Introduction",
+    "Ray",
+    "Popularized",
+    "2019",
+    "2021",
+    "Yangming"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Introduction to Ray (Popularized 2019-2021)",
+      "item": "https://yangmingli.com/ray_explanation.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Introduction to Ray (Popularized 2019-2021)</span>
+</nav>
 <div class="main-content">
 <div class="container">
 <header class="header">
@@ -173,7 +231,7 @@ h1 {
 <h1>Introduction to Ray (Popularized 2019-2021)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Add metadata section -->
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
@@ -208,7 +266,7 @@ h1 {
 <section class="intro">
 <h2>What is Ray?</h2>
 <p>Ray is an open-source framework designed to simplify the development of large-scale machine learning (ML) and big data applications by providing a robust layer for parallel processing. This means it allows you to run multiple computations at the same time, making your programs faster and more efficient.</p>
-<img alt="Ray Logo" loading="lazy" src="img/Ray.png" style="max-width:100%; height:auto;"/> <!-- Added image -->
+<img alt="Ray Logo" decoding="async" height="1162" loading="lazy" src="img/Ray.png" style="max-width:100%; height:auto;" width="3331"/> <!-- Added image -->
 </section>
 <section class="key-points">
 <h2>Key Features of Ray with Real-World Examples</h2>
@@ -458,7 +516,7 @@ for i in range(1000):
 </main></div>
 </div>
 <!-- jquery -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
@@ -489,5 +547,26 @@ for i in range(1000):
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/llm-evaluation.html">LLM Evaluation</a></h3>
+<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing Copilot agents</a></h3>
+<p>Agent evaluation with test sets, graders, and release gates.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

@@ -19,6 +19,11 @@
             "source": "/sitemap.txt",
             "destination": "/sitemap.xml",
             "permanent": true
+        },
+        {
+            "source": "/sentiment-analysis-fine-tune-with-bert2.html",
+            "destination": "/sentiment-analysis-fine-tune-with-bert.html",
+            "permanent": true
         }
     ],
     "functions": {

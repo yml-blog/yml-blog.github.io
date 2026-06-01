@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head><style>
+<head><title>Deep Learning Engineering with JAX (Popularized 2020-2022) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="JAX, an innovative library developed by Google, has quickly gained traction in the machine learning (ML) community. Its seamless integration of NumPy-like syntax." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Deep Learning Engineering with JAX (Popularized 2020-2022) | Yangming Li" property="og:title"/><meta content="JAX, an innovative library developed by Google, has quickly gained traction in the machine learning (ML) community. Its seamless integration of NumPy-like syntax." property="og:description"/><meta content="https://yangmingli.com/jax-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Deep Learning Engineering with JAX (Popularized 2020-2022) | Yangming Li" name="twitter:title"/><meta content="JAX, an innovative library developed by Google, has quickly gained traction in the machine learning (ML) community. Its seamless integration of NumPy-like syntax." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, AI Engineering, Deep, Learning, Engineering, with, JAX, Popularized" name="keywords"/><link href="https://yangmingli.com/jax-guide.html" rel="canonical"/><style>
 body {
   margin: 0;
   padding: 0;
@@ -24,8 +24,6 @@ h1 {
 </style><link as="style" href="css/bootstrap.min.css" rel="preload"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Deep Learning Engineering with JAX | Yangming Li</title>
 <link href="favicon.png" rel="icon"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -33,7 +31,7 @@ h1 {
 <link href="css/style_blog.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -161,9 +159,71 @@ h1 {
         .blog-share-buttons i {
             margin-right: 8px;
         }
-</style><meta content="Deep Learning Engineering with JAX | Yangming Li Deep Learning Engineering with JAX (Popularized 2020-2022)  Light Dark 15 min read Approx. 2500 words." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Deep Learning Engineering with JAX | Yangming Li" property="og:title"/><meta content="Deep Learning Engineering with JAX | Yangming Li Deep Learning Engineering with JAX (Popularized 2020-2022)  Light Dark 15 min read Approx. 2500 words." property="og:description"/><meta content="https://yangmingli.com/jax-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="summary_large_image" name="twitter:card"/><meta content="Deep Learning Engineering with JAX | Yangming Li" name="twitter:title"/><meta content="Deep Learning Engineering with JAX | Yangming Li Deep Learning Engineering with JAX (Popularized 2020-2022)  Light Dark 15 min read Approx. 2500 words." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Deep Learning Engineering with JAX | Yangming Li", "description": "By Yangming Li...", "image": "https://yangmingli.com/img/Logo.png", "author": {"@type": "Person", "name": "Yangming Li"}, "publisher": {"@type": "Organization", "name": "Yangming Li Blog", "logo": {"@type": "ImageObject", "url": "https://yangmingli.com/img/Logo.png"}}, "mainEntityOfPage": {"@type": "WebPage", "@id": "https://yangmingli.com/jax-guide.html"}}</script>
-<link href="https://yangmingli.com/jax-guide.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+</style>
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deep Learning Engineering with JAX (Popularized 2020-2022)",
+  "description": "JAX, an innovative library developed by Google, has quickly gained traction in the machine learning (ML) community. Its seamless integration of NumPy-like syntax.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/jax-guide.html"
+  },
+  "articleSection": "AI Engineering",
+  "keywords": [
+    "Yangming Li",
+    "AI Engineering",
+    "Deep",
+    "Learning",
+    "Engineering",
+    "with",
+    "JAX",
+    "Popularized"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Deep Learning Engineering with JAX (Popularized 2020-2022)",
+      "item": "https://yangmingli.com/jax-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Deep Learning Engineering with JAX (Popularized 2020-2022)</span>
+</nav>
 <!-- Navigation will be injected here -->
 <div class="main-content">
 <div class="container">
@@ -172,7 +232,7 @@ h1 {
 <h1>Deep Learning Engineering with JAX (Popularized 2020-2022)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -390,7 +450,7 @@ print(result)  # Output: [5, 7, 9]
 </div>
 </div>
 <!-- jquery -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap -->
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="" src="js/scripts.js"></script>
@@ -420,5 +480,26 @@ print(result)  # Output: [5, 7, 9]
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/llm-evaluation.html">LLM Evaluation</a></h3>
+<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing Copilot agents</a></h3>
+<p>Agent evaluation with test sets, graders, and release gates.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html> 

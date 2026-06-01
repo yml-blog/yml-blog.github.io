@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>3. Longest Substring Without Repeating Characters | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="Given a string s , find the length of the longest substring without repeating characters. Includes practical notes on implementation, evaluation, trade-offs, and." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="3. Longest Substring Without Repeating Characters | Yangming Li" property="og:title"/><meta content="Given a string s , find the length of the longest substring without repeating characters. Includes practical notes on implementation, evaluation, trade-offs, and." property="og:description"/><meta content="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="3. Longest Substring Without Repeating Characters | Yangming Li" name="twitter:title"/><meta content="Given a string s , find the length of the longest substring without repeating characters. Includes practical notes on implementation, evaluation, trade-offs, and." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, LeetCode Solutions, Longest, Substring, Without, Repeating, Characters, Yangming" name="keywords"/><link href="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- SEO metadata -->
-<title>3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li</title>
-<meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" name="description"/>
 <link href="../favicon.png" rel="icon"/>
-
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <meta content="Yangming Li" name="author"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
 <!-- Open Graph -->
-<meta content="article" property="og:type"/>
 <meta content="en_CA" property="og:locale"/>
-<meta content="3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li" property="og:title"/>
-<meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" property="og:description"/>
-<meta content="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
 <link href="../css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../css/bootstrap.min.css" rel="stylesheet"/>
@@ -198,8 +185,70 @@
         }
     </style>
 <link href="../css/typography.css" rel="stylesheet"/>
-<link href="https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="3. Longest Substring Without Repeating Characters | LeetCode Solutions | Yangming Li" name="twitter:title"/><meta content="Detailed solution and explanation for LeetCode problem: Longest Substring Without Repeating Characters" name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
-<body>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "3. Longest Substring Without Repeating Characters",
+  "description": "Given a string s , find the length of the longest substring without repeating characters. Includes practical notes on implementation, evaluation, trade-offs, and.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html"
+  },
+  "articleSection": "LeetCode Solutions",
+  "keywords": [
+    "Yangming Li",
+    "LeetCode Solutions",
+    "Longest",
+    "Substring",
+    "Without",
+    "Repeating",
+    "Characters",
+    "Yangming"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "3. Longest Substring Without Repeating Characters",
+      "item": "https://yangmingli.com/leetcode-solutions/longest-substring-without-repeating-characters.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>3. Longest Substring Without Repeating Characters</span>
+</nav>
 <div class="theme-switch-wrapper">
 <span>Light</span>
 <label class="theme-switch" for="checkbox">
@@ -210,7 +259,7 @@
 </div>
 <div class="header-section">
 <div class="container">
-<h1 style="color: white;">3. Longest Substring Without Repeating Characters</h1>
+<h1 style="color: white;">3. Longest Substring Without Repeating Characters</h1><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 </div>
 </div>
 <div class="container">
@@ -275,8 +324,8 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 <p>© 2023 Yangming Li. All rights reserved.</p>
 </div>
 </footer>
-<script src="../js/jquery-2.1.4.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script defer="" src="../js/jquery-2.1.4.min.js"></script>
+<script defer="" src="../js/bootstrap.min.js"></script>
 <script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
@@ -302,5 +351,26 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>Browse Yangming Li's technical writing.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/machine-learning-nlp.html">Machine Learning and NLP</a></h3>
+<p>ML and NLP notes with practical evaluation context.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/projects.html">Projects</a></h3>
+<p>Applied AI and data product portfolio themes.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

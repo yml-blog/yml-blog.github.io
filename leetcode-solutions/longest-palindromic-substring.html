@@ -1,27 +1,14 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>5. Longest Palindromic Substring | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content='A palindrome is a string that reads the same backward as forward, such as "madam" or "racecar". Includes practical notes on implementation, evaluation, trade-offs.' name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="5. Longest Palindromic Substring | Yangming Li" property="og:title"/><meta content='A palindrome is a string that reads the same backward as forward, such as "madam" or "racecar". Includes practical notes on implementation, evaluation, trade-offs.' property="og:description"/><meta content="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="5. Longest Palindromic Substring | Yangming Li" name="twitter:title"/><meta content='A palindrome is a string that reads the same backward as forward, such as "madam" or "racecar". Includes practical notes on implementation, evaluation, trade-offs.' name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, LeetCode Solutions, Longest, Palindromic, Substring, Yangming" name="keywords"/><link href="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- SEO metadata -->
-<title>5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li</title>
-<meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" name="description"/>
 <link href="../favicon.png" rel="icon"/>
-
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <meta content="Yangming Li" name="author"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
 <!-- Open Graph -->
-<meta content="article" property="og:type"/>
 <meta content="en_CA" property="og:locale"/>
-<meta content="5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li" property="og:title"/>
-<meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" property="og:description"/>
-<meta content="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
 <link href="../css/font-awesome.min.css" rel="stylesheet"/>
 <link href="../css/bootstrap.min.css" rel="stylesheet"/>
@@ -198,8 +185,68 @@
         }
     </style>
 <link href="../css/typography.css" rel="stylesheet"/>
-<link href="https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/><meta content="summary_large_image" name="twitter:card"/><meta content="5. Longest Palindromic Substring | LeetCode Solutions | Yangming Li" name="twitter:title"/><meta content="Detailed solution and explanation for LeetCode problem: Longest Palindromic Substring" name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/></head>
-<body>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "5. Longest Palindromic Substring",
+  "description": "A palindrome is a string that reads the same backward as forward, such as \"madam\" or \"racecar\". Includes practical notes on implementation, evaluation, trade-offs.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html"
+  },
+  "articleSection": "LeetCode Solutions",
+  "keywords": [
+    "Yangming Li",
+    "LeetCode Solutions",
+    "Longest",
+    "Palindromic",
+    "Substring",
+    "Yangming"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "5. Longest Palindromic Substring",
+      "item": "https://yangmingli.com/leetcode-solutions/longest-palindromic-substring.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>5. Longest Palindromic Substring</span>
+</nav>
 <div class="theme-switch-wrapper">
 <span>Light</span>
 <label class="theme-switch" for="checkbox">
@@ -210,7 +257,7 @@
 </div>
 <div class="header-section">
 <div class="container">
-<h1 style="color: white;">5. Longest Palindromic Substring</h1>
+<h1 style="color: white;">5. Longest Palindromic Substring</h1><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 </div>
 </div>
 <div class="container">
@@ -287,8 +334,8 @@ Output: "bb"</code></pre>
 <p>© 2023 Yangming Li. All rights reserved.</p>
 </div>
 </footer>
-<script src="../js/jquery-2.1.4.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script defer="" src="../js/jquery-2.1.4.min.js"></script>
+<script defer="" src="../js/bootstrap.min.js"></script>
 <script>
         // Check for saved theme preference
         const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
@@ -314,5 +361,26 @@ Output: "bb"</code></pre>
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>Browse Yangming Li's technical writing.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/machine-learning-nlp.html">Machine Learning and NLP</a></h3>
+<p>ML and NLP notes with practical evaluation context.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/projects.html">Projects</a></h3>
+<p>Applied AI and data product portfolio themes.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

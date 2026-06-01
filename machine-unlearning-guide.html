@@ -1,75 +1,94 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="We present a step-by-step system for machine unlearning, covering: (1) data sharding and provenance tracking; (2) three core unlearning algorithms (SISA." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li" property="og:title"/><meta content="We present a step-by-step system for machine unlearning, covering: (1) data sharding and provenance tracking; (2) three core unlearning algorithms (SISA." property="og:description"/><meta content="https://yangmingli.com/machine-unlearning-guide.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li" name="twitter:title"/><meta content="We present a step-by-step system for machine unlearning, covering: (1) data sharding and provenance tracking; (2) three core unlearning algorithms (SISA." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="Yangming Li, Machine Learning &amp; NLP, Machine, Unlearning, Complete, Technical, Guide, Popularized" name="keywords"/><link href="https://yangmingli.com/machine-unlearning-guide.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- SEO metadata -->
-<title>Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li</title>
-<meta content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers." name="description"/>
 <link href="favicon.png" rel="icon"/>
-
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <meta content="Yangming Li" name="author"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
 <!-- Open Graph -->
-<meta content="article" property="og:type"/>
 <meta content="en_CA" property="og:locale"/>
-<meta content="Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li" property="og:title"/>
-<meta content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers." property="og:description"/>
-<meta content="https://yangmingli.com/machine-unlearning-guide.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li Tech Blog Logo" property="og:image:alt"/>
 <!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023) | Yangming Li" name="twitter:title"/>
-<meta content="A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
 <link href="css/style.css" rel="stylesheet"/>
 <link href="css/blog_post.css" rel="stylesheet"/>
 <link href="css/nav.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <!-- JSON-LD structured data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)",
-      "description": "A comprehensive guide to implementing machine unlearning systems - from data sharding through certified removal, with implementation details from foundational papers.",
-      "author": {
-        "@type": "Person",
-        "name": "Yangming Li"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Yangming Li Blog",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://yangmingli.com/img/Logo.png"
-        }
-      },
-      "datePublished": "2023-07-15",
-      "dateModified": "2023-07-15",
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://yangmingli.com/machine-unlearning-guide.html"
-      },
-      "keywords": "machine unlearning, SISA, influence functions, certified removal"
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)",
+  "description": "We present a step-by-step system for machine unlearning, covering: (1) data sharding and provenance tracking; (2) three core unlearning algorithms (SISA.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
     }
-    </script>
-<link href="https://yangmingli.com/machine-unlearning-guide.html" rel="canonical"/><meta content="Yangming Li" property="og:site_name"/></head>
-<body>
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/machine-unlearning-guide.html"
+  },
+  "articleSection": "Machine Learning & NLP",
+  "keywords": [
+    "Yangming Li",
+    "Machine Learning & NLP",
+    "Machine",
+    "Unlearning",
+    "Complete",
+    "Technical",
+    "Guide",
+    "Popularized"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2023-07-15"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)",
+      "item": "https://yangmingli.com/machine-unlearning-guide.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)</span>
+</nav>
 <div class="container mt-5">
 <div class="row">
 <div class="col-md-10 offset-md-1">
 <div class="blog-header">
 <a class="back-button" href="index.html"><i class="fa fa-arrow-left"></i> Back to Home</a>
-<h1>Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)</h1>
+<h1>Machine Unlearning: A Complete Technical Guide (Popularized 2019-2023)</h1><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <div class="blog-meta">
 <span><i class="fa fa-calendar"></i> July 15, 2023</span>
 <span><i class="fa fa-tag"></i> ML</span>
@@ -99,7 +118,7 @@
 </blockquote>
 <div class="diagram-container">
 <h3>SISA Architecture</h3>
-<img alt="SISA machine unlearning architecture with shards, slice models, aggregation, and targeted retraining" class="img-fluid" src="https://yangmingli.com/img/machine-unlearning-diagram.svg"/>
+<img alt="SISA machine unlearning architecture with shards, slice models, aggregation, and targeted retraining" class="img-fluid" decoding="async" src="https://yangmingli.com/img/machine-unlearning-diagram.svg"/>
 </div>
 <h2>2. Unlearning Algorithms</h2>
 <h3>2.1 Exact Shard-Isolation (SISA)</h3>
@@ -300,10 +319,31 @@ def sisa_unlearn(model_class, full_dataset, shard_idx, slice_idx, epochs):
 </div>
 </footer>
 <!-- Scripts -->
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/copyCodeButton.js"></script>
-<script src="js/toc.js"></script>
-</body>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/copyCodeButton.js"></script>
+<script defer="" src="js/toc.js"></script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/machine-learning-nlp.html">Machine Learning and NLP</a></h3>
+<p>Statistical ML, NLP, topic modeling, and trustworthy ML.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/healthcare-ai-analytics.html">Healthcare AI analytics</a></h3>
+<p>Healthcare-style NLP, complaint themes, and review workflows.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/trust-worth-machine-learning-1.html">Trustworthy ML</a></h3>
+<p>Transparency, fairness, privacy, robustness, and accountability.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>

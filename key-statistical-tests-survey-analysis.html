@@ -1,23 +1,11 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
+<head><title>Statistical Tests for Survey Analysis | Yangming Li</title><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="A practical guide to statistical tests for survey analysis, covering assumptions, comparisons, effect sizes, interpretation, and data product decisions." name="description"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="article" property="og:type"/><meta content="Yangming Li" property="og:site_name"/><meta content="Statistical Tests for Survey Analysis | Yangming Li" property="og:title"/><meta content="A practical guide to statistical tests for survey analysis, covering assumptions, comparisons, effect sizes, interpretation, and data product decisions." property="og:description"/><meta content="https://yangmingli.com/key-statistical-tests-survey-analysis.html" property="og:url"/><meta content="https://yangmingli.com/img/Logo.png" property="og:image"/><meta content="Yangming Li site logo" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="Statistical Tests for Survey Analysis | Yangming Li" name="twitter:title"/><meta content="A practical guide to statistical tests for survey analysis, covering assumptions, comparisons, effect sizes, interpretation, and data product decisions." name="twitter:description"/><meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/><meta content="statistical tests, survey analysis, data products, experiment infrastructure" name="keywords"/><link href="https://yangmingli.com/key-statistical-tests-survey-analysis.html" rel="canonical"/>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Key Statistical Tests for Survey Analysis (Popularized 1930-1950) | Yangming Li</title>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." name="description"/>
-
 <link href="favicon.png" rel="icon"/>
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-
 <!-- Open Graph -->
-<meta content="article" property="og:type"/>
-<meta content="Key Statistical Tests for Survey Analysis (Popularized 1930-1950) | Yangming Li" property="og:title"/>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." property="og:description"/>
-<meta content="https://yangmingli.com/key-statistical-tests-survey-analysis.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li" property="og:site_name"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="Yangming Li" property="article:author"/>
 <meta content="2023-11-15" property="article:published_time"/>
@@ -25,10 +13,6 @@
 <meta content="Data Science" property="article:section"/>
 <meta content="statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression" property="article:tag"/>
 <!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Key Statistical Tests for Survey Analysis (Popularized 1930-1950) | Yangming Li" name="twitter:title"/>
-<meta content="A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
 <link href="css/font-awesome.min.css" rel="stylesheet"/>
@@ -39,7 +23,7 @@
 <!-- Prism.js for code highlighting -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet"/>
-<script src="js/loadHeader.js"></script>
+<script defer="" src="js/loadHeader.js"></script>
 <style>
         /* Dark mode toggle styles */
         .theme-switch-wrapper {
@@ -340,92 +324,76 @@
         }
     </style>
 <!-- JSON-LD structured data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "Key Statistical Tests for Survey Analysis (Popularized 1930-1950)",
-      "description": "A comprehensive guide to the most important statistical tests for analyzing survey data, including chi-square, t-tests, ANOVA, and regression analysis.",
-      "image": "https://yangmingli.com/img/Logo.png",
-      "datePublished": "2023-11-15",
-      "dateModified": "2024-04-08",
-      "author": {
-        "@type": "Person",
-        "name": "Yangming Li",
-        "url": "https://yangmingli.com/",
-        "jobTitle": "AI Engineer & Product Manager",
-        "knowsAbout": ["Machine Learning", "Artificial Intelligence", "Data Science", "Product Management", "MLOps", "Deep Learning"],
-        "alumniOf": ["University of Victoria", "University of Waterloo"],
-        "sameAs": [
-          "https://www.linkedin.com/in/yangmingli/",
-          "https://github.com/yml-blog"
-        ],
-        "knowsLanguage": ["en", "zh"]
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Yangming Li Blog",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://yangmingli.com/img/Logo.png"
-        }
-      },
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "https://yangmingli.com/key-statistical-tests-survey-analysis.html"
-      },
-      "keywords": "statistics, data analysis, survey analysis, statistical tests, chi-square, t-test, ANOVA, regression",
-      "articleSection": "Data Science",
-      "wordCount": "998",
-      "inLanguage": ["en-US", "zh-CN"],
-      "about": {
-        "@type": "Thing",
-        "name": "Data Science",
-        "description": "Technical content about Data Science in AI and machine learning"
-      },
-      "isAccessibleForFree": "True",
-      "timeRequired": "PT5M",
-      "abstract": "This guide covers essential statistical tests for survey analysis, helping you choose the right method based on your data type and research questions."
-    }
-    </script>
 <!-- Breadcrumb structured data -->
-<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://yangmingli.com/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Data Science",
-          "item": "https://yangmingli.com/category/data-science"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Key Statistical Tests for Survey Analysis",
-          "item": "https://yangmingli.com/key-statistical-tests-survey-analysis.html"
-        }
-      ]
-    }
-    </script>
 <!-- Canonical URL -->
-
-<link href="https://yangmingli.com/key-statistical-tests-survey-analysis.html" rel="canonical"/></head>
-<body>
+<link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Statistical Tests for Survey Analysis",
+  "description": "A practical guide to statistical tests for survey analysis, covering assumptions, comparisons, effect sizes, interpretation, and data product decisions.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "dateModified": "2026-05-31",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/key-statistical-tests-survey-analysis.html"
+  },
+  "articleSection": "Data Products",
+  "keywords": [
+    "statistical tests",
+    "survey analysis",
+    "data products",
+    "experiment infrastructure"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "datePublished": "2023-11-15"
+}</script><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Statistical Tests for Survey Analysis",
+      "item": "https://yangmingli.com/key-statistical-tests-survey-analysis.html"
+    }
+  ]
+}</script></head>
+<body><nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Statistical Tests for Survey Analysis</span>
+</nav>
 <div class="container">
 <header class="header">
 <div class="content text-center">
 <h1>Key Statistical Tests for Survey Analysis (Popularized 1930-1950)</h1>
 <p class="lead">By Yangming Li</p>
 </div>
-</header>
+</header><div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <!-- Dark mode toggle -->
 <div class="theme-switch-wrapper">
 <span>Light</span>
@@ -676,21 +644,21 @@ head(predicted_probs)
 <h3>Related Reading</h3>
 <div class="related-articles">
 <div class="related-article">
-<img alt="Generalized Linear Models: An Overview" loading="lazy" src="img/data_graph_profile.webp"/>
+<img alt="Generalized Linear Models: An Overview" decoding="async" height="1024" loading="lazy" src="img/data_graph_profile.webp" width="1024"/>
 <div class="related-article-content">
 <h4><a href="glm-overview.html">Generalized Linear Models: An Overview</a></h4>
 <p>Understanding the theory and applications of GLMs in modern statistical analysis</p>
 </div>
 </div>
 <div class="related-article">
-<img alt="Key Statistical Tests for Survey Analysis" loading="lazy" src="img/sd7.png"/>
+<img alt="Key Statistical Tests for Survey Analysis" decoding="async" height="1952" loading="lazy" src="img/sd7.png" width="1952"/>
 <div class="related-article-content">
 <h4><a href="key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h4>
 <p>A comprehensive guide to statistical tests for analyzing survey data</p>
 </div>
 </div>
 <div class="related-article">
-<img alt="Building an Enterprise-Level AI Agent" loading="lazy" src="img/sd1.png"/>
+<img alt="Building an Enterprise-Level AI Agent" decoding="async" height="1952" loading="lazy" src="img/sd1.png" width="1952"/>
 <div class="related-article-content">
 <h4><a href="llama-report-guide.html">Building an Enterprise-Level AI Agent</a></h4>
 <p>A guide to building document processing AI agents</p>
@@ -712,17 +680,17 @@ head(predicted_probs)
 <p>© 2024 Yangming Li. All rights reserved.</p>
 </footer>
 </div>
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/blogPanel.js"></script>
-<script src="js/toc.js"></script>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="js/toc.js"></script>
 <!-- Prism.js for code highlighting -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-用clipboard.min.js"></script>
-<script src="js/copyCodeButton.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-用clipboard.min.js"></script>
+<script defer="" src="js/copyCodeButton.js"></script>
 <script>
         // Add code language headers to code blocks
         document.addEventListener('DOMContentLoaded', function() {
@@ -776,5 +744,26 @@ head(predicted_probs)
             }
         });
     </script>
-</body>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/data-products.html">Data Products</a></h3>
+<p>Analytics systems, AI data products, and decision support.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/ai-product-builder.html">AI Product Builder</a></h3>
+<p>Product thinking for applied AI and data workflows.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/databricks-comprehensive-guide.html">Databricks guide</a></h3>
+<p>Lakehouse and data engineering implementation notes.</p>
+</article>
+</div>
+</section><footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer></body>
 </html>
