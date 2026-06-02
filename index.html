@@ -201,22 +201,22 @@
 </div>
 </div>
 <div class="profile-img">
-<video aria-hidden="true" autoplay="" class="active" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" autoplay="" class="active" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover1.mp4" type="video/mp4"/>
 </video>
-<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover2.mp4" type="video/mp4"/>
 </video>
-<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover3.mp4" type="video/mp4"/>
 </video>
-<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover4.mp4" type="video/mp4"/>
 </video>
-<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover5.mp4" type="video/mp4"/>
 </video>
-<video aria-hidden="true" loop="" muted="" playsinline="" preload="metadata">
+<video aria-hidden="true" muted="" playsinline="" preload="metadata">
 <source src="img/cover/cover6.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -1944,7 +1944,7 @@
 <!-- Bootstrap -->
 <script defer="" src="js/bootstrap.min.js"></script>
 <script defer="">
-        $(document).ready(function () {
+        document.addEventListener('DOMContentLoaded', function () {
             function syncActiveTabState(target) {
                 var $target = $(target);
                 $('#myTab .nav-item').removeClass('active');
@@ -2060,13 +2060,37 @@
                 let currentProfileVideoIndex = 0;
 
                 setActiveProfileVideo(currentProfileVideoIndex, false);
-                currentProfileVideoIndex = (currentProfileVideoIndex + 1) % profileVideos.length;
 
                 if (profileVideos.length > 1) {
+                    profileVideos.forEach((video, videoIndex) => {
+                        video.addEventListener('ended', () => {
+                            if (!video.classList.contains('active')) {
+                                return;
+                            }
+
+                            currentProfileVideoIndex = (videoIndex + 1) % profileVideos.length;
+                            setActiveProfileVideo(currentProfileVideoIndex, true);
+                        });
+
+                        video.addEventListener('error', () => {
+                            if (!video.classList.contains('active')) {
+                                return;
+                            }
+
+                            currentProfileVideoIndex = (videoIndex + 1) % profileVideos.length;
+                            setActiveProfileVideo(currentProfileVideoIndex, true);
+                        });
+                    });
+
                     window.profileVideoInterval = setInterval(() => {
-                        setActiveProfileVideo(currentProfileVideoIndex, true);
+                        const activeVideo = profileVideos[currentProfileVideoIndex];
+                        if (activeVideo && !activeVideo.ended) {
+                            return;
+                        }
+
                         currentProfileVideoIndex = (currentProfileVideoIndex + 1) % profileVideos.length;
-                    }, 5000);
+                        setActiveProfileVideo(currentProfileVideoIndex, true);
+                    }, 1000);
                 }
 
                 document.addEventListener('visibilitychange', () => {
