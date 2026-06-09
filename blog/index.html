@@ -25,6 +25,7 @@
     .tag { display: inline-block; margin-bottom: 12px; color: #0f766e; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
   </style>
 <link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -43,28 +44,43 @@
     }
   ]
 }</script></head>
-<body>
+<body class="portfolio-page">
 <main class="seo-page">
 <nav aria-label="Primary" class="seo-nav">
 <a href="/">Home</a>
 <a href="/about.html">About</a>
 <a href="/projects.html">Projects</a>
 <a href="/ai-engineering/">AI Engineering</a>
+<a href="/llm-evaluation.html">LLM Evaluation</a>
+<a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a>
+<a href="/data-products.html">Data Products</a>
+<a href="/ai-product-builder.html">AI Product Builder</a>
+<a href="/blog/">Blog</a>
 <a href="/resume.html">Resume</a>
 <a href="/contact.html">Contact</a>
 </nav>
 <section class="seo-hero">
+<span class="seo-eyebrow">Writing Index</span>
 <h1>Articles on applied AI, data science, product systems, and engineering</h1>
 <p class="lead">A crawlable index of practical notes by Yangming Li, covering LLM systems, AI system architecture, NLP, MLOps, statistical learning, experimentation, and product thinking. The dedicated <a href="/ai-engineering/">AI Engineering</a> column collects the posts closest to production AI systems.</p>
 </section>
-<h2>AI Engineering</h2>
+<section class="seo-section" aria-labelledby="blog-ai-engineering">
+<div class="portfolio-section-header">
+<span class="seo-eyebrow">Production AI</span>
+<h2 id="blog-ai-engineering">AI Engineering</h2>
+</div>
 <div class="article-grid">
 <article class="article-card"><span class="tag">Column</span><h3><a href="/ai-engineering/">AI Engineering index</a></h3><p>LLM systems, AI system architecture, MLOps, evaluation, deployment, and production AI infrastructure.</p></article>
 <article class="article-card"><span class="tag">2026 · Agent Evaluation</span><h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3><p>Schema-first evaluation, custom graders, release gates, human review, and monitoring for reliable Copilot Studio agents.</p></article>
 <article class="article-card"><span class="tag">2025 · LLM Systems</span><h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3><p>How connected AI tools use external data, tools, and services.</p></article>
 <article class="article-card"><span class="tag">2025 · AI Systems</span><h3><a href="/n8n-ai-workflows.html">Agentic AI systems with n8n</a></h3><p>A technical guide to agent architecture, system integration, and production constraints.</p></article>
 </div>
-<h2>Applied AI and ML</h2>
+</section>
+<section class="seo-section" aria-labelledby="blog-applied-ai-ml">
+<div class="portfolio-section-header">
+<span class="seo-eyebrow">Models and text</span>
+<h2 id="blog-applied-ai-ml">Applied AI and ML</h2>
+</div>
 <div class="article-grid">
 <article class="article-card"><span class="tag">2026 · Agent Evaluation</span><h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3><p>Moving a Copilot agent from a demo to a reviewed, monitored, production-ready AI system.</p></article>
 <article class="article-card"><span class="tag">2025 · LLM Systems</span><h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3><p>How connected AI tools use external data, tools, and services.</p></article>
@@ -74,20 +90,31 @@
 <article class="article-card"><span class="tag">2026 · Deep Learning</span><h3><a href="/pytorch-review01.html">PyTorch review</a></h3><p>A compact review of tensors, shapes, broadcasting, reshaping, and distributions.</p></article>
 <article class="article-card"><span class="tag">2025 · Trustworthy AI</span><h3><a href="/trust-worth-machine-learning-1.html">Trustworthy machine learning</a></h3><p>Notes on transparency, fairness, privacy, robustness, and accountability.</p></article>
 </div>
-<h2>Data platforms and MLOps</h2>
+</section>
+<section class="seo-section" aria-labelledby="blog-data-platforms">
+<div class="portfolio-section-header">
+<span class="seo-eyebrow">Data systems</span>
+<h2 id="blog-data-platforms">Data platforms and MLOps</h2>
+</div>
 <div class="article-grid">
 <article class="article-card"><span class="tag">2024 · MLOps</span><h3><a href="/mlops-essential-skills.html">MLOps essential skills</a></h3><p>Model management and deployment foundations for production ML work.</p></article>
 <article class="article-card"><span class="tag">2024 · Data Engineering</span><h3><a href="/databricks-comprehensive-guide.html">Databricks lakehouse guide</a></h3><p>Delta Lake, MLflow, Unity Catalog, and data platform implementation notes.</p></article>
 <article class="article-card"><span class="tag">2024 · Containers</span><h3><a href="/docker-in-ml.html">Docker for machine learning</a></h3><p>Using Docker for reproducible data science and ML environments.</p></article>
 <article class="article-card"><span class="tag">2024 · Cloud Native</span><h3><a href="/kubernetes-guide.html">Kubernetes guide</a></h3><p>Container orchestration concepts and implementation patterns.</p></article>
 </div>
-<h2>Product and experimentation</h2>
+</section>
+<section class="seo-section" aria-labelledby="blog-product-experiments">
+<div class="portfolio-section-header">
+<span class="seo-eyebrow">Product systems</span>
+<h2 id="blog-product-experiments">Product and experimentation</h2>
+</div>
 <div class="article-grid">
 <article class="article-card"><span class="tag">2025 · Product</span><h3><a href="/building-high-impact-value-propositions.html">High-impact value propositions</a></h3><p>A practical framework for defining and validating product value.</p></article>
 <article class="article-card"><span class="tag">2024 · Product</span><h3><a href="/product-success-essence.html">What makes products successful?</a></h3><p>Notes on user needs, stickiness, and product experience.</p></article>
 <article class="article-card"><span class="tag">2024 · Experimentation</span><h3><a href="/engineering/ab-test-engineering-guide.html">A/B test engineering guide</a></h3><p>Feature gates, experiments, and reliable launch measurement.</p></article>
 <article class="article-card"><span class="tag">2025 · Delivery Systems</span><h3><a href="/jira-guide.html">Jira for agile project management</a></h3><p>How issue tracking and delivery systems support technical execution.</p></article>
 </div>
+</section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
 <div class="site-footer-inner">

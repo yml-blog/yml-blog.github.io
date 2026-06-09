@@ -15,6 +15,7 @@
     p, li { font-size: 17px; line-height: 1.75; color: #52606d; }
   </style>
 <link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -33,22 +34,59 @@
     }
   ]
 }</script></head>
-<body>
-<main>
-<nav aria-label="Primary"><a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/blog/">Blog</a><a href="/contact.html">Contact</a></nav>
-<h1>Resume overview</h1>
-<p>Yangming Li works at the intersection of applied AI, AI system architecture, data science, product systems, and engineering execution. This page summarizes the focus areas already represented across the site.</p>
-<h2>Technical Focus</h2>
-<ul>
-<li>Applied AI systems, LLM architecture, copilots, retrieval, and document intelligence.</li>
-<li>Statistical machine learning, NLP, topic modeling, and trustworthy ML.</li>
-<li>Data engineering, data products, MLOps, and experiment infrastructure.</li>
-<li>Product strategy, analytics systems, decision-support tooling, and production delivery.</li>
-</ul>
-<h2>Credentials and Learning</h2>
+<body class="portfolio-page">
+<main class="portfolio-shell">
+<nav aria-label="Primary" class="portfolio-nav"><a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation.html">LLM Evaluation</a><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a><a href="/data-products.html">Data Products</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
+<section class="portfolio-hero" aria-labelledby="resume-title">
+<div class="portfolio-hero-main">
+<span class="portfolio-kicker">Resume</span>
+<h1 id="resume-title">Resume overview</h1>
+<p class="portfolio-lead">Yangming Li works at the intersection of applied AI, AI system architecture, data science, product systems, and engineering execution. This page summarizes the focus areas already represented across the site.</p>
+<div class="portfolio-cta-row" aria-label="Resume page shortcuts">
+<a class="portfolio-button" href="/projects.html">View Projects</a>
+<a class="portfolio-button secondary" href="/ai-engineering/">AI Engineering</a>
+<a class="portfolio-button secondary" href="/blog/">Technical Writing</a>
+<a class="portfolio-button secondary" href="/contact.html">Contact</a>
+</div>
+</div>
+<aside class="portfolio-hero-aside" aria-label="Resume focus">
+<div>
+<h2>Applied AI, data systems, and product execution.</h2>
+<p>The resume story is organized around production usefulness: systems that can be evaluated, reviewed, launched, and improved.</p>
+</div>
+<p>Use the project and writing links as supporting evidence for the technical focus areas below.</p>
+</aside>
+</section>
+<section class="portfolio-section" aria-labelledby="resume-technical-focus">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Technical Focus</span>
+<h2 id="resume-technical-focus">Core focus areas</h2>
+</div>
+<div class="portfolio-grid two">
+<article class="portfolio-card"><span class="portfolio-card-number">01</span><h3>Applied AI Systems</h3><p>Applied AI systems, LLM architecture, copilots, retrieval, and document intelligence.</p></article>
+<article class="portfolio-card"><span class="portfolio-card-number">02</span><h3>Machine Learning &amp; NLP</h3><p>Statistical machine learning, NLP, topic modeling, and trustworthy ML.</p></article>
+<article class="portfolio-card"><span class="portfolio-card-number">03</span><h3>Data Products</h3><p>Data engineering, data products, MLOps, and experiment infrastructure.</p></article>
+<article class="portfolio-card"><span class="portfolio-card-number">04</span><h3>Product Systems</h3><p>Product strategy, analytics systems, decision-support tooling, and production delivery.</p></article>
+</div>
+</section>
+<section class="portfolio-section" aria-labelledby="resume-evidence">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Evidence</span>
+<h2 id="resume-evidence">Credentials, learning, and selected writing</h2>
+</div>
+<div class="portfolio-case-grid">
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">Learning</span>
+<h3>Credentials and Learning</h3>
 <p>The site references CFA and FRM credentials and includes a <a href="/courses.html">courses and certificates page</a> with supporting learning records.</p>
-<h2>Selected Writing</h2>
+</article>
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">Writing</span>
+<h3>Selected Writing</h3>
 <p>For evidence of technical focus, review the <a href="/blog/">blog index</a>, <a href="/projects.html">project themes</a>, and articles on <a href="/mlops-essential-skills.html">MLOps</a>, <a href="/mcp-protocol-guide.html">MCP</a>, and <a href="/engineering/ab-test-engineering-guide.html">A/B testing systems</a>.</p>
+</article>
+</div>
+</section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
 <div class="site-footer-inner">
