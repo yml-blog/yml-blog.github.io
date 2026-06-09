@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="../css/focus-room.css?v=20260325-5" rel="stylesheet"/>
+<link href="../css/focus-room.css?v=20260608-room-identity" rel="stylesheet"/>
 <link href="/css/typography.css" rel="stylesheet"/><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [
@@ -132,7 +132,7 @@
 <header class="fr-topbar">
 <a class="fr-brand" href="../index.html">
 <span class="fr-brand-mark"></span>
-<span>Yangming Li</span>
+<span>Focus Room</span>
 </a>
 <nav aria-label="Focus Room sections" class="fr-topbar-nav">
 <button class="fr-topbar-enter" data-open-room="" type="button">Enter Room</button>
@@ -142,68 +142,62 @@
 <a href="../index.html">Home</a>
 </nav>
 </header>
-<section class="fr-section fr-hero">
+<section class="fr-section fr-hero fr-hero-portal">
 <div class="fr-hero-copy">
-<span class="fr-eyebrow">Featured Interactive Experience</span>
+<span class="fr-eyebrow">Cinematic Focus Room</span>
 <h1 class="fr-title">Focus Room</h1>
-<p class="fr-hero-deck">Not another timer. A room you return to.</p>
-<p class="fr-body fr-hero-body">Built to reduce friction before focus, with a calm entry ritual, ambient sound mixer, low-visibility controls, and a fullscreen study room that settles deeper as the session unfolds.</p>
-<div aria-label="Focus Room highlights" class="fr-hero-metrics">
-<span class="fr-stat-chip"><strong>5</strong><em>ambient layers</em></span>
-<span class="fr-stat-chip"><strong>Local</strong><em>persistence</em></span>
-<span class="fr-stat-chip"><strong>Ghost</strong><em>controls</em></span>
-<span class="fr-stat-chip"><strong>Session</strong><em>evolution</em></span>
+<p class="fr-hero-deck">A quiet room for deep work.</p>
+<p class="fr-body fr-hero-body">Enter a room, choose an atmosphere, and let the controls fade away.</p>
+<div aria-label="Room atmosphere state" class="fr-room-state-row">
+<span>Rain on</span>
+<span>Lamp warm</span>
+<span>Controls quiet</span>
+<span>25 min room</span>
 </div>
 <div class="fr-actions fr-actions-hero">
 <button class="fr-button primary fr-button-hero" data-open-room="" type="button">Enter the Room</button>
 <a class="fr-button tertiary" href="#architecture">View Architecture</a>
 </div>
-<p class="fr-note">The landing page stays light. The real product now opens as a fullscreen room, separate from the build notes and source browser below.</p>
 </div>
-<div aria-label="Focus Room preview" class="fr-threshold-stage fr-hero-preview" data-preview-stage="" tabindex="0">
-<div class="fr-threshold-backdrop">
-<div class="fr-threshold-shell">
-<div aria-hidden="true" class="fr-scene-stars">
-<span class="fr-scene-star" style="left: 18%; top: 18%;"></span>
-<span class="fr-scene-star" style="left: 72%; top: 22%; animation-delay: -1.4s;"></span>
-<span class="fr-scene-star" style="left: 60%; top: 16%; animation-delay: -2.6s;"></span>
-<span class="fr-scene-star" style="left: 31%; top: 28%; animation-delay: -3.4s;"></span>
+<div aria-label="Focus Room ambient preview" class="fr-room-portal fr-hero-preview" data-preview-stage="" tabindex="0">
+<div aria-hidden="true" class="fr-portal-noise"></div>
+<div aria-hidden="true" class="fr-portal-glow"></div>
+<div aria-hidden="true" class="fr-focus-mark">
+<span class="fr-focus-mark__ring"></span>
+<span class="fr-focus-mark__door"></span>
+<span class="fr-focus-mark__wave fr-focus-mark__wave--one"></span>
+<span class="fr-focus-mark__wave fr-focus-mark__wave--two"></span>
 </div>
-<div aria-hidden="true" class="fr-scene-window">
-<div class="fr-scene-rain">
-<span></span><span></span><span></span><span></span>
-<span></span><span></span><span></span><span></span>
-</div>
-</div>
-<div aria-hidden="true" class="fr-scene-lamp"></div>
-<div aria-hidden="true" class="fr-scene-desk"></div>
-<div aria-hidden="true" class="fr-scene-record"></div>
-<div aria-hidden="true" class="fr-scene-book"></div>
-<div aria-hidden="true" class="fr-scene-cup"></div>
-<div aria-hidden="true" class="fr-threshold-demo-note">Good work. Take a breath.</div>
-</div>
-</div>
-<div class="fr-threshold-copy">
-<div aria-hidden="true" class="fr-threshold-orb"></div>
+<div class="fr-portal-copy">
+<span class="fr-portal-kicker">Room settling</span>
 <h2>Focus Room</h2>
 <p>A quiet room for deep work.</p>
-<button class="fr-threshold-trigger" data-open-room="" type="button">
-<span>Open Fullscreen Room</span>
-</button>
-<p aria-live="polite" class="fr-threshold-footnote" data-preview-prompt="">Hover wakes the room. Open the fullscreen experience to begin.</p>
 </div>
-<div class="fr-stage-caption">
-<div class="fr-stage-chip-row">
-<span class="fr-stage-chip fr-stage-chip-live">Preview</span>
-<span class="fr-stage-chip">Hover wakes rain</span>
-<span class="fr-stage-chip">Fullscreen app</span>
+<div aria-label="Ambient sound layers" class="fr-ambient-console">
+<div class="fr-console-row fr-console-row--sound">
+<span class="fr-console-chip is-active">Rain</span>
+<span class="fr-console-chip is-active">Brown Noise</span>
+<span class="fr-console-chip">Piano</span>
+<span class="fr-console-chip">Cafe</span>
+<span class="fr-console-chip">Wind</span>
 </div>
-<div class="fr-stage-loop">
-<span class="fr-stage-loop-label">8s room cycle</span>
+<div class="fr-console-row fr-console-row--session">
+<span class="fr-console-chip is-active">25</span>
+<span class="fr-console-chip">50</span>
+<span class="fr-console-chip">Custom</span>
+</div>
+</div>
+<div class="fr-ghost-dock" aria-label="Ghost controls preview">
+<span>Rain on</span>
+<span>Lamp warm</span>
+<span>Controls quiet</span>
+</div>
+<div class="fr-stage-loop fr-portal-loop">
+<span class="fr-stage-loop-label">Room cycle</span>
 <div class="fr-stage-loop-track"><span data-preview-track=""></span></div>
 <span aria-live="polite" class="fr-stage-loop-status" data-preview-status="">Room settling</span>
 </div>
-</div>
+<p aria-live="polite" class="fr-threshold-footnote" data-preview-prompt="">Ghost controls fade after you begin.</p>
 </div>
 </section>
 <section class="fr-section fr-experience" id="experience">
