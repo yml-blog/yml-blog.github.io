@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI Agent Evaluation Launch Checklist | Yangming Li</title>
+<meta content="Download a practical checklist for evaluating Copilot Studio, RAG, document AI, and enterprise AI agents before production." name="description"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<link href="https://yangmingli.com/ai-agent-evaluation-checklist.html" rel="canonical"/>
+<meta content="website" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="AI Agent Evaluation Launch Checklist" property="og:title"/>
+<meta content="A practical enterprise checklist for testing AI agents before production: tasks, traces, graders, release gates, and monitoring." property="og:description"/>
+<meta content="https://yangmingli.com/ai-agent-evaluation-checklist.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="AI Agent Evaluation Launch Checklist" name="twitter:title"/>
+<meta content="A practical enterprise checklist for testing AI agents before production: tasks, traces, graders, release gates, and monitoring." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="#0f766e" name="theme-color"/>
+<link href="/favicon.png" rel="icon"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
+<link href="/css/lead-magnet.css" rel="stylesheet"/>
+<script defer="" src="/js/i18n.js"></script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "AI Agent Evaluation Launch Checklist",
+  "url": "https://yangmingli.com/ai-agent-evaluation-checklist.html",
+  "description": "Download a practical checklist for evaluating Copilot Studio, RAG, document AI, and enterprise AI agents before production.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@id": "https://yangmingli.com/#website"
+  },
+  "about": [
+    "AI agent evaluation",
+    "Copilot Studio",
+    "RAG evaluation",
+    "Document AI",
+    "LLM evaluation"
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "AI Agent Evaluation Launch Checklist",
+      "item": "https://yangmingli.com/ai-agent-evaluation-checklist.html"
+    }
+  ]
+}</script>
+</head>
+<body class="portfolio-page lead-magnet-page">
+<main class="portfolio-shell">
+<nav aria-label="Primary" class="portfolio-nav">
+<a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation.html">LLM Evaluation</a><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a><a href="/data-products.html">Data Products</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
+</nav>
+<section class="portfolio-hero lead-magnet-hero" aria-labelledby="lead-magnet-title">
+<div class="portfolio-hero-main">
+<span class="portfolio-kicker">Enterprise AI Evaluation</span>
+<h1 id="lead-magnet-title">AI Agent Evaluation Launch Checklist</h1>
+<p class="portfolio-lead">A practical checklist for Copilot Studio, RAG, document AI, and enterprise AI agents before production.</p>
+<p class="lead-magnet-body-copy">Most AI agents look impressive in demos. The real question is whether they can survive production: messy users, outdated knowledge, permission boundaries, tool errors, cost and latency surprises, and regressions after updates.</p>
+<div class="portfolio-cta-row">
+<a class="portfolio-button" href="#checklist-form">Download the Checklist</a>
+</div>
+</div>
+<aside class="lead-magnet-form-card" aria-labelledby="checklist-form-title">
+<span class="portfolio-eyebrow">Free Download</span>
+<h2 id="checklist-form-title">Get the checklist</h2>
+<p>Use it to turn launch readiness into reviewable evidence before an internal AI agent goes live.</p>
+<!-- Email provider setup:
+     Keep the current action for static fallback. When you choose Buttondown, ConvertKit,
+     Mailchimp, Formspree, or another provider, paste the provider form endpoint into
+     the form action below and configure that provider to redirect successful submissions
+     to /thank-you-ai-agent-checklist.html. Do not place API keys in this client-side HTML. -->
+<form id="checklist-form" class="lead-magnet-form" action="/thank-you-ai-agent-checklist.html" method="get">
+<input name="source" type="hidden" value="ai-agent-evaluation-checklist"/>
+<div class="lead-magnet-field">
+<label for="email">Email <span aria-hidden="true">*</span></label>
+<input autocomplete="email" id="email" name="email" required="" type="email"/>
+</div>
+<div class="lead-magnet-field">
+<label for="name">Name <span class="lead-magnet-optional">optional</span></label>
+<input autocomplete="name" id="name" name="name" type="text"/>
+</div>
+<div class="lead-magnet-field">
+<label for="organization">Organization <span class="lead-magnet-optional">optional</span></label>
+<input autocomplete="organization" id="organization" name="organization" type="text"/>
+</div>
+<button class="portfolio-button lead-magnet-submit" type="submit">Download the Checklist</button>
+<p class="lead-magnet-privacy">I’ll only use your email to send the checklist and occasional notes about AI evaluation, RAG, and data products. Unsubscribe anytime.</p>
+</form>
+</aside>
+</section>
+<section class="portfolio-section" aria-labelledby="inside-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Checklist Contents</span>
+<h2 id="inside-title">What's inside</h2>
+</div>
+<ul class="lead-magnet-checklist">
+<li>10 launch-readiness questions</li>
+<li>A 30-7-3-4-1 implementation plan</li>
+<li>Core scenario and test-set templates</li>
+<li>RAG and groundedness checks</li>
+<li>Grader selection guide: rules, LLM judges, and human review</li>
+<li>Failure taxonomy for debugging agents</li>
+<li>Capability suite vs. regression suite separation</li>
+<li>Release gates for write actions, cost, latency, and anomaly spikes</li>
+<li>Online monitoring loop for continuous improvement</li>
+</ul>
+</section>
+<section class="portfolio-section" aria-labelledby="audience-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Audience</span>
+<h2 id="audience-title">Who this is for</h2>
+</div>
+<ul class="lead-magnet-checklist compact">
+<li>Copilot Studio builders</li>
+<li>Analytics, BI, and automation teams</li>
+<li>Healthcare, HR, finance, and public-sector AI teams</li>
+<li>Teams moving from AI demo to production</li>
+<li>Leaders who need evidence before approving an internal agent launch</li>
+</ul>
+</section>
+<section class="portfolio-section" aria-labelledby="why-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Production Readiness</span>
+<h2 id="why-title">Why it matters</h2>
+</div>
+<p>Agent evaluation turns vague feedback like ‘the agent is not good enough’ into specific, reviewable evidence: which scenario failed, what trace shows the failure, which component caused it, and what release gate should stop it from reaching production.</p>
+</section>
+<section class="portfolio-section" aria-labelledby="model-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Operating Model</span>
+<h2 id="model-title">The operating model</h2>
+</div>
+<p class="lead-magnet-formula">Real failures + isolated harness + repeated trials + calibrated graders + trace review + capability/regression separation + release gates + online monitoring.</p>
+</section>
+<section class="portfolio-section lead-magnet-final-cta" aria-labelledby="final-cta-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Next Step</span>
+<h2 id="final-cta-title">Ready to evaluate your agent before launch?</h2>
+</div>
+<a class="portfolio-button" href="#checklist-form">Download the AI Agent Evaluation Checklist</a>
+</section>
+<section aria-label="Site links" class="pillar-footer-links">
+<p><a href="/">Home</a> &middot; <a href="/about.html">About</a> &middot; <a href="/projects.html">Projects</a> &middot; <a href="/ai-engineering/">AI Engineering</a> &middot; <a href="/llm-evaluation.html">LLM Evaluation</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/contact.html">Contact</a></p>
+</section>
+</main>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>

@@ -28,6 +28,7 @@
 <link href="css/focus-room.css?v=20260325-5" rel="stylesheet"/>
 <link href="css/components.css" rel="stylesheet"/>
 <link href="css/home.css" rel="stylesheet"/>
+<link href="css/lead-magnet.css" rel="stylesheet"/>
 <link href="css/blog-list.css" rel="stylesheet"/>
 <link href="css/typography.css" rel="stylesheet"/>
 <script defer="" src="js/i18n.js"></script>
@@ -378,6 +379,14 @@
 <a class="about-utility-link" href="courses.html">Certificates</a>
 </div>
 <p class="about-utility-note">If you are here for collaboration or hiring, start with About, Projects, Blog, Resume, or Contact. If you are curious, the other links are open too.</p>
+</div>
+</div>
+<div class="about-card lead-magnet-home-cta animate-on-view" aria-labelledby="home-checklist-cta-title">
+<span class="about-card-badge">AI Agent Evaluation</span>
+<h3 class="about-card-title" id="home-checklist-cta-title">Building an AI agent?</h3>
+<p class="lead-magnet-home-copy">Download a practical launch checklist for evaluating Copilot Studio, RAG, document AI, and enterprise AI agents before production.</p>
+<div class="lead-magnet-home-actions">
+<a class="about-utility-link lead-magnet-home-button" href="/ai-agent-evaluation-checklist.html">Download the Checklist</a>
 </div>
 </div>
 </div>
@@ -2393,24 +2402,26 @@
                 });
             });
 
-            // Handle comment submission
-            commentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('commenter-name').value;
-                const text = document.getElementById('comment-text').value;
-                if (name && text) {
-                    addComment(name, text);
-                    document.getElementById('commenter-name').value = '';
-                    document.getElementById('comment-text').value = '';
-                }
-            });
+            // Handle comment submission when a comment form exists on the page.
+            if (commentForm && commentList && commentCount) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('commenter-name').value;
+                    const text = document.getElementById('comment-text').value;
+                    if (name && text) {
+                        addComment(name, text);
+                        document.getElementById('commenter-name').value = '';
+                        document.getElementById('comment-text').value = '';
+                    }
+                });
 
-            function addComment(name, text) {
-                const comment = document.createElement('div');
-                comment.className = 'comment';
-                comment.innerHTML = `<strong>${name}</strong>: ${text}`;
-                commentList.appendChild(comment);
-                commentCount.textContent = parseInt(commentCount.textContent) + 1;
+                function addComment(name, text) {
+                    const comment = document.createElement('div');
+                    comment.className = 'comment';
+                    comment.innerHTML = `<strong>${name}</strong>: ${text}`;
+                    commentList.appendChild(comment);
+                    commentCount.textContent = parseInt(commentCount.textContent) + 1;
+                }
             }
         });
     </script>
