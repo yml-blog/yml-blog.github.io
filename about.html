@@ -6,16 +6,8 @@
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 <script defer="" src="/js/i18n.js"></script>
-<style>
-    body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
-    main { max-width: 920px; margin: 0 auto; padding: 40px 20px 64px; }
-    nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
-    nav a, a { color: #0f766e; font-weight: 600; }
-    h1 { font-size: 42px; line-height: 1.12; margin: 0 0 16px; color: #111827; }
-    h2 { font-size: 24px; margin: 34px 0 12px; color: #111827; }
-    p, li { font-size: 17px; line-height: 1.75; color: #52606d; }
-  </style>
 <link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "ProfilePage",
@@ -68,29 +60,106 @@
     }
   ]
 }</script></head>
-<body>
-<main>
-<nav aria-label="Primary">
+<body class="portfolio-page">
+<main class="portfolio-shell">
+<nav aria-label="Primary" class="portfolio-nav">
 <a href="/">Home</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation.html">LLM Evaluation</a><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a><a href="/data-products.html">Data Products</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
 </nav>
-<h1>About Yangming Li</h1>
-<p>Yangming Li is an Applied AI Engineer, Data Scientist, and AI Product Builder. This website collects public writing, project themes, and technical notes across applied AI systems, LLM systems, RAG, AI evaluation, statistical machine learning, NLP, data engineering, data products, experiment infrastructure, and product thinking.</p>
-<p>The throughline is practical AI work: designing systems that can be evaluated, monitored, reviewed, and connected to real workflows. Rather than presenting AI as a demo-only capability, the site emphasizes contracts, data quality, retrieval design, schema validation, uncertainty, human review, and the product decisions needed to make AI useful.</p>
-<h2>Focus areas</h2>
-<ul>
-<li>Applied AI engineering, LLM systems, RAG, agents, document intelligence, and AI evaluation.</li>
-<li>Statistical machine learning, NLP, topic modeling, sentiment analysis, and trustworthy machine learning.</li>
-<li>Data engineering, AI data products, analytics systems, MLOps, and experiment infrastructure.</li>
-<li>AI product thinking, product strategy, decision-support workflows, and launch trade-offs.</li>
+<section class="portfolio-hero" aria-labelledby="about-title">
+<div class="portfolio-hero-main">
+<span class="portfolio-kicker">Yangming Li</span>
+<h1 id="about-title">About Yangming Li</h1>
+<p class="portfolio-lead">Yangming Li is an Applied AI Engineer, Data Scientist, and AI Product Builder focused on LLM systems, evaluation, statistical machine learning, NLP, data products, and experiment infrastructure for useful production AI.</p>
+<div class="portfolio-cta-row" aria-label="Primary portfolio links">
+<a class="portfolio-button" href="/projects.html">View Projects</a>
+<a class="portfolio-button secondary" href="/ai-engineering/">AI Engineering</a>
+<a class="portfolio-button secondary" href="/llm-evaluation.html">LLM Evaluation</a>
+<a class="portfolio-button secondary" href="/resume.html">Resume</a>
+<a class="portfolio-button secondary" href="/contact.html">Contact</a>
+</div>
+</div>
+<aside class="portfolio-hero-aside" aria-label="Positioning summary">
+<div>
+<h2>Applied AI that can be evaluated, reviewed, and shipped.</h2>
+<p>The site collects public writing, project themes, and technical notes across retrieval, schema validation, uncertainty, data quality, human review, and the product choices needed to make AI useful.</p>
+</div>
+<img class="portfolio-hero-image" src="/img/optimized/model_drift_800.webp" alt="Model monitoring workflow diagram for production machine learning systems" loading="eager"/>
+<p>Built for teams that care about adoption, auditability, and real workflow impact.</p>
+</aside>
+</section>
+<section class="portfolio-section" aria-labelledby="expertise-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Expertise areas</span>
+<h2 id="expertise-title">Where I focus</h2>
+<p>These themes connect the technical articles, project notes, and product thinking across the site.</p>
+</div>
+<div class="portfolio-grid">
+<article class="portfolio-card">
+<span class="portfolio-card-number">01</span>
+<h3>Applied AI Systems</h3>
+<p>LLM applications, retrieval-augmented generation, agents, document intelligence, and AI system integration for practical workflows.</p>
+</article>
+<article class="portfolio-card">
+<span class="portfolio-card-number">02</span>
+<h3>LLM Evaluation</h3>
+<p>Evaluation design, uncertainty checks, model behavior analysis, and review loops that make generated outputs more dependable.</p>
+</article>
+<article class="portfolio-card">
+<span class="portfolio-card-number">03</span>
+<h3>Machine Learning &amp; NLP</h3>
+<p>Statistical machine learning, NLP, topic modeling, sentiment analysis, and trustworthy ML methods for applied data problems.</p>
+</article>
+<article class="portfolio-card">
+<span class="portfolio-card-number">04</span>
+<h3>Data Products</h3>
+<p>Analytics systems, decision-support products, data engineering, and product experiences that turn data into operational judgment.</p>
+</article>
+<article class="portfolio-card">
+<span class="portfolio-card-number">05</span>
+<h3>AI Product Builder</h3>
+<p>Product strategy, launch trade-offs, workflow design, and the decisions that move AI from promising demo to adopted system.</p>
+</article>
+</div>
+</section>
+<section class="portfolio-section" aria-labelledby="approach-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">System approach</span>
+<h2 id="approach-title">How I approach AI systems</h2>
+<p>I treat AI systems as workflow products, not isolated model demos. The practical work is making the system understandable, testable, and useful when people depend on it.</p>
+</div>
+<ul class="portfolio-approach-list">
+<li><strong>Retrieval design</strong>Design context pipelines that expose the right evidence and make document-grounded answers easier to inspect.</li>
+<li><strong>Schema validation</strong>Use structured contracts so generated outputs can be parsed, checked, routed, and corrected before they reach users.</li>
+<li><strong>Uncertainty</strong>Surface ambiguity, confidence gaps, and failure modes instead of pretending every response has equal reliability.</li>
+<li><strong>Human review</strong>Keep expert judgment in the loop for high-impact decisions, escalation paths, and quality feedback.</li>
+<li><strong>Evaluation</strong>Measure behavior with task-specific tests, adversarial examples, regression checks, and production feedback.</li>
+<li><strong>Production usefulness</strong>Connect AI outputs to real workflows, adoption constraints, latency needs, auditability, and business value.</li>
 </ul>
-<h2>Start here</h2>
-<p>For technical depth, start with <a href="/testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a>, <a href="/llm-evaluation.html">LLM Evaluation</a>, and <a href="/ai-engineering/">AI Engineering</a>. For product context, read <a href="/ai-product-builder.html">AI Product Builder</a> and <a href="/data-products.html">Data Products</a>.</p>
-<h2>External profiles</h2>
-<ul>
-<li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li>
-<li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li>
-<li><a href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&amp;hl=en" rel="noopener noreferrer">Google Scholar</a></li>
-</ul>
+</section>
+<section class="portfolio-section" aria-labelledby="profiles-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">External profiles</span>
+<h2 id="profiles-title">Find more context</h2>
+<p>Use these profiles for professional background, code, and research-oriented context.</p>
+</div>
+<div class="portfolio-grid">
+<a class="portfolio-profile-card" href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">
+<h3>LinkedIn</h3>
+<p>Professional profile and collaboration context for applied AI, data science, and product work.</p>
+<span class="portfolio-link-hint">Open LinkedIn</span>
+</a>
+<a class="portfolio-profile-card" href="https://github.com/yml-blog" rel="noopener noreferrer">
+<h3>GitHub</h3>
+<p>Code, repositories, and implementation artifacts connected to AI engineering and data work.</p>
+<span class="portfolio-link-hint">Open GitHub</span>
+</a>
+<a class="portfolio-profile-card" href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&amp;hl=en" rel="noopener noreferrer">
+<h3>Google Scholar</h3>
+<p>Research-facing profile and citation context.</p>
+<span class="portfolio-link-hint">Open Google Scholar</span>
+</a>
+</div>
+</section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
 <div class="site-footer-inner">

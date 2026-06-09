@@ -5,19 +5,8 @@
 <meta charset="utf-8"/>
 <link href="/favicon.png" rel="icon"/>
 <script defer="" src="/js/i18n.js"></script>
-<style>
-    body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
-    main { max-width: 1080px; margin: 0 auto; padding: 40px 20px 64px; }
-    nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 34px; }
-    nav a, a { color: #0f766e; font-weight: 600; }
-    h1 { font-size: 42px; line-height: 1.12; margin: 0 0 16px; color: #111827; }
-    h2 { font-size: 24px; margin: 0 0 12px; color: #111827; }
-    p { font-size: 17px; line-height: 1.75; color: #52606d; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 28px; }
-    article { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 22px; }
-    .kicker { color: #0f766e; font-weight: 700; font-size: 13px; text-transform: uppercase; }
-  </style>
 <link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -36,16 +25,126 @@
     }
   ]
 }</script></head>
-<body>
-<main>
-<nav aria-label="Primary"><a href="/">Home</a><a href="/about.html">About</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
-<h1>Projects and portfolio themes</h1>
-<p>Selected work themes across healthcare, finance, and enterprise teams, centered on production AI systems that move beyond demos.</p>
-<div class="grid">
-<article><span class="kicker">LLM Systems</span><h2>Applied AI for document and knowledge systems</h2><p>Work around copilots, retrieval-augmented generation, report generation, and AI system integration. Related notes: <a href="/llama-report-guide.html">LlamaReport guide</a>, <a href="/mcp-protocol-guide.html">MCP guide</a>, and <a href="/n8n-ai-workflows.html">AI systems guide</a>.</p></article>
-<article><span class="kicker">Data Products</span><h2>Decision-support products for complex teams</h2><p>Analytics and product experiences that help operational teams move from raw data to better decisions. Related notes: <a href="/building-product-scales-company.html">product strategy</a>, <a href="/product-success-essence.html">product fundamentals</a>, and <a href="/jira-guide.html">delivery systems</a>.</p></article>
-<article><span class="kicker">Experiment Infrastructure</span><h2>From experimentation to production delivery</h2><p>Systems thinking across A/B testing, MLOps, data platforms, and reliable launch measurement. Related notes: <a href="/engineering/ab-test-engineering-guide.html">A/B testing systems</a>, <a href="/mlops-essential-skills.html">MLOps foundations</a>, and <a href="/databricks-comprehensive-guide.html">data platform guide</a>.</p></article>
+<body class="portfolio-page">
+<main class="portfolio-shell">
+<nav aria-label="Primary" class="portfolio-nav"><a href="/">Home</a><a href="/about.html">About</a><a href="/ai-engineering/">AI Engineering</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
+<section class="portfolio-hero" aria-labelledby="projects-title">
+<div class="portfolio-hero-main">
+<span class="portfolio-kicker">Selected work</span>
+<h1 id="projects-title">Projects and portfolio themes</h1>
+<p class="portfolio-lead">Selected work themes across healthcare, finance, and enterprise teams, centered on production AI systems, evaluation, data products, and experiment infrastructure that move beyond demos.</p>
+<div class="portfolio-cta-row" aria-label="Project page shortcuts">
+<a class="portfolio-button" href="/ai-engineering/">Explore AI Engineering</a>
+<a class="portfolio-button secondary" href="/llm-evaluation.html">Read LLM Evaluation</a>
+<a class="portfolio-button secondary" href="/data-products.html">Data Products</a>
+<a class="portfolio-button secondary" href="/contact.html">Discuss Collaboration</a>
 </div>
+</div>
+<aside class="portfolio-hero-aside" aria-label="Project framing">
+<div>
+<h2>Case-study themes, not generic demos.</h2>
+<p>Each theme connects a practical problem, system design choices, evaluation methods, and the value a team needs before trusting AI in a workflow.</p>
+</div>
+<img class="portfolio-hero-image" src="/img/optimized/feature_store_800.webp" alt="Feature store diagram representing reusable data infrastructure" loading="eager"/>
+<p>Useful AI depends on product fit, data quality, observability, and review paths.</p>
+</aside>
+</section>
+<section class="portfolio-section" aria-labelledby="case-study-title">
+<div class="portfolio-section-header">
+<span class="portfolio-eyebrow">Project grid</span>
+<h2 id="case-study-title">Featured project and case-study areas</h2>
+<p>These cards organize the site around concrete applied AI and data product work. They preserve crawlable internal links to the deeper technical notes.</p>
+</div>
+<div class="portfolio-case-grid">
+<article class="portfolio-case-card featured">
+<span class="portfolio-case-label">LLM Systems</span>
+<h3>Applied AI for document and knowledge workflows</h3>
+<p>Problem: teams need AI systems that can use documents, retrieve evidence, and support knowledge work without becoming opaque answer machines.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>Retrieval-augmented generation, document intelligence, report generation, MCP-style integration, prompt and schema design.</p></div>
+<div><strong>Outcome or value</strong><p>Better route from source material to reviewable AI outputs that can be integrated into real team workflows.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/ai-engineering/">AI Engineering column</a>
+<a href="/llama-report-guide.html">LlamaReport guide</a>
+<a href="/mcp-protocol-guide.html">MCP guide</a>
+</div>
+</article>
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">AI Evaluation</span>
+<h3>Evaluation systems for LLM behavior and uncertainty</h3>
+<p>Problem: model outputs need task-specific evaluation, uncertainty awareness, and regression checks before they can support high-stakes decisions.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>LLM evaluation design, uncertainty estimation, rubric-based checks, adversarial examples, human review workflows.</p></div>
+<div><strong>Outcome or value</strong><p>Clearer evidence about when an AI system is reliable, when it should defer, and what should be improved before launch.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/llm-evaluation.html">LLM Evaluation</a>
+<a href="/testing-evaluating-copilot-agents.html">Testing Copilot Agents</a>
+<a href="/uqlm-teaching-guide.html">UQLM teaching guide</a>
+</div>
+</article>
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">Healthcare Analytics</span>
+<h3>Decision-support analytics for healthcare and operations</h3>
+<p>Problem: operational teams need analytical systems that translate messy data into decisions, not just charts or one-off notebooks.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>Statistical analysis, data products, dashboard design, cohort analysis, measurement planning, quality controls.</p></div>
+<div><strong>Outcome or value</strong><p>More usable analytics workflows for clinical, operational, or enterprise teams that need trustworthy decision support.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/healthcare-ai-analytics.html">Healthcare AI Analytics</a>
+<a href="/key-statistical-tests-survey-analysis.html">Statistical tests guide</a>
+<a href="/data-products.html">Data Products</a>
+</div>
+</article>
+<article class="portfolio-case-card featured">
+<span class="portfolio-case-label">Data Products</span>
+<h3>Products that move teams from raw data to decisions</h3>
+<p>Problem: data work often fails when it stops at analysis and never becomes a product teams can repeatedly use.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>Data product strategy, analytics UX, product requirements, experimentation, data engineering, decision-support design.</p></div>
+<div><strong>Outcome or value</strong><p>Reusable systems that connect data, product workflows, and operational decisions with clearer adoption paths.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/data-products.html">Data Products</a>
+<a href="/building-product-scales-company.html">Product strategy</a>
+<a href="/product-success-essence.html">Product fundamentals</a>
+</div>
+</article>
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">NLP / Topic Modeling</span>
+<h3>Machine learning and NLP for interpretable text systems</h3>
+<p>Problem: text-heavy workflows need models that classify, summarize, cluster, and explain language patterns in ways humans can inspect.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>NLP, topic modeling, sentiment analysis, statistical ML, trustworthy machine learning, model interpretation.</p></div>
+<div><strong>Outcome or value</strong><p>More explainable text analysis for research, product, and enterprise workflows where patterns need to be understood.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a>
+<a href="/sentiment-analysis-fine-tune-with-bert.html">BERT sentiment analysis</a>
+<a href="/trust-worth-machine-learning-1.html">Trustworthy ML</a>
+</div>
+</article>
+<article class="portfolio-case-card">
+<span class="portfolio-case-label">Experiment Infrastructure</span>
+<h3>From experimentation to production delivery</h3>
+<p>Problem: teams need reliable ways to test ideas, compare outcomes, and monitor launches without losing engineering discipline.</p>
+<div class="portfolio-case-meta">
+<div><strong>Methods and tools</strong><p>A/B testing systems, MLOps, data platforms, launch measurement, CI/CD thinking, observability, delivery systems.</p></div>
+<div><strong>Outcome or value</strong><p>Better path from experiment to production, with measurement and infrastructure that make iteration safer and clearer.</p></div>
+</div>
+<div class="portfolio-link-row">
+<a href="/engineering/ab-test-engineering-guide.html">A/B testing systems</a>
+<a href="/mlops-essential-skills.html">MLOps foundations</a>
+<a href="/databricks-comprehensive-guide.html">Data platform guide</a>
+</div>
+</article>
+</div>
+<div class="portfolio-note">
+<p>For a broader professional overview, see the <a href="/resume.html">resume overview</a>; for public writing by topic, use the <a href="/blog/">blog index</a>.</p>
+</div>
+</section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
 <div class="site-footer-inner">
