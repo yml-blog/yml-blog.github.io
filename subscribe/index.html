@@ -4,21 +4,21 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>AI Engineering | Yangming Li Applied AI Systems</title>
-<meta content="A topic hub on LLM systems, RAG, agents, evaluation, MLOps, observability, and production AI architecture by Yangming Li." name="description"/>
+<title>Subscribe to Yangming AI Systems Notes | Yangming Li</title>
+<meta content="Subscribe to Yangming AI Systems Notes for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows." name="description"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="AI engineering, applied AI systems, LLM systems, RAG, MLOps" name="keywords"/>
-<link href="https://yangmingli.com/ai-engineering/" rel="canonical"/>
+<meta content="Yangming AI Systems Notes, LLM systems newsletter, AI evaluation newsletter, MLOps newsletter" name="keywords"/>
+<link href="https://yangmingli.com/subscribe/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Yangming Li" property="og:site_name"/>
-<meta content="AI Engineering | Yangming Li Applied AI Systems" property="og:title"/>
-<meta content="A topic hub on LLM systems, RAG, agents, evaluation, MLOps, observability, and production AI architecture by Yangming Li." property="og:description"/>
-<meta content="https://yangmingli.com/ai-engineering/" property="og:url"/>
+<meta content="Subscribe to Yangming AI Systems Notes | Yangming Li" property="og:title"/>
+<meta content="Subscribe to Yangming AI Systems Notes for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows." property="og:description"/>
+<meta content="https://yangmingli.com/subscribe/" property="og:url"/>
 <meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
 <meta content="Yangming Li site logo" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="AI Engineering | Yangming Li Applied AI Systems" name="twitter:title"/>
-<meta content="A topic hub on LLM systems, RAG, agents, evaluation, MLOps, observability, and production AI architecture by Yangming Li." name="twitter:description"/>
+<meta content="Subscribe to Yangming AI Systems Notes | Yangming Li" name="twitter:title"/>
+<meta content="Subscribe to Yangming AI Systems Notes for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows." name="twitter:description"/>
 <meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -32,9 +32,9 @@
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "AI Engineering",
-  "url": "https://yangmingli.com/ai-engineering/",
-  "description": "A topic hub on LLM systems, RAG, agents, evaluation, MLOps, observability, and production AI architecture by Yangming Li.",
+  "name": "Subscribe to Yangming AI Systems Notes",
+  "url": "https://yangmingli.com/subscribe/",
+  "description": "Subscribe to Yangming AI Systems Notes for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://yangmingli.com/#website"
@@ -56,72 +56,69 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "AI Engineering",
-      "item": "https://yangmingli.com/ai-engineering/"
+      "name": "Subscribe",
+      "item": "https://yangmingli.com/subscribe/"
     }
   ]
 }</script>
 </head>
 <body class="portfolio-page">
-<main class="pillar-page">
+<main class="newsletter-page-shell">
 <nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/data-products/">Data Products</a><a href="/case-studies/">Case Studies</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a><a class="nav-subscribe-button" href="/subscribe/">Subscribe</a></nav>
-<section class="pillar-hero">
-<span class="eyebrow">Applied AI Systems</span>
-<h1>AI Engineering</h1>
-<p class="lead">A practical map for building LLM systems, agent workflows, RAG applications, evaluation layers, and MLOps foundations that can survive contact with production.</p>
+<section class="newsletter-page-hero">
+<div class="newsletter-page-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h1>Yangming AI Systems Notes</h1>
+<p class="newsletter-page-lead">Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows. Written for builders, hiring managers, collaborators, and product-minded teams who care about reliable AI in real workflows.</p>
+<div class="newsletter-note-grid">
+<article class="newsletter-note-card">
+<h2>LLM systems</h2>
+<p>Architecture notes on RAG, agents, tool boundaries, structured outputs, and review loops.</p>
+</article>
+<article class="newsletter-note-card">
+<h2>Evaluation</h2>
+<p>Practical thinking on test sets, graders, schema validation, uncertainty, and release gates.</p>
+</article>
+<article class="newsletter-note-card">
+<h2>Data products</h2>
+<p>How analytics, product workflows, MLOps, and decision systems fit together.</p>
+</article>
+</div>
+</div>
+<div class="newsletter-page-panel">
+<section aria-labelledby="subscribe-page-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="subscribe-page-newsletter-title">Yangming AI Systems Notes</h2>
+<p>Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/subscribe" class="newsletter-form" data-newsletter-form="" data-source="subscribe-page" method="post">
+<label class="sr-only" for="subscribe-page-email">Email address</label>
+<input autocomplete="email" id="subscribe-page-email" name="email" placeholder="you@example.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="subscribe-page"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1–2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status" data-newsletter-status="" role="status"></p>
+</form>
+</div>
+</section>
+</div>
 </section>
 <section class="portfolio-section">
 <div class="portfolio-section-header">
-<span class="seo-eyebrow">Start here</span>
-<h2>Start here</h2>
+<span class="seo-eyebrow">What you get</span>
+<h2>Short, practical systems notes</h2>
 </div>
-<p>AI engineering is the work around the model: retrieval, orchestration, data contracts, schemas, evaluation, monitoring, and product boundaries. The writing here is for teams that need AI features to be reviewed, shipped, and improved rather than only demoed.</p>
-</section>
-<section class="portfolio-section">
-<div class="portfolio-section-header">
-<span class="seo-eyebrow">Production questions</span>
-<h2>Production questions</h2>
-</div>
-<p>Useful AI systems need answers to concrete questions. What sources are allowed? What output shape is valid? Which failures require escalation? Which examples become regression tests? Which metrics show quality after launch?</p>
-</section>
-<section class="portfolio-section">
-<div class="portfolio-section-header">
-<span class="seo-eyebrow">Internal links</span>
-<h2>Internal links</h2>
-</div>
-<p>The related articles below connect architecture to implementation: agent evaluation, tool integration, uncertainty, document AI, MLOps, and reproducible machine learning environments.</p>
-</section>
-<section aria-labelledby="related-writing-title" class="portfolio-section">
-<div class="portfolio-section-header">
-<span class="seo-eyebrow">Related writing</span>
-<h2 id="related-writing-title">Relevant articles and artifacts</h2>
-</div>
-<div class="pillar-grid">
-<article class="pillar-card">
-<h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3>
-<p>Schema-first evaluation, test sets, release gates, and human review for Copilot-style agents.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3>
-<p>Tool and context integration patterns for connected AI systems.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/n8n-ai-workflows.html">Agentic AI systems with n8n</a></h3>
-<p>Workflow boundaries, tool use, and operational constraints for agentic automation.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/llama-report-guide.html">LlamaReport and document AI systems</a></h3>
-<p>Document transformation architecture, review workflows, and enterprise AI design.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/mlops-essential-skills.html">MLOps essential skills</a></h3>
-<p>Model packaging, deployment, monitoring, and production ML operations.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/docker-in-ml.html">Docker for machine learning</a></h3>
-<p>Reproducible ML environments and deployment foundations.</p>
-</article>
-</div>
+<p>Expect notes that connect implementation details to product judgment: what to test, what to monitor, where human review belongs, and how to move from a promising prototype to a system people can trust.</p>
 </section>
 </main>
 <footer aria-label="Site footer" class="site-footer">

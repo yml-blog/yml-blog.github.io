@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -61,13 +62,11 @@
     }
   ]
 }</script>
-</head>
+<link href="/css/newsletter.css" rel="stylesheet"/><script defer="" src="/js/newsletter.js"></script></head>
 <body class="portfolio-page lead-magnet-page">
 <main class="portfolio-shell">
-<nav aria-label="Primary" class="portfolio-nav">
-<a href="/">Home</a><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation.html">LLM Evaluation</a><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a><a href="/data-products.html">Data Products</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a>
-</nav>
-<section class="portfolio-hero lead-magnet-hero" aria-labelledby="lead-magnet-title">
+<nav aria-label="Primary" class="portfolio-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/data-products/">Data Products</a><a href="/case-studies/">Case Studies</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a><a class="nav-subscribe-button" href="/subscribe/">Subscribe</a></nav>
+<section aria-labelledby="lead-magnet-title" class="portfolio-hero lead-magnet-hero">
 <div class="portfolio-hero-main">
 <span class="portfolio-kicker">Enterprise AI Evaluation</span>
 <h1 id="lead-magnet-title">AI Agent Evaluation Launch Checklist</h1>
@@ -77,7 +76,7 @@
 <a class="portfolio-button" href="#checklist-form">Download the Checklist</a>
 </div>
 </div>
-<aside class="lead-magnet-form-card" aria-labelledby="checklist-form-title">
+<aside aria-labelledby="checklist-form-title" class="lead-magnet-form-card">
 <span class="portfolio-eyebrow">Free Download</span>
 <h2 id="checklist-form-title">Get the checklist</h2>
 <p>Use it to turn launch readiness into reviewable evidence before an internal AI agent goes live.</p>
@@ -86,7 +85,7 @@
      Mailchimp, Formspree, or another provider, paste the provider form endpoint into
      the form action below and configure that provider to redirect successful submissions
      to /thank-you-ai-agent-checklist.html. Do not place API keys in this client-side HTML. -->
-<form id="checklist-form" class="lead-magnet-form" action="/thank-you-ai-agent-checklist.html" method="get">
+<form action="/thank-you-ai-agent-checklist.html" class="lead-magnet-form" id="checklist-form" method="get">
 <input name="source" type="hidden" value="ai-agent-evaluation-checklist"/>
 <div class="lead-magnet-field">
 <label for="email">Email <span aria-hidden="true">*</span></label>
@@ -105,7 +104,7 @@
 </form>
 </aside>
 </section>
-<section class="portfolio-section" aria-labelledby="inside-title">
+<section aria-labelledby="inside-title" class="portfolio-section">
 <div class="portfolio-section-header">
 <span class="portfolio-eyebrow">Checklist Contents</span>
 <h2 id="inside-title">What's inside</h2>
@@ -122,7 +121,7 @@
 <li>Online monitoring loop for continuous improvement</li>
 </ul>
 </section>
-<section class="portfolio-section" aria-labelledby="audience-title">
+<section aria-labelledby="audience-title" class="portfolio-section">
 <div class="portfolio-section-header">
 <span class="portfolio-eyebrow">Audience</span>
 <h2 id="audience-title">Who this is for</h2>
@@ -135,21 +134,21 @@
 <li>Leaders who need evidence before approving an internal agent launch</li>
 </ul>
 </section>
-<section class="portfolio-section" aria-labelledby="why-title">
+<section aria-labelledby="why-title" class="portfolio-section">
 <div class="portfolio-section-header">
 <span class="portfolio-eyebrow">Production Readiness</span>
 <h2 id="why-title">Why it matters</h2>
 </div>
 <p>Agent evaluation turns vague feedback like ‘the agent is not good enough’ into specific, reviewable evidence: which scenario failed, what trace shows the failure, which component caused it, and what release gate should stop it from reaching production.</p>
 </section>
-<section class="portfolio-section" aria-labelledby="model-title">
+<section aria-labelledby="model-title" class="portfolio-section">
 <div class="portfolio-section-header">
 <span class="portfolio-eyebrow">Operating Model</span>
 <h2 id="model-title">The operating model</h2>
 </div>
 <p class="lead-magnet-formula">Real failures + isolated harness + repeated trials + calibrated graders + trace review + capability/regression separation + release gates + online monitoring.</p>
 </section>
-<section class="portfolio-section lead-magnet-final-cta" aria-labelledby="final-cta-title">
+<section aria-labelledby="final-cta-title" class="portfolio-section lead-magnet-final-cta">
 <div class="portfolio-section-header">
 <span class="portfolio-eyebrow">Next Step</span>
 <h2 id="final-cta-title">Ready to evaluate your agent before launch?</h2>
@@ -157,13 +156,38 @@
 <a class="portfolio-button" href="#checklist-form">Download the AI Agent Evaluation Checklist</a>
 </section>
 <section aria-label="Site links" class="pillar-footer-links">
-<p><a href="/">Home</a> &middot; <a href="/about.html">About</a> &middot; <a href="/projects.html">Projects</a> &middot; <a href="/ai-engineering/">AI Engineering</a> &middot; <a href="/llm-evaluation.html">LLM Evaluation</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/contact.html">Contact</a></p>
+<p><a href="/">Home</a> · <a href="/about.html">About</a> · <a href="/projects.html">Projects</a> · <a href="/ai-engineering/">AI Engineering</a> · <a href="/llm-evaluation/">LLM Evaluation</a> · <a href="/blog/">Blog</a> · <a href="/contact.html">Contact</a></p>
 </section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
 <div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Yangming AI Systems Notes</h2>
+<p>Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/subscribe" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="you@example.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1–2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status" data-newsletter-status="" role="status"></p>
+</form>
+</div>
+</section>
 <p class="site-footer-title">Yangming Li</p>
-<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation.html">LLM Evaluation</a></li><li><a href="/machine-learning-nlp.html">Machine Learning &amp; NLP</a></li><li><a href="/data-products.html">Data Products</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
 </div>
 </footer>
 </body>

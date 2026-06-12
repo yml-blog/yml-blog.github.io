@@ -1,6 +1,6 @@
 function getSitePrefix() {
     const path = window.location.pathname.replace(/\\/g, '/');
-    const nestedSections = ['/engineering/', '/leetcode-solutions/', '/product/'];
+    const nestedSections = ['/engineering/', '/leetcode-solutions/', '/product/', '/llm-evaluation/', '/data-products/', '/case-studies/', '/subscribe/'];
     return nestedSections.some(section => path.includes(section)) ? '../' : '';
 }
 
@@ -430,6 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li><a href="${link('uqlm-teaching-guide.html')}">LLM Uncertainty Quantification</a></li>
                     </ul>
                 </li>
+                <li><a href="${link('ai-engineering/')}">AI Engineering</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">Product</a>
                     <ul class="dropdown-menu">
@@ -452,6 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </li>
                 <li><a href="${link('index.html#investing')}">Investing</a></li>
                 <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
+                <li><a href="${link('subscribe/')}" class="subscribe-link nav-subscribe-link">Subscribe</a></li>
             </ul>
             <div class="mobile-menu">
                 <div class="mobile-menu-header">
@@ -474,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li><a href="${link('uqlm-teaching-guide.html')}">LLM Uncertainty Quantification</a></li>
                         </ul>
                     </li>
+                    <li><a href="${link('ai-engineering/')}">AI Engineering</a></li>
                     <li class="mobile-dropdown">
                         <a href="#" class="mobile-dropdown-toggle">Product</a>
                         <ul class="mobile-dropdown-menu">
@@ -496,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </li>
                     <li><a href="${link('index.html#investing')}">Investing</a></li>
                     <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
-                    <li><a href="#" class="subscribe-link">Subscribe to Newsletter</a></li>
+                    <li><a href="${link('subscribe/')}" class="subscribe-link">Subscribe</a></li>
                 </ul>
             </div>
         </div>
@@ -595,6 +598,15 @@ document.addEventListener('DOMContentLoaded', function() {
             text-align: center;
             margin: 20px;
             border-radius: 4px;
+        }
+        .nav-subscribe-link {
+            background-color: #f1780e;
+            color: #fff !important;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .desktop-menu .nav-subscribe-link {
+            margin-left: 4px;
         }
 
         @media (max-width: 768px) {

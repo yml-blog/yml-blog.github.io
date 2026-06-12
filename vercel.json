@@ -24,6 +24,26 @@
             "source": "/sentiment-analysis-fine-tune-with-bert2.html",
             "destination": "/sentiment-analysis-fine-tune-with-bert.html",
             "permanent": true
+        },
+        {
+            "source": "/llm-evaluation.html",
+            "destination": "/llm-evaluation/",
+            "permanent": true
+        },
+        {
+            "source": "/data-products.html",
+            "destination": "/data-products/",
+            "permanent": true
+        },
+        {
+            "source": "/subscribe.html",
+            "destination": "/subscribe/",
+            "permanent": true
+        },
+        {
+            "source": "/case-studies.html",
+            "destination": "/case-studies/",
+            "permanent": true
         }
     ],
     "functions": {
@@ -31,6 +51,9 @@
             "maxDuration": 15
         },
         "api/focus-room-presence.js": {
+            "maxDuration": 10
+        },
+        "api/subscribe.js": {
             "maxDuration": 10
         }
     }
