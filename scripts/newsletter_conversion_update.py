@@ -481,6 +481,20 @@ def newsletter_component(source: str, title_tag: str = "h2", compact: bool = Fal
     """
 
 
+def hero_subscribe_form() -> str:
+    return """
+    <form class="hero-subscribe-form" action="/api/subscribe" method="post" data-newsletter-form data-source="homepage-hero">
+      <label class="sr-only" for="homepage-hero-email">Email address</label>
+      <input id="homepage-hero-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="homepage-hero">
+      <button type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Subscribe</button>
+      <p class="hero-subscribe-privacy">1–2 emails per month. No spam. Unsubscribe anytime.</p>
+      <p class="newsletter-status hero-subscribe-status" data-newsletter-status role="status" aria-live="polite"></p>
+    </form>
+    """
+
+
 def render_link(label: str, href: str, class_name: str | None = None) -> str:
     class_attr = f' class="{class_name}"' if class_name else ""
     rel_attr = ' rel="noopener noreferrer"' if href.startswith("http") else ""
@@ -587,18 +601,20 @@ def update_homepage(soup: BeautifulSoup) -> None:
 
 
     for cta in soup.select(".hero-cta, .hero-cta-original"):
-        if not cta.find("a", href="/subscribe/"):
-            subscribe = soup.new_tag("a", href="/subscribe/", **{"class": "btn btn-default"})
-            icon = soup.new_tag("i", **{"class": "fa fa-envelope-o"})
-            subscribe.append(icon)
-            subscribe.append(" Subscribe")
-            cta.insert(0, subscribe)
+        for subscribe in cta.find_all("a", href="/subscribe/"):
+            subscribe.decompose()
         if not cta.find("a", href="/projects.html"):
             work = soup.new_tag("a", href="/projects.html", **{"class": "btn btn-default"})
             icon = soup.new_tag("i", **{"class": "fa fa-briefcase"})
             work.append(icon)
             work.append(" View Work")
             cta.insert(0, work)
+
+    if not soup.find(class_="hero-subscribe-form"):
+        theme_switch = soup.find(class_="theme-switch-wrapper")
+        if theme_switch:
+            form = BeautifulSoup(hero_subscribe_form(), "html.parser").find("form")
+            theme_switch.insert_before(form)
 
     for component in soup.select(".newsletter-home-section"):
         component.decompose()
