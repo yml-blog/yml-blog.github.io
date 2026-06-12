@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </li>
                 <li><a href="${link('index.html#investing')}">Investing</a></li>
-                <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
+                <li><a href="mailto:dleeym95@gmail.com" class="contact-link">Contact</a></li>
                 <li><a href="${link('subscribe/')}" class="subscribe-link nav-subscribe-link">Subscribe</a></li>
             </ul>
             <div class="mobile-menu">
@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </ul>
                     </li>
                     <li><a href="${link('index.html#investing')}">Investing</a></li>
-                    <li><a href="mailto:yangmingml@yahoo.com" class="contact-link">Contact</a></li>
+                    <li><a href="mailto:dleeym95@gmail.com" class="contact-link">Contact</a></li>
                     <li><a href="${link('subscribe/')}" class="subscribe-link">Subscribe</a></li>
                 </ul>
             </div>

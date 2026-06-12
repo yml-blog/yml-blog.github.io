@@ -1,6 +1,6 @@
 (function () {
   const newsletterName = 'Yangming AI Systems Notes';
-  const fallbackEmail = 'liym1@hotmail.com';
+  const fallbackEmail = 'dleeym95@gmail.com';
 
   function findStatus(form) {
     return form.querySelector('[data-newsletter-status]');

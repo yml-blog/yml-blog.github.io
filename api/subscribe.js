@@ -1,5 +1,5 @@
 const NEWSLETTER_NAME = 'Yangming AI Systems Notes';
-const FALLBACK_EMAIL = 'liym1@hotmail.com';
+const FALLBACK_EMAIL = 'dleeym95@gmail.com';
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function setJsonHeaders(res) {

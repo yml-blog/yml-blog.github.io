@@ -164,7 +164,15 @@
 }
 
 .lead-magnet-home-button {
-  background: #0b5f59 !important;
+  border-color: #0f9f6e !important;
+  background: linear-gradient(135deg, #064e3b 0%, #0f766e 38%, #16a34a 72%, #86efac 100%) !important;
+  color: #ffffff !important;
+}
+
+.lead-magnet-home-button:hover,
+.lead-magnet-home-button:focus {
+  border-color: #22c55e !important;
+  background: linear-gradient(135deg, #065f46 0%, #0d9488 36%, #22c55e 72%, #bbf7d0 100%) !important;
   color: #ffffff !important;
 }
 
