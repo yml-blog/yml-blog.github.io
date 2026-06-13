@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://yangmingli.com"
 TODAY = date(2026, 6, 12).isoformat()
 NEWSLETTER_NAME = "Yangming AI Systems Notes"
+NEWSLETTER_FORM_ACTION_URL = "REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL"
+# Use the form action URL from Buttondown, beehiiv, Mailchimp, ConvertKit, or another newsletter provider.
+# Do not use mailto for subscriptions.
 PRIVACY_NOTE = "1–2 emails per month. No spam. Unsubscribe anytime."
 
 EXCLUDE_DIRS = {".git", "__pycache__", "templates", "email-templates", "nha-cai", "focus-room/moodist-main"}
@@ -447,7 +450,7 @@ def webpage_schema(name: str, url: str, description: str) -> dict:
 
 
 def newsletter_component(source: str, title_tag: str = "h2", compact: bool = False) -> str:
-    title = f'<{title_tag} id="{source}-newsletter-title">Yangming AI Systems Notes</{title_tag}>'
+    title = f'<{title_tag} id="{source}-newsletter-title">Subscribe to Yangming AI Systems Notes</{title_tag}>'
     class_name = "newsletter-card newsletter-compact" if compact else "newsletter-card"
     topics = "" if compact else """
       <ul class="newsletter-topic-list" aria-label="Newsletter topics">
@@ -464,17 +467,18 @@ def newsletter_component(source: str, title_tag: str = "h2", compact: bool = Fal
         <div class="newsletter-copy">
           <span class="newsletter-kicker">Newsletter</span>
           {title}
-          <p>Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows.</p>
+          <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
           {topics}
         </div>
-        <form class="newsletter-form" action="/api/subscribe" method="post" data-newsletter-form data-source="{source}">
+        <form class="newsletter-form" action="{NEWSLETTER_FORM_ACTION_URL}" method="post" data-newsletter-form data-source="{source}">
           <label class="sr-only" for="{source}-email">Email address</label>
-          <input id="{source}-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <input id="{source}-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required>
           <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="source" value="{source}">
           <button type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Subscribe</button>
           <p class="newsletter-privacy">{PRIVACY_NOTE}</p>
-          <p class="newsletter-status" data-newsletter-status role="status" aria-live="polite"></p>
+          <p class="newsletter-status newsletter-success" data-newsletter-success role="status" aria-live="polite"></p>
+          <p class="newsletter-status newsletter-error" data-newsletter-error role="alert" aria-live="assertive"></p>
         </form>
       </div>
     </section>
@@ -482,15 +486,20 @@ def newsletter_component(source: str, title_tag: str = "h2", compact: bool = Fal
 
 
 def hero_subscribe_form() -> str:
-    return """
-    <form class="hero-subscribe-form" action="/api/subscribe" method="post" data-newsletter-form data-source="homepage-hero">
+    return f"""
+    <form class="hero-subscribe-form" action="{NEWSLETTER_FORM_ACTION_URL}" method="post" data-newsletter-form data-source="homepage-hero">
+      <div class="hero-subscribe-copy">
+        <h2>Subscribe to Yangming AI Systems Notes</h2>
+        <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+      </div>
       <label class="sr-only" for="homepage-hero-email">Email address</label>
-      <input id="homepage-hero-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <input id="homepage-hero-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" required>
       <input type="text" name="website" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="homepage-hero">
       <button type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> Subscribe</button>
       <p class="hero-subscribe-privacy">1–2 emails per month. No spam. Unsubscribe anytime.</p>
-      <p class="newsletter-status hero-subscribe-status" data-newsletter-status role="status" aria-live="polite"></p>
+      <p class="newsletter-status newsletter-success hero-subscribe-status" data-newsletter-success role="status" aria-live="polite"></p>
+      <p class="newsletter-status newsletter-error hero-subscribe-status" data-newsletter-error role="alert" aria-live="assertive"></p>
     </form>
     """
 

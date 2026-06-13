@@ -1,99 +1,160 @@
 (function () {
-  const newsletterName = 'Yangming AI Systems Notes';
-  const fallbackEmail = 'dleeym95@gmail.com';
+  // Use the form action URL from Buttondown, beehiiv, Mailchimp, ConvertKit, or another newsletter provider.
+  // Do not use mailto for subscriptions.
+  const NEWSLETTER_FORM_ACTION_URL = 'REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL';
+  const NEWSLETTER_ACTION_PLACEHOLDER = 'REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL';
+  const NEWSLETTER_NAME = 'Yangming AI Systems Notes';
+  const SUCCESS_MESSAGE = 'Thanks — please check your email to confirm your subscription.';
+  const ERROR_MESSAGE = 'Something went wrong. Please try again.';
+  const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
+  const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  function findStatus(form) {
-    return form.querySelector('[data-newsletter-status]');
+  function findSuccessMessage(form) {
+    return form.querySelector('[data-newsletter-success]');
   }
 
-  function setStatus(form, message, state) {
-    const status = findStatus(form);
-    if (!status) {
+  function findErrorMessage(form) {
+    return form.querySelector('[data-newsletter-error]');
+  }
+
+  function clearMessages(form) {
+    const success = findSuccessMessage(form);
+    const error = findErrorMessage(form);
+
+    if (success) {
+      success.textContent = '';
+      success.removeAttribute('data-state');
+    }
+
+    if (error && error !== success) {
+      error.textContent = '';
+      error.removeAttribute('data-state');
+    }
+  }
+
+  function showSuccess(form, message) {
+    clearMessages(form);
+    const success = findSuccessMessage(form);
+    if (success) {
+      success.textContent = message;
+      success.setAttribute('data-state', 'success');
+    }
+  }
+
+  function showError(form, message) {
+    clearMessages(form);
+    const error = findErrorMessage(form);
+    if (error) {
+      error.textContent = message;
+      error.setAttribute('data-state', 'error');
+    }
+  }
+
+  function getConfiguredActionUrl(form) {
+    const globalAction = String(window.NEWSLETTER_FORM_ACTION_URL || '').trim();
+    const localAction = String(NEWSLETTER_FORM_ACTION_URL || '').trim();
+    const formAction = String(form.getAttribute('action') || '').trim();
+    const candidates = [globalAction, localAction, formAction];
+
+    return candidates.find(function (candidate) {
+      return candidate &&
+        candidate !== NEWSLETTER_ACTION_PLACEHOLDER &&
+        !candidate.includes(NEWSLETTER_ACTION_PLACEHOLDER) &&
+        !/^\/api\/subscribe(?:$|[?#])/.test(candidate) &&
+        !candidate.toLowerCase().startsWith('mailto:');
+    }) || '';
+  }
+
+  function ensureHiddenField(form, name, value) {
+    let field = form.querySelector(`input[name="${name}"]`);
+
+    if (!field) {
+      field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = name;
+      form.appendChild(field);
+    }
+
+    field.value = value;
+  }
+
+  function prepareForm(form) {
+    const actionUrl = getConfiguredActionUrl(form);
+
+    if (actionUrl) {
+      form.setAttribute('action', actionUrl);
+    }
+
+    if (!form.getAttribute('method')) {
+      form.setAttribute('method', 'post');
+    }
+
+    if (!form.querySelector('input[name="source"]')) {
+      ensureHiddenField(form, 'source', form.dataset.source || window.location.pathname);
+    }
+  }
+
+  function setButtonState(button, isSubmitting) {
+    if (!button) {
       return;
     }
 
-    status.textContent = message;
-    if (state) {
-      status.setAttribute('data-state', state);
-    } else {
-      status.removeAttribute('data-state');
+    if (isSubmitting) {
+      button.disabled = true;
+      button.dataset.originalText = button.dataset.originalText || button.textContent;
+      button.textContent = 'Subscribing...';
+      return;
     }
-  }
 
-  function buildMailto(email, source) {
-    const subject = `Subscribe to ${newsletterName}`;
-    const body = [
-      `Please add ${email} to ${newsletterName}.`,
-      '',
-      `Source: ${source || window.location.pathname}`,
-      `Page: ${window.location.href}`
-    ].join('\n');
-
-    return `mailto:${fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    button.disabled = false;
+    button.textContent = button.dataset.originalText || 'Subscribe';
   }
 
   async function submitNewsletterForm(form) {
     const input = form.querySelector('input[type="email"]');
     const button = form.querySelector('button[type="submit"]');
     const email = input ? input.value.trim() : '';
-    const sourceInput = form.querySelector('input[name="source"]');
-    const source = sourceInput ? sourceInput.value : (form.dataset.source || window.location.pathname);
+    const actionUrl = getConfiguredActionUrl(form);
 
-    if (!email) {
-      setStatus(form, 'Enter an email address to subscribe.', 'error');
+    if (!email || !EMAIL_PATTERN.test(email)) {
+      showError(form, INVALID_EMAIL_MESSAGE);
+      if (input) {
+        input.focus();
+      }
       return;
     }
 
-    const payload = {
-      email,
-      source,
-      page: window.location.href,
-      newsletter: newsletterName
-    };
-
-    if (button) {
-      button.disabled = true;
-      button.dataset.originalText = button.dataset.originalText || button.textContent;
-      button.textContent = 'Subscribing...';
+    if (!actionUrl) {
+      showError(form, ERROR_MESSAGE);
+      return;
     }
 
-    setStatus(form, 'Subscribing...');
+    prepareForm(form);
+    ensureHiddenField(form, 'page', window.location.href);
+    ensureHiddenField(form, 'newsletter', NEWSLETTER_NAME);
+    setButtonState(button, true);
+    clearMessages(form);
 
     try {
-      const response = await fetch(form.action || '/api/subscribe', {
+      await fetch(actionUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        mode: 'no-cors',
+        body: new FormData(form)
       });
-
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        if (result && result.fallback === 'mailto') {
-          window.location.href = result.mailto || buildMailto(email, source);
-          setStatus(form, 'Opening your email client to finish the subscription request.');
-          return;
-        }
-
-        throw new Error(result.error || 'Subscription failed.');
-      }
 
       form.reset();
       window.localStorage.setItem('yangmingNewsletterSubscribedAt', new Date().toISOString());
-      setStatus(form, result.message || 'You are subscribed. Thank you.');
+      showSuccess(form, SUCCESS_MESSAGE);
     } catch (error) {
-      window.location.href = buildMailto(email, source);
-      setStatus(form, 'Opening your email client to finish the subscription request.', 'error');
+      showError(form, ERROR_MESSAGE);
     } finally {
-      if (button) {
-        button.disabled = false;
-        button.textContent = button.dataset.originalText || 'Subscribe';
-      }
+      setButtonState(button, false);
     }
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-newsletter-form]').forEach(prepareForm);
+  });
 
   document.addEventListener('submit', function (event) {
     const form = event.target.closest('[data-newsletter-form]');
