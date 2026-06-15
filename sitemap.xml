@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yangmingli.com/</loc>
-    <lastmod>2026-06-12T18:05:53Z</lastmod>
+    <lastmod>2026-06-15T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/about.html</loc>
@@ -13,8 +13,12 @@
     <lastmod>2026-06-12T18:05:52Z</lastmod>
   </url>
   <url>
+    <loc>https://yangmingli.com/ai-agents-evaluation-not-prompting.html</loc>
+    <lastmod>2026-06-15T12:00:00Z</lastmod>
+  </url>
+  <url>
     <loc>https://yangmingli.com/ai-engineering/</loc>
-    <lastmod>2026-06-12T18:05:53Z</lastmod>
+    <lastmod>2026-06-15T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/ai-product-builder.html</loc>
@@ -22,7 +26,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/blog/</loc>
-    <lastmod>2026-06-12T18:05:53Z</lastmod>
+    <lastmod>2026-06-15T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/building-high-impact-value-propositions.html</loc>
@@ -134,7 +138,7 @@
   </url>
   <url>
     <loc>https://yangmingli.com/llm-evaluation/</loc>
-    <lastmod>2026-06-12T18:05:53Z</lastmod>
+    <lastmod>2026-06-15T12:00:00Z</lastmod>
   </url>
   <url>
     <loc>https://yangmingli.com/machine-learning-nlp.html</loc>

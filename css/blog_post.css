@@ -1485,3 +1485,768 @@ body.dark-mode.blog-post-page .back-link {
         grid-template-columns: 1fr;
     }
 }
+
+/* Technical article readability refresh
+   Shared by both newer blog-post-page articles and older technical posts. */
+:root {
+    --article-readable-width: 820px;
+    --article-page-width: 1080px;
+    --article-text: #172033;
+    --article-muted: #64748b;
+    --article-border: #e2e8f0;
+    --article-panel: #ffffff;
+    --article-soft-panel: #f8fafc;
+    --article-accent: #2563eb;
+    --article-accent-warm: #f1780e;
+}
+
+body.blog-post-page,
+body:has(> .seo-breadcrumbs) {
+    background: #f7f8fb;
+    color: var(--article-text);
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: 17px;
+    line-height: 1.75;
+}
+
+body.blog-post-page::before {
+    display: none;
+}
+
+body.blog-post-page .main-content,
+body:has(> .seo-breadcrumbs) .main-content {
+    padding-top: 32px;
+    padding-bottom: 72px;
+}
+
+body.blog-post-page .article-page-container,
+body.blog-post-page > .container.mt-5,
+body.blog-post-page > .blog-container,
+body:has(> .seo-breadcrumbs) > .container,
+body:has(> .seo-breadcrumbs) > .main-content > .container,
+body:has(> .seo-breadcrumbs) > .blog-container {
+    width: min(var(--article-page-width), calc(100vw - 48px)) !important;
+    max-width: var(--article-page-width) !important;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+body:has(> .seo-breadcrumbs) > .container > main,
+body:has(> .seo-breadcrumbs) > .main-content > .container > main,
+body:has(> .seo-breadcrumbs) .article-shell,
+body.blog-post-page .article-prose-surface {
+    width: min(var(--article-readable-width), 100%);
+    max-width: var(--article-readable-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.blog-post-page .article-hero,
+body:has(> .seo-breadcrumbs) .container > header.header,
+body:has(> .seo-breadcrumbs) .main-content .container > header.header,
+body:has(> .seo-breadcrumbs) .blog-header {
+    height: auto !important;
+    min-height: 0 !important;
+    position: static;
+    width: min(var(--article-readable-width), 100%);
+    max-width: var(--article-readable-width);
+    margin: 0 auto 30px;
+    padding: 54px 0 24px;
+    border: 0;
+    border-bottom: 1px solid var(--article-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    text-align: left;
+}
+
+body.blog-post-page .article-hero::before {
+    display: none;
+}
+
+body.blog-post-page .article-kicker-row {
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+body.blog-post-page .article-kicker,
+body:has(> .seo-breadcrumbs) .eyebrow {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--article-accent);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+body.blog-post-page .article-kicker-muted {
+    color: var(--article-muted);
+}
+
+body.blog-post-page .article-hero h1,
+body.blog-post-page .article-hero .blog-title,
+body:has(> .seo-breadcrumbs) .container > header.header h1,
+body:has(> .seo-breadcrumbs) .main-content .container > header.header h1,
+body:has(> .seo-breadcrumbs) .blog-header h1,
+body:has(> .seo-breadcrumbs) .blog-title {
+    margin: 0;
+    color: #0f172a;
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: clamp(36px, 4.2vw, 54px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: 0;
+    text-wrap: balance;
+}
+
+body.blog-post-page .article-hero .lead,
+body.blog-post-page .article-hero .blog-meta,
+body.blog-post-page .article-hero p.lead,
+body:has(> .seo-breadcrumbs) header.header .lead,
+body:has(> .seo-breadcrumbs) .blog-subtitle,
+body:has(> .seo-breadcrumbs) .blog-meta {
+    max-width: 720px;
+    margin-top: 14px;
+    margin-bottom: 0;
+    color: var(--article-muted);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.65;
+}
+
+body:has(> .seo-breadcrumbs) .blog-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+}
+
+body.blog-post-page .article-theme-surface,
+body:has(> .seo-breadcrumbs) .theme-switch-wrapper {
+    width: min(var(--article-readable-width), 100%);
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+body.blog-post-page .article-theme-surface span,
+body:has(> .seo-breadcrumbs) .theme-switch-wrapper span {
+    color: var(--article-muted);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+body.blog-post-page .article-meta-surface,
+body:has(> .seo-breadcrumbs) .article-metadata {
+    width: min(var(--article-readable-width), 100%);
+    max-width: var(--article-readable-width);
+    margin: 0 auto 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    padding: 14px 0 0;
+    border: 0;
+    border-top: 1px solid var(--article-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+body.blog-post-page .article-meta-surface span,
+body.blog-post-page .article-meta-surface p,
+body:has(> .seo-breadcrumbs) .article-metadata span,
+body:has(> .seo-breadcrumbs) .article-metadata .keywords {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+body.blog-post-page .article-meta-surface .keywords,
+body:has(> .seo-breadcrumbs) .article-metadata .keywords {
+    flex: 1 1 100%;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--article-muted);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.65;
+}
+
+body.blog-post-page .article-share-surface,
+body:has(> .seo-breadcrumbs) .blog-share-buttons {
+    width: min(var(--article-readable-width), 100%);
+    max-width: var(--article-readable-width);
+    margin: 0 auto 28px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+body.blog-post-page .article-share-surface a,
+body:has(> .seo-breadcrumbs) .blog-share-buttons a {
+    min-width: 0;
+    padding: 9px 13px !important;
+    border-radius: 8px !important;
+    box-shadow: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+body.blog-post-page .article-prose-surface {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+body.blog-post-page .article-prose-surface::before {
+    display: none;
+}
+
+body.blog-post-page .article-prose-surface .article-content,
+body:has(> .seo-breadcrumbs) main,
+body:has(> .seo-breadcrumbs) .article-content,
+body:has(> .seo-breadcrumbs) .blog-content {
+    color: var(--article-text);
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+}
+
+body.blog-post-page .article-prose-surface p,
+body.blog-post-page .article-prose-surface li,
+body.blog-post-page .article-prose-surface td,
+body.blog-post-page .article-prose-surface th,
+body:has(> .seo-breadcrumbs) main p,
+body:has(> .seo-breadcrumbs) main li,
+body:has(> .seo-breadcrumbs) main td,
+body:has(> .seo-breadcrumbs) main th,
+body:has(> .seo-breadcrumbs) .article-content p,
+body:has(> .seo-breadcrumbs) .article-content li,
+body:has(> .seo-breadcrumbs) .blog-content p,
+body:has(> .seo-breadcrumbs) .blog-content li {
+    color: #1f2937;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.82;
+    letter-spacing: 0;
+}
+
+body.blog-post-page .article-prose-surface p,
+body:has(> .seo-breadcrumbs) main p,
+body:has(> .seo-breadcrumbs) .article-content p,
+body:has(> .seo-breadcrumbs) .blog-content p {
+    margin: 0 0 20px;
+}
+
+body.blog-post-page .article-prose-surface ul,
+body.blog-post-page .article-prose-surface ol,
+body:has(> .seo-breadcrumbs) main ul,
+body:has(> .seo-breadcrumbs) main ol,
+body:has(> .seo-breadcrumbs) .article-content ul,
+body:has(> .seo-breadcrumbs) .article-content ol {
+    margin: 0 0 22px;
+    padding-left: 1.35rem;
+}
+
+body.blog-post-page .article-prose-surface li + li,
+body:has(> .seo-breadcrumbs) main li + li,
+body:has(> .seo-breadcrumbs) .article-content li + li {
+    margin-top: 0.35rem;
+}
+
+body.blog-post-page .article-prose-surface h2,
+body.blog-post-page .article-prose-surface .solution-section h2,
+body:has(> .seo-breadcrumbs) main h2,
+body:has(> .seo-breadcrumbs) .article-content h2,
+body:has(> .seo-breadcrumbs) .blog-content h2 {
+    margin: 48px 0 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--article-border);
+    border-bottom: 0;
+    color: #0f172a;
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: clamp(26px, 2.2vw, 34px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: 0;
+    scroll-margin-top: 96px;
+}
+
+body.blog-post-page .article-prose-surface h3,
+body:has(> .seo-breadcrumbs) main h3,
+body:has(> .seo-breadcrumbs) .article-content h3,
+body:has(> .seo-breadcrumbs) .blog-content h3 {
+    margin: 32px 0 12px;
+    color: #172033;
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: clamp(21px, 1.6vw, 25px);
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: 0;
+    scroll-margin-top: 96px;
+}
+
+body.blog-post-page .article-prose-surface h4,
+body:has(> .seo-breadcrumbs) main h4,
+body:has(> .seo-breadcrumbs) .article-content h4,
+body:has(> .seo-breadcrumbs) .blog-content h4 {
+    margin: 26px 0 10px;
+    color: #334155;
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: 18px;
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+body.blog-post-page .article-prose-surface a,
+body:has(> .seo-breadcrumbs) main a,
+body:has(> .seo-breadcrumbs) .article-content a,
+body:has(> .seo-breadcrumbs) .blog-content a {
+    color: var(--article-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(37, 99, 235, 0.28);
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+}
+
+body.blog-post-page .article-prose-surface a:hover,
+body:has(> .seo-breadcrumbs) main a:hover,
+body:has(> .seo-breadcrumbs) .article-content a:hover,
+body:has(> .seo-breadcrumbs) .blog-content a:hover {
+    color: #1d4ed8;
+    text-decoration-color: rgba(37, 99, 235, 0.55);
+}
+
+body.blog-post-page .article-prose-surface p code,
+body.blog-post-page .article-prose-surface li code,
+body.blog-post-page .article-prose-surface td code,
+body:has(> .seo-breadcrumbs) main p code,
+body:has(> .seo-breadcrumbs) main li code,
+body:has(> .seo-breadcrumbs) .article-content code {
+    padding: 0.12em 0.38em;
+    border-radius: 6px;
+    background: #eef2ff;
+    color: #1e3a8a;
+    font-family: var(--font-mono, Consolas, "Courier New", monospace);
+    font-size: 0.92em;
+    font-weight: 600;
+}
+
+body.blog-post-page pre,
+body.blog-post-page .article-prose-surface pre,
+body.blog-post-page .article-prose-surface pre[class*="language-"],
+body:has(> .seo-breadcrumbs) main pre,
+body:has(> .seo-breadcrumbs) .article-content pre {
+    margin: 1.6rem 0;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid #1f2937;
+    border-radius: 10px;
+    background: #0f172a;
+    box-shadow: none;
+    overflow-x: auto;
+}
+
+body.blog-post-page pre code,
+body.blog-post-page .article-prose-surface pre code,
+body:has(> .seo-breadcrumbs) main pre code,
+body:has(> .seo-breadcrumbs) .article-content pre code {
+    display: block;
+    padding: 0;
+    background: transparent;
+    color: #e5edf7;
+    font-family: var(--font-mono, Consolas, "Courier New", monospace);
+    font-size: 15px;
+    line-height: 1.72;
+}
+
+body.blog-post-page blockquote,
+body.blog-post-page .article-prose-surface blockquote,
+body:has(> .seo-breadcrumbs) main blockquote,
+body:has(> .seo-breadcrumbs) .article-content blockquote,
+body:has(> .seo-breadcrumbs) .blog-content blockquote {
+    margin: 1.6rem 0;
+    padding: 1rem 1.15rem;
+    border: 0;
+    border-left: 4px solid var(--article-accent);
+    border-radius: 0 8px 8px 0;
+    background: #eff6ff;
+    color: #1e3a8a;
+    box-shadow: none;
+    font-style: normal;
+}
+
+body.blog-post-page blockquote p,
+body:has(> .seo-breadcrumbs) main blockquote p,
+body:has(> .seo-breadcrumbs) .article-content blockquote p {
+    color: inherit;
+}
+
+body.blog-post-page .generated-article-toc,
+body.blog-post-page .tldr-box,
+body.blog-post-page .toc-container,
+body.blog-post-page .technical-box,
+body.blog-post-page .practical-tip,
+body.blog-post-page .subscription-box,
+body.blog-post-page .key-points,
+body.blog-post-page .takeaway-box,
+body.blog-post-page .content-box,
+body.blog-post-page .complexity,
+body.blog-post-page .diagram-container,
+body.blog-post-page .related-posts,
+body.blog-post-page .related-reading,
+body.blog-post-page .comments-section,
+body:has(> .seo-breadcrumbs) .table-of-contents,
+body:has(> .seo-breadcrumbs) .source-card,
+body:has(> .seo-breadcrumbs) .summary-card,
+body:has(> .seo-breadcrumbs) .sequence-card,
+body:has(> .seo-breadcrumbs) .checklist-card,
+body:has(> .seo-breadcrumbs) .technical-box,
+body:has(> .seo-breadcrumbs) .key-points,
+body:has(> .seo-breadcrumbs) .related-reading,
+body:has(> .seo-breadcrumbs) .related-posts {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--article-border);
+    border-radius: 10px;
+    background: var(--article-panel);
+    box-shadow: none;
+}
+
+body.blog-post-page .toc-container,
+body:has(> .seo-breadcrumbs) .table-of-contents {
+    background: var(--article-soft-panel);
+}
+
+body.blog-post-page .toc-container h4,
+body.blog-post-page .toc-title,
+body:has(> .seo-breadcrumbs) .table-of-contents h2 {
+    margin: 0 0 0.8rem;
+    padding: 0;
+    border: 0;
+    color: #0f172a;
+    font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
+body.blog-post-page #toc,
+body.blog-post-page #toc > ul,
+body:has(> .seo-breadcrumbs) .table-of-contents ul {
+    display: block;
+    margin: 0;
+    padding-left: 1.15rem;
+    list-style: disc;
+}
+
+body.blog-post-page #toc a,
+body.blog-post-page .toc-list li a,
+body:has(> .seo-breadcrumbs) .table-of-contents a {
+    display: inline;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--article-accent);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.65;
+    text-decoration: none;
+}
+
+body.blog-post-page #toc > ul > li > a::before,
+body.blog-post-page #toc > ul > li ul a::before,
+body.blog-post-page .generated-article-toc-list a::before {
+    display: none;
+}
+
+body.blog-post-page #toc > ul > li > a:hover,
+body.blog-post-page #toc > ul > li > a.active {
+    transform: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+body.blog-post-page .article-prose-surface table,
+body.blog-post-page .article-prose-surface .table,
+body:has(> .seo-breadcrumbs) main table,
+body:has(> .seo-breadcrumbs) .article-content table {
+    display: block;
+    width: 100%;
+    margin: 1.6rem 0;
+    border: 1px solid var(--article-border);
+    border-radius: 10px;
+    background: var(--article-panel);
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+body.blog-post-page .article-prose-surface th,
+body.blog-post-page .article-prose-surface td,
+body:has(> .seo-breadcrumbs) main th,
+body:has(> .seo-breadcrumbs) main td,
+body:has(> .seo-breadcrumbs) .article-content th,
+body:has(> .seo-breadcrumbs) .article-content td {
+    padding: 0.75rem 0.85rem;
+    border-right: 1px solid var(--article-border);
+    border-bottom: 1px solid var(--article-border);
+    font-size: 15px;
+    line-height: 1.55;
+    vertical-align: top;
+}
+
+body.blog-post-page .article-prose-surface th,
+body:has(> .seo-breadcrumbs) main th,
+body:has(> .seo-breadcrumbs) .article-content th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 750;
+}
+
+body.blog-post-page .article-prose-surface img,
+body.blog-post-page .article-prose-surface .technical-diagram,
+body.blog-post-page .article-prose-surface .aspect-image,
+body:has(> .seo-breadcrumbs) main img,
+body:has(> .seo-breadcrumbs) .article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+body.dark-mode.blog-post-page,
+body.dark-mode:has(> .seo-breadcrumbs) {
+    background: #0f172a;
+    color: #e5edf7;
+}
+
+body.dark-mode.blog-post-page .article-hero,
+body.dark-mode:has(> .seo-breadcrumbs) .container > header.header,
+body.dark-mode:has(> .seo-breadcrumbs) .main-content .container > header.header,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-header {
+    border-bottom-color: #334155;
+}
+
+body.dark-mode.blog-post-page .article-prose-surface p,
+body.dark-mode.blog-post-page .article-prose-surface li,
+body.dark-mode.blog-post-page .article-prose-surface td,
+body.dark-mode.blog-post-page .article-prose-surface th,
+body.dark-mode:has(> .seo-breadcrumbs) main p,
+body.dark-mode:has(> .seo-breadcrumbs) main li,
+body.dark-mode:has(> .seo-breadcrumbs) main td,
+body.dark-mode:has(> .seo-breadcrumbs) main th,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content p,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content li,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-content p,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-content li {
+    color: #dbe5f1;
+}
+
+body.dark-mode.blog-post-page .article-hero h1,
+body.dark-mode.blog-post-page .article-hero .blog-title,
+body.dark-mode.blog-post-page .article-prose-surface h2,
+body.dark-mode.blog-post-page .article-prose-surface h3,
+body.dark-mode.blog-post-page .article-prose-surface h4,
+body.dark-mode:has(> .seo-breadcrumbs) .container > header.header h1,
+body.dark-mode:has(> .seo-breadcrumbs) .main-content .container > header.header h1,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-header h1,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-title,
+body.dark-mode:has(> .seo-breadcrumbs) main h2,
+body.dark-mode:has(> .seo-breadcrumbs) main h3,
+body.dark-mode:has(> .seo-breadcrumbs) main h4,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content h2,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content h3,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content h4 {
+    color: #f8fafc;
+}
+
+body.dark-mode.blog-post-page .article-hero .lead,
+body.dark-mode.blog-post-page .article-hero .blog-meta,
+body.dark-mode:has(> .seo-breadcrumbs) header.header .lead,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-subtitle,
+body.dark-mode:has(> .seo-breadcrumbs) .blog-meta,
+body.dark-mode.blog-post-page .article-theme-surface span,
+body.dark-mode:has(> .seo-breadcrumbs) .theme-switch-wrapper span,
+body.dark-mode.blog-post-page .article-meta-surface .keywords,
+body.dark-mode:has(> .seo-breadcrumbs) .article-metadata .keywords {
+    color: #aab8cb;
+}
+
+body.dark-mode.blog-post-page .generated-article-toc,
+body.dark-mode.blog-post-page .tldr-box,
+body.dark-mode.blog-post-page .toc-container,
+body.dark-mode.blog-post-page .technical-box,
+body.dark-mode.blog-post-page .practical-tip,
+body.dark-mode.blog-post-page .subscription-box,
+body.dark-mode.blog-post-page .key-points,
+body.dark-mode.blog-post-page .takeaway-box,
+body.dark-mode.blog-post-page .content-box,
+body.dark-mode.blog-post-page .complexity,
+body.dark-mode.blog-post-page .diagram-container,
+body.dark-mode.blog-post-page .related-posts,
+body.dark-mode.blog-post-page .related-reading,
+body.dark-mode.blog-post-page .comments-section,
+body.dark-mode:has(> .seo-breadcrumbs) .table-of-contents,
+body.dark-mode:has(> .seo-breadcrumbs) .source-card,
+body.dark-mode:has(> .seo-breadcrumbs) .summary-card,
+body.dark-mode:has(> .seo-breadcrumbs) .sequence-card,
+body.dark-mode:has(> .seo-breadcrumbs) .checklist-card,
+body.dark-mode:has(> .seo-breadcrumbs) .technical-box,
+body.dark-mode:has(> .seo-breadcrumbs) .key-points,
+body.dark-mode:has(> .seo-breadcrumbs) .related-reading,
+body.dark-mode:has(> .seo-breadcrumbs) .related-posts {
+    border-color: #334155;
+    background: #111827;
+    box-shadow: none;
+}
+
+body.dark-mode.blog-post-page .toc-container,
+body.dark-mode:has(> .seo-breadcrumbs) .table-of-contents {
+    background: #111827;
+}
+
+body.dark-mode.blog-post-page .article-meta-surface span,
+body.dark-mode.blog-post-page .article-meta-surface p,
+body.dark-mode:has(> .seo-breadcrumbs) .article-metadata span,
+body.dark-mode.blog-post-page .article-prose-surface p code,
+body.dark-mode.blog-post-page .article-prose-surface li code,
+body.dark-mode:has(> .seo-breadcrumbs) main p code,
+body.dark-mode:has(> .seo-breadcrumbs) main li code,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content code {
+    background: #1e293b;
+    color: #c7d2fe;
+}
+
+body.dark-mode.blog-post-page blockquote,
+body.dark-mode:has(> .seo-breadcrumbs) main blockquote,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content blockquote {
+    background: #172554;
+    color: #dbeafe;
+}
+
+body.dark-mode.blog-post-page .article-prose-surface table,
+body.dark-mode.blog-post-page .article-prose-surface .table,
+body.dark-mode:has(> .seo-breadcrumbs) main table,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content table {
+    border-color: #334155;
+    background: #111827;
+}
+
+body.dark-mode.blog-post-page .article-prose-surface th,
+body.dark-mode:has(> .seo-breadcrumbs) main th,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content th {
+    background: #1e293b;
+    color: #f8fafc;
+}
+
+body.dark-mode.blog-post-page .article-prose-surface th,
+body.dark-mode.blog-post-page .article-prose-surface td,
+body.dark-mode:has(> .seo-breadcrumbs) main th,
+body.dark-mode:has(> .seo-breadcrumbs) main td,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content th,
+body.dark-mode:has(> .seo-breadcrumbs) .article-content td {
+    border-color: #334155;
+}
+
+@media (max-width: 768px) {
+    body.blog-post-page,
+    body:has(> .seo-breadcrumbs) {
+        font-size: 16px;
+    }
+
+    body.blog-post-page .main-content,
+    body:has(> .seo-breadcrumbs) .main-content {
+        padding-top: 22px;
+        padding-bottom: 56px;
+    }
+
+    body.blog-post-page .article-page-container,
+    body.blog-post-page > .container.mt-5,
+    body.blog-post-page > .blog-container,
+    body:has(> .seo-breadcrumbs) > .container,
+    body:has(> .seo-breadcrumbs) > .main-content > .container,
+    body:has(> .seo-breadcrumbs) > .blog-container {
+        width: calc(100vw - 32px) !important;
+        max-width: none !important;
+    }
+
+    body.blog-post-page .article-hero,
+    body:has(> .seo-breadcrumbs) .container > header.header,
+    body:has(> .seo-breadcrumbs) .main-content .container > header.header,
+    body:has(> .seo-breadcrumbs) .blog-header {
+        padding: 36px 0 20px;
+        margin-bottom: 22px;
+    }
+
+    body.blog-post-page .article-hero h1,
+    body.blog-post-page .article-hero .blog-title,
+    body:has(> .seo-breadcrumbs) .container > header.header h1,
+    body:has(> .seo-breadcrumbs) .main-content .container > header.header h1,
+    body:has(> .seo-breadcrumbs) .blog-header h1,
+    body:has(> .seo-breadcrumbs) .blog-title {
+        font-size: clamp(30px, 8vw, 42px);
+        line-height: 1.12;
+    }
+
+    body.blog-post-page .article-prose-surface p,
+    body.blog-post-page .article-prose-surface li,
+    body.blog-post-page .article-prose-surface td,
+    body.blog-post-page .article-prose-surface th,
+    body:has(> .seo-breadcrumbs) main p,
+    body:has(> .seo-breadcrumbs) main li,
+    body:has(> .seo-breadcrumbs) main td,
+    body:has(> .seo-breadcrumbs) main th,
+    body:has(> .seo-breadcrumbs) .article-content p,
+    body:has(> .seo-breadcrumbs) .article-content li,
+    body:has(> .seo-breadcrumbs) .blog-content p,
+    body:has(> .seo-breadcrumbs) .blog-content li {
+        font-size: 16px;
+        line-height: 1.76;
+    }
+
+    body.blog-post-page .article-prose-surface h2,
+    body.blog-post-page .article-prose-surface .solution-section h2,
+    body:has(> .seo-breadcrumbs) main h2,
+    body:has(> .seo-breadcrumbs) .article-content h2,
+    body:has(> .seo-breadcrumbs) .blog-content h2 {
+        margin-top: 38px;
+        font-size: clamp(24px, 6vw, 30px);
+    }
+
+    body.blog-post-page .article-prose-surface h3,
+    body:has(> .seo-breadcrumbs) main h3,
+    body:has(> .seo-breadcrumbs) .article-content h3,
+    body:has(> .seo-breadcrumbs) .blog-content h3 {
+        font-size: clamp(20px, 5vw, 23px);
+    }
+
+    body.blog-post-page .article-share-surface a,
+    body:has(> .seo-breadcrumbs) .blog-share-buttons a {
+        width: auto;
+        min-height: 40px;
+    }
+}

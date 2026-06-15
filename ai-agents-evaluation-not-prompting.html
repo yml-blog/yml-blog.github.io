@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AI Agent Evaluation Is More Important Than Prompting | Yangming Li</title>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="A practical essay on why production AI agents need custom eval sets, trajectory evaluation, LLM-as-judge calibration, regression tests, and business-ready metrics." name="description"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="AI agent evaluation, LLM evaluation, agent regression testing, trajectory evaluation, LLM-as-judge, production AI agents" name="keywords"/>
+<link href="https://yangmingli.com/ai-agents-evaluation-not-prompting.html" rel="canonical"/>
+<link href="favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="AI Agent Evaluation Is More Important Than Prompting | Yangming Li" property="og:title"/>
+<meta content="A practical essay on why production AI agents need custom eval sets, trajectory evaluation, LLM-as-judge calibration, regression tests, and business-ready metrics." property="og:description"/>
+<meta content="https://yangmingli.com/ai-agents-evaluation-not-prompting.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="AI Agent Evaluation Is More Important Than Prompting | Yangming Li" name="twitter:title"/>
+<meta content="A practical essay on why production AI agents need custom eval sets, trajectory evaluation, LLM-as-judge calibration, regression tests, and business-ready metrics." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-06-15" property="article:published_time"/>
+<meta content="2026-06-15" property="article:modified_time"/>
+<meta content="LLM Evaluation" property="article:section"/>
+<meta content="AI Agents" property="article:tag"/>
+<meta content="Agent Evaluation" property="article:tag"/>
+<meta content="Production AI" property="article:tag"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="js/loadHeader.js"></script>
+<script defer="" src="/js/newsletter.js"></script>
+<style>
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  margin: 0 4px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #c7ced8;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .3s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .3s;
+  width: 16px;
+}
+input:checked + .slider {
+  background-color: #f1780e;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+body.blog-post-page .article-share-surface .twitter {
+  background-color: #1DA1F2;
+}
+body.blog-post-page .article-share-surface .linkedin {
+  background-color: #0A66C2;
+}
+body.blog-post-page .article-share-surface .email {
+  background-color: #D44638;
+}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Most Important Part of AI Agents Is Not Prompting. It Is Evaluation.",
+  "description": "A practical essay on why production AI agents need custom eval sets, trajectory evaluation, LLM-as-judge calibration, regression tests, and business-ready metrics.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-06-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/ai-agents-evaluation-not-prompting.html"
+  },
+  "articleSection": "LLM Evaluation",
+  "keywords": [
+    "AI agent evaluation",
+    "LLM evaluation",
+    "agent regression testing",
+    "trajectory evaluation",
+    "LLM-as-judge",
+    "production AI agents"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "wordCount": 1800
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The Most Important Part of AI Agents Is Not Prompting. It Is Evaluation.",
+      "item": "https://yangmingli.com/ai-agents-evaluation-not-prompting.html"
+    }
+  ]
+}</script>
+</head>
+<body class="blog-post-page">
+<nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>AI Agent Evaluation</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
+<div class="main-content">
+<div class="article-page-container">
+<header class="article-hero text-center">
+<div class="article-kicker-row">
+<span class="article-kicker">LLM Evaluation</span>
+<span class="article-kicker article-kicker-muted">AI Agents</span>
+</div>
+<h1>The Most Important Part of AI Agents Is Not Prompting. It Is Evaluation.</h1>
+<p class="lead">By Yangming Li</p>
+<p class="blog-meta"><span>Published June 15, 2026</span><span>9 min read</span><span>AI systems essay</span></p>
+</header>
+<div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
+<div class="article-theme-surface">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-meta-surface">
+<span><i class="fa fa-clock-o"></i> 9 min read</span>
+<span><i class="fa fa-file-text-o"></i> Approx. 1800 words</span>
+<span><i class="fa fa-check-square-o"></i> Eval-driven agent development</span>
+<p class="keywords"><strong>Keywords:</strong> AI agents, agent evaluation, LLM evaluation, trajectory evaluation, LLM-as-judge, regression testing, production AI.</p>
+</div>
+<div class="article-share-surface">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+</div>
+<main class="article-prose-surface">
+<div class="article-support-grid">
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> TL;DR</h4>
+<p>Better prompts and stronger models can make an agent look impressive in a demo, but production readiness comes from evaluation: custom eval sets, trajectory inspection, calibrated judges, regression tests, operational metrics, and human review where risk requires it.</p>
+</div>
+</div>
+<div class="key-points">
+<h4>Article Highlights</h4>
+<ul>
+<li>Public benchmarks are useful capability signals, but they cannot prove reliability in a specific business workflow.</li>
+<li>Agent evaluation should inspect both final outcomes and the trajectory: tool choice, parameters, retrieval, retries, state changes, latency, and cost.</li>
+<li>LLM-as-judge can help with open-ended tasks, but the judge needs rubrics, calibration, and expert review samples.</li>
+<li>Eval-driven development turns agent improvement from a feeling into evidence that can guide shipping decisions.</li>
+</ul>
+</div>
+</div>
+<div class="toc-container">
+<h4>Contents</h4>
+<div id="toc"></div>
+</div>
+<article class="article-content">
+<p>Over the past year, AI Agents have become one of the most discussed topics in applied AI. Many teams are experimenting with stronger models, better prompts, tool calling, workflow orchestration, memory, retrieval, and automation.</p>
+<p>These are all important. But when I review Agent projects, I often notice the same pattern: teams spend a lot of time making the Agent &ldquo;work&rdquo; in a demo, but much less time proving whether it works reliably enough for production.</p>
+<p>A demo can make an Agent look impressive. A stronger model can make it feel smarter. A better prompt can make the output look cleaner. A new tool can make the system appear more capable.</p>
+<p>But none of these answers the most important questions:</p>
+<ul>
+<li>Is the Agent actually getting better?</li>
+<li>Can it complete the task consistently?</li>
+<li>Does it still work after we change the prompt, model, tool schema, or workflow?</li>
+<li>When it fails, do we know why?</li>
+<li>Can we trust it enough to put it in front of real users?</li>
+</ul>
+<p>This is why I believe the core of AI Agent development is not prompting. It is evaluation.</p>
+<h2 id="public-benchmarks">Public Benchmarks Are Only the Starting Point</h2>
+<p>Public benchmarks are useful. They help compare models and provide a general signal about capability. Benchmarks such as software engineering tasks, reasoning tasks, or tool-use tasks can help filter out weak systems.</p>
+<p>But public benchmarks are not enough to decide whether an Agent is ready for your business.</p>
+<p>The reason is simple: your production environment is different.</p>
+<ul>
+<li>Your users have different goals.</li>
+<li>Your tools have different constraints.</li>
+<li>Your data has different edge cases.</li>
+<li>Your workflows have different failure modes.</li>
+<li>Your business has different risk tolerance.</li>
+</ul>
+<p>A model or Agent can perform well on a public benchmark and still fail in a real customer support workflow, internal analytics workflow, compliance workflow, healthcare workflow, financial workflow, or enterprise operations workflow.</p>
+<p>Public benchmarks can tell you whether a system has general capability. They cannot prove that the system is reliable in your specific environment. That proof has to come from your own evaluation system.</p>
+<h2 id="custom-eval-set">A Custom Eval Set Is a Real Engineering Asset</h2>
+<p>A strong Agent team eventually needs its own eval set.</p>
+<p>This eval set should not be made only from imagined test cases. It should come from real user behavior, real business workflows, real historical failures, and real edge cases.</p>
+<p>A useful eval set usually has several characteristics.</p>
+<p>First, it reflects the real distribution of tasks. It should include what users actually ask for, not only what the team expects users to ask.</p>
+<p>Second, it has layered coverage. It should include simple tasks, common tasks, complex tasks, boundary cases, ambiguous requests, and high-risk scenarios.</p>
+<p>Third, it is versioned. Every meaningful change to the Agent should be evaluated against the same set of cases so the team can compare performance over time.</p>
+<p>Fourth, it improves continuously. Production failures should not disappear into Slack messages or one-off bug fixes. They should become new eval cases and enter the regression suite.</p>
+<p>In this sense, an eval set is not just a testing artifact. It is part of the product infrastructure. The closer your eval set is to the real business distribution, the more useful your Agent evaluation becomes.</p>
+<h2 id="endpoint-evaluation">Endpoint Evaluation Is Not Enough</h2>
+<p>Many teams evaluate Agents by looking only at the final answer. This is called endpoint evaluation. It asks whether the final output is correct.</p>
+<p>Endpoint evaluation is necessary. For example, if a booking Agent says a reservation has been made, the system should verify that the reservation actually exists and that the date, time, location, and number of people are correct.</p>
+<p>But for Agents, endpoint evaluation is not enough.</p>
+<p>Agents are multi-step systems. They reason, call tools, retrieve information, update state, and sometimes interact with external systems. Many failures happen during the process, not only at the final answer.</p>
+<ul>
+<li>An Agent may choose the wrong tool.</li>
+<li>It may pass the wrong parameter.</li>
+<li>It may miss an important context item.</li>
+<li>It may repeat the same action unnecessarily.</li>
+<li>It may arrive at a correct-looking answer through an unsafe or unreliable path.</li>
+<li>It may complete the task but with unacceptable latency or cost.</li>
+</ul>
+<p>If we only evaluate the final answer, we miss the real source of failure.</p>
+<p>This is why trajectory evaluation is so important. Trajectory evaluation looks at how the Agent completed the task. It examines tool selection, tool parameters, intermediate reasoning, retrieval behavior, repeated attempts, state changes, and whether the Agent followed the expected constraints.</p>
+<p>For Agent systems, the process matters as much as the final output.</p>
+<h2 id="llm-as-judge">LLM-as-Judge Is Useful, but the Judge Must Also Be Evaluated</h2>
+<p>LLM-as-Judge is a practical technique, especially for open-ended tasks such as research, summarization, report generation, customer support, and complex reasoning.</p>
+<p>However, an LLM judge is not automatically objective.</p>
+<ul>
+<li>It can have position bias.</li>
+<li>It can prefer longer answers.</li>
+<li>It can reward fluent but unsupported responses.</li>
+<li>It can favor outputs that resemble its own style.</li>
+<li>It can be inconsistent when the rubric is unclear.</li>
+</ul>
+<p>The solution is not to avoid LLM judges completely. The solution is to evaluate them carefully.</p>
+<p>A good LLM judge should be guided by a clear rubric. It should score specific dimensions instead of giving a vague overall judgment. For higher-risk tasks, teams should sample cases for human review and compare whether the judge's decisions match expert judgment.</p>
+<p>In other words, the evaluator also needs to be evaluated.</p>
+<p>The goal is not to replace human judgment entirely. The goal is to use automation where it is reliable and use human review where calibration is needed.</p>
+<h2 id="agent-evaluation-layers">Agent Evaluation Should Cover Multiple Layers</h2>
+<p>A practical Agent evaluation system should not rely on a single score. At minimum, I think Agent evaluation should cover five layers.</p>
+<h3 id="outcome-evaluation">1. Outcome Evaluation</h3>
+<p>Did the Agent actually complete the task? The system should verify the final state, not just the final message.</p>
+<p>For example, if an Agent claims it updated a record, created a ticket, sent a message, or completed a booking, the evaluation should check whether that action truly happened and whether the final state is correct.</p>
+<h3 id="tool-use-evaluation">2. Tool Use Evaluation</h3>
+<p>Did the Agent use the right tools? Were the tool parameters correct? Did it avoid unnecessary or forbidden actions?</p>
+<p>For tool-using Agents, wrong tool calls are one of the most common sources of failure. A good evaluation system should inspect tool behavior, not just text output.</p>
+<h3 id="trajectory-evaluation">3. Trajectory Evaluation</h3>
+<p>Was the execution path reasonable? Did the Agent complete the task efficiently? Did it get stuck, loop, retry unnecessarily, or drift away from the original goal?</p>
+<p>This is especially important for multi-step workflows, where the final output alone does not explain what happened.</p>
+<h3 id="rubric-evaluation">4. Quality and Rubric Evaluation</h3>
+<p>For open-ended tasks, quality needs to be evaluated with a rubric.</p>
+<p>For example, a research Agent may be evaluated on completeness, grounding, source quality, factual consistency, structure, and whether it addresses the user's actual intent.</p>
+<p>A rubric turns subjective judgment into a more consistent evaluation process.</p>
+<h3 id="human-calibration">5. Human Calibration</h3>
+<p>Automated evaluation is useful, but it needs calibration.</p>
+<p>Human review helps validate whether the scoring system reflects real business expectations. This is especially important for subjective, high-impact, or ambiguous tasks.</p>
+<h2 id="capability-regression">Capability Eval and Regression Eval Are Different</h2>
+<p>Another useful distinction is between capability evaluation and regression evaluation.</p>
+<p>Capability evaluation asks: What can this Agent do now?</p>
+<p>These evals should include challenging tasks that expose the Agent's current limits. The goal is not to achieve a perfect pass rate immediately. The goal is to reveal where the system still needs improvement.</p>
+<p>Regression evaluation asks: Can this Agent still do what it used to do?</p>
+<p>These evals act as a safety net. Every time the team changes the prompt, model, memory, tool schema, routing logic, or workflow, the Agent should be tested against existing regression cases.</p>
+<p>Both are necessary.</p>
+<p>Capability eval helps the system move forward. Regression eval prevents the system from sliding backward. A mature Agent team needs both.</p>
+<h2 id="business-decisions">Evaluation Should Help Business Decisions, Not Just Model Scoring</h2>
+<p>A common mistake is treating evaluation as a model leaderboard.</p>
+<p>But in production, the best Agent is not always the one with the highest accuracy score.</p>
+<p>Business teams also care about latency, cost, reliability, observability, safety, compliance, user experience, and escalation paths.</p>
+<p>An Agent with 85% accuracy but very high latency and high cost may be less useful than an Agent with slightly lower accuracy but much better speed, lower cost, and clearer failure handling.</p>
+<p>This is why Agent evaluation should include operational metrics, such as:</p>
+<ul>
+<li>success rate,</li>
+<li>regression rate,</li>
+<li>tool accuracy,</li>
+<li>latency,</li>
+<li>cost per run,</li>
+<li>escalation rate,</li>
+<li>failure categories,</li>
+<li>and human review rate.</li>
+</ul>
+<p>Evaluation is not just about asking, &ldquo;Which model scored higher?&rdquo;</p>
+<p>It is about asking, &ldquo;Is this system ready for this use case?&rdquo;</p>
+<h2 id="start-small">Start Small: 20-50 High-Quality Eval Cases</h2>
+<p>Early-stage teams do not need hundreds of eval cases on day one.</p>
+<p>A more practical approach is to start with 20-50 high-quality cases. These should come from real user scenarios, important workflows, and known failure modes.</p>
+<p>Each eval case should define:</p>
+<ul>
+<li>the user task,</li>
+<li>the initial environment state,</li>
+<li>the available tools,</li>
+<li>the expected final state,</li>
+<li>the pass/fail criteria,</li>
+<li>the behaviors that are not allowed,</li>
+<li>and whether the trajectory should be inspected.</li>
+</ul>
+<p>A good eval case is not just a sentence. It is a reproducible experiment specification.</p>
+<p>This allows every Agent run to become something that can be compared, audited, and improved.</p>
+<h2 id="eval-driven-development">Eval-Driven Development</h2>
+<p>For Agent systems, I believe teams should move toward eval-driven development.</p>
+<p>Instead of building an Agent first and then informally testing whether it feels good, teams should define what the Agent must be able to do, how success will be measured, and what failure modes are unacceptable.</p>
+<p>Then evaluation can guide improvements to prompts, tool schemas, retrieval, memory, routing, model choice, and workflow logic.</p>
+<p>After each change, the team reruns the eval suite and checks whether the system actually improved.</p>
+<p>This changes Agent development from intuition-driven iteration to evidence-driven iteration.</p>
+<p>Without evaluation, improvement is just a feeling. With evaluation, improvement becomes measurable.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It is now relatively easy to build an Agent that works once in a demo.</p>
+<p>It is much harder to build an Agent that works reliably in production.</p>
+<p>The real questions are:</p>
+<ul>
+<li>Can it complete tasks consistently?</li>
+<li>Can it handle different user inputs?</li>
+<li>Can it use tools correctly?</li>
+<li>Can it avoid unsafe actions?</li>
+<li>Can it recover from failure?</li>
+<li>Can we understand why it failed?</li>
+<li>Can we prove that a new version is better than the old one?</li>
+</ul>
+<p>These are evaluation questions.</p>
+<p>Prompting decides how the Agent starts. Tools decide what the Agent can access. Workflows decide how the Agent runs. But evaluation decides whether the Agent is trustworthy enough to ship.</p>
+<p>For production AI Agents, evaluation is not a side task.</p>
+<p>It is the engineering foundation.</p>
+</article>
+<div class="related-reading">
+<h3>Related Reading</h3>
+<div class="related-articles">
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a></h4>
+<p>A concrete testing workflow with schema contracts, custom graders, release gates, and human review.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="uqlm-teaching-guide.html">Uncertainty Quantification for LLMs with UQLM</a></h4>
+<p>How confidence and uncertainty signals can support safer LLM review workflows.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="ai-agent-evaluation-checklist.html">AI Agent Evaluation Checklist</a></h4>
+<p>A practical checklist for launch readiness, regression thinking, and production review.</p>
+</div>
+</div>
+</div>
+</div>
+<section aria-labelledby="article-ai-agents-evaluation-not-prompting-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="article-ai-agents-evaluation-not-prompting-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="article-ai-agents-evaluation-not-prompting" method="post">
+<label class="sr-only" for="article-ai-agents-evaluation-not-prompting-email">Email address</label>
+<input autocomplete="email" id="article-ai-agents-evaluation-not-prompting-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-ai-agents-evaluation-not-prompting"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/llm-evaluation/">LLM Evaluation</a></p>
+</footer>
+</div>
+</div>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="js/toc.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentTheme = localStorage.getItem('theme') || null;
+  var checkbox = document.getElementById('checkbox');
+  if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    if (currentTheme === 'dark-mode' && checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  if (checkbox) {
+    checkbox.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      }
+    });
+  }
+
+  var progress = document.querySelector('.article-progress-bar span');
+  function updateProgress() {
+    if (!progress) {
+      return;
+    }
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+  }
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/llm-evaluation/">LLM Evaluation</a></h3>
+<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing Copilot agents</a></h3>
+<p>Agent evaluation with test sets, graders, and release gates.</p>
+</article>
+</div>
+</section>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>
