@@ -58,7 +58,7 @@ Key SEO issues found:
 - Projects: dedicated portfolio page with internal links to related articles.
 - Blog: dedicated crawlable blog index grouped by topic.
 - Resume: concise resume-style overview using only claims already represented on the site.
-- Contact: dedicated page with email, LinkedIn, GitHub, and Google Scholar links.
+- Contact: dedicated page with email, LinkedIn, and GitHub links.
 - Product index: replaced by a noindex forwarding page because it duplicated the blog index and had broken links/mojibake.
 - Article pages: canonical tags deduplicated; weak descriptions improved; Open Graph/Twitter metadata normalized.
 

@@ -1257,7 +1257,6 @@ def person_schema() -> dict:
         "sameAs": [
             "https://www.linkedin.com/in/yangming-li-tech/",
             "https://github.com/yml-blog",
-            "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en",
         ],
         "knowsAbout": [
             "Applied AI",
@@ -1301,7 +1300,6 @@ def improve_about_page(soup: BeautifulSoup) -> None:
         <ul>
           <li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li>
           <li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&amp;hl=en" rel="noopener noreferrer">Google Scholar</a></li>
         </ul>
         """,
         "html.parser",

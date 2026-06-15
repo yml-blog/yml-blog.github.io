@@ -382,7 +382,6 @@ def person_schema() -> dict:
         "sameAs": [
             "https://www.linkedin.com/in/yangming-li-tech/",
             "https://github.com/yml-blog",
-            "https://scholar.google.ca/citations?user=Pwjgsg4AAAAJ&hl=en",
         ],
         "knowsAbout": [
             "Applied AI systems",

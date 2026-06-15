@@ -28,7 +28,7 @@
             id: 'contact-options',
             title: 'Contact Yangming',
             url: '/index.html#contact',
-            tags: ['contact', 'email', 'linkedin', 'github', 'scholar', 'meeting'],
+            tags: ['contact', 'email', 'linkedin', 'github', 'meeting'],
             alwaysInclude: true,
             content: 'Visitors can reach Yangming through email at dleeym95@gmail.com, through LinkedIn, through GitHub, or by booking time on Calendly from the contact tab. The contact section also notes Vancouver, BC, Canada as location.'
         },
@@ -607,7 +607,7 @@
 
             if (matchesIntent(lower, ['contact', 'email', 'reach', 'linkedin', 'hire', 'work'])) {
                 return [
-                    'The clearest way to reach Yangming is email at `dleeym95@gmail.com`. LinkedIn is also listed as a contact path, and the contact tab includes GitHub, Google Scholar, and a meeting-booking option.',
+                    'The clearest way to reach Yangming is email at `dleeym95@gmail.com`. LinkedIn is also listed as a contact path, and the contact tab includes GitHub and a meeting-booking option.',
                     'From the site framing, the most relevant work areas are applied AI systems, AI system architecture, LLM system design, statistical ML, data engineering, data products, and experiment infrastructure.'
                 ].join('\n\n');
             }
