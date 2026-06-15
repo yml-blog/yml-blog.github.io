@@ -25,7 +25,7 @@
 <link href="/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="/css/typography.css" rel="stylesheet"/>
 <link href="/css/portfolio-pages.css" rel="stylesheet"/>
-<link href="/css/newsletter.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/><link href="/css/topic-hubs.css" rel="stylesheet"/>
 <link href="/rss.xml" rel="alternate" title="Yangming Li RSS Feed" type="application/rss+xml"/>
 <script defer="" src="/js/i18n.js"></script>
 <script defer="" src="/js/newsletter.js"></script>
@@ -64,7 +64,7 @@
 </head>
 <body class="portfolio-page">
 <main class="pillar-page">
-<nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/data-products/">Data Products</a><a href="/case-studies/">Case Studies</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a><a class="nav-subscribe-button" href="/subscribe/">Subscribe</a></nav>
+<nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
 <section class="pillar-hero">
 <span class="eyebrow">Applied AI Systems</span>
 <h1>AI Engineering</h1>
@@ -91,41 +91,78 @@
 </div>
 <p>The related articles below connect architecture to implementation: agent evaluation, tool integration, uncertainty, document AI, MLOps, and reproducible machine learning environments.</p>
 </section>
-<section aria-labelledby="related-writing-title" class="portfolio-section">
-<div class="portfolio-section-header">
-<span class="seo-eyebrow">Related writing</span>
-<h2 id="related-writing-title">Relevant articles and artifacts</h2>
+<section id="topic-hub-ai-engineering" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Topic hub</span>
+<h2>AI engineering writing</h2>
+<p>AI engineering is the discipline of turning model capability into a dependable workflow. It includes retrieval design, tool boundaries, schemas, logging, deployment, monitoring, and the product constraints that decide whether an AI feature can be trusted.</p>
 </div>
-<div class="pillar-grid">
-<article class="pillar-card">
-<h3><a href="/ai-agents-evaluation-not-prompting.html">AI agent evaluation is more important than prompting</a></h3>
-<p>Why custom eval sets, trajectory inspection, calibrated judges, and regression tests are the foundation of production AI agents.</p>
+<div class="topic-hub-intro">
+<div><p>A good production AI system makes its evidence, actions, and failure modes inspectable. The model is only one component. The surrounding system has to decide which documents are allowed, which tool calls are safe, how outputs are structured, when humans review the result, and what regressions block a release.</p></div>
+<div><p>This section follows the starter-blog pattern of metadata-driven topic pages: each card shows a canonical article link, summary, date, reading time, and tags. The page is a hub, not a duplicate post archive.</p></div>
+</div>
+<div class="topic-post-grid">
+<article class="featured-post-card">
+<h3><a href="/ai-agents-evaluation-not-prompting.html">AI Agent Evaluation Is More Important Than Prompting</a></h3>
+<div class="topic-card-meta"><span>Jun 15, 2026</span><span>9 min read</span></div>
+<p>Why production AI agents need custom eval sets, trajectory checks, calibrated judges, regression tests, and business-ready metrics.</p>
+<div class="topic-tags"><span class="topic-tag">agents</span><span class="topic-tag">evaluation</span><span class="topic-tag">production AI</span></div>
+<a class="topic-card-link" href="/ai-agents-evaluation-not-prompting.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/testing-evaluating-copilot-agents.html">Testing and evaluating Copilot agents</a></h3>
+<article class="featured-post-card">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a></h3>
+<div class="topic-card-meta"><span>May 25, 2026</span><span>12 min read</span></div>
 <p>Schema-first evaluation, test sets, release gates, and human review for Copilot-style agents.</p>
+<div class="topic-tags"><span class="topic-tag">Copilot</span><span class="topic-tag">release gates</span><span class="topic-tag">schema</span></div>
+<a class="topic-card-link" href="/testing-evaluating-copilot-agents.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/mcp-protocol-guide.html">Model Context Protocol guide</a></h3>
+<article class="featured-post-card">
+<h3><a href="/mcp-protocol-guide.html">Model Context Protocol Guide</a></h3>
+<div class="topic-card-meta"><span>2025</span><span>14 min read</span></div>
 <p>Tool and context integration patterns for connected AI systems.</p>
+<div class="topic-tags"><span class="topic-tag">MCP</span><span class="topic-tag">tools</span><span class="topic-tag">LLM systems</span></div>
+<a class="topic-card-link" href="/mcp-protocol-guide.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/n8n-ai-workflows.html">Agentic AI systems with n8n</a></h3>
+<article class="topic-post-card">
+<h3><a href="/n8n-ai-workflows.html">Agentic AI Systems with n8n</a></h3>
+<div class="topic-card-meta"><span>2025</span><span>13 min read</span></div>
 <p>Workflow boundaries, tool use, and operational constraints for agentic automation.</p>
+<div class="topic-tags"><span class="topic-tag">agents</span><span class="topic-tag">automation</span><span class="topic-tag">systems</span></div>
+<a class="topic-card-link" href="/n8n-ai-workflows.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/llama-report-guide.html">LlamaReport and document AI systems</a></h3>
+<article class="topic-post-card">
+<h3><a href="/llama-report-guide.html">LlamaReport and Document AI Systems</a></h3>
+<div class="topic-card-meta"><span>2025</span><span>11 min read</span></div>
 <p>Document transformation architecture, review workflows, and enterprise AI design.</p>
+<div class="topic-tags"><span class="topic-tag">document AI</span><span class="topic-tag">RAG</span><span class="topic-tag">agents</span></div>
+<a class="topic-card-link" href="/llama-report-guide.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/mlops-essential-skills.html">MLOps essential skills</a></h3>
+<article class="topic-post-card">
+<h3><a href="/mlops-essential-skills.html">MLOps Essential Skills</a></h3>
+<div class="topic-card-meta"><span>2024</span><span>18 min read</span></div>
 <p>Model packaging, deployment, monitoring, and production ML operations.</p>
-</article>
-<article class="pillar-card">
-<h3><a href="/docker-in-ml.html">Docker for machine learning</a></h3>
-<p>Reproducible ML environments and deployment foundations.</p>
+<div class="topic-tags"><span class="topic-tag">MLOps</span><span class="topic-tag">deployment</span><span class="topic-tag">monitoring</span></div>
+<a class="topic-card-link" href="/mlops-essential-skills.html">Read article</a>
 </article>
 </div>
+<div class="topic-related-section"><div class="topic-section-header"><span class="topic-eyebrow">Related paths</span><h2>Projects and case-study paths</h2></div><div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3><a href="/projects.html">Projects overview</a></h3>
+<p>Project themes that connect AI architecture, evaluation, and product outcomes.</p>
+<a class="topic-card-link" href="/projects.html">Open</a>
+</article>
+<article class="topic-mini-card">
+<h3><a href="/llm-evaluation/">LLM Evaluation</a></h3>
+<p>Evaluation patterns that turn AI systems into reviewable products.</p>
+<a class="topic-card-link" href="/llm-evaluation/">Open</a>
+</article>
+<article class="topic-mini-card">
+<h3><a href="/case-studies/">Case Studies</a></h3>
+<p>Selected implementation and portfolio paths.</p>
+<a class="topic-card-link" href="/case-studies/">Open</a>
+</article>
+</div></div>
+<div class="topic-subscribe-cta"><p>For future notes on applied AI systems, evaluation, data products, and product workflows, subscribe to Yangming AI Systems Notes.</p><a class="topic-button" href="/subscribe/">Subscribe for updates</a></div>
 </section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
@@ -157,7 +194,7 @@
 </div>
 </section>
 <p class="site-footer-title">Yangming Li</p>
-<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
 </div>
 </footer>
 </body>

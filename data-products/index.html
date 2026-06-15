@@ -25,7 +25,7 @@
 <link href="/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="/css/typography.css" rel="stylesheet"/>
 <link href="/css/portfolio-pages.css" rel="stylesheet"/>
-<link href="/css/newsletter.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/><link href="/css/topic-hubs.css" rel="stylesheet"/>
 <link href="/rss.xml" rel="alternate" title="Yangming Li RSS Feed" type="application/rss+xml"/>
 <script defer="" src="/js/i18n.js"></script>
 <script defer="" src="/js/newsletter.js"></script>
@@ -64,7 +64,7 @@
 </head>
 <body class="portfolio-page">
 <main class="pillar-page">
-<nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/data-products/">Data Products</a><a href="/case-studies/">Case Studies</a><a href="/ai-product-builder.html">AI Product Builder</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a><a class="nav-subscribe-button" href="/subscribe/">Subscribe</a></nav>
+<nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
 <section class="pillar-hero">
 <span class="eyebrow">Data Products</span>
 <h1>Data Products</h1>
@@ -91,37 +91,78 @@
 </div>
 <p>Track freshness, schema changes, missing values, usage, adoption, overrides, drift, correction rate, experiment impact, and recurring interpretation questions.</p>
 </section>
-<section aria-labelledby="related-writing-title" class="portfolio-section">
-<div class="portfolio-section-header">
-<span class="seo-eyebrow">Related writing</span>
-<h2 id="related-writing-title">Relevant articles and artifacts</h2>
+<section id="topic-hub-data-products" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Topic hub</span>
+<h2>Data product writing</h2>
+<p>Data products are repeated decision workflows, not just dashboards. They need a user, a cadence, trusted definitions, instrumentation, and a feedback loop that shows whether the product changes behavior or improves decisions.</p>
 </div>
-<div class="pillar-grid">
-<article class="pillar-card">
-<h3><a href="/databricks-comprehensive-guide.html">Databricks lakehouse guide</a></h3>
-<p>Data engineering, MLflow, Delta Lake, and platform patterns.</p>
+<div class="topic-hub-intro">
+<div><p>For AI data products, the bar is higher: outputs need provenance, uncertainty, correction paths, and metrics that reveal adoption and quality. The writing here connects experimentation, causal thinking, analytics, platform work, and product framing so data systems become useful operational tools.</p></div>
+<div><p>This section follows the starter-blog pattern of metadata-driven topic pages: each card shows a canonical article link, summary, date, reading time, and tags. The page is a hub, not a duplicate post archive.</p></div>
+</div>
+<div class="topic-post-grid">
+<article class="featured-post-card">
+<h3><a href="/churn-prediction-uplift-thinking.html">A 90% Accurate Model That Still Loses Money</a></h3>
+<div class="topic-card-meta"><span>Jun 15, 2026</span><span>15 min read</span></div>
+<p>Why high-accuracy churn prediction can improve renewal rate while losing revenue, and how uplift thinking targets incremental renewals instead of risk scores.</p>
+<div class="topic-tags"><span class="topic-tag">uplift</span><span class="topic-tag">retention</span><span class="topic-tag">ROI</span></div>
+<a class="topic-card-link" href="/churn-prediction-uplift-thinking.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/key-statistical-tests-survey-analysis.html">Statistical tests for survey analysis</a></h3>
-<p>Decision-support statistics and interpretation trade-offs.</p>
+<article class="featured-post-card">
+<h3><a href="/uplift-modeling-industry-guide.html">Beyond A/B Testing: Uplift Modeling in Industry</a></h3>
+<div class="topic-card-meta"><span>Jun 15, 2026</span><span>15 min read</span></div>
+<p>A practical guide to CATE, meta-learners, Qini, AUUC, decile lift, online experiments, and incremental ROI.</p>
+<div class="topic-tags"><span class="topic-tag">causal ML</span><span class="topic-tag">experimentation</span><span class="topic-tag">uplift</span></div>
+<a class="topic-card-link" href="/uplift-modeling-industry-guide.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/engineering/ab-test-engineering-guide.html">A/B test engineering guide</a></h3>
-<p>Experiment infrastructure for product measurement.</p>
+<article class="featured-post-card">
+<h3><a href="/databricks-comprehensive-guide.html">Databricks Lakehouse Guide</a></h3>
+<div class="topic-card-meta"><span>2024</span><span>16 min read</span></div>
+<p>Delta Lake, MLflow, Unity Catalog, and data platform implementation notes.</p>
+<div class="topic-tags"><span class="topic-tag">data platform</span><span class="topic-tag">MLflow</span><span class="topic-tag">lakehouse</span></div>
+<a class="topic-card-link" href="/databricks-comprehensive-guide.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/polars-guide.html">Polars guide</a></h3>
-<p>Fast DataFrame workflows for practical data engineering.</p>
+<article class="featured-post-card">
+<h3><a href="/engineering/ab-test-engineering-guide.html">A/B Test Engineering Guide</a></h3>
+<div class="topic-card-meta"><span>2024</span><span>10 min read</span></div>
+<p>Feature gates, experiments, reliable launch measurement, and experimentation infrastructure.</p>
+<div class="topic-tags"><span class="topic-tag">experiments</span><span class="topic-tag">measurement</span><span class="topic-tag">launch</span></div>
+<a class="topic-card-link" href="/engineering/ab-test-engineering-guide.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/building-high-impact-value-propositions.html">Building high-impact value propositions</a></h3>
-<p>Product framing for turning data capabilities into user value.</p>
+<article class="topic-post-card">
+<h3><a href="/key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h3>
+<div class="topic-card-meta"><span>2025</span><span>12 min read</span></div>
+<p>A practical guide to choosing statistical tests and interpreting experiment-style evidence.</p>
+<div class="topic-tags"><span class="topic-tag">statistics</span><span class="topic-tag">analytics</span><span class="topic-tag">evidence</span></div>
+<a class="topic-card-link" href="/key-statistical-tests-survey-analysis.html">Read article</a>
 </article>
-<article class="pillar-card">
-<h3><a href="/healthcare-ai-analytics.html">Healthcare AI analytics</a></h3>
-<p>Applied analytics and AI thinking in healthcare workflows.</p>
+<article class="topic-post-card">
+<h3><a href="/healthcare-ai-analytics.html">Healthcare AI Analytics</a></h3>
+<div class="topic-card-meta"><span>2025</span><span>8 min read</span></div>
+<p>Applied AI and analytics framing for healthcare operations and decision support.</p>
+<div class="topic-tags"><span class="topic-tag">healthcare</span><span class="topic-tag">analytics</span><span class="topic-tag">case study</span></div>
+<a class="topic-card-link" href="/healthcare-ai-analytics.html">Read article</a>
 </article>
 </div>
+<div class="topic-related-section"><div class="topic-section-header"><span class="topic-eyebrow">Related paths</span><h2>Projects and case-study paths</h2></div><div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3><a href="/projects.html">Projects overview</a></h3>
+<p>Project themes for analytics systems and AI data products.</p>
+<a class="topic-card-link" href="/projects.html">Open</a>
+</article>
+<article class="topic-mini-card">
+<h3><a href="/engineering/ab-test-engineering-guide.html">A/B testing systems</a></h3>
+<p>Experiment infrastructure for reliable product measurement.</p>
+<a class="topic-card-link" href="/engineering/ab-test-engineering-guide.html">Open</a>
+</article>
+<article class="topic-mini-card">
+<h3><a href="/ai-product-builder.html">AI Product Builder</a></h3>
+<p>Product strategy for turning data capabilities into user value.</p>
+<a class="topic-card-link" href="/ai-product-builder.html">Open</a>
+</article>
+</div></div>
+<div class="topic-subscribe-cta"><p>For future notes on applied AI systems, evaluation, data products, and product workflows, subscribe to Yangming AI Systems Notes.</p><a class="topic-button" href="/subscribe/">Subscribe for updates</a></div>
 </section>
 </main>
 <footer aria-label="Site footer" class="site-footer">
@@ -153,7 +194,7 @@
 </div>
 </section>
 <p class="site-footer-title">Yangming Li</p>
-<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
 </div>
 </footer>
 </body>
