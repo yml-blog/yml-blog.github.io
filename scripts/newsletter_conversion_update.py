@@ -16,6 +16,7 @@ BASE_URL = "https://yangmingli.com"
 TODAY = date(2026, 6, 12).isoformat()
 NEWSLETTER_NAME = "Yangming Li's Newsletter"
 NEWSLETTER_FORM_ACTION_URL = "/api/newsletter-subscribe"
+NEWSLETTER_SCRIPT_URL = "/js/newsletter.js?v=newsletter-api-20260615"
 # The static forms post to the Vercel serverless newsletter API.
 # Secrets stay server-side in Supabase and Resend environment variables.
 PRIVACY_NOTE = "1–2 emails per month. No spam. Unsubscribe anytime."
@@ -113,10 +114,10 @@ MAJOR_META = {
         "keywords": "AI case studies, data product case studies, applied AI portfolio, product systems",
     },
     "subscribe/index.html": {
-        "title": "Subscribe to Yangming Li's Newsletter | Yangming Li",
-        "description": "Subscribe to Yangming Li's Newsletter for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows.",
+        "title": f"Subscribe to {NEWSLETTER_NAME} | Yangming Li",
+        "description": f"Subscribe to {NEWSLETTER_NAME} for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows.",
         "canonical": f"{BASE_URL}/subscribe/",
-        "keywords": "Yangming Li's Newsletter, LLM systems newsletter, AI evaluation newsletter, MLOps newsletter",
+        "keywords": f"{NEWSLETTER_NAME}, LLM systems newsletter, AI evaluation newsletter, MLOps newsletter",
     },
 }
 
@@ -277,6 +278,13 @@ def ensure_link(soup: BeautifulSoup, href: str, rel: str = "stylesheet") -> None
 
 def ensure_script(soup: BeautifulSoup, src: str) -> None:
     head = ensure_head(soup)
+    if src.startswith("/js/newsletter.js"):
+        for script in soup.find_all("script", src=True):
+            if str(script.get("src", "")).startswith("/js/newsletter.js"):
+                script["src"] = src
+                script["defer"] = ""
+                return
+
     existing = soup.find("script", src=src)
     if existing:
         existing["defer"] = ""
@@ -449,7 +457,7 @@ def webpage_schema(name: str, url: str, description: str) -> dict:
 
 
 def newsletter_component(source: str, title_tag: str = "h2", compact: bool = False) -> str:
-    title = f'<{title_tag} id="{source}-newsletter-title">Subscribe to Yangming Li's Newsletter</{title_tag}>'
+    title = f'<{title_tag} id="{source}-newsletter-title">Subscribe to {NEWSLETTER_NAME}</{title_tag}>'
     class_name = "newsletter-card newsletter-compact" if compact else "newsletter-card"
     topics = "" if compact else """
       <ul class="newsletter-topic-list" aria-label="Newsletter topics">
@@ -488,7 +496,7 @@ def hero_subscribe_form() -> str:
     return f"""
     <form class="hero-subscribe-form" action="{NEWSLETTER_FORM_ACTION_URL}" method="post" data-newsletter-form data-source="homepage-hero">
       <div class="hero-subscribe-copy">
-        <h2>Subscribe to Yangming Li's Newsletter</h2>
+        <h2>Subscribe to {NEWSLETTER_NAME}</h2>
         <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
       </div>
       <label class="sr-only" for="homepage-hero-email">Email address</label>
@@ -582,7 +590,7 @@ def update_homepage(soup: BeautifulSoup) -> None:
     meta = MAJOR_META["index.html"]
     apply_meta(soup, meta)
     ensure_link(soup, "/css/newsletter.css")
-    ensure_script(soup, "/js/newsletter.js")
+    ensure_script(soup, NEWSLETTER_SCRIPT_URL)
 
     h1 = soup.find("h1")
     if h1:
@@ -729,7 +737,7 @@ def update_existing_page(path: Path) -> None:
     update_navs(soup)
     update_explore_links(soup)
     ensure_link(soup, "/css/newsletter.css")
-    ensure_script(soup, "/js/newsletter.js")
+    ensure_script(soup, NEWSLETTER_SCRIPT_URL)
 
     if rel == "index.html":
         update_homepage(soup)
@@ -809,7 +817,7 @@ def hub_page_html(rel: str, data: dict) -> str:
 <link rel="stylesheet" href="/css/newsletter.css"/>
 <link rel="alternate" type="application/rss+xml" title="Yangming Li RSS Feed" href="/rss.xml"/>
 <script defer src="/js/i18n.js"></script>
-<script defer src="/js/newsletter.js"></script>
+<script defer src="{NEWSLETTER_SCRIPT_URL}"></script>
 <script type="application/ld+json">{json.dumps(page_schema, ensure_ascii=False, indent=2)}</script>
 <script type="application/ld+json">{json.dumps(crumbs, ensure_ascii=False, indent=2)}</script>
 </head>
@@ -843,7 +851,7 @@ def subscribe_page_html() -> str:
         render_link(label, href, "nav-subscribe-button" if label == "Subscribe" else None)
         for label, href in NAV_LINKS
     )
-    page_schema = webpage_schema("Subscribe to Yangming Li's Newsletter", meta["canonical"], meta["description"])
+    page_schema = webpage_schema(f"Subscribe to {NEWSLETTER_NAME}", meta["canonical"], meta["description"])
     crumbs = breadcrumb([("Home", "/"), ("Subscribe", "/subscribe/")])
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -874,7 +882,7 @@ def subscribe_page_html() -> str:
 <link rel="stylesheet" href="/css/newsletter.css"/>
 <link rel="alternate" type="application/rss+xml" title="Yangming Li RSS Feed" href="/rss.xml"/>
 <script defer src="/js/i18n.js"></script>
-<script defer src="/js/newsletter.js"></script>
+<script defer src="{NEWSLETTER_SCRIPT_URL}"></script>
 <script type="application/ld+json">{json.dumps(page_schema, ensure_ascii=False, indent=2)}</script>
 <script type="application/ld+json">{json.dumps(crumbs, ensure_ascii=False, indent=2)}</script>
 </head>
@@ -884,7 +892,7 @@ def subscribe_page_html() -> str:
   <section class="newsletter-page-hero">
     <div class="newsletter-page-copy">
       <span class="newsletter-kicker">Newsletter</span>
-      <h1>Yangming Li's Newsletter</h1>
+      <h1>{NEWSLETTER_NAME}</h1>
       <p class="newsletter-page-lead">Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows. Written for builders, hiring managers, collaborators, and product-minded teams who care about reliable AI in real workflows.</p>
       <div class="newsletter-note-grid">
         <article class="newsletter-note-card">

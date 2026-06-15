@@ -3,7 +3,7 @@
   const NEWSLETTER_FORM_ACTION_URL = NEWSLETTER_API_PATH;
   const NEWSLETTER_NAME = "Yangming Li's Newsletter";
   const SUCCESS_MESSAGE = 'Thanks - please check your email to confirm your subscription.';
-  const ERROR_MESSAGE = 'Subscription request failed. Please try again later.';
+  const ERROR_MESSAGE = 'Newsletter signup is temporarily unavailable. The subscription service may not be configured yet.';
   const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

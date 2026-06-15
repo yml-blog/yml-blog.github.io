@@ -177,7 +177,7 @@ module.exports = async function handler(req, res) {
         sendJson(res, error.publicMessage ? (error.statusCode || 503) : 500, {
             ok: false,
             code: error.publicMessage ? 'not_configured' : 'server_error',
-            message: error.publicMessage || 'Subscription request failed. Please try again later.'
+            message: error.publicMessage || 'Newsletter signup is temporarily unavailable. Please try again later.'
         });
     }
 };
