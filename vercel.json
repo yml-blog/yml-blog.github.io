@@ -52,6 +52,12 @@
         },
         "api/focus-room-presence.js": {
             "maxDuration": 10
+        },
+        "api/newsletter-subscribe.js": {
+            "maxDuration": 10
+        },
+        "api/newsletter-unsubscribe.js": {
+            "maxDuration": 10
         }
     }
 }

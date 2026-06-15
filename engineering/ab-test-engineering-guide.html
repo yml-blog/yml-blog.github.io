@@ -693,7 +693,7 @@
 <div class="newsletter-card-inner">
 <div class="newsletter-copy">
 <span class="newsletter-kicker">Newsletter</span>
-<h2 id="article-ab-test-engineering-guide-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<h2 id="article-ab-test-engineering-guide-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
 <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
 <ul aria-label="Newsletter topics" class="newsletter-topic-list">
 <li>LLM systems</li>
@@ -703,7 +703,7 @@
 <li>Production AI</li>
 </ul>
 </div>
-<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="article-ab-test-engineering-guide" method="post">
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="article-ab-test-engineering-guide" method="post">
 <label class="sr-only" for="article-ab-test-engineering-guide-email">Email address</label>
 <input autocomplete="email" id="article-ab-test-engineering-guide-email" name="email" placeholder="your@email.com" required="" type="email"/>
 <input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
@@ -720,9 +720,13 @@
 <h3>Subscribe for Updates</h3>
 <p>Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered to your inbox.</p>
 <p class="en-sub-text">We send occasional, high-signal updates only.</p>
-<form action="https://formspree.io/f/YOUR_FORM_ID" class="subscription-form" method="POST">
+<form action="/api/newsletter-subscribe" class="subscription-form" data-newsletter-form="" data-source="article-ab-test-engineering-guide-legacy" method="POST">
 <input name="email" placeholder="Your email address" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-ab-test-engineering-guide-legacy"/>
 <button type="submit">Subscribe</button>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
 </form>
 </div>
 <footer class="footer text-center">
@@ -815,7 +819,7 @@
 <div class="newsletter-card-inner">
 <div class="newsletter-copy">
 <span class="newsletter-kicker">Newsletter</span>
-<h2 id="site-footer-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
 <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
 <ul aria-label="Newsletter topics" class="newsletter-topic-list">
 <li>LLM systems</li>
@@ -825,7 +829,7 @@
 <li>Production AI</li>
 </ul>
 </div>
-<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
 <label class="sr-only" for="site-footer-email">Email address</label>
 <input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
 <input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>

@@ -14,10 +14,10 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://yangmingli.com"
 TODAY = date(2026, 6, 12).isoformat()
-NEWSLETTER_NAME = "Yangming AI Systems Notes"
-NEWSLETTER_FORM_ACTION_URL = "REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL"
-# Use the form action URL from Buttondown, beehiiv, Mailchimp, ConvertKit, or another newsletter provider.
-# Do not use mailto for subscriptions.
+NEWSLETTER_NAME = "Yangming Li's Newsletter"
+NEWSLETTER_FORM_ACTION_URL = "/api/newsletter-subscribe"
+# The static forms post to the Vercel serverless newsletter API.
+# Secrets stay server-side in Supabase and Resend environment variables.
 PRIVACY_NOTE = "1–2 emails per month. No spam. Unsubscribe anytime."
 
 EXCLUDE_DIRS = {".git", "__pycache__", "templates", "email-templates", "nha-cai", "focus-room/moodist-main"}
@@ -113,10 +113,10 @@ MAJOR_META = {
         "keywords": "AI case studies, data product case studies, applied AI portfolio, product systems",
     },
     "subscribe/index.html": {
-        "title": "Subscribe to Yangming AI Systems Notes | Yangming Li",
-        "description": "Subscribe to Yangming AI Systems Notes for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows.",
+        "title": "Subscribe to Yangming Li's Newsletter | Yangming Li",
+        "description": "Subscribe to Yangming Li's Newsletter for practical notes on LLM systems, evaluation, data products, MLOps, and production AI workflows.",
         "canonical": f"{BASE_URL}/subscribe/",
-        "keywords": "Yangming AI Systems Notes, LLM systems newsletter, AI evaluation newsletter, MLOps newsletter",
+        "keywords": "Yangming Li's Newsletter, LLM systems newsletter, AI evaluation newsletter, MLOps newsletter",
     },
 }
 
@@ -449,7 +449,7 @@ def webpage_schema(name: str, url: str, description: str) -> dict:
 
 
 def newsletter_component(source: str, title_tag: str = "h2", compact: bool = False) -> str:
-    title = f'<{title_tag} id="{source}-newsletter-title">Subscribe to Yangming AI Systems Notes</{title_tag}>'
+    title = f'<{title_tag} id="{source}-newsletter-title">Subscribe to Yangming Li's Newsletter</{title_tag}>'
     class_name = "newsletter-card newsletter-compact" if compact else "newsletter-card"
     topics = "" if compact else """
       <ul class="newsletter-topic-list" aria-label="Newsletter topics">
@@ -488,7 +488,7 @@ def hero_subscribe_form() -> str:
     return f"""
     <form class="hero-subscribe-form" action="{NEWSLETTER_FORM_ACTION_URL}" method="post" data-newsletter-form data-source="homepage-hero">
       <div class="hero-subscribe-copy">
-        <h2>Subscribe to Yangming AI Systems Notes</h2>
+        <h2>Subscribe to Yangming Li's Newsletter</h2>
         <p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
       </div>
       <label class="sr-only" for="homepage-hero-email">Email address</label>
@@ -843,7 +843,7 @@ def subscribe_page_html() -> str:
         render_link(label, href, "nav-subscribe-button" if label == "Subscribe" else None)
         for label, href in NAV_LINKS
     )
-    page_schema = webpage_schema("Subscribe to Yangming AI Systems Notes", meta["canonical"], meta["description"])
+    page_schema = webpage_schema("Subscribe to Yangming Li's Newsletter", meta["canonical"], meta["description"])
     crumbs = breadcrumb([("Home", "/"), ("Subscribe", "/subscribe/")])
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -884,7 +884,7 @@ def subscribe_page_html() -> str:
   <section class="newsletter-page-hero">
     <div class="newsletter-page-copy">
       <span class="newsletter-kicker">Newsletter</span>
-      <h1>Yangming AI Systems Notes</h1>
+      <h1>Yangming Li's Newsletter</h1>
       <p class="newsletter-page-lead">Practical notes about LLM systems, evaluation, data products, MLOps, and production AI workflows. Written for builders, hiring managers, collaborators, and product-minded teams who care about reliable AI in real workflows.</p>
       <div class="newsletter-note-grid">
         <article class="newsletter-note-card">

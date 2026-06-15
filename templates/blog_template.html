@@ -477,6 +477,7 @@
     </script>
   <!-- Canonical URL -->
   <link rel="canonical" href="https://yangmingli.com/templates/blog_template.html">
+  <link rel="stylesheet" href="/css/newsletter.css">
   </head>
 <body>
     <div class="container">
@@ -566,9 +567,13 @@
             <h3>订阅 AI/ML 更新 (Subscribe for Updates)</h3>
             <p>获取最新的人工智能、机器学习和数据科学文章、教程和见解，直接发送到您的收件箱。</p>
             <p class="en-sub-text">Get the latest articles, tutorials, and insights on AI, machine learning, and data science delivered directly to your inbox.</p>
-            <form class="subscription-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form class="subscription-form" action="/api/newsletter-subscribe" method="POST" data-newsletter-form data-source="article-template-legacy">
                 <input type="email" name="email" placeholder="您的电子邮箱地址 (Your email address)" required>
                 <button type="submit">订阅 (Subscribe)</button>
+                <input type="text" name="website" class="sr-only" autocomplete="off" tabindex="-1" aria-hidden="true">
+                <input type="hidden" name="source" value="article-template-legacy">
+                <p class="newsletter-status newsletter-success" data-newsletter-success role="status" aria-live="polite"></p>
+                <p class="newsletter-status newsletter-error" data-newsletter-error role="alert" aria-live="assertive"></p>
             </form>
         </div>
         
@@ -582,6 +587,7 @@
     <script src="js/scripts.js"></script>
     <script src="js/blogPanel.js"></script>
     <script src="js/toc.js"></script>
+    <script defer src="/js/newsletter.js"></script>
     
     <!-- Prism.js for code highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>

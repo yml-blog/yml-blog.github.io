@@ -1,11 +1,9 @@
 (function () {
-  // Use the form action URL from Buttondown, beehiiv, Mailchimp, ConvertKit, or another newsletter provider.
-  // Do not use mailto for subscriptions.
-  const NEWSLETTER_FORM_ACTION_URL = 'REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL';
-  const NEWSLETTER_ACTION_PLACEHOLDER = 'REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL';
-  const NEWSLETTER_NAME = 'Yangming AI Systems Notes';
-  const SUCCESS_MESSAGE = 'Thanks — please check your email to confirm your subscription.';
-  const ERROR_MESSAGE = 'Something went wrong. Please try again.';
+  const NEWSLETTER_API_PATH = '/api/newsletter-subscribe';
+  const NEWSLETTER_FORM_ACTION_URL = NEWSLETTER_API_PATH;
+  const NEWSLETTER_NAME = "Yangming Li's Newsletter";
+  const SUCCESS_MESSAGE = 'Thanks - please check your email to confirm your subscription.';
+  const ERROR_MESSAGE = 'Subscription request failed. Please try again later.';
   const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -58,11 +56,9 @@
 
     return candidates.find(function (candidate) {
       return candidate &&
-        candidate !== NEWSLETTER_ACTION_PLACEHOLDER &&
-        !candidate.includes(NEWSLETTER_ACTION_PLACEHOLDER) &&
         !/^\/api\/subscribe(?:$|[?#])/.test(candidate) &&
         !candidate.toLowerCase().startsWith('mailto:');
-    }) || '';
+    }) || NEWSLETTER_API_PATH;
   }
 
   function ensureHiddenField(form, name, value) {
@@ -124,11 +120,6 @@
       return;
     }
 
-    if (!actionUrl) {
-      showError(form, ERROR_MESSAGE);
-      return;
-    }
-
     prepareForm(form);
     ensureHiddenField(form, 'page', window.location.href);
     ensureHiddenField(form, 'newsletter', NEWSLETTER_NAME);
@@ -136,15 +127,33 @@
     clearMessages(form);
 
     try {
-      await fetch(actionUrl, {
+      const honeypot = form.querySelector('input[name="website"]');
+      const source = form.querySelector('input[name="source"]');
+      const response = await fetch(actionUrl, {
         method: 'POST',
-        mode: 'no-cors',
-        body: new FormData(form)
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          source: source ? source.value : (form.dataset.source || window.location.pathname),
+          page: window.location.href,
+          website: honeypot ? honeypot.value : ''
+        })
       });
+      const data = await response.json().catch(function () {
+        return {};
+      });
+
+      if (!response.ok || !data.ok) {
+        showError(form, data.message || ERROR_MESSAGE);
+        return;
+      }
 
       form.reset();
       window.localStorage.setItem('yangmingNewsletterSubscribedAt', new Date().toISOString());
-      showSuccess(form, SUCCESS_MESSAGE);
+      showSuccess(form, data.message || SUCCESS_MESSAGE);
     } catch (error) {
       showError(form, ERROR_MESSAGE);
     } finally {

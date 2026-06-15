@@ -1,0 +1,52 @@
+name: Newsletter digest
+
+on:
+  workflow_dispatch:
+    inputs:
+      send:
+        description: 'Send the digest instead of generating a preview only'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+      since_days:
+        description: 'Look for RSS posts published in the last N days'
+        required: true
+        default: '7'
+  schedule:
+    - cron: '0 16 * * 1'
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      NEWSLETTER_SIGNING_SECRET: ${{ secrets.NEWSLETTER_SIGNING_SECRET }}
+      NEWSLETTER_SITE_URL: ${{ vars.NEWSLETTER_SITE_URL || 'https://yangmingli.com' }}
+      NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM }}
+      NEWSLETTER_REPLY_TO: ${{ secrets.NEWSLETTER_REPLY_TO }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Prepare or send digest
+        shell: bash
+        run: |
+          SINCE_DAYS="${{ github.event.inputs.since_days || '7' }}"
+          SEND_FLAG="--dry-run"
+          if [ "${{ github.event.inputs.send }}" = "true" ] || [ "${{ secrets.NEWSLETTER_SEND_WEEKLY }}" = "true" ]; then
+            SEND_FLAG="--send"
+          fi
+          node scripts/send_newsletter.js "$SEND_FLAG" --since-days "$SINCE_DAYS" --preview-out newsletter-preview/digest
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-preview
+          path: newsletter-preview/

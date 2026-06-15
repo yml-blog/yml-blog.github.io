@@ -191,6 +191,10 @@
   color: var(--newsletter-teal-dark) !important;
 }
 
+.newsletter-status[data-state="notice"] {
+  color: #8a4b12 !important;
+}
+
 .newsletter-status[data-state="error"] {
   color: #b42318 !important;
 }
@@ -476,6 +480,10 @@
 
 .hero-subscribe-status[data-state="success"] {
   color: #d1fae5 !important;
+}
+
+.hero-subscribe-status[data-state="notice"] {
+  color: #ffe8b0 !important;
 }
 
 .hero-subscribe-status[data-state="error"] {
