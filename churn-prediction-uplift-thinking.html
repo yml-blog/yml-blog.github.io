@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking | Yangming Li</title>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Why a high-accuracy churn model can improve renewal rate while losing money, and how uplift thinking reframes coupon targeting around incremental ROI." name="description"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="churn prediction, uplift modeling, renewal prediction, coupon targeting, causal inference, incremental ROI, subscription analytics, retention modeling" name="keywords"/>
+<link href="https://yangmingli.com/churn-prediction-uplift-thinking.html" rel="canonical"/>
+<link href="favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking | Yangming Li" property="og:title"/>
+<meta content="Why a high-accuracy churn model can improve renewal rate while losing money, and how uplift thinking reframes coupon targeting around incremental ROI." property="og:description"/>
+<meta content="https://yangmingli.com/churn-prediction-uplift-thinking.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking | Yangming Li" name="twitter:title"/>
+<meta content="Why a high-accuracy churn model can improve renewal rate while losing money, and how uplift thinking reframes coupon targeting around incremental ROI." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-06-15" property="article:published_time"/>
+<meta content="2026-06-15" property="article:modified_time"/>
+<meta content="Applied Machine Learning" property="article:section"/>
+<meta content="Churn Prediction" property="article:tag"/>
+<meta content="Uplift Modeling" property="article:tag"/>
+<meta content="Retention Analytics" property="article:tag"/>
+<meta content="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="js/loadHeader.js"></script>
+<script defer="" src="/js/newsletter.js"></script>
+<style>
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  margin: 0 4px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #c7ced8;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .3s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .3s;
+  width: 16px;
+}
+input:checked + .slider {
+  background-color: #f1780e;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+body.blog-post-page .article-share-surface .twitter {
+  background-color: #1DA1F2;
+}
+body.blog-post-page .article-share-surface .linkedin {
+  background-color: #0A66C2;
+}
+body.blog-post-page .article-share-surface .email {
+  background-color: #D44638;
+}
+.formula-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  color: #0f172a;
+  font-family: Consolas, "Courier New", monospace;
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  padding: 1rem 1.1rem;
+  white-space: nowrap;
+}
+body.dark-mode .formula-box {
+  background: #111827;
+  border-color: #334155;
+  color: #e5edf7;
+}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking",
+  "description": "Why a high-accuracy churn model can improve renewal rate while losing money, and how uplift thinking reframes coupon targeting around incremental ROI.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-06-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/churn-prediction-uplift-thinking.html"
+  },
+  "articleSection": "Applied Machine Learning",
+  "keywords": [
+    "churn prediction",
+    "uplift modeling",
+    "renewal prediction",
+    "coupon targeting",
+    "causal inference",
+    "incremental ROI",
+    "subscription analytics",
+    "retention modeling"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "wordCount": 3000
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "A 90% Accurate Model That Still Loses Money",
+      "item": "https://yangmingli.com/churn-prediction-uplift-thinking.html"
+    }
+  ]
+}</script>
+</head>
+<body class="blog-post-page">
+<nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Churn Prediction and Uplift</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
+<div class="main-content">
+<div class="article-page-container">
+<header class="article-hero text-center">
+<div class="article-kicker-row">
+<span class="article-kicker">Applied ML</span>
+<span class="article-kicker article-kicker-muted">Retention</span>
+</div>
+<h1>A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking</h1>
+<p class="lead">By Yangming Li</p>
+<p class="blog-meta"><span>Published June 15, 2026</span><span>15 min read</span><span>Retention analytics essay</span></p>
+</header>
+<div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
+<div class="article-theme-surface">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-meta-surface">
+<span><i class="fa fa-clock-o"></i> 15 min read</span>
+<span><i class="fa fa-file-text-o"></i> Approx. 3000 words</span>
+<span><i class="fa fa-money"></i> Incremental ROI</span>
+<p class="keywords"><strong>Keywords:</strong> churn prediction, uplift modeling, renewal prediction, coupon targeting, causal inference, incremental ROI, subscription analytics, retention modeling.</p>
+</div>
+<div class="article-share-surface">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+</div>
+<main class="article-prose-surface">
+<div class="article-support-grid">
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> TL;DR</h4>
+<p>A churn model can be accurate and still lose money if it sends discounts to users who would have renewed at full price. Retention campaigns should target incremental impact, not only churn risk. The practical fix is uplift thinking: estimate who renews because of the intervention, evaluate incremental ROI, and protect natural renewers from unnecessary coupons.</p>
+</div>
+</div>
+<div class="key-points">
+<h4>Article Highlights</h4>
+<ul>
+<li>Accuracy answers whether a model classifies churn well; it does not answer whether a coupon changes behavior.</li>
+<li>Natural renewers can make campaign dashboards look good while quietly destroying margin.</li>
+<li>A randomized holdout is the cleanest way to separate natural renewal from coupon-driven renewal.</li>
+<li>Retention strategy should segment users by predicted uplift, not only by churn probability.</li>
+</ul>
+</div>
+</div>
+<div class="toc-container">
+<h4>Contents</h4>
+<div id="toc"></div>
+</div>
+<article class="article-content">
+<p>Recently, I had a small but important reset in how I think about causal inference in real business systems.</p>
+<p>For a while, I treated uplift modeling as mostly a statistical problem: define the treatment, derive the causal estimand, estimate the conditional treatment effect, and optimize the targeting policy.</p>
+<p>That is technically correct, but incomplete.</p>
+<p>In real production environments, especially after models moved into large-scale ranking systems, recommendation systems, and Transformer-based architectures, many traditional causal methods do not automatically translate into stable offline gains. The math may be elegant, but the business impact can still be small, unstable, or hard to scale.</p>
+<p>Coupon targeting is a perfect example.</p>
+<p>Compared with feed ranking, search ads, or large-scale recommendation, coupon optimization is often a small surface area. But it exposes a much deeper problem:</p>
+<blockquote><p>Many models are accurate at prediction, but wrong about intervention.</p></blockquote>
+<p>This blog explains that gap through a common subscription scenario: a churn model with 90% accuracy that still loses money.</p>
+
+<h2 id="great-model-bad-business-results">1. The Scenario: A Great Model That Creates Bad Business Results</h2>
+<p>Imagine a paid community or subscription product launches a churn-prevention model.</p>
+<p>The model predicts whether a user is likely to churn. Offline evaluation looks impressive: accuracy is around 90%. When the model predicts that a user is likely to churn, the system triggers a pop-up:</p>
+<blockquote><p>Here is a 50% renewal coupon.</p></blockquote>
+<p>One month later, the team checks the result.</p>
+<p>The overall renewal rate increased slightly. Maybe it went up by 0.5%, maybe even 3%. On the surface, this looks like a win.</p>
+<p>But finance sees something different.</p>
+<p>A large number of users who would have renewed at full price ended up renewing at half price. Renewal count increased, but total renewal revenue dropped.</p>
+<p>So the business asks:</p>
+<blockquote><p>If the model is 90% accurate, why is it losing money?</p></blockquote>
+<p>The answer is simple:</p>
+<blockquote><p>The model is solving the wrong problem.</p></blockquote>
+<p>A churn prediction model asks:</p>
+<blockquote><p>Who looks likely to churn?</p></blockquote>
+<p>But the business intervention needs to know:</p>
+<blockquote><p>Who will renew because of this coupon?</p></blockquote>
+<p>Those are two completely different questions.</p>
+
+<h2 id="accuracy-can-mislead">2. Why 90% Accuracy Can Be a Misleading Number</h2>
+<p>Let's first talk about accuracy itself.</p>
+<p>Suppose this paid community has a natural renewal rate of 70%. That means out of every 100 expiring users, 70 would renew without any intervention.</p>
+<p>In that case, even a naive model that predicts everyone will renew already gets 70% accuracy.</p>
+<p>So when a churn model reports 90% accuracy, the real lift over the naive baseline is only 20 percentage points.</p>
+<p>But even that 20-point improvement does not answer the real business question:</p>
+<blockquote><p>Among the users identified as high risk, how many can actually be saved by a coupon?</p></blockquote>
+<p>A churn model cannot answer that.</p>
+<p>It can predict who looks risky. It cannot predict who is persuadable.</p>
+<p>That is the core issue.</p>
+<p>The model may be accurate at classification, but the business does not need a classification model. It needs an intervention model.</p>
+
+<h2 id="prediction-and-intervention">3. Prediction and Intervention Are Not the Same Thing</h2>
+<p>A traditional churn model predicts:</p>
+<div class="formula-box">P(churn)</div>
+<p>or equivalently:</p>
+<div class="formula-box">P(renewal)</div>
+<p>But a coupon campaign needs to estimate:</p>
+<div class="formula-box">Uplift = P(renewal | coupon) - P(renewal | no coupon)</div>
+<p>This is the incremental effect of the coupon.</p>
+<p>A user may look likely to churn, but a coupon may not change their decision. Another user may not look extremely risky, but a timely discount may persuade them to renew.</p>
+<p>This is why a 90% accurate churn model can still destroy ROI.</p>
+<p>The model answers:</p>
+<blockquote><p>Who is likely to leave?</p></blockquote>
+<p>But the business needs:</p>
+<blockquote><p>Who will stay because of this intervention?</p></blockquote>
+<p>These two groups overlap much less than most teams assume.</p>
+
+<h2 id="four-user-types">4. Four Types of Users in a Renewal Campaign</h2>
+<p>To understand the problem clearly, split users by two dimensions:</p>
+<ul>
+<li>Whether they receive the coupon.</li>
+<li>Whether they renew.</li>
+</ul>
+<p>This gives us four user types.</p>
+<h3 id="natural-renewers">1. Natural Renewers</h3>
+<p>These users will renew whether or not they receive a coupon.</p>
+<p>They may be loyal users, heavy users, or people who already planned to renew at full price.</p>
+<p>If you give them a coupon, they still renew, but now they pay less.</p>
+<p>From the dashboard, they look like successful conversions. From the business perspective, they are margin leakage.</p>
+<h3 id="persuadables">2. Persuadables</h3>
+<p>These are the users we actually want to find.</p>
+<p>They are undecided. Without a coupon, they may not renew. With a coupon, they renew.</p>
+<p>This is the true target group for a renewal campaign.</p>
+<p>Uplift modeling is mainly about finding this group.</p>
+<h3 id="lost-causes">3. Lost Causes</h3>
+<p>These users will not renew no matter what you do.</p>
+<p>They may no longer need the product, may have already moved to another platform, or may have mentally left long before the renewal window.</p>
+<p>Sending them a coupon does not create revenue. It only wastes budget and communication cost.</p>
+<h3 id="negative-responders">4. Negative Responders</h3>
+<p>These users may renew without intervention, but the intervention reduces their willingness to pay.</p>
+<p>For example, a user may see a sudden discount and think:</p>
+<blockquote><p>Why should I ever pay full price again? I should just wait for coupons.</p></blockquote>
+<p>This group may be small, but in subscription businesses it can create long-term pricing damage.</p>
+<p>The key point is:</p>
+<blockquote><p>A churn model tries to find likely churners. An uplift model tries to find persuadable users.</p></blockquote>
+<p>Those are not the same users.</p>
+
+<h2 id="numerical-example">5. A Simple Numerical Example: How the Model Loses Money</h2>
+<p>Let's make the problem concrete.</p>
+<p>Assume a paid community has 10,000 users whose subscriptions are about to expire.</p>
+<p>The regular renewal price is $100.</p>
+<p>Without any intervention, the natural renewal rate is 70%.</p>
+<p>So the baseline revenue is:</p>
+<div class="formula-box">7,000 renewals x $100 = $700,000</div>
+<p>Now the team deploys a churn prediction model.</p>
+<p>The model identifies 3,000 users as high churn risk and sends all of them a 50% renewal coupon.</p>
+<p>That means each renewal from this group now brings only $50 instead of $100.</p>
+<p>Inside these 3,000 users, suppose there are three groups.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>Group</th>
+<th>Users</th>
+<th>What happens</th>
+<th>Financial impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>True incremental renewers</td>
+<td>300</td>
+<td>Would not renew without coupon; renew with coupon</td>
+<td>300 x $50 = +$15,000</td>
+</tr>
+<tr>
+<td>Natural renewers</td>
+<td>1,500</td>
+<td>Would renew at full price; now renew at half price</td>
+<td>1,500 x $50 = -$75,000</td>
+</tr>
+<tr>
+<td>Lost causes</td>
+<td>1,200</td>
+<td>Do not renew even with coupon</td>
+<td>$0 incremental revenue</td>
+</tr>
+</tbody>
+</table>
+<p>Now calculate the net impact:</p>
+<div class="formula-box">Incremental revenue = $15,000<br/>Lost revenue from unnecessary discounts = $75,000<br/>Net impact = -$60,000</div>
+<p>The renewal count increases from 7,000 to 7,300.</p>
+<p>The renewal rate improves from 70% to 73%.</p>
+<p>But total revenue drops from $700,000 to $640,000.</p>
+<p>This is the trap.</p>
+<p>The dashboard says the renewal rate improved. The finance team says revenue declined. Both are true.</p>
+<p>The model improved the wrong metric.</p>
+
+<h2 id="why-this-happens">6. Why This Happens in Real Business</h2>
+<p>The root cause is not only technical. It is also behavioral.</p>
+<p>In many subscription products, users do not decide whether to renew only in the last few days before expiry.</p>
+<p>The real decision often forms much earlier: three weeks before expiry, one month before expiry, or gradually throughout the usage cycle.</p>
+<p>By the time the final pop-up appears, many users have already made up their minds.</p>
+<p>For users who already decided to renew, the coupon only reduces revenue.</p>
+<p>For users who already decided to leave, the coupon may be too late.</p>
+<p>The only users who are truly affected by the pop-up are those who are still undecided.</p>
+<p>These are the persuadable users.</p>
+<p>But a churn prediction model usually does not directly identify persuadables. It identifies users who look risky.</p>
+<p>This creates a gap between the algorithm team and the product team.</p>
+<p>The algorithm team thinks:</p>
+<blockquote><p>High churn risk means pop-up priority.</p></blockquote>
+<p>The product team actually needs:</p>
+<blockquote><p>High persuadability means pop-up priority.</p></blockquote>
+<p>The intersection between these two groups may be much smaller than expected.</p>
+
+<h2 id="hidden-data-traps">7. The Hidden Data Traps</h2>
+<p>There are several common data traps in this problem.</p>
+<h3 id="average-metrics-hide-loss">Trap 1: Average Metrics Hide Structural Loss</h3>
+<p>A campaign may increase the average renewal rate, but the average hides internal damage.</p>
+<p>Among persuadable users, the intervention effect is positive.</p>
+<p>Among natural renewers, the intervention effect is negative because the company gives away unnecessary discounts.</p>
+<p>When these groups are mixed together, the overall renewal rate may look good while revenue quality worsens.</p>
+<p>This is why you cannot only look at renewal rate.</p>
+<p>You also need to look at ARPU, total renewal revenue, discount leakage, and incremental ROI.</p>
+<h3 id="self-selection-bias">Trap 2: Self-Selection Bias</h3>
+<p>Historical data is not neutral.</p>
+<p>Users who renewed in the past often have richer behavior data: more logins, more content consumption, more payment history, and more stable engagement patterns.</p>
+<p>Users who did not renew often have sparse data.</p>
+<p>As a result, the model may become good at identifying active renewers, but weak at distinguishing undecided users from truly lost users.</p>
+<p>This is not random noise. It is systematic bias.</p>
+<p>Even worse, the bias often appears exactly in the most important group: users near the decision boundary.</p>
+<h3 id="missing-counterfactuals">Trap 3: Missing Counterfactuals</h3>
+<p>The most important question is:</p>
+<blockquote><p>What would this user have done if we had not sent the coupon?</p></blockquote>
+<p>But in ordinary historical data, we do not observe both worlds.</p>
+<p>For a user who received a coupon and renewed, we do not know whether they renewed because of the coupon or whether they would have renewed anyway.</p>
+<p>This missing counterfactual is why churn prediction cannot directly measure intervention value.</p>
+<h3 id="control-groups">Trap 4: Control Groups Are Often Misunderstood</h3>
+<p>Many product teams resist A/B testing because they worry:</p>
+<blockquote><p>If the control group does not receive a coupon, the user experience will be bad.</p></blockquote>
+<p>But this is often a misunderstanding.</p>
+<p>A randomized control group does not mean users receive a worse product. It only means a small group does not receive this specific commercial intervention during the test window.</p>
+<p>If you never run this experiment, you will never know whether the coupon creates value or simply burns margin.</p>
+<p>Without a control group, every renewal season becomes an expensive guessing game.</p>
+
+<h2 id="move-to-uplift-thinking">8. How to Fix It: Move from Churn Prediction to Uplift Thinking</h2>
+<p>The correct framework is not:</p>
+<blockquote><p>Who is likely to churn?</p></blockquote>
+<p>The correct framework is:</p>
+<blockquote><p>Who will renew because of the intervention?</p></blockquote>
+<p>The core formula is:</p>
+<div class="formula-box">Uplift = P(renewal | intervention) - P(renewal | no intervention)</div>
+<p>Users with high uplift should receive stronger interventions, such as discount pop-ups.</p>
+<p>Users with low or negative uplift should not receive expensive commercial incentives. They may receive lower-cost interventions instead, such as content reminders, product education, in-app messages, or personalized recommendations.</p>
+<p>A practical implementation can follow three steps.</p>
+<h3 id="small-randomized-experiment">Step 1: Run a Small Randomized Experiment</h3>
+<p>Take a small sample of expiring users.</p>
+<p>For example:</p>
+<ul>
+<li>1,000 users -> treatment group: receive the renewal coupon.</li>
+<li>1,000 users -> control group: no coupon.</li>
+</ul>
+<p>Run this for one renewal cycle and record the renewal outcomes.</p>
+<p>This step is often uncomfortable, but necessary.</p>
+<p>Without a randomized control group, you cannot separate natural renewal from coupon-driven renewal.</p>
+<h3 id="train-uplift-model">Step 2: Train an Uplift Model</h3>
+<p>Use the experiment data to train a model that predicts the incremental renewal effect.</p>
+<p>The model should not only learn who renews. It should learn whose renewal probability increases when the intervention is applied.</p>
+<p>Evaluation should also change.</p>
+<p>Do not evaluate this model with ordinary accuracy or AUC alone.</p>
+<p>Use metrics such as:</p>
+<ul>
+<li>AUUC: Area Under the Uplift Curve</li>
+<li>Qini coefficient</li>
+<li>Incremental renewal rate</li>
+<li>Incremental ROI</li>
+</ul>
+<p>These metrics ask:</p>
+<blockquote><p>If we rank users by predicted uplift, how much incremental renewal can we accumulate?</p></blockquote>
+<p>That is the question the business actually cares about.</p>
+<h3 id="strategy-by-uplift-segment">Step 3: Design Strategy by Uplift Segment</h3>
+<p>After scoring users by uplift, the intervention strategy should be segmented.</p>
+<ul>
+<li>High-uplift users receive the strongest intervention, such as a discount pop-up.</li>
+<li>Medium-uplift users receive softer interventions, such as renewal reminders, content highlights, or personalized recommendations.</li>
+<li>Low-uplift users do not receive commercial discounts.</li>
+<li>Negative-uplift users should be protected from aggressive interventions.</li>
+</ul>
+<p>This turns the model from a prediction engine into an operating strategy.</p>
+
+<h2 id="metrics-to-monitor">9. What Metrics Should Be Monitored?</h2>
+<p>After moving to uplift thinking, the team should monitor at least two core metrics.</p>
+<h3 id="incremental-renewal-roi">Metric 1: Incremental Renewal ROI</h3>
+<div class="formula-box">Incremental Renewal ROI = (Incremental Renewal Revenue - Coupon Cost) / Coupon Cost</div>
+<p>If this number is not positive, the campaign is not creating economic value.</p>
+<p>A higher renewal rate alone is not enough.</p>
+<h3 id="natural-renewer-intervention-rate">Metric 2: Natural Renewer Intervention Rate</h3>
+<p>This measures what percentage of coupon recipients were likely to renew anyway.</p>
+<p>If this ratio is too high, for example above 30%, the model is still covering too many users who do not need intervention.</p>
+<p>That means the threshold, segmentation, or treatment design needs to be adjusted.</p>
+<p>The business should not only ask:</p>
+<blockquote><p>Did renewal rate increase?</p></blockquote>
+<p>It should also ask:</p>
+<ul>
+<li>Did revenue increase?</li>
+<li>Did ARPU decline?</li>
+<li>How much discount was wasted on natural renewers?</li>
+<li>How many truly incremental renewals did we create?</li>
+<li>Are we training users to wait for coupons?</li>
+</ul>
+<p>Only then can we judge whether the campaign is truly successful.</p>
+
+<h2 id="uplift-not-just-formula">10. A Broader Reflection: Uplift Is Not Just a Formula Problem</h2>
+<p>One important lesson I have learned is that uplift modeling should not be treated as a purely academic exercise.</p>
+<p>In papers, we often discuss causal estimators, debiasing methods, treatment effect estimation, and counterfactual learning.</p>
+<p>These ideas are valuable, but in production, the harder problem is often not deriving the formula. It is making the system work under real business constraints.</p>
+<p>For example:</p>
+<ul>
+<li>The treatment may not be stable.</li>
+<li>The delivery channel may be unreliable.</li>
+<li>The user decision window may be earlier than the intervention window.</li>
+<li>The product team may refuse to hold out a control group.</li>
+<li>The metric may optimize renewal count while silently damaging revenue.</li>
+<li>The target surface may be too small to produce large offline gains.</li>
+</ul>
+<p>This is why many causal methods look promising in theory but fail to create stable business improvement offline.</p>
+<p>Especially in the era of large models and Transformer-based systems, we should be careful not to believe that every causal modeling problem can scale in the same way as representation learning.</p>
+<p>Uplift modeling is useful, but it is often a small and delicate part of a much larger decision system.</p>
+<p>The real value is not showing that you know causal formulas. The real value is knowing when the intervention is meaningful, when the data is credible, and when the business metric is actually aligned with profit.</p>
+
+<h2 id="when-ab-test-not-possible">11. What If a Full A/B Test Is Not Possible?</h2>
+<p>In real companies, full randomization may not always be possible.</p>
+<p>Maybe the product team refuses to withhold coupons from a control group. Maybe the campaign is tied to a key revenue period. Maybe leadership wants every high-risk user to receive some intervention.</p>
+<p>In that case, observational causal methods can help, but they should be treated as approximations.</p>
+<h3 id="propensity-score-matching">Propensity Score Matching</h3>
+<p>You can match treated users with similar untreated users based on observed features such as activity level, payment history, content usage, membership duration, device type, and historical engagement.</p>
+<p>The limitation is that matching only controls for observed variables. It cannot control for hidden intent.</p>
+<h3 id="inverse-probability-weighting">Inverse Probability Weighting</h3>
+<p>You can estimate the probability that each user receives the intervention and reweight users to make treated and untreated groups more comparable.</p>
+<p>The limitation is that this method depends heavily on correctly modeling treatment assignment.</p>
+<h3 id="doubly-robust-estimation">Doubly Robust Estimation</h3>
+<p>This method combines propensity modeling and outcome modeling.</p>
+<p>It is more robust than using only one model, but it still fails if both models are wrong or if important hidden confounders are missing.</p>
+<h3 id="causal-forests-meta-learners">Causal Forests and Meta-Learners</h3>
+<p>Methods such as T-Learner, S-Learner, X-Learner, R-Learner, and causal forests can estimate heterogeneous treatment effects.</p>
+<p>They are useful for identifying which types of users respond more strongly to intervention.</p>
+<p>But they still require credible treatment and control information. If the historical data is heavily biased, a sophisticated model will simply produce sophisticated bias.</p>
+<p>The best practical solution is usually not to avoid experimentation completely.</p>
+<p>It is to run a small, carefully designed randomized holdout.</p>
+
+<h2 id="interview-style-answer">12. A Strong Interview-Style Answer</h2>
+<p>If I were answering this question in an interview, I would say:</p>
+<blockquote><p>The 90% accuracy model is solving a churn prediction problem, but the business needs to solve an intervention problem. The model can predict who looks likely to churn, but it cannot tell us who will renew because of the coupon. These are different targets.</p></blockquote>
+<blockquote><p>The campaign loses money because it sends discounts to many natural renewers. These users would have renewed at full price, but after receiving the coupon, they renew at a discount. The renewal rate may increase, but ARPU and total revenue decline.</p></blockquote>
+<blockquote><p>To fix this, I would move from a churn prediction model to an uplift model. The target should be P(renewal | coupon) - P(renewal | no coupon).</p></blockquote>
+<blockquote><p>To train this properly, I would run a randomized A/B test with a treatment group and a control group. Then I would evaluate the model using AUUC, Qini coefficient, incremental renewal rate, and incremental ROI instead of only accuracy or AUC.</p></blockquote>
+<blockquote><p>I would also segment users by predicted uplift. High-uplift users receive the discount. Medium-uplift users receive softer reminders. Low-uplift or negative-uplift users do not receive costly commercial incentives.</p></blockquote>
+<blockquote><p>Finally, I would monitor natural renewer intervention rate and incremental renewal ROI every cycle. If too many natural renewers are receiving coupons, the campaign is not growth. It is margin leakage.</p></blockquote>
+
+<h2 id="final-takeaway">Final Takeaway</h2>
+<p>A high-accuracy churn model helps you find users who may leave.</p>
+<p>An uplift model helps you find users whose behavior can be changed.</p>
+<p>That difference matters because business growth does not come from predicting risk. It comes from creating incremental value.</p>
+<p>In subscription and renewal scenarios:</p>
+<ul>
+<li>Churn prediction tells you who looks risky.</li>
+<li>Uplift modeling tells you who is worth saving.</li>
+</ul>
+<p>If you confuse the two, the model may improve renewal rate while quietly destroying revenue.</p>
+</article>
+<div class="related-reading">
+<h3>Related Reading</h3>
+<div class="related-articles">
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="uplift-modeling-industry-guide.html">Beyond A/B Testing: Uplift Modeling in Industry</a></h4>
+<p>A broader guide to CATE, meta-learners, Qini curves, AUUC, decile lift, and online incremental ROI.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="engineering/ab-test-engineering-guide.html">A/B Test Engineering Guide</a></h4>
+<p>Feature gates, experiments, and reliable launch measurement for product engineering teams.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h4>
+<p>A practical guide to statistical tests and experiment-style evidence.</p>
+</div>
+</div>
+</div>
+</div>
+<section aria-labelledby="article-churn-prediction-uplift-thinking-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="article-churn-prediction-uplift-thinking-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="article-churn-prediction-uplift-thinking" method="post">
+<label class="sr-only" for="article-churn-prediction-uplift-thinking-email">Email address</label>
+<input autocomplete="email" id="article-churn-prediction-uplift-thinking-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-churn-prediction-uplift-thinking"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/uplift-modeling-industry-guide.html">Uplift Modeling</a></p>
+</footer>
+</div>
+</div>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="js/toc.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentTheme = localStorage.getItem('theme') || null;
+  var checkbox = document.getElementById('checkbox');
+  if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    if (currentTheme === 'dark-mode' && checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  if (checkbox) {
+    checkbox.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      }
+    });
+  }
+
+  var progress = document.querySelector('.article-progress-bar span');
+  function updateProgress() {
+    if (!progress) {
+      return;
+    }
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+  }
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/uplift-modeling-industry-guide.html">Uplift Modeling</a></h3>
+<p>Estimating incremental impact for coupons, campaigns, churn, and user growth.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/engineering/ab-test-engineering-guide.html">A/B Testing</a></h3>
+<p>Experiment engineering foundations for reliable product measurement.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>Applied AI, data science, product systems, and engineering notes.</p>
+</article>
+</div>
+</section>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry | Yangming Li</title>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="A practical industry guide to uplift modeling, CATE, meta-learners, Qini curves, AUUC, decile lift, online experiments, and budget optimization." name="description"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="uplift modeling, causal inference, CATE, treatment effect modeling, Qini curve, AUUC, experimentation, coupon targeting, marketing ROI" name="keywords"/>
+<link href="https://yangmingli.com/uplift-modeling-industry-guide.html" rel="canonical"/>
+<link href="favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry | Yangming Li" property="og:title"/>
+<meta content="A practical industry guide to uplift modeling, CATE, meta-learners, Qini curves, AUUC, decile lift, online experiments, and budget optimization." property="og:description"/>
+<meta content="https://yangmingli.com/uplift-modeling-industry-guide.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry | Yangming Li" name="twitter:title"/>
+<meta content="A practical industry guide to uplift modeling, CATE, meta-learners, Qini curves, AUUC, decile lift, online experiments, and budget optimization." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-06-15" property="article:published_time"/>
+<meta content="2026-06-15" property="article:modified_time"/>
+<meta content="Applied Machine Learning" property="article:section"/>
+<meta content="Uplift Modeling" property="article:tag"/>
+<meta content="Causal Inference" property="article:tag"/>
+<meta content="Experimentation" property="article:tag"/>
+<meta content="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/style_blog.css" rel="stylesheet"/>
+<link href="css/blog_post.css" rel="stylesheet"/>
+<link href="css/nav.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="js/loadHeader.js"></script>
+<script defer="" src="/js/newsletter.js"></script>
+<style>
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  margin: 0 4px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #c7ced8;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .3s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .3s;
+  width: 16px;
+}
+input:checked + .slider {
+  background-color: #f1780e;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+body.blog-post-page .article-share-surface .twitter {
+  background-color: #1DA1F2;
+}
+body.blog-post-page .article-share-surface .linkedin {
+  background-color: #0A66C2;
+}
+body.blog-post-page .article-share-surface .email {
+  background-color: #D44638;
+}
+.formula-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  color: #0f172a;
+  font-family: Consolas, "Courier New", monospace;
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  padding: 1rem 1.1rem;
+  white-space: nowrap;
+}
+body.dark-mode .formula-box {
+  background: #111827;
+  border-color: #334155;
+  color: #e5edf7;
+}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry",
+  "description": "A practical industry guide to uplift modeling, CATE, meta-learners, Qini curves, AUUC, decile lift, online experiments, and budget optimization.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-06-15",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/uplift-modeling-industry-guide.html"
+  },
+  "articleSection": "Applied Machine Learning",
+  "keywords": [
+    "uplift modeling",
+    "causal inference",
+    "CATE",
+    "Qini curve",
+    "AUUC",
+    "experimentation",
+    "marketing ROI",
+    "coupon targeting"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "wordCount": 3000
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry",
+      "item": "https://yangmingli.com/uplift-modeling-industry-guide.html"
+    }
+  ]
+}</script>
+</head>
+<body class="blog-post-page">
+<nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Uplift Modeling</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
+<div class="main-content">
+<div class="article-page-container">
+<header class="article-hero text-center">
+<div class="article-kicker-row">
+<span class="article-kicker">Applied ML</span>
+<span class="article-kicker article-kicker-muted">Experimentation</span>
+</div>
+<h1>Beyond A/B Testing: A Practical Guide to Uplift Modeling in Industry</h1>
+<p class="lead">By Yangming Li</p>
+<p class="blog-meta"><span>Published June 15, 2026</span><span>15 min read</span><span>Causal ML guide</span></p>
+</header>
+<div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
+<div class="article-theme-surface">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-meta-surface">
+<span><i class="fa fa-clock-o"></i> 15 min read</span>
+<span><i class="fa fa-file-text-o"></i> Approx. 3000 words</span>
+<span><i class="fa fa-line-chart"></i> Uplift and incremental ROI</span>
+<p class="keywords"><strong>Keywords:</strong> uplift modeling, causal inference, CATE, treatment effect modeling, Qini curve, AUUC, experimentation, coupon targeting, marketing ROI.</p>
+</div>
+<div class="article-share-surface">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+</div>
+<main class="article-prose-surface">
+<div class="article-support-grid">
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> TL;DR</h4>
+<p>A/B testing tells us whether an intervention works on average. Uplift modeling asks who should receive the intervention by estimating incremental impact. The hard part is not only model choice. It is treatment/control data quality, confounding, overlap, evaluation, and online validation of incremental ROI.</p>
+</div>
+</div>
+<div class="key-points">
+<h4>Article Highlights</h4>
+<ul>
+<li>Response models rank users by likelihood to convert; uplift models rank users by expected incremental effect.</li>
+<li>RCT data is the cleanest source for uplift modeling, while observational data usually needs causal adjustment.</li>
+<li>Meta-learners such as S-, T-, X-, and R-learners reuse standard ML models but target treatment effects.</li>
+<li>Offline metrics such as Qini, AUUC, decile lift, and top-K lift are useful, but online incremental ROI is the final test.</li>
+</ul>
+</div>
+</div>
+<div class="toc-container">
+<h4>Contents</h4>
+<div id="toc"></div>
+</div>
+<article class="article-content">
+<p>I have previously written quite a bit about A/B testing. A/B testing answers one of the most important questions in product and growth analytics:</p>
+<blockquote><p>Did this strategy, feature, campaign, coupon, or message improve the overall business metric?</p></blockquote>
+<p>But in real business settings, this is often not enough. After we know that a strategy works on average, the next question is usually more important:</p>
+<blockquote><p>Who should receive this intervention?</p></blockquote>
+<p>This is where uplift modeling becomes useful.</p>
+<p>Uplift modeling is widely used in industry, especially in subsidy pricing, user growth, advertising, coupon distribution, churn prevention, and user reactivation. Compared with traditional ranking or response models, uplift modeling appears in fewer job postings and usually requires a stronger understanding of causal inference. That also makes it feel more mysterious than it needs to be.</p>
+<p>In my view, uplift modeling and ranking models are not completely different worlds. In production, they often share similar feature pipelines, model architectures, training infrastructure, and deployment systems. The real difference is that uplift modeling needs to be much more careful about treatment assignment, confounding, observational bias, and evaluation.</p>
+<p>The core problem is not simply:</p>
+<blockquote><p>Will this user buy?</p></blockquote>
+<p>The real question is:</p>
+<blockquote><p>How much incremental value will this intervention create for this user?</p></blockquote>
+
+<h2 id="why-response-models-are-not-enough">1. Why Response Models Are Not Enough</h2>
+<p>In a coupon campaign, a standard response model predicts:</p>
+<blockquote><p>If we send this user a coupon, how likely are they to buy?</p></blockquote>
+<p>This sounds reasonable, but it can easily lead to waste.</p>
+<p>Some users have a high purchase probability regardless of whether they receive a coupon. If we give them a discount, we may simply subsidize behavior that would have happened anyway.</p>
+<p>A response model answers:</p>
+<blockquote><p>Who is likely to convert?</p></blockquote>
+<p>An uplift model answers:</p>
+<blockquote><p>Who is likely to convert because of the intervention?</p></blockquote>
+<p>That difference is the entire point.</p>
+<table class="table table-bordered">
+<thead>
+<tr>
+<th>User</th>
+<th>Purchase probability with coupon</th>
+<th>Purchase probability without coupon</th>
+<th>Uplift</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User A</td>
+<td>30%</td>
+<td>32%</td>
+<td>-2 pp</td>
+</tr>
+<tr>
+<td>User B</td>
+<td>10%</td>
+<td>2%</td>
+<td>+8 pp</td>
+</tr>
+<tr>
+<td>User C</td>
+<td>20%</td>
+<td>20%</td>
+<td>0</td>
+</tr>
+<tr>
+<td>User D</td>
+<td>0%</td>
+<td>0%</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>A response model may prefer User A because the purchase probability is high. An uplift model prefers User B because the coupon creates real incremental value.</p>
+<p>This is why uplift modeling is so common in marketing and growth: budgets are limited, and we do not want to spend money on users who would have converted anyway.</p>
+
+<h2 id="basic-causal-idea">2. The Basic Causal Idea: ITE and CATE</h2>
+<p>In causal inference, we usually describe uplift using potential outcomes.</p>
+<p>For each user, there are two possible outcomes:</p>
+<ul>
+<li><code>Y(1)</code>: outcome if treated</li>
+<li><code>Y(0)</code>: outcome if not treated</li>
+</ul>
+<p>The individual treatment effect is:</p>
+<div class="formula-box">ITE<sub>i</sub> = Y<sub>i</sub>(1) - Y<sub>i</sub>(0)</div>
+<p>But we cannot observe both outcomes for the same user at the same time. A user either receives the coupon or does not receive it. This is the fundamental counterfactual problem.</p>
+<p>So in practice, we often estimate the conditional average treatment effect:</p>
+<div class="formula-box">CATE(X) = E[Y(1) - Y(0) | X]</div>
+<p>In business language, this means:</p>
+<blockquote><p>For users with similar characteristics, how much additional conversion, revenue, retention, or profit does the intervention create?</p></blockquote>
+<p>Uplift modeling is essentially a practical way to estimate CATE and use it for targeting.</p>
+
+<h2 id="four-types-of-users">3. The Four Types of Users</h2>
+<p>A useful way to understand uplift modeling is to divide users into four groups.</p>
+<p><strong>Persuadables</strong> are users who convert only if treated. These are the most valuable users for a campaign.</p>
+<p><strong>Sure Things</strong> are users who convert whether or not they are treated. Giving them coupons usually wastes budget.</p>
+<p><strong>Lost Causes</strong> are users who do not convert even if treated. Targeting them also wastes budget.</p>
+<p><strong>Sleeping Dogs</strong> are users who may convert without treatment but become less likely to convert after being treated. For example, they may feel annoyed by push notifications or become trained to wait for discounts.</p>
+<p>The goal of uplift modeling is not to find all high-probability buyers. The goal is to rank users by incremental impact:</p>
+<blockquote><p>Target Persuadables, avoid Sure Things when budget is limited, ignore Lost Causes, and avoid Sleeping Dogs.</p></blockquote>
+<p>This is also why uplift modeling is closely related to marketing ROI.</p>
+
+<h2 id="data-sources">4. Data Sources: RCT Data vs Observational Data</h2>
+<p>Uplift models are usually trained on two types of data: randomized experiment data and observational data.</p>
+<p>The cleanest case is randomized controlled trial data. For example, a platform randomly assigns users into two groups:</p>
+<ul>
+<li>Treatment group: receives a coupon.</li>
+<li>Control group: does not receive a coupon.</li>
+</ul>
+<p>Because treatment assignment is random, treatment is not systematically affected by user characteristics. This makes the treatment and control groups statistically comparable.</p>
+<p>In this case, training an uplift model is not fundamentally different from training a ranking model. The same feature pipeline, sample pipeline, training pipeline, and deployment infrastructure can often be reused. The key difference is that the model needs to estimate the difference between treated and untreated outcomes.</p>
+<p>Observational data is more difficult.</p>
+<p>In observational data, treatment assignment is usually affected by algorithms, business rules, manual operations, traffic allocation, user segments, and campaign strategies. For example, high-value users may be more likely to receive coupons, or inactive users may be more likely to receive reactivation messages.</p>
+<p>These factors can affect both treatment and outcome. They are confounders.</p>
+<p>If we ignore confounding, the model may learn a biased relationship. It may confuse users who were selected by the campaign with users who were caused to convert by the campaign.</p>
+<p>So when using observational data, uplift modeling often requires additional debiasing methods such as propensity score modeling, inverse propensity weighting, sample weighting, doubly robust estimation, or other causal adjustment strategies.</p>
+
+<h2 id="uplift-modeling-vs-ranking-models">5. Uplift Modeling vs Ranking Models</h2>
+<p>In industry, I do not think uplift models and ranking models are completely separate systems.</p>
+<p>They are similar in many practical ways:</p>
+<ul>
+<li>Both use user features, item features, context features, and historical behavior.</li>
+<li>Both can use tree models, linear models, neural networks, or deep ranking architectures.</li>
+<li>Both care about calibration, stability, feature leakage, delayed labels, online serving, and monitoring.</li>
+<li>Both often appear together with optimization problems, such as budget allocation or constrained targeting.</li>
+</ul>
+<p>The major difference is the target.</p>
+<p>A ranking model usually predicts response:</p>
+<div class="formula-box">P(Y = 1 | X)</div>
+<p>An uplift model predicts incremental effect:</p>
+<div class="formula-box">P(Y = 1 | X, T = 1) - P(Y = 1 | X, T = 0)</div>
+<p>So the uplift model is not only modeling the outcome. It is modeling the difference between two potential outcomes.</p>
+<p>This creates extra difficulty in data design and evaluation.</p>
+
+<h2 id="meta-learners">6. Meta-Learners: S-Learner, T-Learner, X-Learner, and R-Learner</h2>
+<p>A common class of uplift modeling methods is called meta-learners.</p>
+<p>A meta-learner is not a specific model. It is a framework that uses standard machine learning models to estimate treatment effects.</p>
+<p>You can use logistic regression, random forest, XGBoost, LightGBM, neural networks, or other models as the base learner.</p>
+
+<h3 id="s-learner">S-Learner: One Model with Treatment as a Feature</h3>
+<p>The S-learner trains one model:</p>
+<div class="formula-box">Y = f(X, T)</div>
+<p>At prediction time, we score the same user twice:</p>
+<div class="formula-box">Y_hat(1) = f(X, T = 1)<br/>Y_hat(0) = f(X, T = 0)</div>
+<p>Then the uplift score is:</p>
+<div class="formula-box">&tau;_hat(X) = f(X, 1) - f(X, 0)</div>
+<p>The advantage is simplicity. It is easy to implement and easy to fit into an existing ranking or prediction system.</p>
+<p>The weakness is that the model may ignore the treatment variable, especially when treatment has a weak signal compared with dense user features or embeddings.</p>
+<p>This is one of the key architecture problems in deep uplift models: how do we prevent high-dimensional dense features from drowning out a low-dimensional treatment indicator?</p>
+
+<h3 id="t-learner">T-Learner: Separate Models for Treatment and Control</h3>
+<p>The T-learner trains two models.</p>
+<p>For the control group:</p>
+<div class="formula-box">&mu;<sub>0</sub>(X) = E[Y | X, T = 0]</div>
+<p>For the treatment group:</p>
+<div class="formula-box">&mu;<sub>1</sub>(X) = E[Y | X, T = 1]</div>
+<p>The uplift estimate is:</p>
+<div class="formula-box">&tau;_hat(X) = &mu;_hat<sub>1</sub>(X) - &mu;_hat<sub>0</sub>(X)</div>
+<p>The advantage is that the treatment and control response functions are modeled separately. The model is less likely to ignore treatment.</p>
+<p>The weakness is instability when the treatment and control sample sizes are highly imbalanced. Errors from the two models can also accumulate when we subtract one prediction from another.</p>
+
+<h3 id="x-learner">X-Learner: Useful When Samples Are Imbalanced</h3>
+<p>The X-learner improves on the T-learner by constructing pseudo treatment effects.</p>
+<p>First, train two outcome models:</p>
+<div class="formula-box">&mu;_hat<sub>0</sub>(X), &mu;_hat<sub>1</sub>(X)</div>
+<p>For treated users, estimate what would have happened without treatment:</p>
+<div class="formula-box">D<sub>1</sub> = Y<sub>1</sub> - &mu;_hat<sub>0</sub>(X<sub>1</sub>)</div>
+<p>For control users, estimate what would have happened with treatment:</p>
+<div class="formula-box">D<sub>0</sub> = &mu;_hat<sub>1</sub>(X<sub>0</sub>) - Y<sub>0</sub></div>
+<p>Then train models on these pseudo treatment effects and combine them using a propensity score.</p>
+<p>The X-learner is especially useful when treatment and control groups are unbalanced. This is common in industry because campaigns often do not split traffic perfectly evenly.</p>
+
+<h3 id="r-learner">R-Learner: Learning from Residuals</h3>
+<p>The R-learner reframes the treatment effect problem as a residual learning problem.</p>
+<p>It first estimates:</p>
+<div class="formula-box">m(X) = E[Y | X]</div>
+<p>and:</p>
+<div class="formula-box">e(X) = P(T = 1 | X)</div>
+<p>Then it learns treatment effect after removing the baseline outcome and treatment assignment tendency.</p>
+<p>Intuitively, it asks:</p>
+<blockquote><p>After removing what the user was already likely to do, and after accounting for how likely the user was to receive treatment, what remaining variation can be explained by the treatment?</p></blockquote>
+<p>This makes R-learner attractive in more statistical or causal machine learning settings, especially when observational bias is a concern.</p>
+
+<h2 id="deep-learning-uplift-models">7. Deep Learning Uplift Models</h2>
+<p>Not all uplift models are deep learning models.</p>
+<p>Many practical uplift systems are built using XGBoost, LightGBM, random forests, causal forests, or generalized linear models. In many business settings, these models are easier to debug, easier to calibrate, and easier to deploy.</p>
+<p>However, deep learning uplift models are also common, especially when the feature space includes embeddings, sequential behavior, large-scale user histories, or multi-task objectives.</p>
+<p>In deep uplift modeling, one major architectural challenge is:</p>
+<blockquote><p>How do we prevent dense user features or embeddings from overwhelming the low-dimensional treatment signal?</p></blockquote>
+<p>This is why architectures such as TARNet, DragonNet, and VCNet exist. They try to explicitly structure the representation learning process so that treatment effect estimation does not get lost inside a generic prediction model.</p>
+<p>For observational data, these architectures are often combined with auxiliary objectives such as propensity score prediction, sample weighting, or representation balancing.</p>
+<p>From a system design perspective, many deep uplift models still face similar problems as ranking models:</p>
+<ul>
+<li>multi-task learning,</li>
+<li>multi-objective optimization,</li>
+<li>feature crosses,</li>
+<li>feature leakage,</li>
+<li>calibration,</li>
+<li>delayed labels,</li>
+<li>online serving,</li>
+<li>and monitoring.</li>
+</ul>
+<p>The difference is that uplift models also need to preserve a meaningful causal interpretation.</p>
+
+<h2 id="offline-evaluation-is-harder">8. Why Offline Evaluation Is Harder</h2>
+<p>For standard prediction models, we can evaluate AUC, log loss, accuracy, precision, recall, or calibration.</p>
+<p>For uplift models, these metrics are not enough.</p>
+<p>A user only appears in either treatment or control. We do not observe both outcomes. Therefore, we cannot directly calculate the true ITE for each user.</p>
+<p>This is why uplift models need special evaluation metrics.</p>
+<p>Common offline metrics include:</p>
+<ul>
+<li>Qini Curve,</li>
+<li>Uplift Curve,</li>
+<li>AUUC,</li>
+<li>Qini coefficient,</li>
+<li>uplift decile charts,</li>
+<li>top-K incremental lift,</li>
+<li>incremental ROI.</li>
+</ul>
+<p>These metrics mostly evaluate one thing:</p>
+<blockquote><p>Can the model correctly rank users by expected incremental value?</p></blockquote>
+
+<h2 id="qini-curve">9. Qini Curve</h2>
+<p>The Qini Curve is one of the most classic evaluation tools for uplift modeling.</p>
+<p>The basic idea is:</p>
+<ul>
+<li>Sort users by predicted uplift score from high to low.</li>
+<li>Take the top <code>t</code> fraction of users.</li>
+<li>Compare cumulative outcomes between treatment and control groups.</li>
+<li>Measure how much incremental gain the model captures.</li>
+</ul>
+<p>A common form is:</p>
+<div class="formula-box">Qini(t) = N<sub>t,1</sub>(t) - N<sub>c,1</sub>(t) * N<sub>t</sub>(t) / N<sub>c</sub>(t)</div>
+<p>where:</p>
+<ul>
+<li><code>N_t,1(t)</code> is the number of positive outcomes in the treatment group among the top-ranked users.</li>
+<li><code>N_c,1(t)</code> is the number of positive outcomes in the control group among the top-ranked users.</li>
+<li><code>N_t(t)</code> and <code>N_c(t)</code> are the treatment and control sample sizes among the top-ranked users.</li>
+</ul>
+<p>The higher the Qini Curve, the better the model is at ranking users by incremental impact.</p>
+
+<h2 id="uplift-curve-and-auuc">10. Uplift Curve and AUUC</h2>
+<p>The Uplift Curve is similar to the Qini Curve, but it usually focuses on cumulative lift rather than absolute incremental gain.</p>
+<p>One common expression is:</p>
+<div class="formula-box">Uplift(t) = (R<sub>t</sub>(t) - R<sub>c</sub>(t)) * (N<sub>t</sub>(t) + N<sub>c</sub>(t))</div>
+<p>The area under the uplift curve is called AUUC.</p>
+<p>A larger AUUC means the model is better at ranking users so that high-uplift users appear earlier.</p>
+<p>One important caveat: when treatment and control groups are severely imbalanced, Qini Curve and Uplift Curve may behave differently. This is why evaluation should not rely on only one chart.</p>
+
+<h2 id="uplift-decile-charts">11. Uplift Decile Charts</h2>
+<p>A very practical business-side evaluation is the uplift decile chart.</p>
+<p>We sort users by predicted uplift score and split them into 10 equal groups.</p>
+<p>For each decile, calculate:</p>
+<div class="formula-box">Lift = R<sub>t</sub> - R<sub>c</sub></div>
+<p>where:</p>
+<ul>
+<li><code>R_t</code> is the response rate in the treatment group.</li>
+<li><code>R_c</code> is the response rate in the control group.</li>
+</ul>
+<p>The ideal pattern is a decreasing staircase:</p>
+<ul>
+<li>Top deciles: <code>R_t &gt;&gt; R_c</code>, strong positive uplift. These are likely Persuadables.</li>
+<li>Middle deciles: <code>R_t ~= R_c</code>, little or no uplift. These may be Sure Things or Lost Causes.</li>
+<li>Bottom deciles: <code>R_t &lt; R_c</code>, negative uplift. These may be Sleeping Dogs.</li>
+</ul>
+<p>This chart is easy for business teams to understand because it directly answers:</p>
+<blockquote><p>If we target the top-ranked users, do we see stronger incremental lift?</p></blockquote>
+
+<h2 id="online-evaluation-final-test">12. Online Evaluation: The Final Test</h2>
+<p>Offline evaluation is only an approximation. Real business value must be validated through online experiments.</p>
+<p>A typical online evaluation setup could be:</p>
+<ul>
+<li><strong>Model group:</strong> target only high-score users selected by the uplift model, such as the top 30%.</li>
+<li><strong>Random group:</strong> randomly select the same proportion of users, or use a broad treatment strategy.</li>
+<li><strong>Blank control group:</strong> do not intervene.</li>
+</ul>
+<p>Then compare incremental revenue, conversion, retention, or profit across groups.</p>
+<p>One useful business metric is incremental ROI:</p>
+<div class="formula-box">Incremental ROI = Lift Revenue / Marketing Cost</div>
+<p>The goal is not just to increase conversion rate. The goal is to prove that the model-selected group creates higher return per unit cost than random targeting or broad targeting.</p>
+<p>This is where uplift modeling becomes valuable in real business decisions.</p>
+
+<h2 id="budget-optimization">13. Uplift Modeling and Budget Optimization</h2>
+<p>In industry, uplift modeling often appears together with operations research and budget optimization.</p>
+<p>For example, a platform may have a fixed coupon budget. Each coupon has a cost, and each user has a predicted incremental effect.</p>
+<p>This becomes a constrained optimization problem:</p>
+<ul>
+<li>Which users should receive coupons?</li>
+<li>What coupon amount should each user receive?</li>
+<li>How do we maximize incremental GMV or profit under a fixed budget?</li>
+<li>How do we avoid over-subsidizing users who would buy anyway?</li>
+</ul>
+<p>This is why uplift modeling often becomes part of a broader ML plus OR system.</p>
+<p>The uplift model estimates incremental value. The optimizer decides how to allocate limited resources.</p>
+
+<h2 id="uplift-is-not-magic">14. A Practical View: Uplift Is Not Magic</h2>
+<p>Uplift modeling is sometimes presented as mysterious because it uses causal terminology.</p>
+<p>But in production, the practical structure is often straightforward:</p>
+<ul>
+<li>Define the treatment.</li>
+<li>Define the outcome.</li>
+<li>Make sure treatment and control are comparable.</li>
+<li>Train models to estimate treated and untreated outcomes.</li>
+<li>Rank users by predicted incremental effect.</li>
+<li>Evaluate with Qini, AUUC, decile lift, and online experiments.</li>
+<li>Optimize targeting under budget constraints.</li>
+</ul>
+<p>The hard part is not writing the model code.</p>
+<p>The hard part is making sure the data actually supports a causal interpretation.</p>
+<p>If the treatment assignment is biased, if the control group is not comparable, if there is no overlap, or if the evaluation is based on response metrics only, the uplift model may look good offline but fail online.</p>
+
+<h2 id="uplift-and-llms">15. Will Uplift Modeling Move Toward LLMs?</h2>
+<p>One interesting question is whether uplift modeling will eventually move toward LLM-style architectures.</p>
+<p>In recent years, many causal inference papers have proposed new methods, but in practical industry settings, not all of them produce stable offline or online gains. Some methods that work well on smaller models such as random forests or MLPs do not necessarily scale cleanly to Transformer-based architectures.</p>
+<p>One possible reason is that many causal methods were designed with smaller structured-data settings in mind. They may not naturally support the kind of scaling that made modern large models powerful.</p>
+<p>For ranking systems, many traditional feature engineering and model design ideas have gradually been absorbed into representation learning and sequence modeling. Something similar may happen to uplift modeling.</p>
+<p>A future uplift model may not look like a traditional hand-designed causal estimator. It may look more like a model that tokenizes user behavior, treatment history, context, and outcomes, then directly predicts incremental effect.</p>
+<p>In other words:</p>
+<blockquote><p>An uplift model could eventually become a model that outputs uplift as a native prediction target.</p></blockquote>
+<p>That said, this is still an open direction. For now, in most industrial systems, reliable experiment design, clean treatment/control data, strong evaluation, and simple robust models are still more valuable than overly complex architectures.</p>
+
+<h2 id="final-takeaway">16. Final Takeaway</h2>
+<p>Traditional prediction models answer:</p>
+<blockquote><p>Who is likely to convert?</p></blockquote>
+<p>Uplift models answer:</p>
+<blockquote><p>Who is likely to convert because of this intervention?</p></blockquote>
+<p>That distinction matters.</p>
+<p>In coupon distribution, advertising, user growth, churn prevention, and reactivation, the goal is not to touch as many users as possible. The goal is to touch the right users.</p>
+<p>A good uplift model helps us:</p>
+<ul>
+<li>avoid wasting subsidies on users who would convert anyway,</li>
+<li>avoid spending on users who will not respond,</li>
+<li>avoid harming users who dislike intervention,</li>
+<li>and focus budget on users who are truly persuadable.</li>
+</ul>
+<p>From a modeling perspective, uplift models are not completely different from ranking models. They often share similar infrastructure and modeling tools.</p>
+<p>But from a causal and evaluation perspective, they are different.</p>
+<p>The key questions are:</p>
+<ul>
+<li>Was treatment assignment random or biased?</li>
+<li>Are treatment and control users comparable?</li>
+<li>Is there enough overlap?</li>
+<li>Are we evaluating response or true incremental lift?</li>
+<li>Does the model improve online incremental ROI?</li>
+</ul>
+<p>That is the real difference between a normal prediction model and an uplift model.</p>
+<p>Uplift modeling is not just about predicting behavior. It is about deciding whether an intervention is worth applying.</p>
+</article>
+<div class="related-reading">
+<h3>Related Reading</h3>
+<div class="related-articles">
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="engineering/ab-test-engineering-guide.html">A/B Test Engineering Guide</a></h4>
+<p>Feature gates, experiments, and reliable launch measurement for product engineering teams.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="key-statistical-tests-survey-analysis.html">Key Statistical Tests for Survey Analysis</a></h4>
+<p>A practical guide to choosing statistical tests and interpreting experiment-style evidence.</p>
+</div>
+</div>
+<div class="related-article">
+<div class="related-article-content">
+<h4><a href="random-forest-guide.html">Random Forest Explained</a></h4>
+<p>A practical guide to ensemble learning, model behavior, and machine learning tradeoffs.</p>
+</div>
+</div>
+</div>
+</div>
+<section aria-labelledby="article-uplift-modeling-industry-guide-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="article-uplift-modeling-industry-guide-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="article-uplift-modeling-industry-guide" method="post">
+<label class="sr-only" for="article-uplift-modeling-industry-guide-email">Email address</label>
+<input autocomplete="email" id="article-uplift-modeling-industry-guide-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-uplift-modeling-industry-guide"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/engineering/ab-test-engineering-guide.html">A/B Testing</a></p>
+</footer>
+</div>
+</div>
+<script defer="" src="js/jquery-2.1.4.min.js"></script>
+<script defer="" src="js/bootstrap.min.js"></script>
+<script defer="" src="js/scripts.js"></script>
+<script defer="" src="js/blogPanel.js"></script>
+<script defer="" src="js/toc.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentTheme = localStorage.getItem('theme') || null;
+  var checkbox = document.getElementById('checkbox');
+  if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    if (currentTheme === 'dark-mode' && checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  if (checkbox) {
+    checkbox.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      }
+    });
+  }
+
+  var progress = document.querySelector('.article-progress-bar span');
+  function updateProgress() {
+    if (!progress) {
+      return;
+    }
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+  }
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/engineering/ab-test-engineering-guide.html">A/B Testing</a></h3>
+<p>Experiment engineering foundations for reliable product measurement.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/blog/">Blog</a></h3>
+<p>Applied AI, data science, product systems, and engineering notes.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/random-forest-guide.html">Random Forest</a></h3>
+<p>Modeling foundations that often support practical uplift baselines.</p>
+</article>
+</div>
+</section>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming AI Systems Notes</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="REPLACE_WITH_NEWSLETTER_PLATFORM_FORM_ACTION_URL" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>
