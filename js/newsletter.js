@@ -4,6 +4,8 @@
   const NEWSLETTER_NAME = "Yangming Li's Newsletter";
   const SUCCESS_MESSAGE = 'Thanks - please check your email to confirm your subscription.';
   const ERROR_MESSAGE = 'Newsletter signup is temporarily unavailable. The subscription service may not be configured yet.';
+  const API_NOT_CONNECTED_MESSAGE = 'Newsletter signup is not connected on this deployment yet.';
+  const NETWORK_ERROR_MESSAGE = 'Newsletter signup could not reach the subscription service. Please try again later.';
   const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address.';
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -142,9 +144,19 @@
           website: honeypot ? honeypot.value : ''
         })
       });
-      const data = await response.json().catch(function () {
-        return {};
-      });
+      const contentType = response.headers && response.headers.get
+        ? String(response.headers.get('content-type') || '')
+        : '';
+      const data = contentType.includes('application/json')
+        ? await response.json().catch(function () {
+          return {};
+        })
+        : {};
+
+      if (response.status === 404 || !contentType.includes('application/json')) {
+        showError(form, API_NOT_CONNECTED_MESSAGE);
+        return;
+      }
 
       if (!response.ok || !data.ok) {
         showError(form, data.message || ERROR_MESSAGE);
@@ -155,7 +167,7 @@
       window.localStorage.setItem('yangmingNewsletterSubscribedAt', new Date().toISOString());
       showSuccess(form, data.message || SUCCESS_MESSAGE);
     } catch (error) {
-      showError(form, ERROR_MESSAGE);
+      showError(form, NETWORK_ERROR_MESSAGE);
     } finally {
       setButtonState(button, false);
     }
