@@ -4,21 +4,21 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>LLM Evaluation | RAG, Agent Testing, and AI System Quality</title>
-<meta content="A practical hub for LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." name="description"/>
+<title>LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality</title>
+<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." name="description"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="LLM evaluation, RAG evaluation, AI agent testing, schema validation, AI monitoring" name="keywords"/>
+<meta content="LLM evaluation framework, RAG evaluation, AI agent evaluation, eval sets, LLM-as-judge, schema validation, release gates, AI monitoring, production AI reliability" name="keywords"/>
 <link href="https://yangmingli.com/llm-evaluation/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Yangming Li" property="og:site_name"/>
-<meta content="LLM Evaluation | RAG, Agent Testing, and AI System Quality" property="og:title"/>
-<meta content="A practical hub for LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." property="og:description"/>
+<meta content="LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality" property="og:title"/>
+<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." property="og:description"/>
 <meta content="https://yangmingli.com/llm-evaluation/" property="og:url"/>
 <meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
 <meta content="Yangming Li site logo" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="LLM Evaluation | RAG, Agent Testing, and AI System Quality" name="twitter:title"/>
-<meta content="A practical hub for LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring." name="twitter:description"/>
+<meta content="LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality" name="twitter:title"/>
+<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." name="twitter:description"/>
 <meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -29,12 +29,129 @@
 <link href="/rss.xml" rel="alternate" title="Yangming Li RSS Feed" type="application/rss+xml"/>
 <script defer="" src="/js/i18n.js"></script>
 <script defer="" src="/js/newsletter.js?v=newsletter-api-20260615"></script>
+<style>
+body.llm-evaluation-page .pillar-nav a {
+  font-size: 1rem;
+}
+
+body.llm-evaluation-page .pillar-hero .lead,
+body.llm-evaluation-page .portfolio-section p,
+body.llm-evaluation-page .topic-hub-section p,
+body.llm-evaluation-page .topic-writing-section p,
+body.llm-evaluation-page .topic-related-section p,
+body.llm-evaluation-page .topic-subscribe-section p,
+body.llm-evaluation-page .topic-hub-intro p,
+body.llm-evaluation-page .topic-subscribe-cta p {
+  font-size: 1.12rem;
+  line-height: 1.78;
+}
+
+body.llm-evaluation-page .topic-hub-section h2,
+body.llm-evaluation-page .topic-writing-section h2,
+body.llm-evaluation-page .topic-related-section h2,
+body.llm-evaluation-page .topic-subscribe-section h2,
+body.llm-evaluation-page .portfolio-section h2 {
+  font-size: clamp(1.9rem, 3vw, 2.55rem);
+}
+
+body.llm-evaluation-page .topic-post-card h3,
+body.llm-evaluation-page .featured-post-card h3,
+body.llm-evaluation-page .topic-mini-card h3 {
+  font-size: 1.22rem;
+  line-height: 1.35;
+}
+
+body.llm-evaluation-page .topic-card-meta,
+body.llm-evaluation-page .topic-card-link {
+  font-size: 1rem;
+}
+
+body.llm-evaluation-page .topic-tag {
+  font-size: 0.9rem;
+}
+
+.eval-table-wrap {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.eval-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  color: #172033;
+  font-size: 1.05rem;
+}
+
+.eval-table th,
+.eval-table td {
+  padding: 14px;
+  border: 1px solid #dbe5e2;
+  vertical-align: top;
+}
+
+.eval-table th {
+  background: #f1f8f6;
+  color: #0b5f59;
+  font-weight: 800;
+}
+
+.eval-table td {
+  background: #ffffff;
+}
+
+.eval-list {
+  margin: 14px 0 0;
+  padding-left: 1.2rem;
+}
+
+.eval-list li {
+  margin-bottom: 8px;
+  color: #5b6776;
+  font-size: 1.12rem;
+  line-height: 1.72;
+}
+
+.faq-list details {
+  padding: 16px 0;
+  border-top: 1px solid #dbe5e2;
+}
+
+.faq-list details:first-child {
+  border-top: 0;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  color: #172033;
+  font-size: 1.14rem;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  body.llm-evaluation-page .pillar-hero .lead,
+  body.llm-evaluation-page .portfolio-section p,
+  body.llm-evaluation-page .topic-hub-section p,
+  body.llm-evaluation-page .topic-writing-section p,
+  body.llm-evaluation-page .topic-related-section p,
+  body.llm-evaluation-page .topic-subscribe-section p,
+  body.llm-evaluation-page .eval-list li {
+    font-size: 1.05rem;
+  }
+
+  body.llm-evaluation-page .topic-post-card h3,
+  body.llm-evaluation-page .featured-post-card h3,
+  body.llm-evaluation-page .topic-mini-card h3 {
+    font-size: 1.16rem;
+  }
+}
+</style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "LLM Evaluation",
   "url": "https://yangmingli.com/llm-evaluation/",
-  "description": "A practical hub for LLM evaluation frameworks, RAG evaluation, schema validation, agent testing, uncertainty, release gates, and monitoring.",
+  "description": "A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://yangmingli.com/#website"
@@ -61,8 +178,54 @@
     }
   ]
 }</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is LLM evaluation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LLM evaluation is the practice of testing whether a language model system is accurate, useful, safe, grounded, stable, and ready for a specific product workflow. It includes test data, grading, regression checks, release gates, and monitoring."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is RAG evaluation different from general LLM evaluation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RAG evaluation must inspect both retrieval and generation. Retrieval checks whether the system found the right evidence. Generation checks whether the final answer is faithful to that evidence, complete, and appropriately cited."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How should AI agents be evaluated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI agents should be evaluated on outcome and process. The system should verify task success, tool use, intermediate traces, retries, latency, cost, safety boundaries, and whether failures are recoverable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should teams use LLM-as-judge?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LLM-as-judge is useful for semantic and qualitative evaluation such as helpfulness, completeness, clarity, groundedness, and instruction following. Deterministic checks should still be used first whenever the output can be validated with rules, schemas, tests, or business logic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What metrics matter for production LLM systems?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Production LLM systems should track task success, regression rate, faithfulness, citation quality, schema validity, refusal behavior, latency, cost, escalation rate, user correction rate, and drift over time."
+      }
+    }
+  ]
+}</script>
 </head>
-<body class="portfolio-page">
+<body class="portfolio-page llm-evaluation-page">
 <main class="pillar-page">
 <nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
 <section class="pillar-hero">
@@ -91,6 +254,216 @@
 </div>
 <p>Monitor correction rate, escalation rate, citation quality, stale-source usage, latency, cost, and regressions by prompt, model, schema, and knowledge-source version.</p>
 </section>
+<section id="llm-evaluation-framework" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Framework</span>
+<h2>LLM evaluation framework: from task risk to release decision</h2>
+<p>A useful LLM evaluation framework should not start with a leaderboard. It should start with the product workflow, the failure modes, and the decision the team needs to make before shipping.</p>
+</div>
+<div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3>1. Define the task contract</h3>
+<p>Specify what the system is allowed to read, what it must produce, which sources are authoritative, and when it should refuse, ask for clarification, or escalate.</p>
+</article>
+<article class="topic-mini-card">
+<h3>2. Build an eval set from real cases</h3>
+<p>Use ordinary examples, edge cases, no-answer cases, known failures, stale-source cases, conflicting evidence, and ambiguous user requests.</p>
+</article>
+<article class="topic-mini-card">
+<h3>3. Grade with layered checks</h3>
+<p>Use deterministic validators first: schemas, exact fields, citations, source IDs, numeric checks, and state changes. Add model-based judges for semantic quality.</p>
+</article>
+<article class="topic-mini-card">
+<h3>4. Connect scores to release gates</h3>
+<p>Evaluation should decide whether a prompt, model, retrieval index, tool schema, or workflow change is safe enough to ship.</p>
+</article>
+</div>
+<p class="topic-note">The practical question is not only "which model scored higher?" The better question is: "is this system reliable enough for this use case, at this risk level, with this cost and latency profile?"</p>
+</section>
+<section id="rag-evaluation-scorecard" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">RAG evaluation</span>
+<h2>RAG evaluation scorecard</h2>
+<p>RAG systems fail in layers. A good scorecard separates retrieval, evidence quality, generation, citation behavior, refusal behavior, and system reliability.</p>
+</div>
+<div class="eval-table-wrap">
+<table class="eval-table">
+<thead>
+<tr><th>Layer</th><th>What to Measure</th><th>Useful Metrics</th><th>Common Failure Signals</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Retrieval</td>
+<td>Whether the system found the right evidence for the query.</td>
+<td>Recall@K, Precision@K, MRR, nDCG, context recall.</td>
+<td>Correct source missing, weak evidence ranked first, noisy chunks crowding out relevant context.</td>
+</tr>
+<tr>
+<td>Evidence quality</td>
+<td>Whether retrieved chunks are authoritative, fresh, accessible, and specific enough to answer.</td>
+<td>Source authority, freshness, duplicate rate, metadata accuracy, policy-version match.</td>
+<td>Outdated policy, wrong document version, duplicate chunks, low-quality source selected.</td>
+</tr>
+<tr>
+<td>Generation</td>
+<td>Whether the answer is grounded, complete, relevant, and faithful to retrieved evidence.</td>
+<td>Faithfulness, groundedness, answer relevance, completeness, factual consistency.</td>
+<td>Unsupported claims, over-summary, missing caveats, answer sounds confident but evidence is weak.</td>
+</tr>
+<tr>
+<td>Citation and refusal</td>
+<td>Whether the system cites the right sources and refuses when the corpus does not support an answer.</td>
+<td>Citation precision, citation coverage, no-answer accuracy, unsupported-claim rate.</td>
+<td>Fake citation, citation only partially supports claim, answer given when evidence is missing.</td>
+</tr>
+<tr>
+<td>Production reliability</td>
+<td>Whether the full pipeline remains stable, fast, debuggable, and cost-effective.</td>
+<td>Latency, cost per answer, timeout rate, cache hit rate, index freshness, drift rate.</td>
+<td>Slow answers, cost spike, stale index, inconsistent answers, failure that cannot be traced.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="agent-evaluation-framework" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Agent evaluation</span>
+<h2>Agent evaluation is not just answer evaluation</h2>
+<p>Most LLM evaluation starts with a simple question: "is this answer good?" Agent evaluation is harder because an agent may call tools, read files, query databases, update records, retry steps, use external APIs, and operate across a changing environment.</p>
+</div>
+<div class="topic-hub-intro">
+<div>
+<p>A reliable agent evaluation system needs to evaluate both outcome and process. Outcome asks whether the task was completed correctly. Process asks whether the agent completed it safely, efficiently, and recoverably.</p>
+<p>A final answer can look correct while hiding risky behavior in the middle: unnecessary tool calls, incorrect assumptions, excessive retries, unstable execution, permission boundary violations, or hidden cost.</p>
+</div>
+<div>
+<p>For this reason, agent evaluation should be treated as an engineering system, not just a benchmark score. The evaluation target is the full run: input, tool calls, intermediate states, final output, latency, cost, and failure recovery.</p>
+</div>
+</div>
+<div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3>Task</h3>
+<p>A task defines what the agent must accomplish, what constraints it must follow, which artifacts it should create, and what success looks like.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Trial</h3>
+<p>A trial is one execution of the task. One successful run is not enough because agents may choose different tool paths, retries, and intermediate steps.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Trace</h3>
+<p>A trace records the process: inputs, tool calls, intermediate state, retrieved evidence, retries, latency, cost, and where the failure came from.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Grader</h3>
+<p>A grader decides whether the run passed. Strong systems combine deterministic checks, LLM-as-judge, and human calibration.</p>
+</article>
+</div>
+</section>
+<section id="agent-evaluation-stack" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Reliability stack</span>
+<h2>A practical agent evaluation stack</h2>
+<p>Agent evaluation should move from small checks to full workflow reliability, then into release gates and production monitoring.</p>
+</div>
+<div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3>Small unit evals</h3>
+<p>Test isolated capabilities: choosing the right tool, parsing tool results, producing valid JSON, following a narrow instruction, and handling one known edge case.</p>
+</article>
+<article class="topic-mini-card">
+<h3>End-to-end workflow evals</h3>
+<p>Test realistic tasks from start to finish, including ambiguous instructions, missing information, noisy data, tool errors, and multi-step dependencies.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Regression suite</h3>
+<p>Protect capabilities that already worked before. Prompt, model, tool, routing, and retrieval changes should not silently break known workflows.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Production monitoring loop</h3>
+<p>Track success rate, retry rate, tool failures, latency, cost, escalation, user corrections, drift, and human review outcomes after launch.</p>
+</article>
+</div>
+<p class="topic-note">Build evals from real pain points, not imagined capabilities. Real failures, customer feedback, QA findings, and support issues usually produce the most valuable evaluation cases.</p>
+</section>
+<section id="release-gates" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Release gates</span>
+<h2>Ship vs. do not ship</h2>
+<p>A useful evaluation system should answer two different questions: can the system do the task, and is it reliable enough to ship?</p>
+</div>
+<div class="topic-card-grid">
+<article class="topic-mini-card">
+<h3>Capability signal</h3>
+<p>Use capability evals and repeated trials to understand what the system can eventually solve. For exploration, pass@k can reveal whether the system has the ability at all.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Production readiness</h3>
+<p>Use regression checks, trace analysis, latency, cost, retry behavior, fallback paths, and human review to decide whether the system is ready for users.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Action tiers</h3>
+<p>Lower-risk actions can be automated more freely. Higher-risk actions should require stricter validation, restricted permissions, human approval, or draft-only mode.</p>
+</article>
+<article class="topic-mini-card">
+<h3>Failure response</h3>
+<p>Abnormal failure spikes should trigger fallback, human review, temporary shutdown, or a rollback to a previous prompt, model, tool schema, or retrieval index.</p>
+</article>
+</div>
+<ul class="eval-list">
+<li>The regression suite should remain stable before release.</li>
+<li>End-to-end success should stay above the reliability level required by the workflow.</li>
+<li>Cost and latency should remain within the expected operating range.</li>
+<li>High-risk actions should require additional checks or review.</li>
+<li>Production failures should become new eval cases.</li>
+</ul>
+</section>
+<section id="agent-evaluation-checklist" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">Checklist</span>
+<h2>Agent evaluation checklist</h2>
+<p>A production-ready agent evaluation system should include these public-facing principles without revealing private task banks, prompts, thresholds, or internal workflow details.</p>
+</div>
+<ul class="eval-list">
+<li>A task set based on real user needs and real failure cases.</li>
+<li>Isolated test environments for repeatable trials.</li>
+<li>Full trace logging across inputs, tool calls, intermediate states, outputs, latency, and cost.</li>
+<li>Multiple grader types: deterministic checks, LLM judges, and human review.</li>
+<li>Separate capability and regression suites.</li>
+<li>Release gates before model, prompt, retrieval, or tool changes.</li>
+<li>Online monitoring for success rate, retry rate, cost, latency, failure types, and drift.</li>
+<li>A feedback loop that converts production failures into new eval cases.</li>
+</ul>
+</section>
+<section id="llm-evaluation-faq" class="topic-hub-section">
+<div class="topic-hub-header">
+<span class="topic-eyebrow">FAQ</span>
+<h2>LLM evaluation FAQ</h2>
+<p>Short answers to common questions teams ask when moving from model demos to production AI systems.</p>
+</div>
+<div class="faq-list">
+<details open>
+<summary>What is LLM evaluation?</summary>
+<p>LLM evaluation is the practice of testing whether a language model system is accurate, useful, safe, grounded, stable, and ready for a specific product workflow. It includes test data, grading, regression checks, release gates, and monitoring.</p>
+</details>
+<details>
+<summary>How is RAG evaluation different from general LLM evaluation?</summary>
+<p>RAG evaluation must inspect both retrieval and generation. Retrieval checks whether the system found the right evidence. Generation checks whether the final answer is faithful to that evidence, complete, and appropriately cited.</p>
+</details>
+<details>
+<summary>How should AI agents be evaluated?</summary>
+<p>AI agents should be evaluated on outcome and process. The system should verify task success, tool use, intermediate traces, retries, latency, cost, safety boundaries, and whether failures are recoverable.</p>
+</details>
+<details>
+<summary>When should teams use LLM-as-judge?</summary>
+<p>LLM-as-judge is useful for semantic and qualitative dimensions such as helpfulness, completeness, clarity, groundedness, and instruction following. Deterministic checks should still be used first whenever the output can be validated with rules, schemas, tests, or business logic.</p>
+</details>
+<details>
+<summary>What metrics matter for production LLM systems?</summary>
+<p>Production LLM systems should track task success, regression rate, faithfulness, citation quality, schema validity, refusal behavior, latency, cost, escalation rate, user correction rate, and drift over time.</p>
+</details>
+</div>
+</section>
 <section id="topic-hub-llm-evaluation" class="topic-hub-section">
 <div class="topic-hub-header">
 <span class="topic-eyebrow">Topic hub</span>
@@ -99,7 +472,7 @@
 </div>
 <div class="topic-hub-intro">
 <div><p>The most useful evaluation work starts with examples from the real workflow. Those examples become regression cases, judge calibration samples, source-grounding checks, and monitoring segments. The goal is not a universal score. The goal is to know whether a new version is safer, cheaper, faster, or more useful for the intended use case.</p></div>
-<div><p>This section follows the starter-blog pattern of metadata-driven topic pages: each card shows a canonical article link, summary, date, reading time, and tags. The page is a hub, not a duplicate post archive.</p></div>
+<div><p>Use the articles below for deeper examples: RAG evaluation, AI agent evaluation, Copilot agent testing, uncertainty quantification, and tool-connected LLM systems.</p></div>
 </div>
 <div class="topic-post-grid">
 <article class="featured-post-card">
