@@ -1,17 +1,17 @@
 const postMetadata = [
   {
-    title: "RAG Evaluation Is Not a Score: How to Measure Retrieval, Generation, and System Reliability",
+    title: "RAG Evaluation Guide: Metrics, Frameworks, and Python Examples",
     href: "/rag-evaluation-not-a-score.html",
     date: "2026-06-16",
     summary:
-      "A practical framework for measuring RAG retrieval quality, generation faithfulness, and system reliability across offline evaluation, online testing, and continuous monitoring.",
+      "A practical guide to evaluating RAG systems across retrieval metrics, golden test sets, generation faithfulness, citations, no-answer behavior, and production monitoring.",
     tags: ["RAG evaluation", "retrieval evaluation", "faithfulness", "production AI"],
     area: "llm-evaluation",
     featured: true,
     readingTime: "12 min read",
     relatedProjects: ["llm-evaluation", "ai-engineering"],
     series: "RAG Evaluation",
-    images: ["https://yangmingli.com/img/Logo.png"],
+    images: ["https://yangmingli.com/img/rag-evaluation-guide-og.png"],
     canonicalUrl: "https://yangmingli.com/rag-evaluation-not-a-score.html"
   },
   {
