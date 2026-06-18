@@ -1,0 +1,67 @@
+name: SEO quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  seo-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install SEO audit dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install beautifulsoup4
+
+      - name: Generate sitemap
+        run: python generate_sitemap.py
+
+      - name: Run SEO audit
+        run: python scripts/seo_audit.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install link and Lighthouse tools
+        run: npm install -g linkinator @lhci/cli
+
+      - name: Start local static server
+        run: |
+          python -m http.server 4173 &
+          echo $! > static-server.pid
+          sleep 3
+
+      - name: Check priority page links
+        run: |
+          linkinator http://127.0.0.1:4173/llm-evaluation/ --skip "https?://(?!127\\.0\\.0\\.1:4173).*" --concurrency 1 --timeout 10000
+          linkinator http://127.0.0.1:4173/rag-evaluation-not-a-score.html --skip "https?://(?!127\\.0\\.0\\.1:4173).*" --concurrency 1 --timeout 10000
+
+      - name: Stop local static server
+        if: always()
+        run: |
+          if [ -f static-server.pid ]; then
+            kill "$(cat static-server.pid)" || true
+          fi
+
+      - name: Run Lighthouse CI
+        run: lhci autorun --config=./lighthouserc.cjs
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: lhci-reports/
