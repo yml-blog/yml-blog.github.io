@@ -15,6 +15,66 @@ const postMetadata = [
     canonicalUrl: "https://yangmingli.com/rag-evaluation-not-a-score.html"
   },
   {
+    title: "Copilot Agent Golden Test Set: Cases, Rubrics, and Regression Gates",
+    href: "/copilot-agent-golden-test-set.html",
+    date: "2026-06-18",
+    summary:
+      "A practical guide to building a Copilot agent golden test set with scenario coverage, schema checks, rubrics, regression gates, and release decisions.",
+    tags: ["Copilot Studio", "agent evaluation", "golden test set", "regression testing"],
+    area: "llm-evaluation",
+    featured: true,
+    readingTime: "11 min read",
+    relatedProjects: ["ai-engineering", "llm-evaluation"],
+    series: "AI Agent Evaluation",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/copilot-agent-golden-test-set.html"
+  },
+  {
+    title: "A/B Testing Sample Size in Python: Power, MDE, and Guardrails",
+    href: "/ab-testing-sample-size-python.html",
+    date: "2026-06-18",
+    summary:
+      "Calculate A/B testing sample size in Python, choose minimum detectable effects, plan power, and define guardrail metrics before launch.",
+    tags: ["A/B testing", "sample size", "Python", "statistical power"],
+    area: "experimentation",
+    featured: true,
+    readingTime: "10 min read",
+    relatedProjects: ["data-products", "ai-product-builder"],
+    series: "Experimentation",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/ab-testing-sample-size-python.html"
+  },
+  {
+    title: "Causal Inference for Product Analytics",
+    href: "/causal-inference-product-analytics.html",
+    date: "2026-06-18",
+    summary:
+      "A practical causal inference guide for product analytics, connecting experiments, observational data, ATE, CATE, uplift, guardrails, and decision quality.",
+    tags: ["causal inference", "product analytics", "experimentation", "uplift modeling"],
+    area: "experimentation",
+    featured: true,
+    readingTime: "11 min read",
+    relatedProjects: ["data-products", "ai-product-builder"],
+    series: "Causal Inference",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/causal-inference-product-analytics.html"
+  },
+  {
+    title: "Model Calibration in Python: Reliability Diagrams, ECE, and Decision Thresholds",
+    href: "/model-calibration-reliability-diagrams-python.html",
+    date: "2026-06-18",
+    summary:
+      "Evaluate model calibration in Python with reliability diagrams, expected calibration error, confidence bins, thresholds, and monitoring checks.",
+    tags: ["model calibration", "reliability diagrams", "ECE", "trustworthy machine learning"],
+    area: "data-products",
+    featured: true,
+    readingTime: "10 min read",
+    relatedProjects: ["data-products", "ai-engineering"],
+    series: "Trustworthy Machine Learning",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/model-calibration-reliability-diagrams-python.html"
+  },
+  {
     title: "A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking",
     href: "/churn-prediction-uplift-thinking.html",
     date: "2026-06-15",

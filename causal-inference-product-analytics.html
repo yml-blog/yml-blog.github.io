@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Causal Inference for Product Analytics: Experiments, Uplift, and Decision Metrics | Yangming Li</title>
+<meta name="description" content="A practical guide to causal inference for product analytics, covering experiments, observational data, uplift, ATE, CATE, guardrails, and decision metrics."/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="causal inference product analytics, product causal inference, ATE CATE, uplift modeling, experimentation analytics" name="keywords"/>
+<link rel="canonical" href="https://yangmingli.com/causal-inference-product-analytics.html"/>
+<link href="/favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="Causal Inference for Product Analytics: Experiments, Uplift, and Decision Metrics | Yangming Li" property="og:title"/>
+<meta content="A practical guide to causal inference for product analytics, covering experiments, observational data, uplift, ATE, CATE, guardrails, and decision metrics." property="og:description"/>
+<meta content="https://yangmingli.com/causal-inference-product-analytics.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Causal Inference for Product Analytics: Experiments, Uplift, and Decision Metrics | Yangming Li" name="twitter:title"/>
+<meta content="A practical guide to causal inference for product analytics, covering experiments, observational data, uplift, ATE, CATE, guardrails, and decision metrics." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/portfolio-pages.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="/js/newsletter.js?v=newsletter-api-20260615"></script>
+<style>
+body { background: #f7f8fb; color: #1f2933; font-family: Hind, Arial, sans-serif; }
+.guide-page { max-width: 980px; margin: 0 auto; padding: 36px 20px 64px; }
+.guide-nav { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+.guide-nav a, .guide-page a { color: #0f766e; font-weight: 700; }
+.guide-hero { border-bottom: 1px solid #d9e2ec; margin-bottom: 28px; padding-bottom: 24px; }
+.eyebrow { color: #b45309; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+h1 { color: #111827; font-size: clamp(34px, 5vw, 52px); line-height: 1.08; margin: 10px 0 16px; }
+h2 { color: #111827; font-size: 28px; margin: 34px 0 14px; scroll-margin-top: 84px; }
+h3 { color: #111827; font-size: 20px; margin: 24px 0 10px; }
+p, li { color: #52606d; font-size: 17px; line-height: 1.75; }
+.lead { max-width: 820px; color: #52606d; font-size: 19px; line-height: 1.7; }
+.toc, .note { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+.table-wrap { margin: 20px 0; overflow-x: auto; }
+table { border-collapse: collapse; min-width: 740px; width: 100%; }
+th, td { border: 1px solid #dbe5e2; padding: 13px; text-align: left; vertical-align: top; }
+th { background: #f1f8f6; color: #0b5f59; font-weight: 800; }
+td { background: #fff; }
+pre { background: #102a43; border-radius: 8px; color: #e6fffa; overflow-x: auto; padding: 18px; }
+code { color: inherit; }
+.related-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.related-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+</style>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@type":"BlogPosting",
+  "headline":"Causal Inference for Product Analytics: Experiments, Uplift, and Decision Metrics",
+  "description":"A practical guide to causal inference for product analytics, covering experiments, observational data, uplift, ATE, CATE, guardrails, and decision metrics.",
+  "image":"https://yangmingli.com/img/Logo.png",
+  "author":{"@type":"Person","name":"Yangming Li","url":"https://yangmingli.com/about.html"},
+  "publisher":{"@type":"Organization","name":"Yangming Li","logo":{"@type":"ImageObject","url":"https://yangmingli.com/img/Logo.png"}},
+  "datePublished":"2026-06-18",
+  "dateModified":"2026-06-18",
+  "mainEntityOfPage":{"@type":"WebPage","@id":"https://yangmingli.com/causal-inference-product-analytics.html"},
+  "articleSection":"Data Products",
+  "keywords":["causal inference product analytics","product causal inference","ATE","CATE","uplift modeling","experimentation analytics"],
+  "inLanguage":"en",
+  "isAccessibleForFree":true
+}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://yangmingli.com/"},{"@type":"ListItem","position":2,"name":"Data Products","item":"https://yangmingli.com/data-products/"},{"@type":"ListItem","position":3,"name":"Causal Inference for Product Analytics","item":"https://yangmingli.com/causal-inference-product-analytics.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is causal inference in product analytics?","acceptedAnswer":{"@type":"Answer","text":"Causal inference in product analytics is the practice of estimating whether a product change caused an outcome change, rather than only predicting which users are likely to act."}},{"@type":"Question","name":"How is causal inference different from prediction?","acceptedAnswer":{"@type":"Answer","text":"Prediction estimates what is likely to happen. Causal inference estimates what would change if the product, policy, treatment, or intervention changed."}},{"@type":"Question","name":"When should product teams use uplift modeling?","acceptedAnswer":{"@type":"Answer","text":"Use uplift modeling when the product decision is about targeting an intervention and the team needs to estimate incremental impact by user or segment."}}]}</script>
+</head>
+<body>
+<main class="guide-page">
+<nav aria-label="Primary" class="guide-nav"><a href="/">Home</a><a href="/data-products/">Data Products</a><a href="/blog/">Blog</a><a href="/about.html">About</a></nav>
+<header class="guide-hero">
+<span class="eyebrow">Causal Analytics</span>
+<h1>Causal Inference for Product Analytics: Experiments, Uplift, and Decision Metrics</h1>
+<p class="lead">Product analytics often starts with prediction, but product decisions need causal questions: what changed because we changed the product? This page connects experiments, uplift modeling, and observational causal thinking.</p>
+</header>
+<section class="toc" aria-label="Table of contents"><strong>Contents</strong><ol><li><a href="#prediction-vs-causal">Prediction vs causal inference</a></li><li><a href="#decision-map">Decision map</a></li><li><a href="#metrics">ATE, CATE, and uplift</a></li><li><a href="#workflow">Practical workflow</a></li><li><a href="#faq">FAQ</a></li></ol></section>
+<section id="prediction-vs-causal">
+<h2>Prediction vs causal inference</h2>
+<p>A churn model can predict who is likely to leave. It does not automatically tell you who will stay because of a discount, support call, onboarding flow, or product change. That is the difference between prediction and causal inference.</p>
+<p>For product analytics, the causal question is usually counterfactual: what would have happened if this user, account, or market had not received the intervention?</p>
+</section>
+<section id="decision-map">
+<h2>Decision map</h2>
+<div class="table-wrap"><table><thead><tr><th>Question</th><th>Better method</th><th>Common failure</th></tr></thead><tbody>
+<tr><td>Did a feature launch improve conversion?</td><td>Randomized experiment or careful quasi-experiment.</td><td>Comparing before and after without seasonality or mix controls.</td></tr>
+<tr><td>Which users benefit from an offer?</td><td>Uplift modeling or heterogeneous treatment effect analysis.</td><td>Targeting the highest-risk users rather than incremental responders.</td></tr>
+<tr><td>What happens when A/B testing is not possible?</td><td>Difference-in-differences, matching, synthetic control, or causal DAG analysis.</td><td>Ignoring selection bias.</td></tr>
+<tr><td>Should the product ship?</td><td>Primary metric plus guardrails and practical effect size.</td><td>Shipping a statistically significant but operationally weak result.</td></tr>
+</tbody></table></div>
+</section>
+<section id="metrics">
+<h2>ATE, CATE, and uplift</h2>
+<p>ATE, the average treatment effect, asks what the intervention did on average. CATE, the conditional average treatment effect, asks how the effect changes by segment, context, or user features. Uplift is the incremental difference caused by targeting an intervention.</p>
+<pre><code>def difference_in_means(treated, control):
+    """Simple ATE estimate for randomized treatment assignment."""
+    if not treated or not control:
+        raise ValueError("Both groups must contain observations")
+    return sum(treated) / len(treated) - sum(control) / len(control)
+
+
+print(difference_in_means([1, 0, 1, 1], [0, 0, 1, 0]))</code></pre>
+<p>This toy example only works cleanly under random assignment. Observational data requires stronger assumptions, design checks, and sensitivity analysis.</p>
+</section>
+<section id="workflow">
+<h2>Practical workflow</h2>
+<ol>
+<li>Write the product decision first: ship, target, rollback, price, message, or escalate.</li>
+<li>Define treatment, outcome, unit of analysis, exposure window, and guardrails.</li>
+<li>Prefer randomization when possible.</li>
+<li>When randomization is not possible, state the identification assumptions explicitly.</li>
+<li>Separate prediction quality from causal effect quality.</li>
+<li>Track whether the decision would change under reasonable alternative assumptions.</li>
+</ol>
+<div class="note"><p>For adjacent examples, read <a href="/uplift-modeling-industry-guide.html">Uplift Modeling in Industry</a>, <a href="/churn-prediction-uplift-thinking.html">Why Churn Prediction Fails Without Uplift Thinking</a>, and <a href="/ab-testing-sample-size-python.html">A/B Testing Sample Size in Python</a>.</p></div>
+</section>
+<section id="faq">
+<h2>FAQ</h2>
+<h3>What is causal inference in product analytics?</h3>
+<p>Causal inference in product analytics is the practice of estimating whether a product change caused an outcome change, rather than only predicting which users are likely to act.</p>
+<h3>How is causal inference different from prediction?</h3>
+<p>Prediction estimates what is likely to happen. Causal inference estimates what would change if the product, policy, treatment, or intervention changed.</p>
+<h3>When should product teams use uplift modeling?</h3>
+<p>Use uplift modeling when the product decision is about targeting an intervention and the team needs to estimate incremental impact by user or segment.</p>
+</section>
+<section aria-labelledby="related-title"><h2 id="related-title">Related reading</h2><div class="related-grid"><article class="related-card"><h3><a href="/uplift-modeling-industry-guide.html">Uplift Modeling in Industry</a></h3><p>Targeting by incremental impact.</p></article><article class="related-card"><h3><a href="/data-products/">Data Products</a></h3><p>The hub for analytics systems and decision products.</p></article><article class="related-card"><h3><a href="/engineering/ab-test-engineering-guide.html">A/B Test Engineering Guide</a></h3><p>Experimentation platform architecture.</p></article></div></section>
+</main>
+<footer aria-label="Site footer" class="site-footer"><div class="site-footer-inner"><p class="site-footer-title">Yangming Li</p><ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact.html">Contact</a></li></ul></div></footer>
+</body>
+</html>
