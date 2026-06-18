@@ -7,6 +7,9 @@ Checks local HTML only. A passing run means:
 - local links/assets resolve
 - JSON-LD parses
 - sitemap URLs are canonical, indexable local pages
+- sitemap and crawlable internal links avoid known redirect source URLs
+- indexable pages have inbound crawlable internal links, with explicit exceptions
+- priority pages use local, resolvable social images
 """
 
 from __future__ import annotations
@@ -27,6 +30,27 @@ BASE_URL = "https://yangmingli.com"
 EXCLUDE_DIRS = {".git", "__pycache__", "templates", "email-templates", "nha-cai"}
 EXCLUDE_FILES = {"google6a208e5b3409387b.html", "readme.htm"}
 EXPECTED_INDEX_ROBOTS = "index,follow,max-image-preview:large"
+GENERIC_SOCIAL_IMAGES = {"/img/Logo.png", "/Logo.png"}
+ORPHAN_WARNING_EXCEPTIONS = {
+    # The homepage is the crawl root; it does not need another local page to
+    # justify discovery even if a future redesign removes home links.
+    f"{BASE_URL}/",
+    # Post-download confirmation page reached after the checklist flow.
+    f"{BASE_URL}/thank-you-ai-agent-checklist.html",
+}
+PRIORITY_SOCIAL_IMAGE_URLS = {
+    f"{BASE_URL}/",
+    f"{BASE_URL}/ai-engineering/",
+    f"{BASE_URL}/blog/",
+    f"{BASE_URL}/llm-evaluation/",
+    f"{BASE_URL}/rag-evaluation-not-a-score.html",
+}
+PRIORITY_ARTICLE_URLS = {
+    f"{BASE_URL}/rag-evaluation-not-a-score.html",
+    f"{BASE_URL}/ai-agents-evaluation-not-prompting.html",
+    f"{BASE_URL}/testing-evaluating-copilot-agents.html",
+    f"{BASE_URL}/uqlm-teaching-guide.html",
+}
 
 
 def rel_path(path: Path) -> str:
@@ -60,6 +84,32 @@ def norm_url(url: str) -> str:
     if cleaned in {BASE_URL, f"{BASE_URL}/"}:
         return f"{BASE_URL}/"
     return cleaned.rstrip("/")
+
+
+def absolute_internal_url(value: str, current: Path) -> str | None:
+    """Resolve local or yangmingli.com URLs to absolute URLs without fragments."""
+    if not value or value.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
+        return None
+
+    parsed = urlparse(value)
+    if parsed.scheme and parsed.scheme not in {"http", "https"}:
+        return None
+    if parsed.scheme in {"http", "https"} and parsed.netloc and parsed.netloc != "yangmingli.com":
+        return None
+
+    raw_path = unquote(parsed.path)
+    if not raw_path:
+        return None
+    if raw_path.startswith("/"):
+        path = raw_path
+    else:
+        base = "/" + rel_path(current.parent).strip("/")
+        if base == "/.":
+            base = "/"
+        path = str(Path(base) / raw_path).replace("\\", "/")
+        if not path.startswith("/"):
+            path = f"/{path}"
+    return norm_url(f"{BASE_URL}{path}")
 
 
 def soup_for(path: Path) -> BeautifulSoup:
@@ -114,6 +164,96 @@ def local_target(value: str, current: Path) -> Path | None:
     return target
 
 
+def local_site_image_path(value: str) -> Path | None:
+    """Return a local filesystem path for relative or yangmingli.com image URLs."""
+    if not value:
+        return None
+    parsed = urlparse(value)
+    if parsed.scheme in {"http", "https"}:
+        if parsed.netloc != "yangmingli.com":
+            return None
+        raw_path = unquote(parsed.path)
+    elif parsed.scheme:
+        return None
+    else:
+        raw_path = unquote(parsed.path)
+
+    if not raw_path:
+        return None
+    return ROOT / raw_path.lstrip("/")
+
+
+def social_image_values(soup: BeautifulSoup) -> dict[str, list[str]]:
+    """Collect Open Graph and Twitter image URLs from a page."""
+    values: dict[str, list[str]] = {"og:image": [], "twitter:image": []}
+    for tag in soup.find_all("meta"):
+        prop = (tag.get("property") or "").lower()
+        name = (tag.get("name") or "").lower()
+        content = tag.get("content") or ""
+        if prop == "og:image":
+            values["og:image"].append(content)
+        if name == "twitter:image":
+            values["twitter:image"].append(content)
+    return values
+
+
+def load_redirect_sources() -> dict[str, str]:
+    """Load redirect sources from Vercel and Netlify-style redirect config."""
+    redirects: dict[str, str] = {}
+
+    vercel = ROOT / "vercel.json"
+    if vercel.exists():
+        try:
+            data = json.loads(vercel.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            data = {}
+        for item in data.get("redirects", []):
+            source = item.get("source")
+            destination = item.get("destination", "")
+            if source:
+                redirects[norm_url(f"{BASE_URL}{source}")] = destination
+
+    redirects_file = ROOT / "_redirects"
+    if redirects_file.exists():
+        for line in redirects_file.read_text(encoding="utf-8", errors="ignore").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            parts = stripped.split()
+            if len(parts) >= 3 and parts[2].startswith("301") and parts[0].startswith("/"):
+                redirects[norm_url(f"{BASE_URL}{parts[0]}")] = parts[1]
+
+    return redirects
+
+
+def audit_social_images(
+    soup: BeautifulSoup,
+    rel: str,
+    url: str,
+    warnings: list[str],
+) -> None:
+    """Warn when priority pages have missing or generic social images."""
+    if url not in PRIORITY_SOCIAL_IMAGE_URLS and url not in PRIORITY_ARTICLE_URLS:
+        return
+
+    images = social_image_values(soup)
+    for field, values in images.items():
+        if len(values) != 1:
+            warnings.append(f"{rel}: expected exactly one {field}, found {len(values)}")
+            continue
+        image_path = local_site_image_path(values[0])
+        if image_path and not image_path.exists():
+            warnings.append(f"{rel}: {field} points to missing local image {values[0]}")
+
+    normalized_paths = {
+        urlparse(value).path
+        for values in images.values()
+        for value in values
+    }
+    if url in PRIORITY_ARTICLE_URLS and normalized_paths & GENERIC_SOCIAL_IMAGES:
+        warnings.append(f"{rel}: priority article uses a generic social image")
+
+
 def validate_json_ld(soup: BeautifulSoup, rel: str, errors: list[str]) -> None:
     for idx, script in enumerate(soup.find_all("script", attrs={"type": re.compile(r"application/ld\+json", re.I)}), start=1):
         try:
@@ -138,18 +278,20 @@ def weak_description(text: str, title: str) -> str | None:
     return None
 
 
-def audit_pages() -> tuple[list[str], list[str], dict[str, Path], set[str]]:
+def audit_pages(redirect_sources: dict[str, str]) -> tuple[list[str], list[str], dict[str, Path], set[str]]:
     errors: list[str] = []
     warnings: list[str] = []
     canonical_to_path: dict[str, Path] = {}
     indexable_urls: set[str] = set()
     description_counter: Counter[str] = Counter()
     description_owner: dict[str, str] = {}
+    link_edges: list[tuple[str, str]] = []
 
     for path in public_html_files():
         rel = rel_path(path)
         soup = soup_for(path)
         noindex = is_noindex(soup)
+        source_url = norm_url(page_url(path))
 
         titles = [tag.get_text(" ", strip=True) for tag in soup.find_all("title")]
         descriptions = meta_values(soup, "description")
@@ -191,6 +333,7 @@ def audit_pages() -> tuple[list[str], list[str], dict[str, Path], set[str]]:
                     errors.append(f"{rel}: duplicate canonical also used by {rel_path(canonical_to_path[canon])}: {canonicals[0]}")
                 canonical_to_path[canon] = path
                 indexable_urls.add(canon)
+                audit_social_images(soup, rel, canon, warnings)
         else:
             if len(robots) == 1 and "follow" not in robots[0].lower():
                 warnings.append(f"{rel}: noindex page should generally keep follow")
@@ -201,6 +344,11 @@ def audit_pages() -> tuple[list[str], list[str], dict[str, Path], set[str]]:
                 value = tag.get(attr)
                 if not value or value.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
                     continue
+                internal_url = absolute_internal_url(value, path)
+                if tag.name == "a" and internal_url:
+                    if internal_url in redirect_sources:
+                        errors.append(f"{rel}: internal link points to redirect source '{value}'")
+                    link_edges.append((source_url, internal_url))
                 target = local_target(value, path)
                 if target and not target.exists():
                     errors.append(f"{rel}: broken local {attr} '{value}'")
@@ -215,10 +363,21 @@ def audit_pages() -> tuple[list[str], list[str], dict[str, Path], set[str]]:
         if count > 1:
             warnings.append(f"duplicate meta description used {count} times, first seen on {description_owner[desc]}")
 
+    inbound_counts: Counter[str] = Counter()
+    for source_url, target_url in link_edges:
+        if target_url in indexable_urls and source_url != target_url:
+            inbound_counts[target_url] += 1
+
+    for url in sorted(indexable_urls):
+        if url not in ORPHAN_WARNING_EXCEPTIONS and inbound_counts[url] == 0:
+            path = canonical_to_path.get(url)
+            label = rel_path(path) if path else url
+            warnings.append(f"{label}: indexable page has no inbound crawlable internal links")
+
     return errors, warnings, canonical_to_path, indexable_urls
 
 
-def audit_sitemap(indexable_urls: set[str]) -> list[str]:
+def audit_sitemap(indexable_urls: set[str], redirect_sources: dict[str, str]) -> list[str]:
     errors: list[str] = []
     sitemap = ROOT / "sitemap.xml"
     if not sitemap.exists():
@@ -235,6 +394,8 @@ def audit_sitemap(indexable_urls: set[str]) -> list[str]:
     for url, count in seen.items():
         if count > 1:
             errors.append(f"sitemap.xml: duplicate URL {url}")
+        if url in redirect_sources:
+            errors.append(f"sitemap.xml: URL is a known redirect source: {url}")
 
     sitemap_urls = set(urls)
     for url in sorted(sitemap_urls - indexable_urls):
@@ -255,8 +416,9 @@ def audit_robots() -> list[str]:
 
 
 def main() -> int:
-    page_errors, warnings, _canonicals, indexable_urls = audit_pages()
-    errors = page_errors + audit_sitemap(indexable_urls) + audit_robots()
+    redirect_sources = load_redirect_sources()
+    page_errors, warnings, _canonicals, indexable_urls = audit_pages(redirect_sources)
+    errors = page_errors + audit_sitemap(indexable_urls, redirect_sources) + audit_robots()
     if warnings:
         print("SEO audit warnings:")
         for warning in warnings:

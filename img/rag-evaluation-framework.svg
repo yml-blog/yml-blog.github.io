@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="rag-framework-title rag-framework-desc" viewBox="0 0 1200 720">
+  <title id="rag-framework-title">RAG evaluation framework flow</title>
+  <desc id="rag-framework-desc">A retrieval augmented generation evaluation flow from user query to retriever, retrieved chunks, reranker, LLM generation, and final answer, with retrieval, evidence, generation, final answer, and operational metrics attached to each stage.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7faf9; }
+      .panel { fill: #ffffff; stroke: #d7e3df; stroke-width: 2; }
+      .stage { fill: #123b4a; }
+      .stage-alt { fill: #0f766e; }
+      .metric { fill: #eef7f4; stroke: #a7d6cc; stroke-width: 1.5; }
+      .ops { fill: #fff7ed; stroke: #f4b06e; stroke-width: 1.5; }
+      .arrow { stroke: #48626b; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; fill: none; marker-end: url(#arrowhead); }
+      .title { font: 700 30px Arial, sans-serif; fill: #102a43; }
+      .label { font: 700 22px Arial, sans-serif; fill: #ffffff; }
+      .metric-title { font: 700 17px Arial, sans-serif; fill: #0b5f59; }
+      .metric-text { font: 15px Arial, sans-serif; fill: #263f4a; }
+      .ops-title { font: 700 17px Arial, sans-serif; fill: #9a4f00; }
+      .ops-text { font: 15px Arial, sans-serif; fill: #4a3420; }
+      .small { font: 14px Arial, sans-serif; fill: #5b6776; }
+    </style>
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#48626b"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="720"/>
+  <text class="title" x="60" y="58">RAG Evaluation Framework</text>
+  <text class="small" x="60" y="86">Evaluate retrieval, evidence, generation, answer behavior, and operations separately.</text>
+
+  <rect class="panel" x="50" y="120" width="1100" height="520" rx="18"/>
+
+  <g transform="translate(90 190)">
+    <rect class="stage" x="0" y="0" width="150" height="80" rx="14"/>
+    <text class="label" x="75" y="36" text-anchor="middle">User</text>
+    <text class="label" x="75" y="62" text-anchor="middle">query</text>
+  </g>
+
+  <path class="arrow" d="M245 230 H315"/>
+
+  <g transform="translate(325 190)">
+    <rect class="stage-alt" x="0" y="0" width="150" height="80" rx="14"/>
+    <text class="label" x="75" y="48" text-anchor="middle">Retriever</text>
+  </g>
+
+  <path class="arrow" d="M480 230 H550"/>
+
+  <g transform="translate(560 190)">
+    <rect class="stage" x="0" y="0" width="170" height="80" rx="14"/>
+    <text class="label" x="85" y="36" text-anchor="middle">Retrieved</text>
+    <text class="label" x="85" y="62" text-anchor="middle">chunks</text>
+  </g>
+
+  <path class="arrow" d="M735 230 H805"/>
+
+  <g transform="translate(815 190)">
+    <rect class="stage-alt" x="0" y="0" width="150" height="80" rx="14"/>
+    <text class="label" x="75" y="48" text-anchor="middle">Reranker</text>
+  </g>
+
+  <path class="arrow" d="M890 275 V330 H315 V380 H360"/>
+
+  <g transform="translate(370 345)">
+    <rect class="stage" x="0" y="0" width="180" height="80" rx="14"/>
+    <text class="label" x="90" y="36" text-anchor="middle">LLM</text>
+    <text class="label" x="90" y="62" text-anchor="middle">generation</text>
+  </g>
+
+  <path class="arrow" d="M555 385 H650"/>
+
+  <g transform="translate(660 345)">
+    <rect class="stage-alt" x="0" y="0" width="170" height="80" rx="14"/>
+    <text class="label" x="85" y="36" text-anchor="middle">Final</text>
+    <text class="label" x="85" y="62" text-anchor="middle">answer</text>
+  </g>
+
+  <g transform="translate(300 95)">
+    <rect class="metric" x="0" y="0" width="220" height="72" rx="12"/>
+    <text class="metric-title" x="16" y="25">Retriever metrics</text>
+    <text class="metric-text" x="16" y="50">Recall@K, Precision@K, MRR, nDCG</text>
+  </g>
+
+  <g transform="translate(545 95)">
+    <rect class="metric" x="0" y="0" width="255" height="72" rx="12"/>
+    <text class="metric-title" x="16" y="25">Evidence checks</text>
+    <text class="metric-text" x="16" y="50">relevance, freshness, authority, version match</text>
+  </g>
+
+  <g transform="translate(335 450)">
+    <rect class="metric" x="0" y="0" width="260" height="72" rx="12"/>
+    <text class="metric-title" x="16" y="25">Generation metrics</text>
+    <text class="metric-text" x="16" y="50">faithfulness, groundedness, completeness</text>
+  </g>
+
+  <g transform="translate(620 450)">
+    <rect class="metric" x="0" y="0" width="285" height="72" rx="12"/>
+    <text class="metric-title" x="16" y="25">Final answer checks</text>
+    <text class="metric-text" x="16" y="50">citation quality, refusal accuracy, task success</text>
+  </g>
+
+  <g transform="translate(895 345)">
+    <rect class="ops" x="0" y="0" width="210" height="96" rx="12"/>
+    <text class="ops-title" x="16" y="27">Operations</text>
+    <text class="ops-text" x="16" y="53">latency, cost, timeouts, drift</text>
+    <text class="ops-text" x="16" y="76">index freshness, stability</text>
+  </g>
+</svg>

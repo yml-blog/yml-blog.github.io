@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>RAG Evaluation Is Not a Score | Yangming Li</title>
+<title>RAG Evaluation Guide: Metrics, Frameworks, and Python Examples | Yangming Li</title>
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="A practical framework for measuring RAG retrieval quality, generation faithfulness, and system reliability across offline evaluation, online testing, and continuous monitoring." name="description"/>
+<meta name="description" content="Learn how to evaluate RAG systems across retrieval, generation, citations, no-answer behavior, latency, and cost, with metrics, scorecards, test sets, and Python examples."/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="RAG evaluation, retrieval evaluation, RAGAS, RAGR, RAGEval, faithfulness, context precision, context recall, LLM evaluation" name="keywords"/>
-<link href="https://yangmingli.com/rag-evaluation-not-a-score.html" rel="canonical"/>
-<link href="favicon.png" rel="icon"/>
+<meta content="RAG evaluation, RAG evaluation metrics, how to evaluate RAG systems, RAG evaluation framework, RAG evaluation Python, retrieval evaluation metrics" name="keywords"/>
+<link rel="canonical" href="https://yangmingli.com/rag-evaluation-not-a-score.html"/>
+<link href="/favicon.png" rel="icon"/>
 <meta content="article" property="og:type"/>
 <meta content="Yangming Li" property="og:site_name"/>
-<meta content="RAG Evaluation Is Not a Score | Yangming Li" property="og:title"/>
-<meta content="A practical framework for measuring RAG retrieval quality, generation faithfulness, and system reliability across offline evaluation, online testing, and continuous monitoring." property="og:description"/>
+<meta content="RAG Evaluation Guide: Metrics, Frameworks, and Python Examples | Yangming Li" property="og:title"/>
+<meta content="Learn how to evaluate RAG systems across retrieval, generation, citations, no-answer behavior, latency, and cost, with metrics, scorecards, test sets, and Python examples." property="og:description"/>
 <meta content="https://yangmingli.com/rag-evaluation-not-a-score.html" property="og:url"/>
-<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
-<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="https://yangmingli.com/img/rag-evaluation-guide-og.png" property="og:image"/>
+<meta content="RAG Evaluation Guide social sharing image" property="og:image:alt"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="RAG Evaluation Is Not a Score | Yangming Li" name="twitter:title"/>
-<meta content="A practical framework for measuring RAG retrieval quality, generation faithfulness, and system reliability across offline evaluation, online testing, and continuous monitoring." name="twitter:description"/>
-<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="RAG Evaluation Guide: Metrics, Frameworks, and Python Examples | Yangming Li" name="twitter:title"/>
+<meta content="Learn how to evaluate RAG systems across retrieval, generation, citations, no-answer behavior, latency, and cost, with metrics, scorecards, test sets, and Python examples." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/rag-evaluation-guide-og.png" name="twitter:image"/>
 <meta content="Yangming Li" property="article:author"/>
 <meta content="2026-06-16" property="article:published_time"/>
-<meta content="2026-06-16" property="article:modified_time"/>
+<meta content="2026-06-18" property="article:modified_time"/>
 <meta content="LLM Evaluation" property="article:section"/>
 <meta content="RAG Evaluation" property="article:tag"/>
-<meta content="Retrieval-Augmented Generation" property="article:tag"/>
+<meta content="Retrieval Evaluation Metrics" property="article:tag"/>
 <meta content="Production AI" property="article:tag"/>
 <link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
-<link href="css/font-awesome.min.css" rel="stylesheet"/>
-<link href="css/bootstrap.min.css" rel="stylesheet"/>
-<link href="css/style_blog.css" rel="stylesheet"/>
-<link href="css/blog_post.css" rel="stylesheet"/>
-<link href="css/nav.css" rel="stylesheet"/>
+<link href="/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/style_blog.css" rel="stylesheet"/>
+<link href="/css/blog_post.css" rel="stylesheet"/>
+<link href="/css/nav.css" rel="stylesheet"/>
 <link href="/css/typography.css" rel="stylesheet"/>
 <link href="/css/newsletter.css" rel="stylesheet"/>
-<script defer="" src="js/loadHeader.js"></script>
+<script defer="" src="/js/loadHeader.js"></script>
 <script defer="" src="/js/newsletter.js?v=newsletter-api-20260615"></script>
 <style>
 .theme-switch {
@@ -90,6 +92,126 @@ body.blog-post-page .article-share-surface .linkedin {
 body.blog-post-page .article-share-surface .email {
   background-color: #D44638;
 }
+.article-subtitle {
+  color: #52606d;
+  font-size: 1.25rem;
+  line-height: 1.65;
+  margin: 14px auto 0;
+  max-width: 820px;
+}
+.toc-container nav {
+  margin-top: 12px;
+}
+.toc-list {
+  columns: 2;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc-list li {
+  break-inside: avoid;
+  margin: 0 0 9px;
+}
+.toc-list a {
+  color: #0f766e;
+  font-weight: 700;
+}
+.article-content h2,
+.article-content h3 {
+  scroll-margin-top: 86px;
+}
+.definition-box,
+.asset-downloads,
+.note-box {
+  background: #f7fbfa;
+  border: 1px solid #d7e3df;
+  border-radius: 8px;
+  margin: 22px 0;
+  padding: 20px;
+}
+.definition-box p,
+.asset-downloads p,
+.note-box p {
+  margin: 0;
+}
+.guide-figure {
+  margin: 28px 0;
+}
+.guide-figure img {
+  background: #f7faf9;
+  border: 1px solid #d7e3df;
+  border-radius: 8px;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.guide-figure figcaption {
+  color: #5b6776;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin-top: 10px;
+}
+.responsive-table {
+  margin: 22px 0;
+  overflow-x: auto;
+  width: 100%;
+}
+.responsive-table table {
+  border-collapse: collapse;
+  min-width: 760px;
+  width: 100%;
+}
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #dbe5e2;
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+}
+.responsive-table th {
+  background: #f1f8f6;
+  color: #0b5f59;
+  font-weight: 800;
+}
+.responsive-table td {
+  background: #ffffff;
+}
+.asset-downloads ul,
+.workflow-list,
+.faq-list {
+  margin-bottom: 0;
+}
+.code-block {
+  background: #102a43;
+  border-radius: 8px;
+  color: #e6fffa;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 18px 0;
+  overflow-x: auto;
+  padding: 18px;
+}
+.code-block code {
+  color: inherit;
+  white-space: pre;
+}
+.faq-section details {
+  border-top: 1px solid #dbe5e2;
+  padding: 16px 0;
+}
+.faq-section details:first-child {
+  border-top: 0;
+}
+.faq-section summary {
+  color: #172033;
+  cursor: pointer;
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+.source-note {
+  color: #5b6776;
+  font-size: 0.95rem;
+}
 @media (max-width: 768px) {
   html,
   body.rag-evaluation-page {
@@ -109,9 +231,9 @@ body.blog-post-page .article-share-surface .email {
     overflow-x: hidden;
   }
   body.rag-evaluation-page .article-page-container {
-    width: 100% !important;
     padding-left: 12px !important;
     padding-right: 12px !important;
+    width: 100% !important;
   }
   body.rag-evaluation-page .seo-breadcrumbs,
   body.rag-evaluation-page .article-hero,
@@ -123,21 +245,27 @@ body.blog-post-page .article-share-surface .email {
   body.rag-evaluation-page .footer,
   body.rag-evaluation-page .seo-related-block,
   body.rag-evaluation-page .site-footer {
-    width: calc(100vw - 24px) !important;
-    max-width: calc(100vw - 24px) !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    max-width: calc(100vw - 24px) !important;
+    width: calc(100vw - 24px) !important;
   }
   body.rag-evaluation-page .article-hero h1 {
     display: block;
-    width: 100% !important;
-    max-width: 100% !important;
     font-size: clamp(28px, 8.5vw, 36px);
     letter-spacing: 0;
     line-height: 1.12;
+    max-width: 100% !important;
     overflow-wrap: break-word;
     text-wrap: wrap;
+    width: 100% !important;
     word-break: normal;
+  }
+  .article-subtitle {
+    font-size: 1.08rem;
+  }
+  .toc-list {
+    columns: 1;
   }
   body.rag-evaluation-page .article-hero .blog-meta,
   body.rag-evaluation-page .article-meta-surface,
@@ -158,9 +286,9 @@ body.blog-post-page .article-share-surface .email {
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "RAG Evaluation Is Not a Score: How to Measure Retrieval, Generation, and System Reliability",
-  "description": "A practical framework for measuring RAG retrieval quality, generation faithfulness, and system reliability across offline evaluation, online testing, and continuous monitoring.",
-  "image": "https://yangmingli.com/img/Logo.png",
+  "headline": "RAG Evaluation Guide: Metrics, Frameworks, and Python Examples",
+  "description": "Learn how to evaluate RAG systems across retrieval, generation, citations, no-answer behavior, latency, and cost, with metrics, scorecards, test sets, and Python examples.",
+  "image": "https://yangmingli.com/img/rag-evaluation-guide-og.png",
   "author": {
     "@type": "Person",
     "name": "Yangming Li",
@@ -175,7 +303,7 @@ body.blog-post-page .article-share-surface .email {
     }
   },
   "datePublished": "2026-06-16",
-  "dateModified": "2026-06-16",
+  "dateModified": "2026-06-18",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://yangmingli.com/rag-evaluation-not-a-score.html"
@@ -183,18 +311,23 @@ body.blog-post-page .article-share-surface .email {
   "articleSection": "LLM Evaluation",
   "keywords": [
     "RAG evaluation",
-    "retrieval evaluation",
-    "RAGAS",
-    "RAGR",
-    "RAGEval",
+    "RAG evaluation metrics",
+    "how to evaluate RAG systems",
+    "RAG evaluation framework",
+    "RAG evaluation Python",
+    "retrieval evaluation metrics",
+    "Recall@K",
+    "Precision@K",
+    "MRR",
+    "nDCG",
     "faithfulness",
-    "context precision",
-    "context recall",
-    "production AI"
+    "groundedness",
+    "citation quality",
+    "no-answer accuracy"
   ],
   "inLanguage": "en",
   "isAccessibleForFree": true,
-  "wordCount": 2414,
+  "wordCount": 2324,
   "timeRequired": "PT12M"
 }</script>
 <script type="application/ld+json">{
@@ -216,27 +349,82 @@ body.blog-post-page .article-share-surface .email {
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "RAG Evaluation Is Not a Score",
+      "name": "RAG Evaluation Guide",
       "item": "https://yangmingli.com/rag-evaluation-not-a-score.html"
+    }
+  ]
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is RAG evaluation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RAG evaluation measures whether a retrieval-augmented generation system finds the right evidence, uses that evidence faithfully, cites it correctly, refuses unsupported questions, and stays reliable in production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What metrics should be used for RAG evaluation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use separate metrics for retrieval, generation, citation behavior, refusal behavior, task success, and operations. Common retrieval metrics include Recall@K, Precision@K, MRR, and nDCG. Generation checks often include faithfulness, groundedness, completeness, and answer relevance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you evaluate retrieval separately from generation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evaluate retrieval by comparing returned document IDs or chunks against a known relevant set. Evaluate generation by checking whether the final answer is correct, complete, supported by the retrieved evidence, and properly cited."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a golden dataset for RAG?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A golden dataset for RAG is a curated set of questions, relevant source IDs, distractor sources, expected behavior, and failure labels used to test retrieval, generation, citations, refusals, and clarifications before release."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can RAG evaluation be automated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RAG evaluation can be partly automated with retrieval metrics, schema checks, citation checks, deterministic validators, and LLM-based graders. Human review is still useful for ambiguous, high-risk, or newly discovered failure cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should be monitored in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Production RAG monitoring should track answer success, citation quality, refusal accuracy, stale-source usage, retrieval drift, latency, cost, timeout rate, index freshness, user corrections, and failure clusters."
+      }
     }
   ]
 }</script>
 </head>
 <body class="blog-post-page rag-evaluation-page">
 <nav aria-label="Breadcrumb" class="seo-breadcrumbs">
-<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>RAG Evaluation</span>
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>RAG Evaluation Guide</span>
 </nav>
 <div aria-hidden="true" class="article-progress-bar"><span></span></div>
 <div class="main-content">
 <div class="article-page-container">
 <header class="article-hero text-center">
 <div class="article-kicker-row">
-<span class="article-kicker">LLM Evaluation</span>
-<span class="article-kicker article-kicker-muted">RAG Systems</span>
+<span class="article-kicker">RAG Evaluation</span>
+<span class="article-kicker article-kicker-muted">Metrics and Frameworks</span>
 </div>
-<h1>RAG Evaluation Is Not a Score: How to Measure Retrieval, Generation, and System Reliability</h1>
+<h1>RAG Evaluation: Metrics, Test Sets, Frameworks, and Production Monitoring</h1>
+<p class="article-subtitle">RAG Evaluation Is Not a Score. It is a way to make retrieval-augmented answers inspectable, repeatable, and safe enough to improve.</p>
 <p class="lead">By Yangming Li</p>
-<p class="blog-meta"><span>Published June 16, 2026</span><span>12 min read</span><span>Technical guide</span></p>
+<p class="blog-meta"><span>Published June 16, 2026</span><span>Updated June 18, 2026</span><span>12 min read</span><span>Technical guide</span></p>
 </header>
 <div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
 <div class="article-theme-surface">
@@ -249,9 +437,9 @@ body.blog-post-page .article-share-surface .email {
 </div>
 <div class="article-meta-surface">
 <span><i class="fa fa-clock-o"></i> 12 min read</span>
-<span><i class="fa fa-file-text-o"></i> Approx. 2400 words</span>
-<span><i class="fa fa-check-square-o"></i> Retrieval, generation, and reliability</span>
-<p class="keywords"><strong>Keywords:</strong> RAG evaluation, RAGAS, RAGR, RAGEval, retrieval quality, faithfulness, groundedness, context precision, context recall, production AI.</p>
+<span><i class="fa fa-file-text-o"></i> Approx. 2300 words</span>
+<span><i class="fa fa-check-square-o"></i> Retrieval, generation, citations, and monitoring</span>
+<p class="keywords"><strong>Keywords:</strong> RAG evaluation, RAG evaluation metrics, retrieval evaluation metrics, golden datasets, faithfulness, groundedness, citation quality, no-answer accuracy, production monitoring.</p>
 </div>
 <div class="article-share-surface">
 <a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
@@ -263,323 +451,328 @@ body.blog-post-page .article-share-surface .email {
 <div class="tldr-container">
 <div class="tldr-box">
 <h4><i class="fa fa-clock-o"></i> TL;DR</h4>
-<p>RAG evaluation should not collapse into one score. A serious evaluation setup separates retrieval quality, generation faithfulness, and system reliability so teams can diagnose which part of the pipeline made an answer trustworthy or risky.</p>
+<p>Evaluate a RAG system in layers: retrieval, evidence quality, generation, citations and refusals, task success, and operations. A single aggregate score can be useful for dashboards, but it is too blunt for debugging.</p>
 </div>
 </div>
 <div class="key-points">
 <h4>Article Highlights</h4>
 <ul>
-<li>RAG systems fail at different layers: retrieval, reranking, generation, prompting, chunking, freshness, and infrastructure.</li>
-<li>Retrieval metrics such as Recall@K, Precision@K, MRR, and nDCG answer different questions from generation metrics such as faithfulness and groundedness.</li>
-<li>Frameworks such as RAGR, RAGAS, and RAGEval are most useful when they help diagnose failure points, not when they become isolated leaderboard numbers.</li>
-<li>Production RAG evaluation needs offline evals, controlled online tests, and continuous monitoring for quality, latency, drift, recency, and stability.</li>
+<li>Defines what RAG evaluation is and why it should not collapse into one score.</li>
+<li>Includes a scorecard for retrieval, evidence, generation, citations, refusals, and production reliability.</li>
+<li>Provides a synthetic golden dataset and a dependency-free Python metrics file.</li>
+<li>Compares RAG evaluation approaches at a high level with links to official documentation.</li>
 </ul>
 </div>
 </div>
 <div class="toc-container">
 <h4>Contents</h4>
-<div id="toc"></div>
+<nav aria-label="Table of contents">
+<ol class="toc-list">
+<li><a href="#what-rag-evaluation-is">What RAG evaluation is</a></li>
+<li><a href="#not-one-score">Why it should not be one score</a></li>
+<li><a href="#rag-evaluation-architecture">Evaluation architecture</a></li>
+<li><a href="#golden-evaluation-dataset">Golden evaluation dataset</a></li>
+<li><a href="#retrieval-evaluation-metrics">Retrieval metrics</a></li>
+<li><a href="#generation-evaluation-metrics">Generation metrics</a></li>
+<li><a href="#citation-and-no-answer-evaluation">Citation and no-answer checks</a></li>
+<li><a href="#end-to-end-task-evaluation">End-to-end task evaluation</a></li>
+<li><a href="#production-monitoring">Production monitoring</a></li>
+<li><a href="#framework-and-tool-comparison">Framework and tool comparison</a></li>
+<li><a href="#practical-implementation-workflow">Implementation workflow</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+</nav>
 </div>
 <article class="article-content">
-<p>Retrieval-Augmented Generation, or RAG, has become one of the most practical architectures for building real-world LLM applications. It allows a model to retrieve external knowledge before generating an answer, which can improve factuality, reduce hallucination, and make responses more relevant to domain-specific tasks.</p>
-<p>But as more teams move from RAG demos to production systems, one lesson becomes increasingly clear:</p>
-<blockquote>
-<p>RAG is not just about making the model answer. It is about making the answer auditable.</p>
-</blockquote>
-<p>A good RAG system should not only produce fluent responses. It should be able to show where the information came from, whether the retrieved evidence was relevant, whether the final answer stayed faithful to that evidence, and whether the whole system is stable enough for real users.</p>
-<p>That is why RAG evaluation cannot be reduced to a single metric.</p>
-<p>A serious RAG evaluation framework needs to inspect three layers:</p>
+<section id="what-rag-evaluation-is">
+<h2>What RAG evaluation is</h2>
+<div class="definition-box">
+<p><strong>RAG evaluation</strong> measures whether a retrieval-augmented generation system retrieves the right evidence, uses that evidence faithfully, cites it correctly, refuses unsupported questions, and performs reliably in production. A complete evaluation framework separates retrieval metrics, generation metrics, end-to-end task success, and operational reliability.</p>
+</div>
+<p>Retrieval-Augmented Generation, or RAG, is useful because it can connect a language model to a controlled knowledge source before the model writes an answer. That extra retrieval step creates a new responsibility: the answer should be traceable to the evidence that was retrieved.</p>
+<p>A good RAG answer is not only fluent. It should answer the question, cite the right sources, avoid unsupported claims, acknowledge missing evidence, and remain stable as documents, users, indexes, prompts, and models change.</p>
+<p>This is why RAG evaluation belongs inside the broader discipline of <a href="/llm-evaluation/">LLM evaluation</a>, but it deserves its own workflow. General LLM evaluation asks whether a language model system meets the product contract. RAG evaluation asks a more specialized question: did the system find and use the right evidence?</p>
+<figure class="guide-figure">
+<img src="/img/rag-evaluation-framework.svg" alt="RAG evaluation framework from user query to retriever, retrieved chunks, reranker, LLM generation, and final answer with metrics attached to each stage."/>
+<figcaption>The evaluation surface spans the retriever, retrieved evidence, reranker, generator, final answer, and operational behavior.</figcaption>
+</figure>
+</section>
+
+<section id="not-one-score">
+<h2>Why RAG evaluation should not be reduced to one score</h2>
+<p>The original idea behind this article is still the most important one: RAG evaluation is not a score. A single score can summarize a dashboard, but it cannot explain which part of the pipeline failed.</p>
+<p>A bad answer can come from several different places. The retriever may miss the correct document. The reranker may bury the best chunk. The generator may ignore the evidence. The answer may cite a source that only partly supports the claim. The system may be correct offline but too slow, expensive, or stale in production.</p>
+<p>Those failures need different fixes. Retrieval problems often require indexing, chunking, metadata, embedding, query rewriting, or reranking work. Generation problems often require prompt, context layout, refusal, citation, or grader changes. Production problems often require monitoring, cache, timeout, index refresh, and release-gate changes.</p>
+<p>A useful RAG evaluation framework therefore keeps separate measurements for separate failure modes. Teams can still create a release summary, but the summary should preserve enough detail for debugging.</p>
+</section>
+
+<section id="rag-evaluation-architecture">
+<h2>RAG evaluation architecture</h2>
+<p>A practical architecture starts by logging the full evaluation record. Store the user question, generated query, retrieved document IDs, retrieved chunk text or references, reranker scores, final context, answer, citations, expected behavior, model and prompt versions, retrieval index version, latency, and cost.</p>
+<p>Then evaluate the record in layers. The scorecard below is a compact way to decide what each layer should measure and what failures it is meant to catch.</p>
+<div class="responsive-table" role="region" aria-label="RAG evaluation scorecard" tabindex="0">
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What is evaluated</th>
+<th>Example metrics</th>
+<th>Common failures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Retrieval</td>
+<td>Whether the right evidence was found</td>
+<td>Recall@K, Precision@K, MRR, nDCG</td>
+<td>Missing source, weak chunk ranking</td>
+</tr>
+<tr>
+<td>Evidence quality</td>
+<td>Whether evidence is current and authoritative</td>
+<td>Freshness, version match, duplicate rate</td>
+<td>Stale policy, wrong document version</td>
+</tr>
+<tr>
+<td>Generation</td>
+<td>Whether the answer follows the evidence</td>
+<td>Faithfulness, groundedness, completeness</td>
+<td>Unsupported claims, missing caveats</td>
+</tr>
+<tr>
+<td>Citation and refusal</td>
+<td>Whether claims are supported and unsupported questions are refused</td>
+<td>Citation precision, citation coverage, no-answer accuracy</td>
+<td>Fake or partial citations</td>
+</tr>
+<tr>
+<td>Production</td>
+<td>Whether the pipeline is stable and efficient</td>
+<td>Latency, cost, timeout rate, drift</td>
+<td>Cost spikes, stale indexes, unstable responses</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This architecture is deliberately diagnostic. It helps answer questions like: did the system retrieve the right source but fail to quote it, or did it never retrieve the source at all?</p>
+</section>
+
+<section id="golden-evaluation-dataset">
+<h2>Building a golden evaluation dataset</h2>
+<p>A golden evaluation dataset is a curated set of cases that represents what the system must handle. It should include ordinary successful questions, edge cases, conflict cases, stale-source cases, ambiguous questions, missing-evidence cases, and production failures that should never regress.</p>
+<p>Each case should make the expected behavior explicit. For RAG, that usually means source IDs, distractor source IDs, expected refusal or clarification behavior, and a failure label that explains why the case exists.</p>
+<div class="asset-downloads">
+<p><strong>Download the synthetic examples:</strong></p>
 <ul>
-<li><strong>Retrieval quality:</strong> Did the system find the right evidence?</li>
-<li><strong>Generation consistency:</strong> Did the model answer based on that evidence?</li>
-<li><strong>System reliability:</strong> Can the full pipeline run stably, quickly, and repeatedly in production?</li>
+<li><a href="/assets/rag-evaluation/golden_set.jsonl">Synthetic golden dataset JSONL</a></li>
+<li><a href="/assets/rag-evaluation/retrieval_metrics.py">Python retrieval metrics source</a></li>
+<li><a href="/assets/rag-evaluation/README.md">Dataset and metrics README</a></li>
 </ul>
-<h2 id="why-rag-evaluation-is-hard">1. Why RAG Evaluation Is Hard</h2>
-<p>A traditional LLM evaluation often focuses on the final answer. For RAG, that is not enough.</p>
-<p>A RAG system can fail in many different ways.</p>
-<ul>
-<li>The retriever may miss the correct document.</li>
-<li>The retriever may return too many noisy chunks.</li>
-<li>The reranker may place weak evidence above useful evidence.</li>
-<li>The generator may ignore the retrieved material.</li>
-<li>The answer may sound confident but include unsupported claims.</li>
-<li>The system may work in testing but become slow or unstable online.</li>
-</ul>
-<p>This means a bad answer does not always mean the language model is weak. Sometimes the issue is retrieval. Sometimes it is chunking. Sometimes it is reranking. Sometimes it is the prompt. Sometimes it is the evaluation set itself.</p>
-<p>That is why RAG evaluation should be decomposed.</p>
-<p>The key question is not only:</p>
-<blockquote>
-<p>Is the answer good?</p>
-</blockquote>
-<p>The better question is:</p>
-<blockquote>
-<p>Which part of the RAG pipeline made the answer good or bad?</p>
-</blockquote>
-<h2 id="ragr-layered-view">2. RAGR: A Layered View of RAG Evaluation</h2>
-<p>The RAGR framework gives a useful way to think about RAG evaluation. Instead of only judging the final answer, it separates the system into different measurable objects:</p>
-<ul>
-<li>Query</li>
-<li>Retrieved documents</li>
-<li>Generated response</li>
-<li>Ground truth or reference label</li>
-</ul>
-<p>This structure makes RAG evaluation more diagnostic.</p>
-<p>For the retrieval layer, we ask:</p>
-<ul>
-<li><strong>Relevance:</strong> Are the retrieved documents related to the query?</li>
-<li><strong>Accuracy:</strong> Do the retrieved documents match the expected evidence?</li>
-</ul>
-<p>For the generation layer, we ask:</p>
-<ul>
-<li><strong>Answer relevance:</strong> Does the response actually answer the user's question?</li>
-<li><strong>Faithfulness:</strong> Is the response supported by the retrieved documents?</li>
-<li><strong>Correctness:</strong> Does the answer match the expected conclusion or reference answer?</li>
-</ul>
-<p>This layered approach is important because a final answer can sometimes look good while hiding retrieval problems. The opposite can also happen: retrieval may be strong, but the generator fails to use the evidence correctly.</p>
-<p>Without separating retrieval and generation, it is difficult to know what to optimize.</p>
-<h2 id="retrieval-evaluation">3. Retrieval Evaluation: Did We Find the Right Evidence?</h2>
-<p>Retrieval is the foundation of RAG. If the system cannot retrieve the right evidence, the language model is forced to guess.</p>
-<p>The most common retrieval metrics include:</p>
+</div>
+<p>The included JSONL file has synthetic cases for stale documents, conflicting sources, missing evidence, ambiguous acronyms, partial citation support, correct refusals, clarification requests, duplicate chunks, multi-document synthesis, wrong policy versions, incorrect retrieval, and correct retrieval with incorrect generation risk.</p>
+<p>Do not treat a golden set as a static benchmark. The best evaluation sets evolve. Every meaningful production failure should either map to an existing case or become a new one.</p>
+</section>
+
+<section id="retrieval-evaluation-metrics">
+<h2>Retrieval evaluation metrics</h2>
+<p>Retrieval metrics ask whether the system found useful evidence before generation. They can be computed without calling an LLM when each case has a set of relevant document or chunk IDs.</p>
 <h3 id="recall-at-k">Recall@K</h3>
-<p>Recall@K measures whether the correct or useful documents appear in the top K retrieved results. For example, if 8 out of 10 expected evidence chunks appear in the top 10 results, Recall@10 is 0.8.</p>
-<p>Higher recall usually means the system has better coverage. However, blindly increasing recall can introduce too much noise.</p>
+<p>Recall@K measures how much of the known relevant evidence appears in the top K retrieved results. It is helpful when missing the correct source is the main risk.</p>
 <h3 id="precision-at-k">Precision@K</h3>
-<p>Precision@K measures how many of the top K retrieved results are truly relevant. If a retriever returns 10 chunks but only 6 are useful, Precision@10 is 0.6.</p>
-<p>Low precision means the model receives too much irrelevant context, which can confuse generation and reduce answer quality.</p>
-<h3 id="mrr">MRR</h3>
-<p>Mean Reciprocal Rank measures how early the first correct result appears. If useful evidence usually appears in the top few positions, the retriever has strong ranking ability.</p>
+<p>Precision@K measures how much of the top K context is actually relevant. It is helpful when the generator is being distracted by noisy chunks.</p>
+<h3 id="reciprocal-rank">Reciprocal rank and MRR</h3>
+<p>Reciprocal rank is 1 divided by the position of the first relevant result. Mean Reciprocal Rank, or MRR, averages that value across cases. It rewards systems that rank useful evidence early.</p>
 <h3 id="ndcg">nDCG</h3>
-<p>Normalized Discounted Cumulative Gain measures ranking quality by giving higher weight to relevant documents that appear earlier in the list.</p>
-<p>These metrics are common in search systems, but they are especially important for RAG because retrieval quality directly affects generation quality.</p>
-<p>In RAG, the goal is not simply to retrieve documents that are topically similar. The goal is to retrieve evidence that is actually useful for answering the question.</p>
-<h2 id="generation-evaluation">4. Generation Evaluation: Did the Model Stay Faithful to the Evidence?</h2>
-<p>After retrieval, the generator must turn evidence into an answer. This is where many RAG systems fail.</p>
-<p>The two most common generation problems are:</p>
-<ul>
-<li><strong>Hallucination:</strong> the model invents unsupported information.</li>
-<li><strong>Lack of faithfulness:</strong> the answer does not accurately reflect the retrieved context.</li>
-</ul>
-<p>This is why generation evaluation should focus on whether the answer is grounded.</p>
-<p>Useful generation metrics include:</p>
+<p>nDCG is useful when relevance is graded rather than binary. It gives more credit when highly relevant documents appear earlier in the ranking.</p>
+<p>The complete source file is available at <a href="/assets/rag-evaluation/retrieval_metrics.py">assets/rag-evaluation/retrieval_metrics.py</a>. Here is the core excerpt:</p>
+<pre class="code-block"><code>def recall_at_k(retrieved_ids, relevant_ids, k):
+    """Return the share of relevant documents retrieved in the top k results."""
+    relevant = _validate_relevant(relevant_ids)
+    top_k = _validate_retrieved(retrieved_ids, k)
+    if not top_k:
+        return 0.0
+    hits = len(set(top_k) &amp; relevant)
+    return hits / len(relevant)
+
+
+def precision_at_k(retrieved_ids, relevant_ids, k):
+    """Return the share of top k retrieved documents that are relevant."""
+    relevant = _validate_relevant(relevant_ids)
+    top_k = _validate_retrieved(retrieved_ids, k)
+    if not top_k:
+        return 0.0
+    hits = len(set(top_k) &amp; relevant)
+    return hits / len(top_k)
+
+
+def reciprocal_rank(retrieved_ids, relevant_ids):
+    """Return 1/rank for the first relevant result, or 0.0 when none is found."""
+    relevant = _validate_relevant(relevant_ids)
+    _validate_retrieved(retrieved_ids, max(len(retrieved_ids), 1))
+    for rank, doc_id in enumerate(retrieved_ids, start=1):
+        if doc_id in relevant:
+            return 1.0 / rank
+    return 0.0</code></pre>
+<p>Run it locally with:</p>
+<pre class="code-block"><code>python assets/rag-evaluation/retrieval_metrics.py</code></pre>
+</section>
+
+<section id="generation-evaluation-metrics">
+<h2>Generation evaluation metrics</h2>
+<p>Generation evaluation asks whether the final answer is correct and supported by the retrieved evidence. This is separate from retrieval. A system can retrieve the right source and still write the wrong answer.</p>
 <h3 id="faithfulness">Faithfulness</h3>
-<p>Faithfulness measures whether the generated answer is supported by the retrieved documents. A faithful answer should not introduce claims that cannot be traced back to the provided context.</p>
+<p>Faithfulness checks whether answer claims are supported by the retrieved context. It is one of the most important generation checks for RAG because unsupported claims are often written in confident language.</p>
 <h3 id="groundedness">Groundedness</h3>
-<p>Groundedness checks whether each important statement in the answer can be linked to evidence in the retrieved material.</p>
-<h3 id="factual-consistency">Factual consistency</h3>
-<p>Factual consistency asks whether the answer is internally coherent and externally supported by the available evidence.</p>
-<h3 id="answer-relevance">Answer relevance</h3>
-<p>Answer relevance measures whether the response actually addresses the original query rather than giving a generic or partially related answer.</p>
+<p>Groundedness checks whether important answer statements can be traced back to evidence. In some systems, this can be evaluated claim by claim.</p>
 <h3 id="completeness">Completeness</h3>
-<p>Completeness checks whether the answer covers the key information required by the question.</p>
-<p>Traditional metrics such as BLEU, ROUGE, and METEOR can still be useful in some cases, especially when there is a stable reference answer. But for many modern RAG applications, these metrics are not enough. A correct answer may use different wording from the reference answer, while a high-overlap answer may still be unsupported.</p>
-<p>This is why many modern evaluation frameworks use LLM-as-Evaluator methods alongside traditional metrics.</p>
-<h2 id="ragas-framework">5. RAGAS: A Practical Framework for RAG Evaluation</h2>
-<p>RAGAS is a practical open-source framework for evaluating RAG systems. It focuses on several important dimensions:</p>
+<p>Completeness asks whether the answer covers the key parts of the question. A short answer can be faithful but incomplete.</p>
+<h3 id="answer-relevance">Answer relevance</h3>
+<p>Answer relevance asks whether the response directly addresses the user request. This catches cases where the model stays on topic but does not solve the task.</p>
+<p>LLM-as-judge methods can help with semantic review, but they should be calibrated with examples and paired with deterministic checks where possible. Use exact source IDs, schemas, regexes, and business rules before asking another model to make a subjective judgment.</p>
+</section>
+
+<section id="citation-and-no-answer-evaluation">
+<h2>Citation and no-answer evaluation</h2>
+<p>Citations are not decoration. In RAG systems, citations are part of the trust contract. Citation evaluation should check whether each cited source exists, whether it supports the claim, whether important claims have coverage, and whether the answer avoids citing irrelevant or partial evidence.</p>
+<p>No-answer evaluation is equally important. A RAG system should refuse or ask for clarification when the corpus does not support an answer. This is not a model personality preference; it is a product safety behavior.</p>
+<p>Useful checks include:</p>
 <ul>
-<li><strong>Faithfulness:</strong> Does the answer stay grounded in the retrieved context?</li>
-<li><strong>Answer relevancy:</strong> Does the answer respond to the user's actual question?</li>
-<li><strong>Context precision:</strong> Are the retrieved chunks relevant and well-ranked?</li>
-<li><strong>Context recall:</strong> Does the retrieved context contain the information needed to answer the question?</li>
+<li><strong>Citation precision:</strong> cited sources actually support the claims they are attached to.</li>
+<li><strong>Citation coverage:</strong> important answer claims have supporting citations.</li>
+<li><strong>No-answer accuracy:</strong> unsupported questions are refused instead of answered from weak evidence.</li>
+<li><strong>Clarification accuracy:</strong> ambiguous questions trigger a clarifying question rather than a guessed answer.</li>
 </ul>
-<p>The value of RAGAS is not only that it produces scores. Its bigger value is that it helps diagnose failure points.</p>
-<p>For example:</p>
+</section>
+
+<section id="end-to-end-task-evaluation">
+<h2>End-to-end task evaluation</h2>
+<p>Layered metrics explain failures, but users experience the whole workflow. End-to-end task evaluation asks whether the RAG system solved the user problem under the constraints of the product.</p>
+<p>For a support assistant, that might mean the user got the correct policy answer with a source and no private information leaked. For an internal search assistant, it might mean the user found the right document and did not need to run a second query. For a document workflow, it might mean the answer was accurate enough for a reviewer to approve or escalate.</p>
+<p>End-to-end evaluation should include pass/fail outcomes, severity labels, reviewer notes, and links to the lower-level retrieval and generation measurements. The point is not to hide details behind a final score. The point is to connect detailed diagnostics to a release decision.</p>
+</section>
+
+<section id="production-monitoring">
+<h2>Production monitoring</h2>
+<p>Offline evaluation catches regressions before release. Production monitoring catches drift after release. RAG systems are especially sensitive to changing documents, changing user language, changing models, and stale indexes.</p>
+<p>Monitor at least these dimensions:</p>
 <ul>
-<li>Low faithfulness may suggest that the model is over-generating or ignoring evidence.</li>
-<li>Low answer relevancy may suggest query understanding or prompt design issues.</li>
-<li>Low context precision may suggest retrieval or reranking problems.</li>
-<li>Low context recall may suggest chunking, indexing, or knowledge coverage issues.</li>
+<li>Latency, cost, timeout rate, and retry rate.</li>
+<li>Index freshness, source version, and stale-source usage.</li>
+<li>Citation quality, citation coverage, and unsupported-claim reports.</li>
+<li>No-answer and clarification behavior.</li>
+<li>User corrections, escalations, thumbs-down feedback, and reviewer disagreement.</li>
+<li>Retrieval drift by query type, source family, or embedding/index version.</li>
 </ul>
-<p>A strong RAG evaluation setup should not treat these metrics as isolated numbers. The real value comes from understanding how they interact.</p>
-<h2 id="rageval-scenario-specific-evaluation">6. RAGEval: Why Scenario-Specific Evaluation Matters</h2>
-<p>Many public RAG benchmarks focus on general question answering. This is useful, but it is not always enough for production systems.</p>
-<p>Real RAG systems are often used in specialized domains such as finance, healthcare, legal research, enterprise knowledge management, customer support, and education. These domains often contain private documents, domain-specific terminology, strict compliance requirements, and higher risk of downstream impact.</p>
-<p>RAGEval addresses this problem by focusing on scenario-specific RAG evaluation dataset generation. Instead of only relying on public QA datasets, it proposes a way to create evaluation data that better reflects real domain scenarios.</p>
-<p>At a high level, this type of framework involves:</p>
+<p>When monitoring finds a real failure, convert it into a golden dataset case. That closes the loop between production evidence and future release gates.</p>
+</section>
+
+<section id="framework-and-tool-comparison">
+<h2>Framework and tool comparison</h2>
+<p>Different RAG evaluation tools are useful for different jobs. The table below is intentionally high-level and source-linked. Metrics with similar names across frameworks are not necessarily directly comparable because implementations, prompts, judges, reference requirements, and aggregation choices can differ.</p>
+<div class="responsive-table" role="region" aria-label="RAG evaluation tool comparison" tabindex="0">
+<table>
+<thead>
+<tr>
+<th>Approach or tool</th>
+<th>Useful when</th>
+<th>What to verify before relying on it</th>
+<th>Official source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RAGAS</td>
+<td>You want RAG-focused metrics such as context precision, context recall, response relevancy, and faithfulness.</td>
+<td>Check which metrics require references, which use LLM calls, and how prompts or models are configured.</td>
+<td><a href="https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/" rel="noopener noreferrer">RAGAS metrics docs</a></td>
+</tr>
+<tr>
+<td>DeepEval</td>
+<td>You want an evaluation framework that treats the retriever and generator as separate parts of a RAG pipeline.</td>
+<td>Check metric definitions, required inputs, judge model settings, and CI behavior for your test suite.</td>
+<td><a href="https://deepeval.com/guides/guides-rag-evaluation" rel="noopener noreferrer">DeepEval RAG evaluation guide</a></td>
+</tr>
+<tr>
+<td>RAGChecker</td>
+<td>You want fine-grained diagnostic evaluation across the full pipeline, retriever, and generator.</td>
+<td>Check input format requirements, model dependencies, and whether its diagnostic metrics match your review needs.</td>
+<td><a href="https://github.com/amazon-science/RAGChecker" rel="noopener noreferrer">RAGChecker repository</a></td>
+</tr>
+<tr>
+<td>LangSmith</td>
+<td>You want datasets, experiments, evaluators, traces, and production feedback loops around RAG applications.</td>
+<td>Check how your stack sends traces, how datasets are curated, and which evaluators are offline or online.</td>
+<td><a href="https://docs.langchain.com/langsmith/evaluate-rag-tutorial" rel="noopener noreferrer">LangSmith RAG tutorial</a></td>
+</tr>
+<tr>
+<td>Promptfoo</td>
+<td>You want declarative tests for retrieval and output generation, including custom assertions that match your application.</td>
+<td>Check provider setup, assertion semantics, and whether tests cover retrieval separately from final output.</td>
+<td><a href="https://www.promptfoo.dev/docs/guides/evaluate-rag/" rel="noopener noreferrer">Promptfoo RAG guide</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="source-note">Use framework scores as measurement tools, not as universal truth. Keep a small hand-reviewed calibration set so that metric changes remain interpretable.</p>
+</section>
+
+<section id="practical-implementation-workflow">
+<h2>A practical implementation workflow</h2>
+<ol class="workflow-list">
+<li><strong>Define the product contract.</strong> Decide which sources are authoritative, which answers require citations, and when the system must refuse or ask for clarification.</li>
+<li><strong>Create a golden dataset.</strong> Include relevant source IDs, distractors, expected behavior, failure type, and review notes.</li>
+<li><strong>Evaluate retrieval first.</strong> Measure Recall@K, Precision@K, MRR, nDCG, duplicate rate, freshness, and version match.</li>
+<li><strong>Evaluate generation second.</strong> Check faithfulness, groundedness, completeness, answer relevance, citations, refusals, and clarifications.</li>
+<li><strong>Add end-to-end task gates.</strong> Connect layered scores to release decisions for the actual workflow.</li>
+<li><strong>Monitor production.</strong> Track drift, stale sources, latency, cost, timeouts, corrections, and escalation patterns.</li>
+<li><strong>Feed failures back into tests.</strong> Turn meaningful incidents into new cases before the next release.</li>
+</ol>
+<div class="note-box">
+<p>A strong RAG evaluation system should make improvement easier. When a case fails, the team should know whether to inspect retrieval, chunking, reranking, prompt context, generation, citation mapping, refusal behavior, or production infrastructure.</p>
+</div>
+</section>
+
+<section id="related-reading">
+<h2>Related reading</h2>
+<p>Use these pages as neighboring context. The RAG article is the primary page for RAG evaluation; the LLM hub remains the broader parent topic.</p>
 <ul>
-<li>Collecting scenario-specific seed documents.</li>
-<li>Extracting schema or information patterns.</li>
-<li>Generating domain-style documents.</li>
-<li>Creating question-reference-answer pairs.</li>
-<li>Evaluating both retrieval and generation performance.</li>
+<li><a href="/llm-evaluation/">LLM Evaluation Framework</a> for the broader evaluation discipline across RAG, agents, structured outputs, release gates, and monitoring.</li>
+<li><a href="/ai-agents-evaluation-not-prompting.html">AI Agent Evaluation Is More Important Than Prompting</a> for trajectory and tool-use evaluation.</li>
+<li><a href="/testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a> for schema-first agent testing and release gates.</li>
+<li><a href="/uqlm-teaching-guide.html">Uncertainty Quantification for LLMs with UQLM</a> for confidence and uncertainty review workflows.</li>
+<li><a href="/ai-engineering/">AI Engineering</a> for the production system architecture around evaluation.</li>
 </ul>
-<p>The broader lesson is simple:</p>
-<blockquote>
-<p>A RAG system should be evaluated in the same type of environment where it will be used.</p>
-</blockquote>
-<p>A model that performs well on open-domain QA may still fail in a specialized setting where the answer depends on precise terminology, document structure, temporal information, or compliance constraints.</p>
-<h2 id="high-risk-domains">7. High-Risk Domains Require Stricter Evaluation</h2>
-<p>In domains such as finance, healthcare, legal operations, and public-sector services, RAG evaluation must be stricter.</p>
-<p>The goal is not to make the answer sound smart. The goal is to make sure the answer is correct, traceable, and safe to use.</p>
-<p>In these domains, evaluation should focus on questions such as:</p>
-<ul>
-<li>Did the system fabricate information?</li>
-<li>Can the answer be traced back to source material?</li>
-<li>Are the cited documents authoritative and up to date?</li>
-<li>Does the answer preserve the correct meaning of the source?</li>
-<li>Does the system know when it does not have enough evidence?</li>
-</ul>
-<p>For example, in a financial research RAG system, the evaluation may need to check multiple layers:</p>
-<ul>
-<li>At the retrieval layer, the system should rely on approved or traceable research documents rather than random web content.</li>
-<li>At the generation layer, the answer should preserve source references or document identifiers.</li>
-<li>At the review layer, human reviewers may need to check whether the answer misquotes, over-summarizes, or draws unsupported conclusions.</li>
-</ul>
-<p>In high-risk settings, the evaluation goal is not:</p>
-<blockquote>
-<p>Can the model generate a smooth answer?</p>
-</blockquote>
-<p>The goal is:</p>
-<blockquote>
-<p>Can the system produce an answer that is accurate enough to support a real decision?</p>
-</blockquote>
-<p>That is a much higher standard.</p>
-<h2 id="system-level-evaluation">8. System-Level Evaluation: Beyond Retrieval and Generation</h2>
-<p>Many people stop after evaluating retrieval and generation. But a production RAG system requires a third layer: system-level evaluation.</p>
-<p>A RAG system that gives accurate answers but is too slow, unstable, or inconsistent may still be unusable.</p>
-<p>Important system-level metrics include:</p>
-<h3 id="latency">Latency</h3>
-<p>How long does the full retrieval-generation pipeline take?</p>
-<h3 id="throughput">Throughput</h3>
-<p>Can the system remain stable under high concurrency?</p>
-<h3 id="cache-hit-rate">Cache hit rate</h3>
-<p>Is the system avoiding unnecessary repeated computation?</p>
-<h3 id="reproducibility">Reproducibility</h3>
-<p>Does the same question produce consistent results under the same conditions?</p>
-<h3 id="recency">Recency</h3>
-<p>When the knowledge base is updated, does the system reflect the new information quickly?</p>
-<p>These engineering metrics matter because users do not only care about answer quality. They also care about speed, stability, and trust.</p>
-<p>In many enterprise scenarios, a user waiting too long for an answer already means the system has failed, even if the final answer is technically correct.</p>
-<h2 id="three-stages">9. The Three Stages of RAG Evaluation</h2>
-<p>A practical RAG evaluation strategy can be divided into three stages.</p>
-<h3 id="offline-evaluation">Stage 1: Offline Evaluation</h3>
-<p>Before deployment, use a static evaluation set to test the system.</p>
-<p>This stage usually includes:</p>
-<ul>
-<li>Preparing question-answer pairs.</li>
-<li>Preparing expected retrieval results.</li>
-<li>Running retrieval metrics such as Recall@K, Precision@K, MRR, and nDCG.</li>
-<li>Running generation metrics such as faithfulness, correctness, and completeness.</li>
-<li>Reviewing bad cases to find obvious issues.</li>
-</ul>
-<p>The purpose of offline evaluation is to catch major problems before the system reaches users. These may include retrieval bias, poor chunking, weak reranking, excessive hallucination, or incomplete answers.</p>
-<h3 id="controlled-online-testing">Stage 2: Controlled Online Testing</h3>
-<p>After offline evaluation, the next step is controlled testing with limited traffic or selected users.</p>
-<p>This stage may compare:</p>
-<ul>
-<li>User satisfaction.</li>
-<li>Human review scores.</li>
-<li>Citation usage rate.</li>
-<li>Response latency.</li>
-<li>Answer acceptance rate.</li>
-</ul>
-<p>The goal is to understand whether the improved version actually performs better in realistic usage.</p>
-<p>Offline scores are useful, but they do not always predict user experience. Controlled online testing helps validate whether the system improvement creates real value.</p>
-<h3 id="continuous-monitoring">Stage 3: Continuous Monitoring</h3>
-<p>After deployment, evaluation should not stop.</p>
-<p>The system should continue to monitor:</p>
-<ul>
-<li>Retrieval quality drift.</li>
-<li>Answer quality drift.</li>
-<li>Latency changes.</li>
-<li>Knowledge-base freshness.</li>
-<li>Hallucination patterns.</li>
-<li>User feedback.</li>
-<li>Failure cases.</li>
-</ul>
-<p>This is the stage where RAG becomes a production system rather than a lab prototype.</p>
-<p>A mature RAG system should be continuously evaluated because documents change, user behavior changes, and model behavior may change over time.</p>
-<h2 id="core-philosophy">10. The Core Philosophy of RAG Evaluation</h2>
-<p>At the deepest level, RAG evaluation is about balance.</p>
-<ul>
-<li>If recall is too high, the system may retrieve too much noise.</li>
-<li>If precision is too high, the system may miss important evidence.</li>
-<li>If generation is too constrained, the answer may become rigid and unnatural.</li>
-<li>If generation is too free, hallucination becomes more likely.</li>
-</ul>
-<p>That is why mature teams do not chase one perfect metric. They define a balanced evaluation framework based on the risk level and use case.</p>
-<p>A good RAG evaluation answer should explain:</p>
-<ul>
-<li>Why these metrics were selected.</li>
-<li>How each metric is weighted.</li>
-<li>What trade-offs exist between the metrics.</li>
-<li>Which failure cases matter most.</li>
-<li>How evaluation results guide system improvement.</li>
-</ul>
-<p>RAG evaluation looks like a metrics problem, but it is actually a thinking framework. It tests whether a team truly understands the system it is building.</p>
-<h2 id="practical-evaluation-checklist">11. A Practical Evaluation Checklist</h2>
-<p>For a production-oriented RAG system, I would usually consider the following checklist:</p>
-<h3 id="retrieval-layer">Retrieval Layer</h3>
-<ul>
-<li>Can the system retrieve the right evidence?</li>
-<li>Are relevant documents ranked near the top?</li>
-<li>Does the system retrieve too much irrelevant context?</li>
-<li>Does retrieval performance remain stable across different query types?</li>
-</ul>
-<h3 id="generation-layer">Generation Layer</h3>
-<ul>
-<li>Is the answer faithful to the retrieved material?</li>
-<li>Does the answer directly address the query?</li>
-<li>Are key claims grounded in evidence?</li>
-<li>Does the answer avoid unsupported conclusions?</li>
-</ul>
-<h3 id="human-review-layer">Human Review Layer</h3>
-<ul>
-<li>Is the answer factually correct?</li>
-<li>Is the answer complete?</li>
-<li>Is the answer easy to understand?</li>
-<li>Are citations or references sufficient?</li>
-</ul>
-<h3 id="system-layer">System Layer</h3>
-<ul>
-<li>Is the system fast enough?</li>
-<li>Is the system stable under load?</li>
-<li>Does it behave consistently?</li>
-<li>Does it reflect updated knowledge?</li>
-<li>Can failures be monitored and debugged?</li>
-</ul>
-<p>This checklist is intentionally layered. A RAG system is not one model call. It is a full pipeline, and each layer needs its own evaluation logic.</p>
-<h2 id="conclusion">Conclusion: RAG Must Be Responsible for What It Says</h2>
-<p>RAG is often described as a way to combine retrieval and generation. But in production, that definition is too shallow.</p>
-<p>A better way to think about RAG is this:</p>
-<blockquote>
-<p>RAG is a system that helps a model find facts, reason with facts, and remain accountable to facts.</p>
-</blockquote>
-<p>The real value of RAG is not that it can answer more questions. The real value is that the answer can be checked.</p>
-<p>This is why RAG evaluation matters.</p>
-<p>Frameworks such as RAGR help us separate retrieval and generation targets. RAGEval reminds us that evaluation should be scenario-specific. RAGAS gives us practical tools for measuring faithfulness, answer relevance, context precision, and context recall.</p>
-<p>But the most important lesson is broader than any single framework:</p>
-<blockquote>
-<p>RAG evaluation is not about chasing the highest score. It is about building a system that can be trusted, audited, improved, and deployed.</p>
-</blockquote>
-<p>A strong RAG system should not only answer.</p>
-<p>It should be able to explain why the answer is supported.</p>
-<p>It should know when evidence is missing.</p>
-<p>It should remain stable as documents and users change.</p>
-<p>And most importantly, it should be responsible for what it says.</p>
+</section>
+
+<section id="faq" class="faq-section">
+<h2>Frequently asked questions</h2>
+<details open>
+<summary>What is RAG evaluation?</summary>
+<p>RAG evaluation measures whether a retrieval-augmented generation system finds the right evidence, uses that evidence faithfully, cites it correctly, refuses unsupported questions, and stays reliable in production.</p>
+</details>
+<details>
+<summary>What metrics should be used for RAG evaluation?</summary>
+<p>Use separate metrics for retrieval, generation, citation behavior, refusal behavior, task success, and operations. Common retrieval metrics include Recall@K, Precision@K, MRR, and nDCG. Generation checks often include faithfulness, groundedness, completeness, and answer relevance.</p>
+</details>
+<details>
+<summary>How do you evaluate retrieval separately from generation?</summary>
+<p>Evaluate retrieval by comparing returned document IDs or chunks against a known relevant set. Evaluate generation by checking whether the final answer is correct, complete, supported by the retrieved evidence, and properly cited.</p>
+</details>
+<details>
+<summary>What is a golden dataset for RAG?</summary>
+<p>A golden dataset for RAG is a curated set of questions, relevant source IDs, distractor sources, expected behavior, and failure labels used to test retrieval, generation, citations, refusals, and clarifications before release.</p>
+</details>
+<details>
+<summary>Can RAG evaluation be automated?</summary>
+<p>RAG evaluation can be partly automated with retrieval metrics, schema checks, citation checks, deterministic validators, and LLM-based graders. Human review is still useful for ambiguous, high-risk, or newly discovered failure cases.</p>
+</details>
+<details>
+<summary>What should be monitored in production?</summary>
+<p>Production RAG monitoring should track answer success, citation quality, refusal accuracy, stale-source usage, retrieval drift, latency, cost, timeout rate, index freshness, user corrections, and failure clusters.</p>
+</details>
+<p class="source-note">FAQ structured data mirrors the visible FAQ above. It does not guarantee FAQ rich results.</p>
+</section>
 </article>
-<div class="related-reading">
-<h3>Related Reading</h3>
-<div class="related-articles">
-<div class="related-article">
-<div class="related-article-content">
-<h4><a href="ai-agents-evaluation-not-prompting.html">AI Agent Evaluation Is More Important Than Prompting</a></h4>
-<p>How eval sets, trajectory checks, calibrated judges, and regression tests make agents production-ready.</p>
-</div>
-</div>
-<div class="related-article">
-<div class="related-article-content">
-<h4><a href="testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a></h4>
-<p>A concrete testing workflow with schema contracts, custom graders, release gates, and human review.</p>
-</div>
-</div>
-<div class="related-article">
-<div class="related-article-content">
-<h4><a href="uqlm-teaching-guide.html">Uncertainty Quantification for LLMs with UQLM</a></h4>
-<p>Confidence and uncertainty signals that can support safer LLM and RAG review workflows.</p>
-</div>
-</div>
-</div>
-</div>
 <section aria-labelledby="article-rag-evaluation-not-a-score-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
 <div class="newsletter-card-inner">
 <div class="newsletter-copy">
@@ -608,15 +801,14 @@ body.blog-post-page .article-share-surface .email {
 </section>
 </main>
 <footer class="footer text-center">
-<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/llm-evaluation/">LLM Evaluation</a></p>
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/llm-evaluation/">LLM Evaluation Framework</a></p>
 </footer>
 </div>
 </div>
-<script defer="" src="js/jquery-2.1.4.min.js"></script>
-<script defer="" src="js/bootstrap.min.js"></script>
-<script defer="" src="js/scripts.js"></script>
-<script defer="" src="js/blogPanel.js"></script>
-<script defer="" src="js/toc.js"></script>
+<script defer="" src="/js/jquery-2.1.4.min.js"></script>
+<script defer="" src="/js/bootstrap.min.js"></script>
+<script defer="" src="/js/scripts.js"></script>
+<script defer="" src="/js/blogPanel.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var currentTheme = localStorage.getItem('theme') || null;
@@ -657,16 +849,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="related-writing-title">Related writing</h2>
 <div class="seo-related-grid">
 <article class="seo-related-item">
-<h3><a href="/llm-evaluation/">LLM Evaluation</a></h3>
-<p>Evaluation frameworks, schema validation, and monitoring for LLM systems.</p>
+<h3><a href="/llm-evaluation/">LLM Evaluation Framework</a></h3>
+<p>The broader hub for RAG, agent, structured output, release-gate, and monitoring evaluation.</p>
 </article>
 <article class="seo-related-item">
 <h3><a href="/ai-engineering/">AI Engineering</a></h3>
 <p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
 </article>
 <article class="seo-related-item">
-<h3><a href="/llama-report-guide.html">LlamaReport and Document AI Systems</a></h3>
-<p>Document transformation architecture, review workflows, and enterprise AI design.</p>
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a></h3>
+<p>Agent testing with schema contracts, custom graders, release gates, and human review.</p>
 </article>
 </div>
 </section>
