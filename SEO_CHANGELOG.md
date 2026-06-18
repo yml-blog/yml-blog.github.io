@@ -1,11 +1,65 @@
 # SEO Changelog
 
+Date: 2026-06-18
+
+## Added
+
+- Expanded `/rag-evaluation-not-a-score.html` into the primary RAG evaluation guide for metrics, test sets, framework comparison, Python examples, citation checks, refusals, and production monitoring.
+- Added original RAG evaluation framework diagram at `/img/rag-evaluation-framework.svg`.
+- Added dedicated social image at `/img/rag-evaluation-guide-og.png` and repeatable generator script at `scripts/generate_rag_evaluation_images.py`.
+- Added synthetic RAG golden dataset and retrieval metrics source:
+  - `/assets/rag-evaluation/golden_set.jsonl`
+  - `/assets/rag-evaluation/retrieval_metrics.py`
+  - `/assets/rag-evaluation/README.md`
+- Added `SEO_RAG_DEPLOYMENT_CHECKLIST.md` for post-deployment Google Search Console steps.
+- Added `.github/workflows/seo-quality.yml` and `lighthouserc.cjs` for scoped SEO, link, and Lighthouse validation.
+
+## Changed
+
+- Clarified `/llm-evaluation/` as the broad LLM evaluation framework hub while making the RAG article the primary page for RAG evaluation queries.
+- Updated internal links from the homepage, blog index, AI Engineering hub, LLM Evaluation hub, and agent-related articles to use contextual, crawlable links.
+- Updated RAG article BlogPosting, BreadcrumbList, FAQPage, Open Graph, and Twitter metadata.
+- Updated `/llm-evaluation/` WebPage and BreadcrumbList structured data to match the revised page positioning.
+- Expanded `scripts/seo_audit.py` with orphan-page warnings, redirect-source URL detection, and social image checks for priority pages.
+- Regenerated `sitemap.xml`; it includes `/llm-evaluation/` and `/rag-evaluation-not-a-score.html`, and excludes `/llm-evaluation.html`.
+
+## Validation
+
+```text
+python generate_sitemap.py
+Generated 61 sitemap URLs.
+
+python scripts\seo_audit.py
+SEO audit passed for 61 indexable canonical pages.
+Warnings remained for older priority articles that still use a generic social image.
+
+python assets\rag-evaluation\retrieval_metrics.py
+Example retrieval metrics printed successfully.
+
+npx --yes linkinator http://127.0.0.1:8081/llm-evaluation/ --skip "https?://(?!127\.0\.0\.1:8081).*" --concurrency 1 --timeout 10000
+Successfully scanned 27 links.
+
+npx --yes linkinator http://127.0.0.1:8081/rag-evaluation-not-a-score.html --skip "https?://(?!127\.0\.0\.1:8081).*" --concurrency 1 --timeout 10000
+Successfully scanned 34 links.
+
+npx --yes @lhci/cli autorun --config=./lighthouserc.cjs
+Exited 0. SEO and accessibility hard gates passed; performance, LCP, and CLS produced warnings.
+```
+
+## Manual Follow-up
+
+- Deploy the merged `main` branch.
+- Inspect `/llm-evaluation/`, `/llm-evaluation.html`, and `/rag-evaluation-not-a-score.html` in Google Search Console.
+- Request indexing for `/llm-evaluation/` and `/rag-evaluation-not-a-score.html`.
+- Resubmit `https://yangmingli.com/sitemap.xml`.
+- Monitor the exact query `rag evaluation` for page ownership over several weeks.
+
 Date: 2026-05-31
 
 ## Added
 
 - New crawlable pillar pages:
-  - `/llm-evaluation.html`
+  - `/llm-evaluation/`
   - `/machine-learning-nlp.html`
   - `/data-products.html`
   - `/ai-product-builder.html`
