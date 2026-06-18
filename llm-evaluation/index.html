@@ -4,21 +4,21 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality</title>
-<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." name="description"/>
+<title>LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li</title>
+<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." name="description"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="LLM evaluation framework, RAG evaluation, AI agent evaluation, eval sets, LLM-as-judge, schema validation, release gates, AI monitoring, production AI reliability" name="keywords"/>
+<meta content="LLM evaluation, LLM evaluation framework, AI agent evaluation, production LLM evaluation, LLM evaluation metrics, RAG systems, structured outputs" name="keywords"/>
 <link href="https://yangmingli.com/llm-evaluation/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Yangming Li" property="og:site_name"/>
-<meta content="LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality" property="og:title"/>
-<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." property="og:description"/>
+<meta content="LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li" property="og:title"/>
+<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." property="og:description"/>
 <meta content="https://yangmingli.com/llm-evaluation/" property="og:url"/>
 <meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
 <meta content="Yangming Li site logo" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="LLM Evaluation Framework | RAG Evaluation, Agent Testing, and AI System Quality" name="twitter:title"/>
-<meta content="A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability." name="twitter:description"/>
+<meta content="LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li" name="twitter:title"/>
+<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." name="twitter:description"/>
 <meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -149,9 +149,9 @@ body.llm-evaluation-page .topic-tag {
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "LLM Evaluation",
+  "name": "LLM Evaluation Framework",
   "url": "https://yangmingli.com/llm-evaluation/",
-  "description": "A practical LLM evaluation framework covering RAG evaluation, AI agent testing, eval sets, LLM-as-judge, schema validation, release gates, monitoring, and production reliability.",
+  "description": "A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://yangmingli.com/#website"
@@ -173,7 +173,7 @@ body.llm-evaluation-page .topic-tag {
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "LLM Evaluation",
+      "name": "LLM Evaluation Framework",
       "item": "https://yangmingli.com/llm-evaluation/"
     }
   ]
@@ -230,15 +230,15 @@ body.llm-evaluation-page .topic-tag {
 <nav aria-label="Primary" class="pillar-nav"><a href="/about.html">About</a><a href="/projects.html">Projects</a><a href="/ai-engineering/">AI Engineering</a><a href="/llm-evaluation/">LLM Evaluation</a><a href="/blog/">Blog</a><a href="/resume.html">Resume</a><a href="/contact.html">Contact</a></nav>
 <section class="pillar-hero">
 <span class="eyebrow">Evaluation Systems</span>
-<h1>LLM Evaluation</h1>
-<p class="lead">A topic hub for evaluating LLM systems, RAG workflows, AI agents, structured extraction, uncertainty, schema validity, and production monitoring.</p>
+<h1>LLM Evaluation Framework</h1>
+<p class="lead">A topic hub for evaluating LLM systems across RAG workflows, AI agents, structured outputs, uncertainty, schema validity, release gates, and production monitoring.</p>
 </section>
 <section class="portfolio-section">
 <div class="portfolio-section-header">
 <span class="seo-eyebrow">Start with risk</span>
 <h2>Start with risk</h2>
 </div>
-<p>LLM evaluation should start from product risk, not an abstract score. A retrieval answer, a document extractor, and a tool-calling agent fail in different ways, so the evaluation layer needs task-specific fixtures and gates.</p>
+<p>LLM evaluation is the broader discipline of testing whether a language model system is accurate, useful, safe, grounded, stable, and ready for a specific workflow. A retrieval answer, a document extractor, and a tool-calling agent fail in different ways, so the evaluation layer needs task-specific fixtures and gates.</p>
 </section>
 <section class="portfolio-section">
 <div class="portfolio-section-header">
@@ -246,6 +246,13 @@ body.llm-evaluation-page .topic-tag {
 <h2>Evaluation layers</h2>
 </div>
 <p>Use deterministic checks first: schema validity, exact fields, source coverage, refusals, and business rules. Add model-based graders for semantic comparison only after the contract is clear enough to inspect.</p>
+</section>
+<section class="portfolio-section">
+<div class="portfolio-section-header">
+<span class="seo-eyebrow">Specialized workflows</span>
+<h2>Specialized workflows</h2>
+</div>
+<p>RAG evaluation is one specialized LLM evaluation workflow: it separates retrieval quality, evidence quality, answer faithfulness, citations, no-answer behavior, and production reliability. Agent evaluation adds process evaluation, tool execution, intermediate traces, retries, and recoverability. Structured extraction needs schemas, deterministic validators, field-level checks, and review paths before model-based grading adds value.</p>
 </section>
 <section class="portfolio-section">
 <div class="portfolio-section-header">
@@ -282,9 +289,10 @@ body.llm-evaluation-page .topic-tag {
 </section>
 <section id="rag-evaluation-scorecard" class="topic-hub-section">
 <div class="topic-hub-header">
-<span class="topic-eyebrow">RAG evaluation</span>
-<h2>RAG evaluation scorecard</h2>
-<p>RAG systems fail in layers. A good scorecard separates retrieval, evidence quality, generation, citation behavior, refusal behavior, and system reliability.</p>
+<span class="topic-eyebrow">Specialized workflow</span>
+<h2>RAG evaluation summary scorecard</h2>
+<p>RAG evaluation is a specialized workflow inside the broader LLM evaluation framework. Keep this hub as the overview, then use the full guide for metrics, test sets, citations, monitoring, and implementation details.</p>
+<p><a class="topic-card-link" href="/rag-evaluation-not-a-score.html">Read the complete RAG evaluation guide with metrics, test sets, and Python examples</a></p>
 </div>
 <div class="eval-table-wrap">
 <table class="eval-table">
@@ -472,15 +480,15 @@ body.llm-evaluation-page .topic-tag {
 </div>
 <div class="topic-hub-intro">
 <div><p>The most useful evaluation work starts with examples from the real workflow. Those examples become regression cases, judge calibration samples, source-grounding checks, and monitoring segments. The goal is not a universal score. The goal is to know whether a new version is safer, cheaper, faster, or more useful for the intended use case.</p></div>
-<div><p>Use the articles below for deeper examples: RAG evaluation, AI agent evaluation, Copilot agent testing, uncertainty quantification, and tool-connected LLM systems.</p></div>
+<div><p>Use the articles below for deeper examples: the dedicated RAG guide, AI agent evaluation, Copilot agent testing, uncertainty quantification, and tool-connected LLM systems.</p></div>
 </div>
 <div class="topic-post-grid">
 <article class="featured-post-card">
-<h3><a href="/rag-evaluation-not-a-score.html">RAG Evaluation Is Not a Score</a></h3>
+<h3><a href="/rag-evaluation-not-a-score.html">RAG Evaluation Guide: Metrics, Frameworks, and Python Examples</a></h3>
 <div class="topic-card-meta"><span>Jun 16, 2026</span><span>12 min read</span></div>
-<p>How to measure retrieval quality, generation faithfulness, and system reliability in production RAG systems.</p>
+<p>The dedicated guide for retrieval metrics, golden test sets, generation faithfulness, citations, no-answer behavior, and production monitoring.</p>
 <div class="topic-tags"><span class="topic-tag">RAG</span><span class="topic-tag">evaluation</span><span class="topic-tag">reliability</span></div>
-<a class="topic-card-link" href="/rag-evaluation-not-a-score.html">Read article</a>
+<a class="topic-card-link" href="/rag-evaluation-not-a-score.html">Read complete RAG evaluation guide</a>
 </article>
 <article class="featured-post-card">
 <h3><a href="/ai-agents-evaluation-not-prompting.html">AI Agent Evaluation Is More Important Than Prompting</a></h3>
