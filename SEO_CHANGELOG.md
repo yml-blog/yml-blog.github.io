@@ -4,6 +4,61 @@ Date: 2026-06-18
 
 ## Added
 
+- Added four long-tail, application-style SEO guides designed to behave more like the RAG evaluation page than broad topic hubs:
+  - `/copilot-agent-golden-test-set.html`
+  - `/ab-testing-sample-size-python.html`
+  - `/causal-inference-product-analytics.html`
+  - `/model-calibration-reliability-diagrams-python.html`
+- Added visible FAQ sections and matching FAQPage JSON-LD to the four new guides.
+- Added practical examples for Copilot test-case schema design, A/B sample size planning, causal effect estimation, and model calibration checks.
+
+## Changed
+
+- Strengthened internal links from `/`, `/blog/`, `/ai-engineering/`, `/llm-evaluation/`, `/data-products/`, and related article pages to the new guides.
+- Clarified keyword ownership:
+  - Copilot agent golden test sets target Copilot/agent regression testing queries.
+  - A/B sample size in Python targets experiment planning and power-analysis queries.
+  - Causal inference for product analytics targets product analytics causal-decision queries.
+  - Model calibration in Python targets reliability diagram and expected calibration error queries.
+- Regenerated `sitemap.xml`; it now contains 65 canonical, indexable URLs.
+
+## Validation
+
+```text
+python generate_sitemap.py
+Generated 65 sitemap URLs.
+
+python scripts\seo_audit.py
+SEO audit passed for 65 indexable canonical pages.
+Warnings remained for older priority articles that still use a generic social image.
+
+HTML and JSON-LD validation
+Verified one title, one meta description, one canonical, one H1, indexable robots, and valid JSON-LD on the four new guide pages.
+
+Local link and resource validation
+Checked local links/resources across 15 touched pages; no missing local targets or legacy /llm-evaluation.html links.
+
+Python example validation
+Ran the A/B sample size, causal difference-in-means, and calibration ECE examples successfully.
+
+Local HTTP checks
+Verified 200 responses for /, /blog/, /ai-engineering/, /llm-evaluation/, /data-products/, and the four new guide pages.
+
+Playwright layout checks with system Edge
+Verified desktop and mobile H1 rendering and no page-level horizontal overflow for the four new guides and core hub pages.
+```
+
+## Manual Follow-up
+
+- After deployment, inspect the four new URLs in Google Search Console.
+- Request indexing for the four new guides after confirming the latest `main` commit is deployed.
+- Monitor exact queries such as `copilot agent golden test set`, `ab testing sample size python`, `causal inference product analytics`, and `model calibration python`.
+- Do not promise ranking positions or timing; evaluate impressions and page ownership over several weeks.
+
+Date: 2026-06-18
+
+## Added
+
 - Expanded `/rag-evaluation-not-a-score.html` into the primary RAG evaluation guide for metrics, test sets, framework comparison, Python examples, citation checks, refusals, and production monitoring.
 - Added original RAG evaluation framework diagram at `/img/rag-evaluation-framework.svg`.
 - Added dedicated social image at `/img/rag-evaluation-guide-og.png` and repeatable generator script at `scripts/generate_rag_evaluation_images.py`.

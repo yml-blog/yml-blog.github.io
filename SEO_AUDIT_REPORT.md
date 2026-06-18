@@ -3,6 +3,47 @@
 Date: 2026-06-18
 Site: https://yangmingli.com
 
+## Long-Tail Application Guide Expansion
+
+Four new application-style guides were added to give the site more pages with specific search intent, similar to the RAG evaluation page:
+
+- `/copilot-agent-golden-test-set.html`
+  - Primary intent: Copilot agent golden test set, Copilot Studio testing, AI agent regression testing.
+  - Parent hub: `/llm-evaluation/` and `/ai-engineering/`.
+- `/ab-testing-sample-size-python.html`
+  - Primary intent: A/B testing sample size Python, power analysis, MDE, experiment guardrails.
+  - Parent hub: `/data-products/`.
+- `/causal-inference-product-analytics.html`
+  - Primary intent: causal inference for product analytics, prediction vs causal impact, ATE/CATE, uplift.
+  - Parent hub: `/data-products/`.
+- `/model-calibration-reliability-diagrams-python.html`
+  - Primary intent: model calibration Python, reliability diagrams, expected calibration error, trustworthy ML.
+  - Parent hub: `/data-products/` and the existing trustworthy ML article.
+
+The broad pages remain hubs. The new pages target narrower problem-oriented searches and link back to their hubs and related articles to reduce keyword cannibalization.
+
+## Long-Tail Validation Result
+
+```text
+python generate_sitemap.py
+Generated 65 sitemap URLs.
+
+python scripts\seo_audit.py
+SEO audit passed for 65 indexable canonical pages.
+```
+
+Additional checks:
+
+- Verified one title, one meta description, one canonical, one H1, indexable robots, and valid JSON-LD on all four new guide pages.
+- Checked local links and resources across 15 touched pages; no missing local targets or `/llm-evaluation.html` legacy links were found.
+- Ran the Python examples for A/B sample size, causal difference-in-means, and calibration ECE successfully.
+- Verified local HTTP 200 responses for `/`, `/blog/`, `/ai-engineering/`, `/llm-evaluation/`, `/data-products/`, and the four new guide pages.
+- Browser plugin `iab` was unavailable in this environment, so responsive validation used Playwright with system Edge. Desktop and mobile checks passed for H1 rendering and page-level horizontal overflow.
+
+Remaining warnings:
+
+- Older priority articles still use the generic site logo for social images.
+
 ## RAG Evaluation Keyword Ownership Update
 
 The RAG evaluation article is now the primary canonical, indexable page for:
