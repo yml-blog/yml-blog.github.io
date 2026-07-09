@@ -5,8 +5,16 @@
   <link>https://yangmingli.com/</link>
   <description>AI/ML, Product, Engineering, and Investing insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 16 Jun 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 09 Jul 2026 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry</title>
+    <link>https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html</link>
+    <description>A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents.</description>
+    <pubDate>Thu, 09 Jul 2026 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html</guid>
+  </item>
 
   <item>
     <title>RAG Evaluation Is Not a Score: How to Measure Retrieval, Generation, and System Reliability</title>

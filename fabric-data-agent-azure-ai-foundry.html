@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry | Yangming Li</title>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="description" content="A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents."/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="Microsoft Fabric Data Agent, Azure AI Foundry, Microsoft Foundry Agent Service, enterprise AI agent, Fabric IQ ontology, MCP endpoint, Power BI semantic model" name="keywords"/>
+<link rel="canonical" href="https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html"/>
+<link href="/favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry | Yangming Li" property="og:title"/>
+<meta content="A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents." property="og:description"/>
+<meta content="https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry | Yangming Li" name="twitter:title"/>
+<meta content="A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents." name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-07-09" property="article:published_time"/>
+<meta content="2026-07-09" property="article:modified_time"/>
+<meta content="AI Engineering" property="article:section"/>
+<meta content="Microsoft Fabric" property="article:tag"/>
+<meta content="Azure AI Foundry" property="article:tag"/>
+<meta content="Enterprise AI" property="article:tag"/>
+<meta content="Data Agents" property="article:tag"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/style_blog.css" rel="stylesheet"/>
+<link href="/css/blog_post.css" rel="stylesheet"/>
+<link href="/css/nav.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="/js/loadHeader.js"></script>
+<script defer="" src="/js/newsletter.js?v=newsletter-api-20260615"></script>
+<style>
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  margin: 0 4px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #c7ced8;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .3s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .3s;
+  width: 16px;
+}
+input:checked + .slider {
+  background-color: #f1780e;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+body.blog-post-page .article-share-surface .twitter {
+  background-color: #1DA1F2;
+}
+body.blog-post-page .article-share-surface .linkedin {
+  background-color: #0A66C2;
+}
+body.blog-post-page .article-share-surface .email {
+  background-color: #D44638;
+}
+.article-subtitle {
+  color: #52606d;
+  font-size: 1.25rem;
+  line-height: 1.65;
+  margin: 14px auto 0;
+  max-width: 860px;
+}
+.fabric-flow,
+.mental-model-box,
+.definition-box,
+.risk-box,
+.source-note {
+  background: #f7fbfa;
+  border: 1px solid #d7e3df;
+  border-radius: 8px;
+  margin: 22px 0;
+  padding: 20px;
+}
+.fabric-flow pre,
+.agent-code-block pre {
+  background: #102a43;
+  border-radius: 8px;
+  color: #e6fffa;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin: 0;
+  overflow-x: auto;
+  padding: 18px;
+}
+.agent-code-block {
+  margin: 22px 0;
+}
+.responsive-table {
+  margin: 22px 0;
+  overflow-x: auto;
+  width: 100%;
+}
+.responsive-table table {
+  border-collapse: collapse;
+  min-width: 620px;
+  width: 100%;
+}
+.responsive-table th,
+.responsive-table td {
+  border: 1px solid #dbe5e2;
+  padding: 14px;
+  text-align: left;
+  vertical-align: top;
+}
+.responsive-table th {
+  background: #f1f8f6;
+  color: #0b5f59;
+  font-weight: 800;
+}
+.responsive-table td {
+  background: #ffffff;
+}
+.architecture-list li,
+.implementation-list li,
+.learning-path li,
+.risk-list li,
+.reference-list li {
+  margin-bottom: 8px;
+}
+.article-content h2,
+.article-content h3 {
+  scroll-margin-top: 86px;
+}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
+  "description": "A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents.",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2026-07-09",
+  "dateModified": "2026-07-09",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html"
+  },
+  "articleSection": "AI Engineering",
+  "keywords": [
+    "Microsoft Fabric Data Agent",
+    "Azure AI Foundry",
+    "Microsoft Foundry Agent Service",
+    "Fabric IQ ontology",
+    "enterprise AI agents",
+    "MCP endpoint"
+  ],
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "wordCount": 3900
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Fabric Data Agent and Azure AI Foundry",
+      "item": "https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html"
+    }
+  ]
+}</script>
+</head>
+<body class="blog-post-page">
+<nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Fabric Data Agent and Azure AI Foundry</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
+<div class="main-content">
+<div class="article-page-container">
+<header class="article-hero text-center">
+<div class="article-kicker-row">
+<span class="article-kicker">AI Engineering</span>
+<span class="article-kicker article-kicker-muted">Enterprise Data Agents</span>
+</div>
+<h1>Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry</h1>
+<p class="article-subtitle">A practical architecture for moving from a simple chatbot demo to a governed, reliable, application-ready AI agent on top of enterprise data.</p>
+<p class="lead">By Yangming Li</p>
+<p class="blog-meta"><span>Published July 9, 2026</span><span>18 min read</span><span>Enterprise AI architecture</span></p>
+</header>
+<div class="seo-author-block">Written by <a href="/about.html">Yangming Li</a></div>
+<div class="article-theme-surface">
+<span>Light</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>Dark</span>
+</div>
+<div class="article-meta-surface">
+<span><i class="fa fa-clock-o"></i> 18 min read</span>
+<span><i class="fa fa-file-text-o"></i> Approx. 3900 words</span>
+<span><i class="fa fa-check-square-o"></i> Fabric, Foundry, ontology, MCP</span>
+<p class="keywords"><strong>Keywords:</strong> Microsoft Fabric Data Agent, Azure AI Foundry, Microsoft Foundry Agent Service, Fabric IQ ontology, enterprise AI agents, MCP endpoint, Power BI semantic model.</p>
+</div>
+<div class="article-share-surface">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> Share on LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('Check out this article: ' + window.location.href); return false;"><i class="fa fa-envelope"></i> Share via Email</a>
+</div>
+<main class="article-prose-surface">
+<div class="article-support-grid">
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> TL;DR</h4>
+<p>A useful enterprise data agent is not just an LLM connected to a table. The practical stack combines governed Fabric data sources, semantic definitions, ontology, agent instructions, permission controls, testing, publishing, and Foundry orchestration so the final agent can be used safely inside real business applications.</p>
+</div>
+</div>
+<div class="key-points">
+<h4>Article Highlights</h4>
+<ul>
+<li>Fabric Data Agent grounds natural-language questions in governed Fabric data assets.</li>
+<li>Ontology and semantic models define business meaning so agents do not rely on raw column names alone.</li>
+<li>Microsoft Foundry Agent Service provides the orchestration layer for tools, models, application endpoints, and workflows.</li>
+<li>The best first version answers a small set of important questions reliably, with tests and governance from the beginning.</li>
+</ul>
+</div>
+</div>
+<div class="toc-container">
+<h4>Contents</h4>
+<div id="toc"></div>
+</div>
+<article class="article-content">
+<p>Over the past year, I have been paying more attention to one question:</p>
+<p><strong>How do we move from a simple AI demo to a real enterprise AI application that can answer business questions using governed internal data?</strong></p>
+<p>A normal chatbot is easy to build. A useful enterprise AI agent is harder.</p>
+<p>The hard part is not only choosing a large language model. The hard part is connecting the model to the right data, giving it the right business context, controlling what it can and cannot do, testing whether the answer is reliable, and then exposing that agent through an endpoint or SDK so it can be used inside real applications.</p>
+<p>This is where Microsoft Fabric Data Agent and Azure AI Foundry, now documented through Microsoft Foundry and Foundry Agent Service, become interesting.</p>
+<p>Microsoft Foundry is positioned as a unified Azure platform for enterprise AI operations, model builders, and application development. Foundry Agent Service is a managed platform for building, deploying, and scaling AI agents.</p>
+<p>In this post, I will walk through how I think about the architecture, what each component does, and why this combination matters for data analysts, Power BI developers, and data scientists who want to build production-grade AI applications.</p>
+
+<h2>The Problem: Enterprise Data Is Not Ready for Chat by Default</h2>
+<p>When people first see an AI data agent, the demo usually looks very simple.</p>
+<p>A user types:</p>
+<div class="agent-code-block"><pre><code>Show sales by country</code></pre></div>
+<p>The agent responds:</p>
+<div class="responsive-table">
+<table>
+<thead>
+<tr><th>Country</th><th>Total Sales</th></tr>
+</thead>
+<tbody>
+<tr><td>Switzerland</td><td>800</td></tr>
+<tr><td>Portugal</td><td>300</td></tr>
+</tbody>
+</table>
+</div>
+<p>At first glance, this looks like a basic natural language query. But in an enterprise environment, a lot has to happen behind the scenes before this answer can be trusted.</p>
+<p>The agent needs to know:</p>
+<ul class="architecture-list">
+<li>Which data source should I use?</li>
+<li>What does <strong>sales</strong> mean?</li>
+<li>Is it gross sales, net sales, booked sales, or recognized revenue?</li>
+<li>Which date field should be used?</li>
+<li>Which countries are valid?</li>
+<li>Should the answer include cancelled transactions?</li>
+<li>Does the user have permission to see this data?</li>
+<li>Should I return a direct number, a table, or a chart?</li>
+<li>What should I do if the question is ambiguous?</li>
+</ul>
+<p>This is why enterprise AI is not just about the LLM.</p>
+<p>The LLM is only one layer. A real solution also needs data source connections, a business semantic layer, agent instructions, security and permissions, a testing workflow, a publishing mechanism, SDK or API integration, monitoring, and governance.</p>
+<p>This is the gap that Microsoft Fabric Data Agent and Azure AI Foundry are trying to fill.</p>
+
+<h2>High-Level Architecture</h2>
+<p>The architecture can be understood as two major layers.</p>
+<div class="fabric-flow"><pre><code>Enterprise Data
+    |
+    v
+Microsoft Fabric Data Agent
+    |
+    v
+Published Agent / MCP Endpoint
+    |
+    v
+Azure AI Foundry Agent
+    |
+    v
+SDK / API / Business Application / Copilot / Internal Tool</code></pre></div>
+<p>In this structure, Microsoft Fabric Data Agent focuses on the data side. It connects to enterprise data sources and allows users to ask questions using natural language. Microsoft describes Fabric Data Agents as a way to create conversational AI experiences over data in Fabric.</p>
+<p>Azure AI Foundry, or Microsoft Foundry Agent Service in the current documentation, focuses on the application and orchestration side. It provides a managed agent platform where we can select models, configure instructions, attach tools, call external services, and expose the final agent through an application workflow.</p>
+<p>The important point is this:</p>
+<div class="definition-box">
+<p><strong>Fabric Data Agent gives the AI access to governed enterprise data. Azure AI Foundry turns that capability into an application-ready AI agent.</strong></p>
+</div>
+<p>That separation is useful because enterprise data work and AI application work are related, but they are not the same thing.</p>
+
+<h2>What Microsoft Fabric Data Agent Does</h2>
+<p>A Fabric Data Agent is designed to answer questions about data. In practice, the workflow usually looks like this:</p>
+<div class="fabric-flow"><pre><code>Create a Fabric Data Agent
+    |
+    v
+Connect data sources
+    |
+    v
+Add business instructions
+    |
+    v
+Test natural language questions
+    |
+    v
+Improve the agent configuration
+    |
+    v
+Publish the agent
+    |
+    v
+Consume it from another application or agent</code></pre></div>
+<p>The data source can be something like a Lakehouse, Warehouse, Power BI semantic model, KQL database, mirrored database, or ontology, depending on the Fabric environment and the use case. Microsoft&#39;s Fabric Data Agent documentation describes the creation process as starting from a Fabric workspace and creating a new Data Agent item.</p>
+<p>The value is not just that the agent can answer a question. The value is that the answer is grounded in enterprise data rather than the model&#39;s general knowledge.</p>
+<p>For example, instead of asking a general chatbot:</p>
+<div class="agent-code-block"><pre><code>What were our sales by country?</code></pre></div>
+<p>which the model cannot know, the user can ask a Fabric Data Agent that is connected to the organization&#39;s actual sales dataset.</p>
+<p>The agent can then interpret the question, map it to the right data source, generate a query, retrieve the result, and return a structured response.</p>
+<p>For business users, this is powerful because they no longer need to start every question from a dashboard, SQL query, or Excel export.</p>
+<p>For technical teams, this is also useful because the data access pattern becomes more standardized. Instead of every department creating its own unofficial AI assistant, the organization can build data agents on top of managed Fabric assets.</p>
+
+<h2>Why Ontology Matters</h2>
+<p>One of the most important ideas in this architecture is ontology.</p>
+<div class="definition-box">
+<p><strong>Ontology = a governed business semantic model for AI agents.</strong></p>
+</div>
+<p>In Microsoft Fabric IQ, ontology defines business entities, relationships, properties, rules, and actions. Microsoft describes it as a shared business model that can be used across teams, agents, and workflows.</p>
+<p>This matters because raw tables are not enough.</p>
+<p>A table may contain columns like:</p>
+<div class="agent-code-block"><pre><code>sales_amt
+net_amt
+gross_amt
+region_cd
+cust_id
+txn_dt
+fiscal_period</code></pre></div>
+<p>A business user does not think in those terms. They ask questions like:</p>
+<div class="agent-code-block"><pre><code>Which market had the strongest revenue growth last quarter?</code></pre></div>
+<p>To answer correctly, the agent needs to understand the business meaning behind the data.</p>
+<p>For example:</p>
+<ul>
+<li><strong>Revenue</strong> may map to net sales, not gross sales.</li>
+<li><strong>Market</strong> may map to region, not country.</li>
+<li><strong>Last quarter</strong> may mean fiscal quarter, not calendar quarter.</li>
+<li><strong>Growth</strong> may require comparing the current period with the same prior period.</li>
+</ul>
+<p>Without a semantic layer, the model may still return an answer, but the answer may be based on the wrong field, wrong filter, or wrong aggregation.</p>
+<p>That is dangerous because the output can look confident even when it is wrong.</p>
+<p>Ontology helps reduce this risk by giving the agent a more structured understanding of the business domain.</p>
+<p>A good ontology can define:</p>
+<ul>
+<li><strong>Business entities:</strong> Customer, Product, Market, Sales Order, Revenue.</li>
+<li><strong>Relationships:</strong> Customer belongs to Market, Sales Order contains Product, Revenue is generated from Sales Order.</li>
+<li><strong>Properties:</strong> Customer segment, product category, fiscal period, sales amount.</li>
+<li><strong>Rules:</strong> Revenue excludes cancelled orders, active customers must have at least one transaction in the selected period, fiscal quarter follows the company fiscal calendar.</li>
+</ul>
+<p>This is where enterprise AI becomes much more than &ldquo;chat with your data.&rdquo;</p>
+<div class="mental-model-box">
+<p><strong>The real goal is chat with business meaning, not just database columns.</strong></p>
+</div>
+
+<h2>The Role of AI Instructions</h2>
+<p>The next important layer is AI instructions.</p>
+<p>If ontology tells the agent what the business concepts mean, instructions tell the agent how it should behave.</p>
+<p>For example, a basic instruction could be:</p>
+<div class="agent-code-block"><pre><code>You are a data analysis agent.
+Answer only using the connected Fabric data sources.
+If the answer cannot be found in the available data, say that the data is not available.
+Do not guess.
+When returning a number, explain the metric definition and aggregation logic.
+If the question is ambiguous, ask a clarification question before answering.</code></pre></div>
+<p>These instructions are not just cosmetic. They shape how the agent handles uncertainty.</p>
+<p>In a demo, it may be fine if the agent gives a rough answer. In production, that is not acceptable.</p>
+<p>A production data agent should know when to say:</p>
+<ul>
+<li>I do not have enough information to answer that.</li>
+<li>This question could refer to either fiscal quarter or calendar quarter. Which one should I use?</li>
+<li>The connected data source does not include customer churn data.</li>
+</ul>
+<p>This is a major difference between a consumer chatbot and an enterprise AI agent.</p>
+<div class="definition-box">
+<p><strong>A consumer chatbot tries to be helpful. An enterprise AI agent must be helpful and controlled.</strong></p>
+</div>
+
+<h2>Publishing the Data Agent</h2>
+<p>After the Fabric Data Agent is configured and tested, the next step is publishing it so other systems can use it.</p>
+<p>This is where the architecture becomes more interesting.</p>
+<p>A Fabric Data Agent can be consumed through a Model Context Protocol endpoint. Microsoft documents Fabric Data Agent as an MCP server in preview, allowing external AI systems to consume the data agent through its MCP endpoint.</p>
+<p>Conceptually, the flow becomes:</p>
+<div class="fabric-flow"><pre><code>Fabric Data Agent
+    |
+    v
+Published MCP Endpoint
+    |
+    v
+External AI Agent or Application</code></pre></div>
+<p>This is important because it means the data agent does not need to remain trapped inside the Fabric UI.</p>
+<p>Once published, it can become part of a larger AI system. For example, a company could use it in an internal analytics portal, Teams bot, Copilot Studio agent, Azure AI Foundry agent, Power Automate workflow, custom web application, or executive dashboard assistant.</p>
+<p>This is the point where the agent starts moving from a demo into an actual product or workflow.</p>
+
+<h2>Connecting Fabric Data Agent with Azure AI Foundry</h2>
+<p>Azure AI Foundry becomes useful when we want to build a broader AI application around the data agent.</p>
+<p>For example, the Foundry agent may need to:</p>
+<ul>
+<li>Receive a user question.</li>
+<li>Decide whether the question is about enterprise data.</li>
+<li>Call the Fabric Data Agent when needed.</li>
+<li>Use another tool for document search.</li>
+<li>Use another function for workflow automation.</li>
+<li>Summarize the result.</li>
+<li>Return a business-friendly answer.</li>
+</ul>
+<p>Foundry Agent Service supports tools, and Microsoft&#39;s documentation describes agent tools as a way to connect agents to external data sources and capabilities.</p>
+<p>A simplified workflow could look like this:</p>
+<div class="fabric-flow"><pre><code>User asks:
+"What were our top sales regions last quarter, and can you summarize the business implication?"
+
+Azure AI Foundry Agent:
+1. Understands the request.
+2. Calls Fabric Data Agent for sales by region.
+3. Receives structured results.
+4. Interprets the trend.
+5. Generates an executive-friendly summary.
+6. Optionally suggests follow-up analysis.</code></pre></div>
+<p>The Fabric Data Agent handles the data retrieval. The Foundry Agent handles the orchestration and user experience.</p>
+<p>That distinction is important.</p>
+<p>The Foundry Agent should not randomly invent data. The Fabric Data Agent should not be expected to manage the entire application experience. Each layer has its role.</p>
+
+<h2>Example Implementation Pattern</h2>
+<p>A practical implementation pattern could look like this:</p>
+<ol class="implementation-list">
+<li>Prepare the data in Microsoft Fabric.</li>
+<li>Create or reuse a semantic model.</li>
+<li>Create a Fabric Data Agent.</li>
+<li>Add instructions and test questions.</li>
+<li>Improve the ontology or business definitions.</li>
+<li>Publish the Data Agent.</li>
+<li>Connect it to Azure AI Foundry.</li>
+<li>Build a frontend or business workflow.</li>
+<li>Add logging, monitoring, and governance.</li>
+</ol>
+<p>For a small proof of concept, the first version does not need to be complicated.</p>
+<p>A useful first version could support only five to ten business questions, such as:</p>
+<ul>
+<li>Show sales by country.</li>
+<li>Show revenue by product category.</li>
+<li>Compare this quarter with last quarter.</li>
+<li>Find the top five regions by revenue.</li>
+<li>Explain why total sales changed compared with last month.</li>
+</ul>
+<p>The goal of the first version should not be to answer everything.</p>
+<p>The goal should be to answer a small set of important questions reliably. That is a better enterprise AI strategy than building a broad agent that gives unpredictable answers.</p>
+
+<h2>Calling an Agent from Code</h2>
+<p>Once an agent is available through Foundry, developers can integrate it into an application using SDKs and endpoints. Microsoft provides Foundry SDKs and endpoint documentation for building AI applications on top of Foundry projects.</p>
+<p>A simplified Python-style pattern looks like this:</p>
+<div class="agent-code-block"><pre><code>from azure.identity import DefaultAzureCredential
+from azure.ai.projects import AIProjectClient
+
+project_client = AIProjectClient(
+    endpoint="YOUR_PROJECT_ENDPOINT",
+    credential=DefaultAzureCredential()
+)
+
+agent = project_client.agents.get_agent("YOUR_AGENT_ID")
+
+thread = project_client.agents.threads.create()
+
+project_client.agents.messages.create(
+    thread_id=thread.id,
+    role="user",
+    content="Show total sales by country"
+)
+
+run = project_client.agents.runs.create_and_process(
+    thread_id=thread.id,
+    agent_id=agent.id
+)
+
+messages = project_client.agents.messages.list(
+    thread_id=thread.id
+)
+
+for message in messages:
+    print(message)</code></pre></div>
+<p>In a real project, this would usually be wrapped inside an application backend.</p>
+<div class="fabric-flow"><pre><code>Next.js frontend
+    |
+    v
+API route or backend service
+    |
+    v
+Azure AI Foundry Agent
+    |
+    v
+Fabric Data Agent
+    |
+    v
+Fabric data source</code></pre></div>
+<p>The end user does not need to know that Fabric or Foundry exists. They only see a clean interface where they can ask a business question and receive a governed answer.</p>
+
+<h2>Example Use Case: Sales Analytics Agent</h2>
+<p>Imagine a company wants to build a sales analytics assistant.</p>
+<p>The user might ask:</p>
+<div class="agent-code-block"><pre><code>Which countries had the highest sales last quarter?</code></pre></div>
+<p>The agent should not just return a number. A good enterprise response may include:</p>
+<div class="risk-box">
+<p>The top countries by total sales last quarter were:</p>
+<ol>
+<li>Switzerland - 800</li>
+<li>Portugal - 300</li>
+</ol>
+<p>This result is based on the Sales semantic model and uses the Total Sales measure. Cancelled orders are excluded based on the current business definition.</p>
+</div>
+<p>A better version may also provide:</p>
+<ul>
+<li>Compared with the previous quarter, Switzerland increased by 12%.</li>
+<li>Portugal decreased by 4%.</li>
+<li>The main driver of the Switzerland increase was higher sales in the enterprise customer segment.</li>
+</ul>
+<p>This is where the solution becomes useful. The agent is not only retrieving data. It is turning data into an explanation.</p>
+<p>But the explanation must still be grounded in the data. That balance is the core challenge of enterprise AI.</p>
+
+<h2>Example Use Case: Power BI Semantic Model Assistant</h2>
+<p>Another strong use case is building an assistant on top of an existing Power BI semantic model.</p>
+<p>Many organizations already have Power BI datasets that contain curated measures, relationships, hierarchies, and business logic.</p>
+<p>Instead of making users manually navigate reports, the agent can provide a conversational layer.</p>
+<p>For example:</p>
+<div class="risk-box">
+<p><strong>User:</strong> Which department had the highest increase in headcount this year?</p>
+<p><strong>Agent:</strong> The department with the highest increase in headcount was Operations. Headcount increased from 420 to 510, which is a 21.4% increase.</p>
+</div>
+<p>This kind of agent can be especially useful when the report has many pages, the user does not know which visual to open, the question is ad hoc, the user wants a quick explanation rather than a dashboard, or the business team wants self-service analytics.</p>
+<p>However, this only works well if the semantic model is clean.</p>
+<p>Poorly named measures, inconsistent relationships, and unclear definitions will reduce the quality of the agent&#39;s answers.</p>
+<div class="definition-box">
+<p><strong>A data agent does not magically fix a bad data model. It exposes the quality of the data model more clearly.</strong></p>
+</div>
+
+<h2>What Can Go Wrong</h2>
+<p>There are several risks that teams should take seriously.</p>
+<h3>Ambiguous Business Terms</h3>
+<p>If the user asks:</p>
+<div class="agent-code-block"><pre><code>Show revenue by region.</code></pre></div>
+<p>The agent needs to know what <strong>revenue</strong> and <strong>region</strong> mean. If the company has multiple revenue measures, the agent may choose the wrong one unless the semantic model, ontology, or instructions are clear.</p>
+<h3>Weak Data Permissions</h3>
+<p>Enterprise data agents must respect user permissions.</p>
+<p>A sales manager should not automatically see HR compensation data. A regional analyst should not automatically see global confidential metrics.</p>
+<p>Security design should be part of the architecture from the beginning, not added at the end.</p>
+<h3>Overconfident Answers</h3>
+<p>LLMs can produce fluent answers even when the underlying data is missing or incomplete.</p>
+<p>This is why the instruction should explicitly tell the agent not to guess.</p>
+<div class="agent-code-block"><pre><code>If the data source does not contain the answer, say so clearly.</code></pre></div>
+<h3>Lack of Testing</h3>
+<p>A data agent needs test cases.</p>
+<div class="responsive-table">
+<table>
+<thead>
+<tr><th>Test Dimension</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Question</td><td>Show sales by country.</td></tr>
+<tr><td>Expected source</td><td>Sales semantic model.</td></tr>
+<tr><td>Expected measure</td><td>Total Sales.</td></tr>
+<tr><td>Expected grouping</td><td>Country.</td></tr>
+<tr><td>Expected behavior</td><td>Return table sorted by sales descending.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Without test cases, teams may not notice when a prompt change, data model change, or permission change breaks the agent.</p>
+<h3>No Change Control</h3>
+<p>Once an agent is used in production, changes need to be tracked.</p>
+<p>Teams should know who changed the instruction, who changed the data source, who published the latest version, what test cases were run, whether the output was reviewed, and whether rollback is possible.</p>
+<p>This is where AgentOps and AI governance become important.</p>
+
+<h2>Why This Matters for Data Professionals</h2>
+<p>For data analysts, BI developers, and data scientists, this is a major shift.</p>
+<p>Traditional analytics work often looks like this:</p>
+<div class="fabric-flow"><pre><code>Collect requirements
+    |
+    v
+Build data model
+    |
+    v
+Create dashboard
+    |
+    v
+Publish report
+    |
+    v
+Answer follow-up questions manually</code></pre></div>
+<p>With AI agents, the workflow starts to change:</p>
+<div class="fabric-flow"><pre><code>Build governed data model
+    |
+    v
+Define business meaning
+    |
+    v
+Create data agent
+    |
+    v
+Test natural language questions
+    |
+    v
+Publish agent endpoint
+    |
+    v
+Integrate agent into workflow
+    |
+    v
+Monitor answer quality</code></pre></div>
+<p>The skill set also changes. It is no longer enough to only know SQL, Power BI, or Python.</p>
+<p>The next generation of data professionals will need to understand semantic modeling, ontology design, prompt and instruction design, agent testing, AI governance, API integration, security and permission design, and business workflow integration.</p>
+<p>This does not replace traditional data skills. It builds on top of them.</p>
+<p>In fact, strong data modeling becomes even more important because the agent depends on the quality of the underlying data structure.</p>
+
+<h2>My Practical Learning Path</h2>
+<p>If I were learning this stack from scratch, I would not start with a complex multi-agent system.</p>
+<p>I would follow this path:</p>
+<ol class="learning-path">
+<li>Learn the basics of Microsoft Fabric.</li>
+<li>Understand Lakehouse, Warehouse, and Power BI semantic models.</li>
+<li>Create a simple Fabric Data Agent.</li>
+<li>Test it with a small set of business questions.</li>
+<li>Improve the data model and instructions.</li>
+<li>Learn how ontology works in Fabric IQ.</li>
+<li>Publish the data agent.</li>
+<li>Connect it to Azure AI Foundry.</li>
+<li>Call the Foundry agent from a small web app.</li>
+<li>Add logging, evaluation, and governance.</li>
+</ol>
+<p>The key is to start small.</p>
+<p>A reliable agent that answers five business questions correctly is more valuable than a broad agent that answers fifty questions unreliably.</p>
+
+<h2>A Simple Mental Model</h2>
+<p>Here is the simplest way I think about the stack:</p>
+<div class="mental-model-box">
+<ul>
+<li><strong>Microsoft Fabric</strong> = where enterprise data lives.</li>
+<li><strong>Fabric IQ / Ontology</strong> = how business meaning is defined.</li>
+<li><strong>Fabric Data Agent</strong> = how users ask questions about data.</li>
+<li><strong>Azure AI Foundry</strong> = how agents are built, connected, and deployed.</li>
+<li><strong>SDK / API</strong> = how the agent becomes part of real applications.</li>
+</ul>
+</div>
+<p>Or even shorter:</p>
+<div class="definition-box">
+<p><strong>Fabric Data Agent gives the agent data intelligence. Azure AI Foundry gives the agent application intelligence.</strong></p>
+</div>
+<p>Together, they create a path from governed enterprise data to production AI applications.</p>
+
+<h2>Final Thoughts</h2>
+<p>The most interesting part of Azure AI Foundry and Microsoft Fabric Data Agent is not that they make it possible to build another chatbot.</p>
+<p>The interesting part is that they move AI closer to real enterprise workflows.</p>
+<p>A useful enterprise agent needs to do more than generate text. It needs to understand business definitions, respect data permissions, use governed data sources, ask clarification questions, avoid guessing, return traceable answers, fit into existing applications, and support testing and change management.</p>
+<p>That is why I think this architecture is worth paying attention to.</p>
+<p>For many organizations, the future of analytics may not be only dashboards. Dashboards will still matter, but they will be joined by conversational data agents that help users ask questions, explore metrics, and understand business performance in a more natural way.</p>
+<p>The real opportunity is not simply &ldquo;chat with data.&rdquo;</p>
+<div class="definition-box">
+<p><strong>The real opportunity is to build governed, reliable, application-ready AI agents on top of enterprise data.</strong></p>
+</div>
+<p>That is the direction I believe data teams should start preparing for now.</p>
+
+<h2>References</h2>
+<p class="source-note">Product names, preview features, and integration details can change quickly, so I used current Microsoft Learn pages as source links for the platform details in this article.</p>
+<ul class="reference-list">
+<li><a href="https://learn.microsoft.com/en-us/fabric/data-science/concept-data-agent" rel="noopener noreferrer" target="_blank">Fabric data agent overview</a></li>
+<li><a href="https://learn.microsoft.com/en-us/fabric/data-science/how-to-create-data-agent" rel="noopener noreferrer" target="_blank">Create a Fabric data agent</a></li>
+<li><a href="https://learn.microsoft.com/en-us/fabric/data-science/data-agent-mcp-server" rel="noopener noreferrer" target="_blank">Data agent as a Model Context Protocol server</a></li>
+<li><a href="https://learn.microsoft.com/en-us/fabric/data-science/data-agent-foundry" rel="noopener noreferrer" target="_blank">Consume Fabric data agent from Microsoft Foundry Services</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/foundry/what-is-foundry" rel="noopener noreferrer" target="_blank">What is Microsoft Foundry?</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/foundry/agents/overview" rel="noopener noreferrer" target="_blank">What is Microsoft Foundry Agent Service?</a></li>
+<li><a href="https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/tool-catalog" rel="noopener noreferrer" target="_blank">Agent tools overview for Microsoft Foundry Agent Service</a></li>
+<li><a href="https://learn.microsoft.com/en-us/fabric/iq/ontology/overview" rel="noopener noreferrer" target="_blank">What is Ontology in Microsoft Fabric IQ?</a></li>
+</ul>
+</article>
+<section aria-labelledby="article-fabric-data-agent-azure-ai-foundry-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="article-fabric-data-agent-azure-ai-foundry-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="article-fabric-data-agent-azure-ai-foundry" method="post">
+<label class="sr-only" for="article-fabric-data-agent-azure-ai-foundry-email">Email address</label>
+<input autocomplete="email" id="article-fabric-data-agent-azure-ai-foundry-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-fabric-data-agent-azure-ai-foundry"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/ai-engineering/">AI Engineering</a></p>
+</footer>
+</div>
+</div>
+<script defer="" src="/js/jquery-2.1.4.min.js"></script>
+<script defer="" src="/js/bootstrap.min.js"></script>
+<script defer="" src="/js/scripts.js"></script>
+<script defer="" src="/js/blogPanel.js"></script>
+<script defer="" src="/js/toc.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentTheme = localStorage.getItem('theme') || null;
+  var checkbox = document.getElementById('checkbox');
+  if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    if (currentTheme === 'dark-mode' && checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  if (checkbox) {
+    checkbox.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      }
+    });
+  }
+
+  var progress = document.querySelector('.article-progress-bar span');
+  function updateProgress() {
+    if (!progress) {
+      return;
+    }
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+  }
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/mcp-protocol-guide.html">Model Context Protocol Guide</a></h3>
+<p>Tool and context integration patterns for connected AI systems.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/testing-evaluating-copilot-agents.html">Testing and Evaluating Copilot Agents</a></h3>
+<p>Schema-first agent testing, release gates, and human review.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products/">Data Products</a></h3>
+<p>Analytics systems, AI data products, and decision-support workflows.</p>
+</article>
+</div>
+</section>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>

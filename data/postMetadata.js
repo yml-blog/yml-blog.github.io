@@ -1,5 +1,20 @@
 const postMetadata = [
   {
+    title: "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
+    href: "/fabric-data-agent-azure-ai-foundry.html",
+    date: "2026-07-09",
+    summary:
+      "A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents.",
+    tags: ["Microsoft Fabric", "Azure AI Foundry", "enterprise AI agents", "MCP"],
+    area: "ai-engineering",
+    featured: true,
+    readingTime: "18 min read",
+    relatedProjects: ["ai-engineering", "data-products"],
+    series: "Enterprise Data Agents",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html"
+  },
+  {
     title: "RAG Evaluation Guide: Metrics, Frameworks, and Python Examples",
     href: "/rag-evaluation-not-a-score.html",
     date: "2026-06-16",
