@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘 | Yangming Li</title>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta name="description" content="复盘业务数据智能查询 Agent 的工程落地：三层 RAG、PGVector、多轮上下文、Token 控制、SQL 安全与评估，以及权益核销中的 MQ、幂等和最终一致性。"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<meta content="Text2SQL, AI Agent, 三层 RAG, PGVector, Query Rewrite, SQL 安全校验, RocketMQ, 幂等, 最终一致性, 权益核销" name="keywords"/>
+<link rel="canonical" href="https://yangmingli.com/text2sql-rights-redemption-agent.html"/>
+<link href="/favicon.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Yangming Li" property="og:site_name"/>
+<meta content="zh_CN" property="og:locale"/>
+<meta content="从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘 | Yangming Li" property="og:title"/>
+<meta content="复盘业务数据智能查询 Agent 的工程落地：三层 RAG、PGVector、多轮上下文、SQL 安全与评估，以及权益核销中的 MQ、幂等和最终一致性。" property="og:description"/>
+<meta content="https://yangmingli.com/text2sql-rights-redemption-agent.html" property="og:url"/>
+<meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
+<meta content="Yangming Li site logo" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘 | Yangming Li" name="twitter:title"/>
+<meta content="从三层 RAG 和 SQL 校验，到 RocketMQ、幂等与最终一致性，完整拆解企业级数据查询 Agent 的工程闭环。" name="twitter:description"/>
+<meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
+<meta content="Yangming Li" property="article:author"/>
+<meta content="2026-07-10" property="article:published_time"/>
+<meta content="2026-07-10" property="article:modified_time"/>
+<meta content="AI Engineering" property="article:section"/>
+<meta content="Text2SQL" property="article:tag"/>
+<meta content="AI Agent" property="article:tag"/>
+<meta content="RAG" property="article:tag"/>
+<meta content="Distributed Systems" property="article:tag"/>
+<link href="https://fonts.googleapis.com/css?family=Hind:300,400,500,600,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="/css/style_blog.css" rel="stylesheet"/>
+<link href="/css/blog_post.css" rel="stylesheet"/>
+<link href="/css/nav.css" rel="stylesheet"/>
+<link href="/css/typography.css" rel="stylesheet"/>
+<link href="/css/newsletter.css" rel="stylesheet"/>
+<script defer="" src="/js/loadHeader.js"></script>
+<script defer="" src="/js/newsletter.js?v=newsletter-api-20260615"></script>
+<style>
+body.blog-post-page {
+  font-family: "Noto Sans SC", "Hind", sans-serif;
+}
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  margin: 0 4px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #c7ced8;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .3s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .3s;
+  width: 16px;
+}
+input:checked + .slider {
+  background-color: #0b6b63;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round,
+.slider.round:before {
+  border-radius: 999px;
+}
+body.blog-post-page .article-share-surface .twitter {
+  background-color: #1da1f2;
+}
+body.blog-post-page .article-share-surface .linkedin {
+  background-color: #0a66c2;
+}
+body.blog-post-page .article-share-surface .email {
+  background-color: #b53b38;
+}
+.article-subtitle {
+  color: #52606d;
+  font-size: 1.18rem;
+  line-height: 1.8;
+  margin: 14px auto 0;
+  max-width: 880px;
+}
+.article-content {
+  font-size: 1.06rem;
+  line-height: 1.9;
+}
+.article-content h2,
+.article-content h3 {
+  font-family: "Noto Sans SC", "Hind", sans-serif;
+  scroll-margin-top: 86px;
+}
+.article-content h2 {
+  margin-top: 44px;
+}
+.article-content h3 {
+  color: #0b6b63;
+  margin-top: 28px;
+}
+.flow-block,
+.definition-box,
+.warning-box,
+.principle-box {
+  border: 1px solid #d7e3df;
+  border-radius: 8px;
+  margin: 22px 0;
+  padding: 20px;
+}
+.flow-block,
+.definition-box {
+  background: #f4faf8;
+}
+.warning-box {
+  background: #fff8f1;
+  border-color: #ead6c3;
+}
+.principle-box {
+  background: #f7f8fb;
+  border-left: 4px solid #0b6b63;
+}
+.flow-block pre,
+.code-block pre {
+  background: #102a43;
+  border-radius: 8px;
+  color: #e6fffa;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0;
+  overflow-x: auto;
+  padding: 18px;
+  white-space: pre;
+}
+.code-block {
+  margin: 22px 0;
+}
+.definition-box pre,
+.principle-box pre {
+  color: inherit;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
+}
+.article-content blockquote {
+  background: #f7f8fb;
+  border-left: 4px solid #b53b38;
+  border-radius: 0 8px 8px 0;
+  margin: 22px 0;
+  padding: 16px 20px;
+}
+.article-content blockquote p:last-child,
+.principle-box p:last-child,
+.definition-box p:last-child,
+.warning-box p:last-child {
+  margin-bottom: 0;
+}
+.article-content li {
+  margin-bottom: 8px;
+}
+.article-content code:not(pre code) {
+  background: #eef2f6;
+  border-radius: 4px;
+  color: #8a2f2c;
+  padding: 2px 6px;
+}
+body.dark-mode .article-subtitle {
+  color: #c8d2dc;
+}
+body.dark-mode .flow-block,
+body.dark-mode .definition-box,
+body.dark-mode .warning-box,
+body.dark-mode .principle-box,
+body.dark-mode .article-content blockquote {
+  background: #172433;
+  border-color: #405264;
+  color: #e7edf3;
+}
+body.dark-mode .article-content h3 {
+  color: #72d6c9;
+}
+body.dark-mode .article-content code:not(pre code) {
+  background: #263748;
+  color: #ffb0aa;
+}
+@media (max-width: 640px) {
+  .article-content {
+    font-size: 1rem;
+  }
+  .flow-block,
+  .definition-box,
+  .warning-box,
+  .principle-box {
+    padding: 16px;
+  }
+  .flow-block pre,
+  .code-block pre {
+    font-size: 0.82rem;
+    padding: 14px;
+  }
+}
+</style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘",
+  "description": "复盘业务数据智能查询 Agent 的工程落地：三层 RAG、PGVector、多轮上下文、Token 控制、SQL 安全与评估，以及权益核销中的 MQ、幂等和最终一致性。",
+  "image": "https://yangmingli.com/img/Logo.png",
+  "author": {
+    "@type": "Person",
+    "name": "Yangming Li",
+    "url": "https://yangmingli.com/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Yangming Li",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yangmingli.com/img/Logo.png"
+    }
+  },
+  "datePublished": "2026-07-10",
+  "dateModified": "2026-07-10",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yangmingli.com/text2sql-rights-redemption-agent.html"
+  },
+  "articleSection": "AI Engineering",
+  "keywords": [
+    "Text2SQL",
+    "AI Agent",
+    "三层 RAG",
+    "PGVector",
+    "SQL 安全校验",
+    "RocketMQ",
+    "幂等",
+    "最终一致性"
+  ],
+  "inLanguage": "zh-CN",
+  "isAccessibleForFree": true,
+  "wordCount": 5440
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://yangmingli.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://yangmingli.com/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Text2SQL 到权益核销",
+      "item": "https://yangmingli.com/text2sql-rights-redemption-agent.html"
+    }
+  ]
+}</script>
+</head>
+<body class="blog-post-page">
+<nav aria-label="Breadcrumb" class="seo-breadcrumbs">
+<a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Text2SQL 到权益核销</span>
+</nav>
+<div aria-hidden="true" class="article-progress-bar"><span></span></div>
+<div class="main-content">
+<div class="article-page-container">
+<header class="article-hero text-center">
+<div class="article-kicker-row">
+<span class="article-kicker">AI Engineering</span>
+<span class="article-kicker article-kicker-muted">Text2SQL &amp; Distributed Systems</span>
+</div>
+<h1>从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘</h1>
+<p class="article-subtitle">从三层 RAG、上下文管理与 SQL 校验，到 RocketMQ、幂等和最终一致性，完整拆解企业级 Agent 如何从 Demo 走向可靠业务系统。</p>
+<p class="lead">By Yangming Li</p>
+<p class="blog-meta"><span>发布于 2026 年 7 月 10 日</span><span>20 分钟阅读</span><span>AI 工程与后端架构</span></p>
+</header>
+<div class="seo-author-block">作者：<a href="/about.html">Yangming Li</a></div>
+<div class="article-theme-surface">
+<span>浅色</span>
+<label class="theme-switch" for="checkbox">
+<input id="checkbox" type="checkbox"/>
+<div class="slider round"></div>
+</label>
+<span>深色</span>
+</div>
+<div class="article-meta-surface">
+<span><i class="fa fa-clock-o"></i> 20 分钟阅读</span>
+<span><i class="fa fa-file-text-o"></i> 20 个工程主题</span>
+<span><i class="fa fa-check-square-o"></i> Agent、数据与分布式系统</span>
+<p class="keywords"><strong>关键词：</strong>Text2SQL、三层 RAG、PGVector、Query Rewrite、SQL 安全校验、RocketMQ、幂等、最终一致性。</p>
+</div>
+<div class="article-share-surface">
+<a class="twitter" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href) + '&amp;text=' + encodeURIComponent(document.title), 'twitter-share', 'width=550,height=435'); return false;"><i class="fa fa-twitter"></i> 分享到 Twitter</a>
+<a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(window.location.href), 'linkedin-share', 'width=550,height=435'); return false;"><i class="fa fa-linkedin"></i> 分享到 LinkedIn</a>
+<a class="email" href="#" onclick="window.location.href = 'mailto:?subject=' + encodeURIComponent(document.title) + '&amp;body=' + encodeURIComponent('推荐这篇文章：' + window.location.href); return false;"><i class="fa fa-envelope"></i> 邮件分享</a>
+</div>
+<main class="article-prose-surface">
+<div class="article-support-grid">
+<div class="tldr-container">
+<div class="tldr-box">
+<h4><i class="fa fa-clock-o"></i> TL;DR</h4>
+<p>可落地的 Text2SQL Agent 不是一个会写 SQL 的模型，而是一套可维护、可评估、可审计的工程系统。它需要三层 RAG、结构化上下文、SQL 安全与质量校验，也需要在接入真实业务动作后处理 MQ 重试、幂等、状态机和最终一致性。</p>
+</div>
+</div>
+<div class="key-points">
+<h4>文章要点</h4>
+<ul>
+<li>DDL、业务规则和 Few-shot 应分层治理，并通过 metadata 和版本状态控制召回。</li>
+<li>多轮对话应维护结构化分析状态，而不是无限堆叠聊天记录。</li>
+<li>SQL 上线前必须经过语法、权限和质量三层校验，并以执行结果评估为核心。</li>
+<li>权益核销链路要以 MySQL 为事实源，通过业务唯一键、状态机、MQ 重试和补偿实现最终一致。</li>
+</ul>
+</div>
+</div>
+<div class="toc-container">
+<h4>目录</h4>
+<div id="toc"></div>
+</div>
+<article class="article-content">
+<p>最近看到一组关于“携程 Agent 应用开发一面”的技术问题，内容非常集中：<strong>Text2SQL、三层 RAG、PGVector 选型、多轮上下文、Prompt Token 控制、SQL 安全校验、准确率评估，以及权益系统里的 MQ、幂等和最终一致性</strong>。</p>
+<p>这些问题表面上是在问 AI Agent，实际上考察的是一个更完整的能力：</p>
+<blockquote><p>你能不能把 LLM 从 Demo 做成一个可上线、可维护、可回滚、可评估、可控风险的业务系统。</p></blockquote>
+<p>这篇文章就围绕这些问题，整理成一篇完整的技术复盘。</p>
+
+<h2>1. 项目背景：业务数据智能查询平台</h2>
+<p>假设我们要做一个业务数据智能查询平台，用户可以用自然语言提问，例如：</p>
+<blockquote>
+<p>“上个月华东区域出境票量是多少？”</p>
+<p>“按渠道分组看一下近 7 天酒店订单 GMV。”</p>
+<p>“对比一下本月和上月权益核销失败率。”</p>
+</blockquote>
+<p>系统需要自动完成：</p>
+<ol>
+<li>理解用户问题；</li>
+<li>识别业务对象、时间范围、指标、维度和筛选条件；</li>
+<li>检索相关表结构、业务规则、历史 SQL 案例；</li>
+<li>生成 SQL；</li>
+<li>做 SQL 安全和质量校验；</li>
+<li>执行查询；</li>
+<li>返回结果和解释。</li>
+</ol>
+<p>这类系统不能只靠一个大模型直接生成 SQL，因为真实企业环境里有很多复杂问题：</p>
+<ul>
+<li>表很多，字段命名不统一；</li>
+<li>同一个指标在不同业务线含义不同；</li>
+<li>数据库里没有完整业务说明；</li>
+<li>用户会多轮追问；</li>
+<li>SQL 可能有权限、性能和安全风险；</li>
+<li>生成结果必须可评估、可追溯、可修正。</li>
+</ul>
+<p>所以一个可落地的 Text2SQL Agent，核心不是“让模型写 SQL”，而是搭建一套围绕 LLM 的工程系统。</p>
+
+<h2>2. 总体架构：Agent 编排 + 三层 RAG + SQL 校验闭环</h2>
+<p>一个比较稳妥的架构可以拆成下面几层：</p>
+<div class="flow-block"><pre><code>用户问题
+  ↓
+Query Rewrite / 意图识别
+  ↓
+上下文管理
+  ↓
+三层 RAG 检索
+  ├─ DDL Schema 知识
+  ├─ 业务规则知识
+  └─ Few-shot SQL 案例
+  ↓
+Prompt 组装
+  ↓
+LLM 生成 SQL
+  ↓
+SQL 安全校验
+  ↓
+SQL 语义 / 字段 / 权限校验
+  ↓
+执行查询
+  ↓
+结果解释
+  ↓
+用户反馈
+  ↓
+样本沉淀与知识库更新</code></pre></div>
+<p>这套系统真正难的地方，不是调用 LLM API，而是下面几个工程问题：</p>
+<ul>
+<li>如何组织 DDL、业务规则和 Few-shot？</li>
+<li>如何避免 Prompt 太长？</li>
+<li>如何处理多轮对话？</li>
+<li>如何保证 SQL 安全？</li>
+<li>如何评估 Text2SQL 准确率？</li>
+<li>如何在业务系统里保证消息链路和状态一致性？</li>
+</ul>
+
+<h2>3. 为什么 Agent 编排不一定用 LangChain 或 AutoGen？</h2>
+<p>很多人一做 Agent 就想到 LangChain、AutoGen、CrewAI 这类通用框架。但在业务数据查询平台里，不一定要上来就用通用框架。</p>
+<blockquote><p>更合理的选择是：核心链路自己编排，LLM 只是链路中的一个能力节点。</p></blockquote>
+<p>原因有三个。</p>
+<p>第一，Text2SQL 的流程非常固定。它通常就是：</p>
+<div class="flow-block"><pre><code>Query Rewrite → RAG → Prompt → SQL Generate → SQL Validate → Execute → Explain</code></pre></div>
+<p>这个流程不像开放式 Agent 那样需要复杂的工具自主规划。过度使用通用 Agent 框架，反而会让链路变得不可控。</p>
+<p>第二，SQL 风险必须强控制。比如不能让模型随意执行：</p>
+<div class="code-block"><pre><code class="language-sql">UPDATE
+DELETE
+DROP
+TRUNCATE
+ALTER</code></pre></div>
+<p>也不能让模型跨权限访问表。通用框架强调灵活性，但业务查询系统更需要确定性、审计性和边界控制。</p>
+<p>第三，企业系统通常已有自己的 Java 服务、权限体系、日志链路、监控系统和审批流程。如果强行套框架，后续接入成本和排障成本会比较高。</p>
+<p>所以更实际的做法是：</p>
+<ul>
+<li>Java / Spring Boot 负责主链路；</li>
+<li>Redis 管理会话状态；</li>
+<li>MySQL / PostgreSQL 管理业务元数据；</li>
+<li>PGVector 做向量检索；</li>
+<li>LLM 负责 Query Rewrite、SQL 生成和解释；</li>
+<li>自研编排层控制状态、权限、日志和失败补偿。</li>
+</ul>
+
+<h2>4. 三层 RAG：DDL、业务规则、Few-shot 分开治理</h2>
+<p>Text2SQL 的 RAG 不能简单地把所有资料塞进一个知识库。更好的方式是拆成三层。</p>
+<h3>第一层：DDL Schema 知识</h3>
+<p>DDL 层主要包含：</p>
+<ul>
+<li>表名；</li>
+<li>字段名；</li>
+<li>字段类型；</li>
+<li>主键外键；</li>
+<li>表之间的关系；</li>
+<li>分区字段；</li>
+<li>常用过滤字段；</li>
+<li>字段枚举值；</li>
+<li>表的业务说明。</li>
+</ul>
+<p>例如：</p>
+<div class="code-block"><pre><code>表：hotel_order_fact
+说明：酒店订单事实表
+字段：
+- order_id：订单 ID
+- user_id：用户 ID
+- city_id：城市 ID
+- channel：下单渠道
+- order_amount：订单金额
+- order_date：订单日期
+- status：订单状态</code></pre></div>
+<div class="definition-box"><p>DDL 层解决的是：<strong>模型知道有哪些表和字段可以用。</strong></p></div>
+<h3>第二层：业务规则知识</h3>
+<p>业务规则层解决的是：<strong>字段怎么解释，指标怎么算。</strong></p>
+<div class="code-block"><pre><code>GMV = 已支付订单金额，不包含取消订单。
+出境票量 = 国际机票中 departure_country != 'CN' 的订单数量。
+有效权益核销 = 核销状态为 SUCCESS，且没有发生退款、撤销或补偿回滚。</code></pre></div>
+<p>这类规则往往不在数据库里，而是在产品文档、业务说明、运营口径、历史报表和人脑里。</p>
+<p>如果不把业务规则纳入 RAG，模型即使写出语法正确的 SQL，也很可能口径错误。</p>
+<h3>第三层：Few-shot SQL 案例</h3>
+<p>Few-shot 层保存高质量历史案例：</p>
+<div class="code-block"><pre><code>问题：统计上个月华东区域出境票量
+SQL：
+SELECT COUNT(DISTINCT order_id)
+FROM flight_order_fact
+WHERE region = '华东'
+  AND departure_country != 'CN'
+  AND order_date &gt;= '2025-05-01'
+  AND order_date &lt; '2025-06-01'
+  AND status = 'PAID';
+解释：出境票量按已支付国际机票订单统计。</code></pre></div>
+<p>Few-shot 的价值不是让模型复制 SQL，而是让模型学习企业内部的 SQL 风格、指标口径和 Join 习惯。</p>
+<p>三层知识最后都会被转成 Embedding，写入 PGVector，并带上 metadata，例如：</p>
+<div class="code-block"><pre><code>knowledge_type: DDL / business_rule / few_shot
+domain: hotel / flight / coupon / rights
+table_name: xxx
+metric_name: xxx
+version: 2025-06-01
+owner: data_team
+status: active</code></pre></div>
+
+<h2>5. DDL 导入如何保证准确？</h2>
+<p>DDL 不应该直接让 LLM 猜。</p>
+<p>更稳妥的方式是从数据库元数据中自动抽取，然后人工补充业务说明。来源可以包括：</p>
+<ul>
+<li><code>information_schema</code>；</li>
+<li>数据血缘平台；</li>
+<li>数据字典；</li>
+<li>BI 报表字段说明；</li>
+<li>指标平台；</li>
+<li>数据开发文档；</li>
+<li>人工维护的表说明。</li>
+</ul>
+<p>DDL 入库流程可以是：</p>
+<div class="flow-block"><pre><code>数据库元数据扫描
+  ↓
+字段清洗与标准化
+  ↓
+表关系识别
+  ↓
+业务说明补充
+  ↓
+生成结构化文档
+  ↓
+Embedding
+  ↓
+写入 PGVector</code></pre></div>
+<div class="principle-box"><p><strong>DDL 只负责结构，不负责业务口径。</strong></p></div>
+<p>数据库里没有业务规则时，不能让模型自己猜。应该把缺失规则标记出来，进入人工维护流程。</p>
+<p>例如模型遇到问题：“统计有效权益核销数。”但知识库里没有“有效权益核销”的定义，系统不应该直接生成 SQL，而应该返回：</p>
+<div class="code-block"><pre><code>当前缺少“有效权益核销”的业务口径，请确认：
+1. 是否只统计 SUCCESS 状态？
+2. 是否排除退款订单？
+3. 是否排除补偿核销？
+4. 是否按核销时间还是订单时间统计？</code></pre></div>
+<p>这比“猜一个 SQL”更安全。</p>
+
+<h2>6. 表和字段变更后，知识库怎么更新？</h2>
+<p>业务数据库经常变更：新增字段、字段改名、字段废弃、表拆分、表合并、指标口径变化。如果 RAG 知识库不更新，模型就会继续引用旧字段。</p>
+<p>因此需要做 DDL Diff。</p>
+<div class="flow-block"><pre><code>定时扫描数据库元数据
+  ↓
+与上一版 DDL 比较
+  ↓
+识别新增、删除、修改字段
+  ↓
+重建受影响文档
+  ↓
+更新 Embedding
+  ↓
+旧版本标记为 deprecated</code></pre></div>
+<p>需要特别注意：不要只新增新知识，还要让旧知识失效。</p>
+<p>一个常见事故是：</p>
+<div class="code-block"><pre><code>旧字段：coupon_status
+新字段：rights_status</code></pre></div>
+<p>如果旧的 embedding 还在，模型可能继续生成：</p>
+<div class="code-block"><pre><code class="language-sql">WHERE coupon_status = 'SUCCESS'</code></pre></div>
+<p>但这个字段已经不存在。</p>
+<p>所以知识库里最好有状态字段：</p>
+<div class="code-block"><pre><code>status: active / deprecated / deleted
+version: 2025-06-01
+effective_time: xxx</code></pre></div>
+<p>检索时只召回 active 的知识，历史版本只用于审计和回溯。</p>
+
+<h2>7. 为什么向量检索选择 PGVector？</h2>
+<p>在中小规模业务知识库里，PGVector 是一个很务实的选择。</p>
+<p>第一，很多企业本来就有 PostgreSQL。使用 PGVector 可以把结构化元数据和向量数据放在一起管理。</p>
+<p>第二，DDL、业务规则、Few-shot 案例通常不是海量互联网文档。知识规模在几千到几十万条以内时，PGVector 已经足够。</p>
+<p>第三，PGVector 支持 HNSW 索引，检索速度对于企业内部知识库来说通常够用。</p>
+<p>第四，metadata 过滤比较方便。比如只查某个业务域：</p>
+<div class="code-block"><pre><code class="language-sql">SELECT *
+FROM rag_knowledge
+WHERE domain = 'rights'
+  AND knowledge_type IN ('DDL', 'business_rule', 'few_shot')
+ORDER BY embedding &lt;=&gt; :query_embedding
+LIMIT 10;</code></pre></div>
+<p><strong>为什么不用 Milvus？</strong></p>
+<p>Milvus 更适合大规模向量场景，比如千万级、亿级向量检索。但如果知识库不大，单独维护 Milvus 的部署、监控、备份和权限成本会更高。</p>
+<p><strong>为什么不用 Elasticsearch？</strong></p>
+<p>Elasticsearch 更强在关键词检索、倒排索引和日志搜索。它可以做 hybrid search，但如果系统已经使用 PostgreSQL，且向量规模不大，PGVector 的工程复杂度更低。</p>
+<div class="definition-box"><pre><code>小到中等规模知识库：PGVector
+大规模向量检索：Milvus / Weaviate / Vespa
+强关键词搜索：Elasticsearch
+混合检索：BM25 + Vector + Rerank</code></pre></div>
+
+<h2>8. 相似度阈值为什么可能设为 0.7？</h2>
+<p>RAG 检索不能只看 Top K，还要看相似度阈值。</p>
+<div class="code-block"><pre><code>相似度 &lt; 0.6：召回内容噪声较多
+相似度 0.7 左右：召回与误召回较平衡
+相似度 &gt; 0.8：过于严格，可能漏掉相关知识</code></pre></div>
+<p>阈值不是拍脑袋定的，而应该通过离线验证集调出来。</p>
+<p>可以构建一批测试问题：</p>
+<div class="flow-block"><pre><code>问题 → 标准表 → 标准字段 → 标准业务规则 → 标准 SQL</code></pre></div>
+<p>然后分别测试 0.6、0.7、0.8 的召回效果：</p>
+<ul>
+<li>Recall：该召回的知识有没有召回？</li>
+<li>Precision：召回内容里噪声多不多？</li>
+<li>SQL Accuracy：最终 SQL 是否正确？</li>
+<li>Execution Accuracy：SQL 执行结果是否和标准答案一致？</li>
+</ul>
+<p>如果 0.6 噪声太多，0.8 漏召回明显，那么 0.7 就是一个折中点。</p>
+
+<h2>9. 三层 RAG 同时召回，怎么控制 Token？</h2>
+<p>一个常见错误是：把 DDL、业务规则、Few-shot 全部塞进 Prompt。</p>
+<p>这会造成三个问题：</p>
+<ol>
+<li>Token 成本高；</li>
+<li>无关知识干扰模型；</li>
+<li>SQL 更容易生成错误 Join 或错误字段。</li>
+</ol>
+<p>更好的方式是分层召回、限量注入。例如：</p>
+<div class="code-block"><pre><code>DDL：最多召回 5 张相关表
+业务规则：最多召回 5 条相关规则
+Few-shot：最多召回 3 个相似案例</code></pre></div>
+<p>Prompt 可以这样组织：</p>
+<div class="code-block"><pre><code>你是企业数据查询 SQL Agent。
+
+用户问题：
+{user_question}
+
+相关表结构：
+{top_ddl_context}
+
+相关业务规则：
+{top_business_rules}
+
+相似 SQL 案例：
+{top_few_shot_examples}
+
+要求：
+1. 只能使用提供的表和字段。
+2. 不允许使用 UPDATE、DELETE、DROP、ALTER。
+3. 不允许 SELECT *。
+4. 必须解释使用了哪些业务规则。
+5. 如果信息不足，不要猜测，返回需要补充的信息。</code></pre></div>
+<div class="principle-box"><p><strong>RAG 不是召回越多越好，而是召回越准越好。</strong></p></div>
+
+<h2>10. 多轮对话：Query Rewrite 如何串起上下文？</h2>
+<p>用户不会每次都问完整问题。</p>
+<blockquote>
+<p>第一轮：“查一下上个月华东区域出境票量。”</p>
+<p>第二轮：“按渠道分组。”</p>
+<p>第三轮：“再和去年同期对比。”</p>
+</blockquote>
+<p>如果只看第三轮，模型不知道“什么指标、什么区域、什么时间”。所以需要 Query Rewrite，把多轮问题改写成完整问题。</p>
+<div class="code-block"><pre><code>查询上个月华东区域出境票量，并按渠道分组，同时与去年同期进行同比对比。</code></pre></div>
+<p>上下文管理不应该无限保留聊天记录，而应该维护结构化状态：</p>
+<div class="code-block"><pre><code class="language-json">{
+  "metric": "出境票量",
+  "region": "华东",
+  "time_range": "上个月",
+  "group_by": "渠道",
+  "compare": "去年同期"
+}</code></pre></div>
+<p>用户每次追问时，只更新相关字段。这样可以避免 Prompt 越来越长，也能减少旧条件干扰新问题。</p>
+<p>例如用户说：“不看华东了，改成全国。”系统应该更新：</p>
+<div class="code-block"><pre><code class="language-json">{
+  "region": "全国"
+}</code></pre></div>
+<p>而不是保留“华东”和“全国”两个条件。</p>
+
+<h2>11. 长会话如何控制上下文长度和 SQL 干扰？</h2>
+<p>长会话里，最大的问题是历史条件污染。</p>
+<p>例如用户前面一直在问酒店订单，后面突然问权益核销。如果系统把所有历史都塞进去，模型可能错误地把酒店订单表和权益表 Join 起来。</p>
+<p>比较好的做法是维护“当前分析状态”，而不是完整聊天记录。当前状态可以包含：</p>
+<div class="code-block"><pre><code class="language-json">{
+  "domain": "rights",
+  "metric": "核销成功率",
+  "time_range": "近7天",
+  "dimensions": ["渠道"],
+  "filters": {
+    "region": "华东"
+  },
+  "last_sql": "...",
+  "last_result_summary": "..."
+}</code></pre></div>
+<p>同时要有领域切换判断。如果用户新问题明显切换业务域，系统应清空旧上下文：</p>
+<div class="warning-box"><p>检测到用户从 <code>hotel_order</code> 切换到 <code>rights_verification</code>，已重置历史 SQL 上下文，仅保留会话级用户偏好。</p></div>
+
+<h2>12. Text2SQL 准确率怎么评估？</h2>
+<p>Text2SQL 的准确率不能只用“SQL 字符串是否一致”来判断。</p>
+<p>因为同一个问题可能有多种 SQL 写法：</p>
+<div class="code-block"><pre><code class="language-sql">COUNT(*)
+COUNT(1)
+COUNT(DISTINCT order_id)</code></pre></div>
+<p>或者 Join 顺序不同，但结果一样。更合理的评估维度包括：</p>
+<h3>1. 可执行率</h3>
+<p>SQL 能不能成功执行。</p>
+<div class="code-block"><pre><code>Executable Accuracy = 可执行 SQL 数量 / 总 SQL 数量</code></pre></div>
+<h3>2. 结果准确率</h3>
+<p>执行结果是否与标准答案一致。这是最重要的指标。</p>
+<div class="code-block"><pre><code>Execution Accuracy = 结果正确 SQL 数量 / 总问题数量</code></pre></div>
+<h3>3. 语义准确率</h3>
+<p>SQL 是否符合业务口径。例如“GMV 不包含取消订单”，SQL 里是否过滤了取消状态。</p>
+<h3>4. 安全合规率</h3>
+<p>是否没有危险语句、越权访问、敏感字段泄露。</p>
+<h3>5. 人工审核通过率</h3>
+<p>业务人员或数据分析师抽检后是否认可。</p>
+<p>真正上线时，建议建立测试集：</p>
+<div class="code-block"><pre><code>问题
+标准 SQL
+标准结果
+涉及表
+涉及字段
+业务规则
+难度等级</code></pre></div>
+<p>每次模型、Prompt、Embedding 或规则更新后，都要跑回归测试。</p>
+
+<h2>13. LLM 生成 SQL 后，如何做安全和质量校验？</h2>
+<p>SQL 校验至少要分三层。</p>
+<h3>第一层：语法解析</h3>
+<p>先用 SQL Parser 解析 SQL，而不是用字符串简单判断。检查：</p>
+<ul>
+<li>是否为 SELECT；</li>
+<li>是否包含多语句；</li>
+<li>是否包含危险函数；</li>
+<li>是否包含 UPDATE / DELETE / DROP / ALTER；</li>
+<li>是否存在 SELECT *。</li>
+</ul>
+<h3>第二层：权限校验</h3>
+<p>检查模型使用的表和字段是否在用户权限范围内。例如用户只能查酒店业务，就不能访问机票表或财务敏感表。</p>
+<div class="code-block"><pre><code>用户权限表集合 ∩ SQL 使用表集合</code></pre></div>
+<p>如果 SQL 引用了未授权表，直接拦截。</p>
+<h3>第三层：质量校验</h3>
+<p>检查：</p>
+<ul>
+<li>是否命中分区字段；</li>
+<li>是否限制时间范围；</li>
+<li>是否存在笛卡尔积；</li>
+<li>Join key 是否合理；</li>
+<li>聚合字段是否正确；</li>
+<li>是否误用明细表导致重复计数；</li>
+<li>是否漏掉业务规则过滤条件。</li>
+</ul>
+<p>例如下面这个 SQL 就有风险：</p>
+<div class="code-block"><pre><code class="language-sql">SELECT COUNT(*)
+FROM rights_verification;</code></pre></div>
+<p>它没有时间条件，可能扫全表。更安全的要求是：</p>
+<div class="code-block"><pre><code class="language-sql">WHERE verification_time &gt;= xxx
+  AND verification_time &lt; xxx</code></pre></div>
+<p>对于大表查询，系统应该强制时间范围，或者自动加 limit / explain cost 检查。</p>
+
+<h2>14. 权益核销失败率高，如何收敛失败链路？</h2>
+<p>问题的后半部分开始进入分布式业务系统：权益核销、RocketMQ、Redis、MySQL、Seata AT。</p>
+<p>这其实是在考察：<strong>AI Agent 不只是问答系统，还要接入真实业务链路。</strong></p>
+<p>权益核销常见链路如下：</p>
+<div class="flow-block"><pre><code>用户发起核销
+  ↓
+订单服务校验
+  ↓
+权益服务扣减权益
+  ↓
+核销状态写入 MySQL
+  ↓
+发送 RocketMQ 消息
+  ↓
+下游服务处理
+  ↓
+缓存更新
+  ↓
+返回核销结果</code></pre></div>
+<p>失败率高的原因通常有：</p>
+<ul>
+<li>消息发送延迟；</li>
+<li>消息重复投递；</li>
+<li>下游消费失败；</li>
+<li>状态没有同步；</li>
+<li>Redis 和 MySQL 不一致；</li>
+<li>接口超时但实际成功；</li>
+<li>补偿链路不完整；</li>
+<li>缺少幂等设计。</li>
+</ul>
+<p>解决思路是把关键状态事件化：</p>
+<div class="code-block"><pre><code>核销请求创建
+核销处理中
+核销成功
+核销失败
+核销补偿中
+核销补偿成功
+核销补偿失败</code></pre></div>
+<p>每个状态都落库，并通过 RocketMQ 传递。</p>
+
+<h2>15. MySQL 是真实数据源，Redis 只是缓存</h2>
+<p>在权益系统里，Redis 通常保存临时状态或高频读取数据，但不能作为最终数据源。</p>
+<blockquote><p>MySQL 是最终事实来源，Redis 是加速层。</p></blockquote>
+<p>写入流程可以是：</p>
+<div class="flow-block"><pre><code>先写 MySQL
+  ↓
+提交成功
+  ↓
+发送 MQ
+  ↓
+消费方更新 Redis</code></pre></div>
+<p>如果 Redis 更新失败，不应该直接判定业务失败，而应该通过 MQ 重试或补偿任务修复。</p>
+<p>常见方案：</p>
+<div class="flow-block"><pre><code>MySQL 写成功
+  ↓
+发送权益状态变更消息
+  ↓
+Redis 消费消息更新缓存
+  ↓
+失败则重试
+  ↓
+多次失败进入补偿队列</code></pre></div>
+<p>读的时候也要注意缓存异常：</p>
+<div class="flow-block"><pre><code>先读 Redis
+  ↓
+未命中或状态异常
+  ↓
+回源 MySQL
+  ↓
+重建缓存</code></pre></div>
+<p>这样可以避免 Redis 短暂不一致导致错误判断。</p>
+
+<h2>16. 为什么不把全部链路放进全局事务？</h2>
+<p>比较合理的解释是：</p>
+<blockquote><p>数据库更新可以用本地事务或 Seata AT，但消息链路不应该强行塞进全局事务。</p></blockquote>
+<p>因为全局事务会带来明显成本：</p>
+<ul>
+<li>锁持有时间变长；</li>
+<li>系统吞吐下降；</li>
+<li>服务间耦合变强；</li>
+<li>下游服务失败会拖累主链路；</li>
+<li>排障复杂度提高。</li>
+</ul>
+<p>对于权益核销这类场景，更常见的是：</p>
+<div class="flow-block"><pre><code>本地事务保证核心状态落库
+  ↓
+RocketMQ 保证异步通知
+  ↓
+失败重试
+  ↓
+补偿任务兜底
+  ↓
+最终一致</code></pre></div>
+<p>也就是说，主链路只保证核心状态写成功，外围状态通过消息和补偿保证最终一致。</p>
+
+<h2>17. RocketMQ 重复消费时，如何保证幂等？</h2>
+<p>MQ 系统一定要假设消息会重复。所以消费者必须幂等。</p>
+<blockquote><p>用订单号 + 权益 ID + 操作类型生成业务唯一键。</p></blockquote>
+<div class="code-block"><pre><code>idempotent_key = order_id + rights_id + operation_type</code></pre></div>
+<p>数据库里建唯一索引：</p>
+<div class="code-block"><pre><code class="language-sql">CREATE UNIQUE INDEX uk_rights_consume
+ON rights_consume_record(order_id, rights_id, operation_type);</code></pre></div>
+<p>消费消息时：</p>
+<ol>
+<li>收到 MQ 消息；</li>
+<li>生成业务唯一键；</li>
+<li>插入消费记录；</li>
+<li>如果插入成功，继续处理；</li>
+<li>如果唯一键冲突，说明已经处理过，直接返回成功。</li>
+</ol>
+<p>伪代码：</p>
+<div class="code-block"><pre><code class="language-java">public void consume(RightsMessage message) {
+    String key = message.getOrderId() + "_"
+               + message.getRightsId() + "_"
+               + message.getOperationType();
+
+    try {
+        insertConsumeRecord(key, message);
+    } catch (DuplicateKeyException e) {
+        // 已消费过，直接 ACK
+        return;
+    }
+
+    boolean success = updateRightsStatusWithCondition(message);
+
+    if (!success) {
+        // 状态不满足，可能已经成功或已取消
+        return;
+    }
+
+    sendNextEvent(message);
+}</code></pre></div>
+<p>状态更新也要带条件：</p>
+<div class="code-block"><pre><code class="language-sql">UPDATE rights_record
+SET status = 'CONSUMED'
+WHERE order_id = #{orderId}
+  AND rights_id = #{rightsId}
+  AND status = 'INIT';</code></pre></div>
+<p>这样即使重复消息来了，也只有第一次能把状态从 INIT 改成 CONSUMED。</p>
+
+<h2>18. 权益核销的完整防重和补偿设计</h2>
+<p>一个更完整的核销链路可以这样设计：</p>
+<div class="flow-block"><pre><code>用户请求
+  ↓
+生成 request_id
+  ↓
+检查幂等表
+  ↓
+写核销记录 INIT
+  ↓
+扣减权益库存
+  ↓
+更新状态 SUCCESS
+  ↓
+发送 MQ
+  ↓
+下游消费
+  ↓
+更新缓存和报表</code></pre></div>
+<p>失败时：</p>
+<div class="code-block"><pre><code>MQ 发送失败
+  → 本地消息表定时扫描重发
+
+MQ 消费失败
+  → RocketMQ 重试
+
+超过重试次数
+  → 进入死信队列
+
+死信消息
+  → 人工或自动补偿任务处理
+
+Redis 更新失败
+  → 回源 MySQL + 异步刷新缓存</code></pre></div>
+<div class="principle-box"><p><strong>核心原则：</strong>业务唯一键防重复，状态机防乱序，本地事务保核心，MQ 重试保投递，补偿任务保最终一致，MySQL 作为最终事实源。</p></div>
+
+<h2>19. 把 AI Agent 和业务系统结合时，真正要看的是什么？</h2>
+<p>这类面试问题不是只问你会不会 RAG，也不是只问你会不会 RocketMQ。它真正关心的是：</p>
+<h3>第一，你有没有做过工程闭环</h3>
+<p>不是“模型能回答”，而是：</p>
+<div class="code-block"><pre><code>能不能召回正确知识？
+能不能生成正确 SQL？
+能不能校验 SQL？
+能不能执行失败后定位原因？
+能不能根据反馈更新知识库？
+能不能做回归测试？</code></pre></div>
+<h3>第二，你有没有风险意识</h3>
+<p>业务系统里不能把 LLM 当成完全可信组件。必须有：</p>
+<ul>
+<li>权限控制；</li>
+<li>SQL 白名单；</li>
+<li>字段校验；</li>
+<li>查询成本控制；</li>
+<li>Prompt 版本管理；</li>
+<li>日志追踪；</li>
+<li>人工审核；</li>
+<li>失败兜底。</li>
+</ul>
+<h3>第三，你有没有一致性思维</h3>
+<p>AI 查询系统最后可能要接业务动作，比如权益核销、订单处理、客服补偿。这时就不能只懂 Prompt，还要懂：</p>
+<ul>
+<li>MQ；</li>
+<li>幂等；</li>
+<li>状态机；</li>
+<li>分布式事务；</li>
+<li>最终一致；</li>
+<li>缓存一致性；</li>
+<li>补偿机制。</li>
+</ul>
+
+<h2>20. 总结：真正的 Agent 落地，是 AI 工程 + 后端工程 + 数据工程的结合</h2>
+<p>一个业务数据智能查询 Agent，表面上是 Text2SQL，底层其实融合了三类能力。</p>
+<p><strong>第一类是 AI 工程能力：</strong></p>
+<div class="code-block"><pre><code>RAG
+Embedding
+Prompt Engineering
+Query Rewrite
+Few-shot
+LLM Evaluation</code></pre></div>
+<p><strong>第二类是数据工程能力：</strong></p>
+<div class="code-block"><pre><code>DDL 管理
+数据字典
+指标口径
+SQL 校验
+数据权限
+查询性能优化</code></pre></div>
+<p><strong>第三类是后端工程能力：</strong></p>
+<div class="code-block"><pre><code>Java / Spring Boot
+Redis
+MySQL
+RocketMQ
+分布式事务
+幂等设计
+最终一致性</code></pre></div>
+<p>所以这类项目最有价值的地方，不是“用了大模型”，而是把大模型放进一个可靠的工程闭环里：</p>
+<div class="principle-box"><pre><code>知识可维护
+结果可评估
+SQL 可校验
+权限可控制
+链路可追踪
+失败可补偿
+版本可回滚</code></pre></div>
+<p>这也是企业级 Agent 和普通 Demo 最大的区别。</p>
+</article>
+<section aria-labelledby="article-text2sql-rights-redemption-agent-newsletter-title" class="newsletter-card article-newsletter-footer" data-newsletter-article-footer="true">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="article-text2sql-rights-redemption-agent-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="article-text2sql-rights-redemption-agent" method="post">
+<label class="sr-only" for="article-text2sql-rights-redemption-agent-email">Email address</label>
+<input autocomplete="email" id="article-text2sql-rights-redemption-agent-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="article-text2sql-rights-redemption-agent"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer text-center">
+<p>&copy; 2026 Yangming Li. All rights reserved. | <a href="/">Home</a> | <a href="/blog/">Blog</a> | <a href="/ai-engineering/">AI Engineering</a></p>
+</footer>
+</div>
+</div>
+<script defer="" src="/js/jquery-2.1.4.min.js"></script>
+<script defer="" src="/js/bootstrap.min.js"></script>
+<script defer="" src="/js/scripts.js"></script>
+<script defer="" src="/js/blogPanel.js"></script>
+<script defer="" src="/js/toc.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var currentTheme = localStorage.getItem('theme') || null;
+  var checkbox = document.getElementById('checkbox');
+  if (currentTheme) {
+    document.body.classList.add(currentTheme);
+    if (currentTheme === 'dark-mode' && checkbox) {
+      checkbox.checked = true;
+    }
+  }
+  if (checkbox) {
+    checkbox.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', '');
+      }
+    });
+  }
+
+  var progress = document.querySelector('.article-progress-bar span');
+  function updateProgress() {
+    if (!progress) {
+      return;
+    }
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+  }
+  updateProgress();
+  window.addEventListener('scroll', updateProgress, { passive: true });
+});
+</script>
+<section aria-labelledby="related-writing-title" class="seo-related-block">
+<h2 id="related-writing-title">Related writing</h2>
+<div class="seo-related-grid">
+<article class="seo-related-item">
+<h3><a href="/fabric-data-agent-azure-ai-foundry.html">Enterprise Data Agent with Microsoft Fabric</a></h3>
+<p>Governed enterprise data agents, ontology, MCP endpoints, and Foundry orchestration.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/rag-evaluation-not-a-score.html">RAG Evaluation Guide</a></h3>
+<p>Retrieval quality, faithfulness, test sets, and production monitoring.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/ai-engineering/">AI Engineering</a></h3>
+<p>Production AI systems, agents, RAG, MLOps, and reliability.</p>
+</article>
+<article class="seo-related-item">
+<h3><a href="/data-products/">Data Products</a></h3>
+<p>Analytics systems, AI data products, and decision-support workflows.</p>
+</article>
+</div>
+</section>
+<footer aria-label="Site footer" class="site-footer">
+<div class="site-footer-inner">
+<section aria-labelledby="site-footer-newsletter-title" class="newsletter-card">
+<div class="newsletter-card-inner">
+<div class="newsletter-copy">
+<span class="newsletter-kicker">Newsletter</span>
+<h2 id="site-footer-newsletter-title">Subscribe to Yangming Li's Newsletter</h2>
+<p>Monthly notes on AI systems, applied machine learning, evaluation, and product workflows.</p>
+<ul aria-label="Newsletter topics" class="newsletter-topic-list">
+<li>LLM systems</li>
+<li>Evaluation</li>
+<li>Data products</li>
+<li>MLOps</li>
+<li>Production AI</li>
+</ul>
+</div>
+<form action="/api/newsletter-subscribe" class="newsletter-form" data-newsletter-form="" data-source="site-footer" method="post">
+<label class="sr-only" for="site-footer-email">Email address</label>
+<input autocomplete="email" id="site-footer-email" name="email" placeholder="your@email.com" required="" type="email"/>
+<input aria-hidden="true" autocomplete="off" class="sr-only" name="website" tabindex="-1" type="text"/>
+<input name="source" type="hidden" value="site-footer"/>
+<button type="submit"><i aria-hidden="true" class="fa fa-envelope-o"></i> Subscribe</button>
+<p class="newsletter-privacy">1-2 emails per month. No spam. Unsubscribe anytime.</p>
+<p aria-live="polite" class="newsletter-status newsletter-success" data-newsletter-success="" role="status"></p>
+<p aria-live="assertive" class="newsletter-status newsletter-error" data-newsletter-error="" role="alert"></p>
+</form>
+</div>
+</section>
+<p class="site-footer-title">Yangming Li</p>
+<ul class="site-footer-links"><li><a href="/about.html">About</a></li><li><a href="/projects.html">Projects</a></li><li><a href="/ai-engineering/">AI Engineering</a></li><li><a href="/llm-evaluation/">LLM Evaluation</a></li><li><a href="/data-products/">Data Products</a></li><li><a href="/case-studies/">Case Studies</a></li><li><a href="/ai-product-builder.html">AI Product Builder</a></li><li><a href="/blog/">Blog</a></li><li><a href="/resume.html">Resume</a></li><li><a href="/contact.html">Contact</a></li><li><a class="newsletter-button footer-subscribe-link" href="/subscribe/">Subscribe</a></li><li><a href="https://www.linkedin.com/in/yangming-li-tech/" rel="noopener noreferrer">LinkedIn</a></li><li><a href="https://github.com/yml-blog" rel="noopener noreferrer">GitHub</a></li></ul>
+</div>
+</footer>
+</body>
+</html>

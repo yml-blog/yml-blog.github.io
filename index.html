@@ -436,6 +436,14 @@
 <input autocomplete="off" id="blog-search-box" placeholder="Search articles..." type="text"/>
 </div>
 <ul id="blog-list">
+<li data-category="Engineering" data-tag="ML" data-year="2026">
+<h3><a href="text2sql-rights-redemption-agent.html">[2026] [AI Engineering] 从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘</a></h3>
+<p>[AI Engineering] 三层 RAG、PGVector、多轮上下文、SQL 安全与评估，以及 RocketMQ、幂等和最终一致性的完整工程闭环。</p>
+</li>
+<li data-category="Engineering" data-tag="ML" data-year="2026">
+<h3><a href="fabric-data-agent-azure-ai-foundry.html">[2026] [AI Engineering] Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry</a></h3>
+<p>[AI Engineering] A practical architecture guide for governed enterprise data agents using Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service.</p>
+</li>
 <li data-tag="ML" data-year="2026">
 <h3><a href="churn-prediction-uplift-thinking.html">[2026] [Applied ML] A 90% Accurate Model That Still Loses Money: Why Churn Prediction Fails Without Uplift Thinking</a></h3>
 <p>[Applied ML] Why high-accuracy churn prediction can improve renewal rate while losing revenue, and how uplift thinking targets incremental renewals instead of risk scores.</p>
@@ -2869,7 +2877,7 @@
         }
 
         Array.prototype.slice.call(blogList.querySelectorAll('li')).forEach(function(item) {
-            setCardLabel(item, 'AI/ML');
+            setCardLabel(item, item.getAttribute('data-category') || 'AI/ML');
         });
 
         [

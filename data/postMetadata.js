@@ -1,5 +1,35 @@
 const postMetadata = [
   {
+    title: "从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘",
+    href: "/text2sql-rights-redemption-agent.html",
+    date: "2026-07-10",
+    summary:
+      "从三层 RAG、PGVector、多轮上下文与 SQL 校验，到 RocketMQ、幂等和最终一致性，完整复盘企业级数据查询 Agent 的工程闭环。",
+    tags: ["Text2SQL", "AI Agent", "RAG", "distributed systems"],
+    area: "ai-engineering",
+    featured: true,
+    readingTime: "20 min read",
+    relatedProjects: ["ai-engineering", "data-products"],
+    series: "Enterprise Data Agents",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/text2sql-rights-redemption-agent.html"
+  },
+  {
+    title: "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
+    href: "/fabric-data-agent-azure-ai-foundry.html",
+    date: "2026-07-09",
+    summary:
+      "A practical architecture guide for using Microsoft Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service to build governed enterprise data agents.",
+    tags: ["Microsoft Fabric", "Azure AI Foundry", "enterprise AI agents", "MCP"],
+    area: "ai-engineering",
+    featured: true,
+    readingTime: "18 min read",
+    relatedProjects: ["ai-engineering", "data-products"],
+    series: "Enterprise Data Agents",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/fabric-data-agent-azure-ai-foundry.html"
+  },
+  {
     title: "RAG Evaluation Guide: Metrics, Frameworks, and Python Examples",
     href: "/rag-evaluation-not-a-score.html",
     date: "2026-06-16",
