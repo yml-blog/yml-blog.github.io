@@ -436,7 +436,7 @@
 <input autocomplete="off" id="blog-search-box" placeholder="Search articles..." type="text"/>
 </div>
 <ul id="blog-list">
-<li data-tag="ML" data-year="2026">
+<li data-category="Engineering" data-tag="ML" data-year="2026">
 <h3><a href="fabric-data-agent-azure-ai-foundry.html">[2026] [AI Engineering] Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry</a></h3>
 <p>[AI Engineering] A practical architecture guide for governed enterprise data agents using Fabric Data Agent, Fabric IQ ontology, MCP endpoints, and Microsoft Foundry Agent Service.</p>
 </li>
@@ -2873,7 +2873,7 @@
         }
 
         Array.prototype.slice.call(blogList.querySelectorAll('li')).forEach(function(item) {
-            setCardLabel(item, 'AI/ML');
+            setCardLabel(item, item.getAttribute('data-category') || 'AI/ML');
         });
 
         [

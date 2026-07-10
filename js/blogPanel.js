@@ -1,5 +1,11 @@
 const blogList = [
     {
+        title: "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
+        displayTitle: "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
+        url: "fabric-data-agent-azure-ai-foundry.html",
+        category: "AI Engineering"
+    },
+    {
         title: "Why Decoder-Only Architectures Dominate Modern LLMs",
         displayTitle: "Why Are Decoder-Only Architectures Taking Over the LLM World?",
         url: "decoder-only-architectures.html",
