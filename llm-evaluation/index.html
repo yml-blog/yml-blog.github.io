@@ -160,7 +160,7 @@ body.llm-evaluation-page .topic-tag {
 .research-article p,
 .research-article li {
   color: #425066;
-  font-size: 1.08rem;
+  font-size: 1.2rem;
   line-height: 1.78;
 }
 
@@ -177,8 +177,11 @@ body.llm-evaluation-page .topic-tag {
   background: #f7fbfa;
   color: #172033;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
   line-height: 1.65;
+  text-align: center;
+  letter-spacing: 0.01em;
 }
 
 .article-toc ol {
@@ -472,10 +475,9 @@ body.llm-evaluation-page .topic-tag {
 <p>0 means irrelevant;<br/>1 means topically related;<br/>2 means useful supporting evidence;<br/>3 means directly contains the required answer.</p>
 <h4 id="3-2-recall-k">3.2 Recall@K</h4>
 <p>Recall@K measures how much of the complete relevant-document set appears among the first K retrieved results:</p>
-<div class="equation">Recall@K=<br/>∣All relevant documents∣<br/>∣Relevant documents in the top K∣<br/>	​</div>
+<div class="equation">Recall@K = |relevant documents in top K| ÷ |all relevant documents|</div>
 <p>Suppose five documents are required to support a multi-part answer and four appear in the top ten results:</p>
-<div class="equation">Recall@10=<br/>5<br/>4<br/>	​</div>
-<p>=0.8</p>
+<div class="equation">Recall@10 = 4 ÷ 5 = 0.8</div>
 <p>Recall@K is especially important when:</p>
 <p>answers require several sources;<br/>the task involves multi-hop reasoning;<br/>missing one document may remove an essential qualification;<br/>regulations or policies contain distributed evidence.</p>
 <p>A common simplified explanation says that Recall@K is “the proportion of correct documents among the top K.” That description is technically closer to precision. The denominator of recall must be the total number of relevant documents, not simply K.</p>
@@ -483,18 +485,13 @@ body.llm-evaluation-page .topic-tag {
 <h4 id="3-3-hit-rate-k">3.3 Hit Rate@K</h4>
 <p>Hit Rate@K asks whether the retrieved set contains at least one relevant document.</p>
 <p>For one query:</p>
-<div class="equation">Hit@K={<br/>1,<br/>0,<br/>	​</div>
-<p>if at least one relevant document appears in top K<br/>otherwise<br/>	​</p>
-<p>Across N queries:</p>
-<div class="equation">HitRate@K=<br/>N<br/>1<br/>	​</div>
-<div class="equation">i=1<br/>∑<br/>N<br/>	​</div>
-<p>Hit<br/>i<br/>	​</p>
-<p>@K</p>
+<div class="equation">Hit@K = 1 if at least one relevant document appears in top K; otherwise 0</div><p>Across N queries:</p>
+<div class="equation">Hit Rate@K = (1/N) × ∑ᵢ₌₁ᴺ Hitᵢ@K</div>
 <p>Hit Rate is useful for single-fact question answering but does not measure:</p>
 <p>how many relevant documents were found;<br/>where the first relevant document was ranked;<br/>whether enough evidence was retrieved for a complete answer;<br/>how much irrelevant content was returned.</p>
 <h4 id="3-4-precision-k">3.4 Precision@K</h4>
 <p>Precision@K measures the proportion of the first K retrieved documents that are relevant:</p>
-<div class="equation">Precision@K=<br/>K<br/>∣Relevant documents in the top K∣<br/>	​</div>
+<div class="equation">Precision@K = |relevant documents in top K| ÷ K</div>
 <p>If six of the first ten results are relevant:</p>
 <p>Precision@10=0.6</p>
 <p>Precision represents the retriever’s ability to filter noise. Low precision may produce:</p>
@@ -502,18 +499,13 @@ body.llm-evaluation-page .topic-tag {
 <p>Precision and recall must be interpreted jointly. Aggressive filtering may raise precision while excluding evidence and reducing recall. Increasing K may improve recall but lower precision.</p>
 <h4 id="3-5-error-discovery-rate">3.5 Error Discovery Rate</h4>
 <p>Some engineering materials use Error Discovery Rate, or EDR, to represent the proportion of irrelevant documents in the first K results:</p>
-<div class="equation">EDR@K=<br/>K<br/>∣Irrelevant documents in the top K∣<br/>	​</div>
+<div class="equation">EDR@K = |irrelevant documents in top K| ÷ K</div>
 <p>Under binary relevance:</p>
 <p>EDR@K=1−Precision@K</p>
 <p>EDR is not a universally standardized RAG metric, so every evaluation report should state its precise definition.</p>
 <h4 id="3-6-mean-reciprocal-rank">3.6 Mean Reciprocal Rank</h4>
 <p>Mean Reciprocal Rank, or MRR, evaluates how early the first relevant result appears:</p>
-<div class="equation">MRR=<br/>N<br/>1<br/>	​</div>
-<div class="equation">i=1<br/>∑<br/>N<br/>	​</div>
-<p>rank<br/>i<br/>	​</p>
-<p>1<br/>	​</p>
-<p>where rank<br/>i<br/>	​</p>
-<p>is the rank of the first relevant document for query i.</p>
+<div class="equation">MRR = (1/N) × ∑ᵢ₌₁ᴺ (1/rankᵢ)</div><p>Here, rankᵢ is the rank of the first relevant document for query i.</p>
 <p>Examples:</p>
 <p>relevant document at rank 1: 1.0;<br/>rank 2: 0.5;<br/>rank 5: 0.2.</p>
 <p>MRR is useful when the system primarily needs one decisive document, such as:</p>
@@ -521,12 +513,9 @@ body.llm-evaluation-page .topic-tag {
 <p>Its limitation is that it ignores all relevant documents after the first one.</p>
 <h4 id="3-7-normalized-discounted-cumulative-gain">3.7 Normalized Discounted Cumulative Gain</h4>
 <p>Normalized Discounted Cumulative Gain, or nDCG, incorporates graded relevance and document position.</p>
-<div class="equation">DCG@K=<br/>i=1<br/>∑<br/>K<br/>	​</div>
-<p>log<br/>2<br/>	​</p>
-<p>(i+1)<br/>2<br/>rel<br/>i<br/>	​</p>
-<p>−1<br/>	​</p>
+<div class="equation">DCG@K = ∑ᵢ₌₁ᴷ (2ʳᵉˡⁱ − 1) ÷ log₂(i + 1)</div>
 <p>The result is normalized against the ideal ranking:</p>
-<div class="equation">nDCG@K=<br/>IDCG@K<br/>DCG@K<br/>	​</div>
+<div class="equation">nDCG@K = DCG@K ÷ IDCG@K</div>
 <p>nDCG rewards systems that place highly relevant documents near the top while assigning less credit to useful documents ranked lower.</p>
 <p>It is preferable to MRR when:</p>
 <p>multiple documents are relevant;<br/>relevance has different degrees;<br/>document order affects downstream generation;<br/>the first result alone does not provide sufficient evidence.</p>
@@ -536,19 +525,19 @@ body.llm-evaluation-page .topic-tag {
 <h4 id="4-1-context-relevance">4.1 Context Relevance</h4>
 <p>Context Relevance measures whether the retrieved context contains information needed to answer the question and avoids unnecessary material.</p>
 <p>The original RAGAS approach asks an LLM to extract sentences that are important for answering the query. The score is then calculated as:</p>
-<div class="equation">ContextRelevance=<br/>Total number of context sentences<br/>Number of extracted relevant sentences<br/>	​</div>
+<div class="equation">Context Relevance = |relevant extracted sentences| ÷ |all context sentences|</div>
 <p>This metric penalizes redundant context and represents the degree to which retrieval remains focused.</p>
 <p>Low Context Relevance can be caused by:</p>
 <p>poor embeddings;<br/>incorrect metadata filters;<br/>unsuitable chunk sizes;<br/>poor query rewriting;<br/>excessively broad retrieval;<br/>weak reranking;<br/>retrieval of topically similar but factually irrelevant passages.</p>
 <h4 id="4-2-context-precision">4.2 Context Precision</h4>
 <p>Context Precision evaluates how much of the supplied context contributes to answering the question and, in ranking-aware versions, whether useful passages appear before irrelevant passages.</p>
 <p>A simplified version is:</p>
-<div class="equation">ContextPrecision=<br/>All retrieved passages<br/>Useful retrieved passages<br/>	​</div>
+<div class="equation">Context Precision = |useful retrieved passages| ÷ |all retrieved passages|</div>
 <p>A more informative implementation should assign contribution labels at the passage or claim level and reward earlier placement of useful evidence.</p>
 <p>Low Context Precision indicates that the generator is being asked to distinguish signal from excessive noise.</p>
 <h4 id="4-3-context-recall">4.3 Context Recall</h4>
 <p>Context Recall measures whether the retrieved context covers the facts required by the reference answer:</p>
-<div class="equation">ContextRecall=<br/>All required reference facts<br/>Reference facts supported by the retrieved context<br/>	​</div>
+<div class="equation">Context Recall = |required facts supported by context| ÷ |all required reference facts|</div>
 <p>This differs from document-level Recall@K:</p>
 <div class="equation">Recall@K uses a set of relevant documents as the denominator.<br/>Context Recall uses the facts or evidence necessary to answer the question.</div>
 <p>For example, a retrieved document may be labelled relevant but omit one critical condition from the reference answer. Document recall may appear satisfactory while Context Recall remains incomplete.</p>
@@ -563,24 +552,21 @@ body.llm-evaluation-page .topic-tag {
 <h4 id="5-1-faithfulness">5.1 Faithfulness</h4>
 <p>Faithfulness measures whether the factual claims in the answer can be derived from the retrieved context.</p>
 <p>Let the generated answer be decomposed into a set of independently verifiable claims:</p>
-<div class="equation">S={s<br/>1<br/>	​</div>
-<p>,s<br/>2<br/>	​</p>
-<p>,…,s<br/>n<br/>	​</p>
-<p>}</p>
+<div class="equation">S = {s₁, s₂, …, sₙ}</div>
 <p>Let V⊆S be the claims supported by the context. Then:</p>
-<div class="equation">Faithfulness=<br/>∣S∣<br/>∣V∣<br/>	​</div>
+<div class="equation">Faithfulness = |V| ÷ |S|</div>
 <p>The original RAGAS method uses an LLM to:</p>
 <p>break the answer into individual statements;<br/>determine whether each statement is supported by the context;<br/>calculate the proportion of supported statements.</p>
 <p>This claim-level method is more appropriate than treating the complete answer as a single semantic vector.</p>
 <p>A low score may reveal:</p>
 <p>unsupported claims;<br/>hallucinated names, dates, or numbers;<br/>excessive inference;<br/>reliance on parametric memory rather than retrieved evidence;<br/>conflict between the answer and the cited material.</p>
 <p>Faithfulness should not be confused with objective correctness:</p>
-<div class="equation">Faithful to context<br/><br/>=Correct in the real world</div>
+<div class="equation">Faithful to context ≠ correct in the real world</div>
 <p>If the retrieved source is outdated or false, the model may be highly faithful but factually wrong.</p>
 <h4 id="5-2-groundedness">5.2 Groundedness</h4>
 <p>Groundedness is often used as a near-synonym for faithfulness. It asks whether every material conclusion in the answer has identifiable support in the evidence.</p>
 <p>A strong groundedness evaluator should operate at the claim level:</p>
-<div class="equation">Groundedness=<br/>All verifiable answer claims<br/>Entailed answer claims<br/>	​</div>
+<div class="equation">Groundedness = |entailed answer claims| ÷ |all verifiable answer claims|</div>
 <p>It should ideally return not only a score but also:</p>
 <p>unsupported claims;<br/>supporting passage IDs;<br/>entailment confidence;<br/>contradictory evidence;<br/>missing citations.</p>
 <h4 id="5-3-factual-consistency">5.3 Factual Consistency</h4>
@@ -601,12 +587,7 @@ body.llm-evaluation-page .topic-tag {
 <p>directness;<br/>completeness;<br/>avoidance of irrelevant details;<br/>alignment with the requested task;<br/>usefulness to the user.</p>
 <p>It does not necessarily measure factual correctness.</p>
 <p>The original RAGAS method asks an LLM to generate several possible questions from the answer, embeds those generated questions, and compares them with the original query:</p>
-<div class="equation">AnswerRelevance=<br/>n<br/>1<br/>	​</div>
-<div class="equation">i=1<br/>∑<br/>n<br/>	​</div>
-<p>sim(q,q<br/>i<br/>	​</p>
-<p>)</p>
-<p>where q is the original question and q<br/>i<br/>	​</p>
-<p>is a question inferred from the generated answer.</p>
+<div class="equation">Answer Relevance = (1/n) × ∑ᵢ₌₁ⁿ sim(q, qᵢ)</div><p>Here, q is the original question and qᵢ is a question inferred from the generated answer.</p>
 <p>A response can therefore have:</p>
 <p>high relevance but low faithfulness;<br/>high faithfulness but low relevance;<br/>high correctness but poor completeness;<br/>fluent language but little practical value.</p>
 <p>These dimensions should not be collapsed prematurely.</p>
@@ -621,7 +602,7 @@ body.llm-evaluation-page .topic-tag {
 <p>An answer may be factually correct but incomplete if it omits:</p>
 <p>one part of a multi-part question;<br/>exceptions;<br/>eligibility criteria;<br/>dates;<br/>risks;<br/>limitations;<br/>uncertainty;<br/>required actions.</p>
 <p>A useful formulation is:</p>
-<div class="equation">Completeness=<br/>All required answer elements<br/>Required answer elements present<br/>	​</div>
+<div class="equation">Completeness = |required answer elements present| ÷ |all required answer elements|</div>
 <h4 id="5-8-fluency-and-readability">5.8 Fluency and readability</h4>
 <p>Fluency evaluates:</p>
 <p>grammatical quality;<br/>natural language;<br/>logical flow;<br/>structural clarity;<br/>absence of repetition;<br/>appropriate level of detail.</p>
@@ -629,9 +610,9 @@ body.llm-evaluation-page .topic-tag {
 <h4 id="5-9-attribution-and-citation-sufficiency">5.9 Attribution and citation sufficiency</h4>
 <p>Attribution evaluates whether factual claims identify their sources.</p>
 <p>A basic metric is:</p>
-<div class="equation">CitationCoverage=<br/>Claims requiring citations<br/>Claims with citations<br/>	​</div>
+<div class="equation">Citation Coverage = |claims with citations| ÷ |claims requiring citations|</div>
 <p>Citation correctness should be evaluated separately:</p>
-<div class="equation">CitationAccuracy=<br/>All citations<br/>Citations that support their associated claims<br/>	​</div>
+<div class="equation">Citation Accuracy = |citations supporting their claims| ÷ |all citations|</div>
 <p>For high-risk systems, answers should retain stable evidence identifiers such as:</p>
 <p>The policy became effective on 1 April 2025. [Doc12]</p>
 <p>An auditable system should store:</p>
@@ -642,17 +623,14 @@ body.llm-evaluation-page .topic-tag {
 <p>The framework was designed to reduce dependence on manually annotated reference answers and support faster evaluation cycles.</p>
 <h4 id="6-1-faithfulness-in-ragas">6.1 Faithfulness in RAGAS</h4>
 <p>The answer is decomposed into claims. An LLM then determines which claims are supported by the context:</p>
-<div class="equation">F=<br/>All generated statements<br/>Supported statements<br/>	​</div>
+<div class="equation">F = |supported statements| ÷ |all generated statements|</div>
 <h4 id="6-2-answer-relevance-in-ragas">6.2 Answer Relevance in RAGAS</h4>
 <p>Questions are generated from the answer and compared semantically with the original user query:</p>
-<div class="equation">AR=<br/>n<br/>1<br/>	​</div>
-<div class="equation">i=1<br/>∑<br/>n<br/>	​</div>
-<p>sim(q,q<br/>i<br/>	​</p>
-<p>)</p>
+<div class="equation">AR = (1/n) × ∑ᵢ₌₁ⁿ sim(q, qᵢ)</div>
 <p>This penalizes incomplete, indirect, or redundant answers.</p>
 <h4 id="6-3-context-relevance-in-ragas">6.3 Context Relevance in RAGAS</h4>
 <p>The evaluator extracts only the sentences necessary to answer the question:</p>
-<div class="equation">CR=<br/>All context sentences<br/>Relevant extracted sentences<br/>	​</div>
+<div class="equation">CR = |relevant extracted sentences| ÷ |all context sentences|</div>
 <p>This penalizes unnecessary context.</p>
 <h4 id="6-4-limitations-of-automated-ragas-evaluation">6.4 Limitations of automated RAGAS evaluation</h4>
 <p>RAGAS depends on another model for evaluation, so its scores may vary because of:</p>
@@ -670,37 +648,31 @@ body.llm-evaluation-page .topic-tag {
 <p>In the paper’s tested configurations:</p>
 <p>some reader models consistently benefited from additional context;<br/>others peaked at a small k and then declined;<br/>some models performed worse than their no-context baseline when exposed to noisy passages;<br/>multi-hop questions generally required more evidence than simple single-hop questions.</p>
 <p>These findings support the use of a closed-book baseline in every RAG experiment:</p>
-<p>Δ<br/>RAG<br/>	​</p>
-<div class="equation">(k)=Performance<br/>RAG<br/>	​</div>
-<p>(k)−Performance<br/>closed−book<br/>	​</p>
+<div class="equation">ΔRAG(k) = PerformanceRAG(k) − Performanceclosed-book</div>
 <p>A negative value means retrieval has degraded performance.</p>
 <h4 id="7-2-two-retrieval-depth-behaviours">7.2 Two retrieval-depth behaviours</h4>
 <p>Improve-then-plateau</p>
 <p>The model improves as more context is added and eventually reaches a plateau:</p>
-<p>S(1)&lt;S(2)&lt;⋯&lt;S(k<br/>plateau<br/>	​</p>
-<p>)</p>
+<div class="equation">S(1) &lt; S(2) &lt; ⋯ &lt; S(kₚₗₐₜₑₐᵤ)</div>
 <p>This pattern indicates that the reader can continue extracting signal while tolerating additional noise.</p>
 <p>Peak-then-decline</p>
 <p>The model improves initially, reaches an early optimum, and then degrades:</p>
-<p>S(1)&lt;⋯&lt;S(k<br/>∗<br/>)&gt;S(k<br/>∗<br/>+1)&gt;⋯</p>
+<div class="equation">S(1) &lt; ⋯ &lt; S(k*) &gt; S(k* + 1) &gt; ⋯</div>
 <p>This suggests sensitivity to irrelevant or distracting information.</p>
 <p>RAGGED found that retrieval-depth behaviour was strongly reader-dependent. In its experiments, models such as Flan and GPT-3.5 often followed improve-then-plateau patterns, while tested LLaMA and Claude configurations were more vulnerable to noise at larger k. These are empirical findings from the tested models and datasets, not universal laws for every future model version.</p>
 <h4 id="7-3-rag-stability-score">7.3 RAG Stability Score</h4>
 <p>The RAG Stability Score, or RSS, measures how stable performance remains near the optimal retrieval depth.</p>
 <p>Let:</p>
-<p>S(k) be performance at retrieval depth k;<br/>k<br/>∗<br/> be the retrieval depth with optimal performance;<br/>Δ define a local window around k<br/>∗<br/>.</p>
+<p>S(k) is performance at retrieval depth k; k* is the retrieval depth with optimal performance; and Δ defines a local window around k*.</p>
 <p>A conceptual representation is:</p>
-<div class="equation">RSS=<br/>S(k<br/>∗<br/>)<br/>k∈[k<br/>∗<br/>−Δ,k<br/>∗<br/>+Δ],k<br/><br/>=k<br/>∗<br/>min<br/>	​</div>
-<p>S(k)<br/>	​</p>
+<div class="equation">RSS = min S(k) ÷ S(k*) for k ∈ [k* − Δ, k* + Δ], k ≠ k*</div>
 <p>A value close to 1 indicates that small changes around the optimal k do not substantially affect performance.</p>
 <p>A low score indicates that the system is brittle: selecting a retrieval depth only slightly different from the optimum may produce a major performance decline.</p>
 <p>The RAGGED paper uses a symmetric window as a general diagnostic while recognizing that under-retrieval and over-retrieval may have asymmetric effects.</p>
 <h4 id="7-4-rag-scalability-coefficient">7.4 RAG Scalability Coefficient</h4>
 <p>The RAG Scalability Coefficient, or RSC, measures how much sustained benefit a system obtains as retrieval depth increases before performance plateaus or declines.</p>
 <p>Conceptually, it evaluates accumulated improvement over a useful range of k:</p>
-<div class="equation">RSC∝<br/>k=2<br/>∑<br/>k<br/>sat<br/>	​</div>
-<p>​</p>
-<p>[S(k)−S(k−1)]</p>
+<div class="equation">RSC ∝ ∑ₖ₌₂ᵏˢᵃᵗ [S(k) − S(k − 1)]</div>
 <p>where k<br/>sat<br/>	​</p>
 <p>is the final retrieval depth before the marginal gain falls below a predefined threshold or performance begins to decline.</p>
 <p>A high RSC means that the model continues benefiting from more retrieved information across a broad range. A low RSC means that it:</p>
@@ -720,13 +692,11 @@ body.llm-evaluation-page .topic-tag {
 <p>Test cases may include:</p>
 <p>unrelated documents;<br/>topically related distractors;<br/>outdated policies;<br/>contradictory evidence;<br/>duplicate chunks;<br/>truncated passages;<br/>low-authority sources.</p>
 <p>A possible score is:</p>
-<div class="equation">NoiseRobustness=<br/>Performance<br/>clean<br/>	​</div>
-<p>Performance<br/>noisy<br/>	​</p>
-<p>​</p>
+<div class="equation">Noise Robustness = Performance(noisy) ÷ Performance(clean)</div>
 <p>A score near 1 indicates limited degradation.</p>
 <h4 id="8-2-negative-rejection">8.2 Negative rejection</h4>
 <p>Negative Rejection measures whether the system refuses to answer when the corpus lacks sufficient evidence.</p>
-<div class="equation">RejectionAccuracy=<br/>All unanswerable questions<br/>Correctly rejected unanswerable questions<br/>	​</div>
+<div class="equation">Rejection Accuracy = |correctly rejected unanswerable questions| ÷ |all unanswerable questions|</div>
 <p>A reliable RAG system should distinguish:</p>
 <p>answerable questions;<br/>partially answerable questions;<br/>conflicting-evidence questions;<br/>unanswerable questions.</p>
 <p>Forcing an answer in every case may improve superficial answer rates while increasing hallucination risk.</p>
@@ -748,9 +718,9 @@ body.llm-evaluation-page .topic-tag {
 <p>Cost evaluation should include:</p>
 <p>embedding cost;<br/>retrieval infrastructure cost;<br/>reranker cost;<br/>prompt-token cost;<br/>output-token cost;<br/>judge-model evaluation cost;<br/>human-review cost.</p>
 <p>Useful operational metrics include:</p>
-<div class="equation">CostPerSuccessfulTask=<br/>Successfully completed tasks<br/>Total system cost<br/>	​</div>
+<div class="equation">Cost per Successful Task = total system cost ÷ successfully completed tasks</div>
 <p>and:</p>
-<div class="equation">TokensPerSupportedClaim=<br/>Supported factual claims<br/>Total processed tokens<br/>	​</div>
+<div class="equation">Tokens per Supported Claim = total processed tokens ÷ supported factual claims</div>
 <h3 id="9-traditional-nlp-metrics">9. Traditional NLP Metrics</h3>
 <p>Traditional NLP metrics remain useful but should be treated as supporting indicators.</p>
 <h4 id="9-1-exact-match">9.1 Exact Match</h4>
@@ -840,13 +810,7 @@ body.llm-evaluation-page .topic-tag {
 <h4 id="13-3-peak-performance-versus-stability">13.3 Peak performance versus stability</h4>
 <p>A configuration with the highest score at one exact value of k may be less deployable than a slightly weaker but more stable configuration.</p>
 <p>Therefore, model selection should consider:</p>
-<div class="equation">Utility=w<br/>1<br/>	​</div>
-<p>Performance+w<br/>2<br/>	​</p>
-<div class="equation">RSS+w<br/>3<br/>	​</div>
-<div class="equation">RSC−w<br/>4<br/>	​</div>
-<p>Latency−w<br/>5<br/>	​</p>
-<p>Cost−w<br/>6<br/>	​</p>
-<p>Risk</p>
+<div class="equation">Utility = w₁·Performance + w₂·RSS + w₃·RSC − w₄·Latency − w₅·Cost − w₆·Risk</div>
 <p>The weights should reflect business risk rather than convenience.</p>
 <h4 id="13-4-automation-versus-human-review">13.4 Automation versus human review</h4>
 <p>Automated metrics provide scale and speed. Human review provides domain judgment and accountability.</p>
