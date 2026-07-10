@@ -4,21 +4,21 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li</title>
-<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." name="description"/>
+<title>LLM &amp; RAG Evaluation Framework: Metrics, RAGAS, RAGGED, and Production Evals | Yangming Li</title>
+<meta content="A comprehensive LLM and RAG evaluation framework covering retrieval metrics, faithfulness, RAGAS, RAGGED stability, LLM-as-a-Judge, high-risk validation, and production monitoring." name="description"/>
 <meta content="index,follow,max-image-preview:large" name="robots"/>
-<meta content="LLM evaluation, LLM evaluation framework, AI agent evaluation, production LLM evaluation, LLM evaluation metrics, RAG systems, structured outputs" name="keywords"/>
+<meta content="LLM evaluation, RAG evaluation, retrieval augmented generation evaluation, RAGAS, RAGGED, RAG Stability Score, RAG Scalability Coefficient, retrieval quality, faithfulness, groundedness, LLM-as-a-Judge, production LLM evaluation" name="keywords"/>
 <link href="https://yangmingli.com/llm-evaluation/" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Yangming Li" property="og:site_name"/>
-<meta content="LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li" property="og:title"/>
-<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." property="og:description"/>
+<meta content="LLM &amp; RAG Evaluation Framework: RAGAS, RAGGED, and Production Evals | Yangming Li" property="og:title"/>
+<meta content="A comprehensive framework for retrieval metrics, grounded generation, RAGAS, RAGGED stability, LLM-as-a-Judge, high-risk validation, and production monitoring." property="og:description"/>
 <meta content="https://yangmingli.com/llm-evaluation/" property="og:url"/>
 <meta content="https://yangmingli.com/img/Logo.png" property="og:image"/>
 <meta content="Yangming Li site logo" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="LLM Evaluation Framework: RAG, Agents, and Production Evals | Yangming Li" name="twitter:title"/>
-<meta content="A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring." name="twitter:description"/>
+<meta content="LLM &amp; RAG Evaluation Framework: RAGAS, RAGGED, and Production Evals | Yangming Li" name="twitter:title"/>
+<meta content="A comprehensive framework for retrieval metrics, grounded generation, RAGAS, RAGGED stability, LLM-as-a-Judge, high-risk validation, and production monitoring." name="twitter:description"/>
 <meta content="https://yangmingli.com/img/Logo.png" name="twitter:image"/>
 <link href="/favicon.png" rel="icon"/>
 <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -128,6 +128,77 @@ body.llm-evaluation-page .topic-tag {
   font-weight: 800;
 }
 
+.research-article {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.research-article .article-abstract,
+.research-article .article-toc,
+.research-article .article-callout {
+  margin: 24px 0;
+  padding: 22px 24px;
+  border: 1px solid #dbe5e2;
+  border-radius: 14px;
+  background: #f7fbfa;
+}
+
+.research-article h3 {
+  margin-top: 48px;
+  color: #172033;
+  font-size: clamp(1.55rem, 2.5vw, 2rem);
+  line-height: 1.3;
+}
+
+.research-article h4 {
+  margin-top: 32px;
+  color: #0b5f59;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: 1.4;
+}
+
+.research-article p,
+.research-article li {
+  color: #425066;
+  font-size: 1.08rem;
+  line-height: 1.78;
+}
+
+.research-article .article-keywords {
+  color: #0b5f59;
+  font-weight: 700;
+}
+
+.research-article .equation {
+  margin: 18px 0;
+  padding: 16px;
+  overflow-x: auto;
+  border-left: 4px solid #0b7a70;
+  background: #f7fbfa;
+  color: #172033;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.1rem;
+  line-height: 1.65;
+}
+
+.article-toc ol {
+  columns: 2;
+  column-gap: 32px;
+  padding-left: 1.25rem;
+}
+
+.article-toc li {
+  break-inside: avoid;
+  margin-bottom: 7px;
+}
+
+@media (max-width: 760px) {
+  .article-toc ol { columns: 1; }
+  .research-article .article-abstract,
+  .research-article .article-toc,
+  .research-article .article-callout { padding: 18px; }
+}
+
 @media (max-width: 760px) {
   body.llm-evaluation-page .pillar-hero .lead,
   body.llm-evaluation-page .portfolio-section p,
@@ -151,7 +222,7 @@ body.llm-evaluation-page .topic-tag {
   "@type": "WebPage",
   "name": "LLM Evaluation Framework",
   "url": "https://yangmingli.com/llm-evaluation/",
-  "description": "A practical LLM evaluation framework for RAG systems, AI agents, structured outputs, test sets, graders, release gates, and production monitoring.",
+  "description": "A comprehensive LLM and RAG evaluation framework covering retrieval metrics, faithfulness, RAGAS, RAGGED stability, LLM-as-a-Judge, high-risk validation, and production monitoring.",
   "inLanguage": "en",
   "isPartOf": {
     "@id": "https://yangmingli.com/#website"
@@ -231,7 +302,7 @@ body.llm-evaluation-page .topic-tag {
 <section class="pillar-hero">
 <span class="eyebrow">Evaluation Systems</span>
 <h1>LLM Evaluation Framework</h1>
-<p class="lead">A topic hub for evaluating LLM systems across RAG workflows, AI agents, structured outputs, uncertainty, schema validity, release gates, and production monitoring.</p>
+<p class="lead">A practical, comprehensive guide to evaluating LLM and RAG systems across retrieval quality, RAGAS, RAGGED stability, grounded generation, AI agents, release gates, and production monitoring.</p>
 </section>
 <section class="portfolio-section">
 <div class="portfolio-section-header">
@@ -292,7 +363,7 @@ body.llm-evaluation-page .topic-tag {
 <span class="topic-eyebrow">Specialized workflow</span>
 <h2>RAG evaluation summary scorecard</h2>
 <p>RAG evaluation is a specialized workflow inside the broader LLM evaluation framework. Keep this hub as the overview, then use the full guide for metrics, test sets, citations, monitoring, and implementation details.</p>
-<p><a class="topic-card-link" href="/rag-evaluation-not-a-score.html">Read the complete RAG evaluation guide with metrics, test sets, and Python examples</a></p>
+<p><a class="topic-card-link" href="#comprehensive-rag-evaluation-framework">Jump to the complete RAG evaluation research framework</a> · <a class="topic-card-link" href="/rag-evaluation-not-a-score.html">See the implementation guide with test sets and Python examples</a></p>
 </div>
 <div class="eval-table-wrap">
 <table class="eval-table">
@@ -334,6 +405,501 @@ body.llm-evaluation-page .topic-tag {
 </table>
 </div>
 </section>
+<section id="comprehensive-rag-evaluation-framework" class="topic-hub-section">
+<div class="topic-hub-header"><span class="topic-eyebrow">Complete research guide</span><h2>Evaluating Retrieval-Augmented Generation Systems</h2><p>A comprehensive framework for retrieval quality, grounded generation, stability, scalability, and production monitoring.</p></div>
+<article class="research-article">
+<nav class="article-toc" aria-label="RAG evaluation guide contents"><strong>In this guide</strong><ol>
+<li><a href="#1-introduction">1. Introduction</a></li>
+<li><a href="#2-why-a-comprehensive-rag-evaluation-framework-is-necessary">2. Why a Comprehensive RAG Evaluation Framework Is Necessary</a></li>
+<li><a href="#3-layer-one-retrieval-evaluation">3. Layer One: Retrieval Evaluation</a></li>
+<li><a href="#4-evaluating-the-retrieved-context">4. Evaluating the Retrieved Context</a></li>
+<li><a href="#5-layer-two-generation-consistency-evaluation">5. Layer Two: Generation Consistency Evaluation</a></li>
+<li><a href="#6-ragas-reference-free-evaluation-of-rag-pipelines">6. RAGAS: Reference-Free Evaluation of RAG Pipelines</a></li>
+<li><a href="#7-ragged-evaluating-retrieval-depth-stability-and-scalability">7. RAGGED: Evaluating Retrieval-Depth Stability and Scalability</a></li>
+<li><a href="#8-additional-robustness-and-operational-metrics">8. Additional Robustness and Operational Metrics</a></li>
+<li><a href="#9-traditional-nlp-metrics">9. Traditional NLP Metrics</a></li>
+<li><a href="#10-llm-as-a-judge-and-human-evaluation">10. LLM-as-a-Judge and Human Evaluation</a></li>
+<li><a href="#11-three-stage-evaluation-lifecycle">11. Three-Stage Evaluation Lifecycle</a></li>
+<li><a href="#12-evaluation-for-high-risk-industries">12. Evaluation for High-Risk Industries</a></li>
+<li><a href="#13-metric-trade-offs">13. Metric Trade-offs</a></li>
+<li><a href="#14-a-recommended-production-evaluation-matrix">14. A Recommended Production Evaluation Matrix</a></li>
+<li><a href="#15-recommended-end-to-end-evaluation-procedure">15. Recommended End-to-End Evaluation Procedure</a></li>
+<li><a href="#16-discussion">16. Discussion</a></li>
+<li><a href="#17-conclusion">17. Conclusion</a></li>
+</ol></nav>
+<header class="article-callout"><h3>Evaluating Retrieval-Augmented Generation Systems: A Comprehensive Framework for Retrieval Quality, Grounded Generation, Stability, Scalability, and Production Monitoring</h3></header>
+<h3 id="abstract">Abstract</h3>
+<div class="article-abstract"><p>Retrieval-Augmented Generation, or RAG, combines information retrieval with large language model generation to produce responses grounded in external knowledge. Although RAG can reduce dependence on a model’s parametric memory, adding retrieval does not automatically make a system accurate, stable, or trustworthy. A RAG pipeline may fail because the knowledge base lacks the required information, the retriever misses relevant evidence, useful passages are ranked too low, irrelevant passages distract the reader model, the generated answer is unsupported, or the cited sources do not actually entail the associated claims.</p></div>
+<p>A mature evaluation framework must therefore examine the entire pipeline rather than assign a single score to the final response. This paper presents an integrated evaluation methodology covering retrieval coverage, retrieval precision, ranking quality, context quality, answer relevance, faithfulness, factual correctness, citation attribution, retrieval-depth stability, scalability, robustness, latency, cost, and real-world task success.</p>
+<p>The framework incorporates traditional information-retrieval metrics, the reference-free RAGAS methodology, the RAGGED framework’s RAG Stability Score and RAG Scalability Coefficient, LLM-as-a-Judge evaluation, human review, offline benchmarking, online experimentation, and post-deployment monitoring. Special attention is given to high-risk applications such as healthcare, finance, law, and public administration, where authority, provenance, timeliness, auditability, and justified refusal are more important than linguistic fluency alone.</p>
+<p class="article-keywords">Keywords: Retrieval-Augmented Generation, RAG evaluation, retrieval quality, faithfulness, groundedness, RAGAS, RAGGED, retrieval depth, hallucination, LLM-as-a-Judge, online monitoring</p>
+<h3 id="1-introduction">1. Introduction</h3>
+<p>Retrieval-Augmented Generation systems usually contain two broad components:</p>
+<p>A retrieval component, which searches an external corpus for information relevant to a user query.<br/>A generation component, which uses the query and retrieved material to construct a natural-language response.</p>
+<p>In production systems, the architecture is more accurately represented as:</p>
+<p>Knowledge ingestion→Indexing→Query processing→Retrieval→Reranking→Context integration→Generation→Citation and validation</p>
+<p>This expanded pipeline introduces many distinct failure modes. For example, a system may retrieve the correct document but place it below the model’s effective attention range. It may retrieve a passage containing the correct fact alongside several contradictory or outdated passages. The model may produce a factually correct answer from memory but fail to use the retrieved evidence. Alternatively, it may remain perfectly faithful to a retrieved document that is itself incorrect or obsolete.</p>
+<p>Consequently, evaluating only whether the final response “sounds good” is inadequate. A production-grade system must answer three fundamental questions:</p>
+<p>Did retrieval find the right evidence?<br/>Did generation use that evidence faithfully and answer the actual question?<br/>Is the overall system stable, sustainable, auditable, and useful under real operating conditions?</p>
+<p>These questions correspond to three major levels of evaluation:</p>
+<p>Retrieval evaluation→Generation evaluation→System evaluation</p>
+<p>RAGAS formalizes several reference-free dimensions of retrieval and generation quality, while RAGGED extends evaluation to the way performance changes as retrieval depth increases. The original RAGAS paper was published at EACL 2024, and the expanded RAGGED work appeared in the ICML 2025 proceedings.</p>
+<h3 id="2-why-a-comprehensive-rag-evaluation-framework-is-necessary">2. Why a Comprehensive RAG Evaluation Framework Is Necessary</h3>
+<p>Enterprise RAG systems generally pursue two goals:</p>
+<p>Higher accuracy, especially by reducing unsupported statements and hallucinations.<br/>Greater stability, so that responses remain reproducible and useful across queries, documents, model versions, and retrieval configurations.</p>
+<p>Many evaluations focus only on the visible answer. They ask whether it is readable, intelligent, or human-like. Those qualities matter, but they do not reveal where the answer came from or whether the system can be trusted.</p>
+<p>A mature evaluation must diagnose at least three dimensions.</p>
+<h4 id="2-1-retrieval-quality">2.1 Retrieval quality</h4>
+<p>The system must retrieve sufficient, relevant, authoritative, and current evidence. If retrieval fails to obtain the necessary information, a stronger generator cannot reliably manufacture the missing facts.</p>
+<p>This leads to an important engineering principle:</p>
+<p>The lower bound of a RAG system is usually determined by retrieval.</p>
+<h4 id="2-2-generation-consistency">2.2 Generation consistency</h4>
+<p>The answer must remain faithful to the evidence provided. It should not invent facts, contradict the retrieved material, silently combine incompatible sources, or present uncertain inferences as established facts.</p>
+<h4 id="2-3-system-stability-and-sustainability">2.3 System stability and sustainability</h4>
+<p>The system must continue to work when:</p>
+<p>retrieval depth changes;<br/>the corpus grows;<br/>documents contain noise;<br/>queries become ambiguous;<br/>the model or embedding version changes;<br/>users ask questions that the corpus cannot answer;<br/>latency and cost constraints are introduced.</p>
+<p>Evaluation therefore acts not merely as a scoreboard but as a validation of the team’s mental model of the system.</p>
+<h3 id="3-layer-one-retrieval-evaluation">3. Layer One: Retrieval Evaluation</h3>
+<p>Retrieval evaluation establishes whether the system supplies the generator with usable evidence. It should measure coverage, noise, ranking, and the relationship between retrieved documents and the facts required to answer the query.</p>
+<h4 id="3-1-constructing-retrieval-ground-truth">3.1 Constructing retrieval ground truth</h4>
+<p>Traditional retrieval metrics require a labelled evaluation set. Each test case should contain:</p>
+<p>a user query;<br/>one or more relevant documents or passages;<br/>graded relevance labels where possible;<br/>the evidence required to answer the query;<br/>document version and effective date;<br/>a reference answer when available;<br/>an indication of whether the question is answerable from the corpus.</p>
+<p>A binary relevance label is sometimes sufficient:</p>
+<p>rel(d,q)∈{0,1}</p>
+<p>However, graded relevance is more informative:</p>
+<p>rel(d,q)∈{0,1,2,3}</p>
+<p>where, for example:</p>
+<p>0 means irrelevant;<br/>1 means topically related;<br/>2 means useful supporting evidence;<br/>3 means directly contains the required answer.</p>
+<h4 id="3-2-recall-k">3.2 Recall@K</h4>
+<p>Recall@K measures how much of the complete relevant-document set appears among the first K retrieved results:</p>
+<div class="equation">Recall@K=<br/>∣All relevant documents∣<br/>∣Relevant documents in the top K∣<br/>	​</div>
+<p>Suppose five documents are required to support a multi-part answer and four appear in the top ten results:</p>
+<div class="equation">Recall@10=<br/>5<br/>4<br/>	​</div>
+<p>=0.8</p>
+<p>Recall@K is especially important when:</p>
+<p>answers require several sources;<br/>the task involves multi-hop reasoning;<br/>missing one document may remove an essential qualification;<br/>regulations or policies contain distributed evidence.</p>
+<p>A common simplified explanation says that Recall@K is “the proportion of correct documents among the top K.” That description is technically closer to precision. The denominator of recall must be the total number of relevant documents, not simply K.</p>
+<p>High recall is valuable, but it should not be maximized without constraint. Returning more documents may improve coverage while simultaneously introducing more noise.</p>
+<h4 id="3-3-hit-rate-k">3.3 Hit Rate@K</h4>
+<p>Hit Rate@K asks whether the retrieved set contains at least one relevant document.</p>
+<p>For one query:</p>
+<div class="equation">Hit@K={<br/>1,<br/>0,<br/>	​</div>
+<p>if at least one relevant document appears in top K<br/>otherwise<br/>	​</p>
+<p>Across N queries:</p>
+<div class="equation">HitRate@K=<br/>N<br/>1<br/>	​</div>
+<div class="equation">i=1<br/>∑<br/>N<br/>	​</div>
+<p>Hit<br/>i<br/>	​</p>
+<p>@K</p>
+<p>Hit Rate is useful for single-fact question answering but does not measure:</p>
+<p>how many relevant documents were found;<br/>where the first relevant document was ranked;<br/>whether enough evidence was retrieved for a complete answer;<br/>how much irrelevant content was returned.</p>
+<h4 id="3-4-precision-k">3.4 Precision@K</h4>
+<p>Precision@K measures the proportion of the first K retrieved documents that are relevant:</p>
+<div class="equation">Precision@K=<br/>K<br/>∣Relevant documents in the top K∣<br/>	​</div>
+<p>If six of the first ten results are relevant:</p>
+<p>Precision@10=0.6</p>
+<p>Precision represents the retriever’s ability to filter noise. Low precision may produce:</p>
+<p>unnecessary token consumption;<br/>longer prompts;<br/>higher inference costs;<br/>attention dilution;<br/>conflicting evidence;<br/>greater hallucination risk;<br/>reduced answer quality.</p>
+<p>Precision and recall must be interpreted jointly. Aggressive filtering may raise precision while excluding evidence and reducing recall. Increasing K may improve recall but lower precision.</p>
+<h4 id="3-5-error-discovery-rate">3.5 Error Discovery Rate</h4>
+<p>Some engineering materials use Error Discovery Rate, or EDR, to represent the proportion of irrelevant documents in the first K results:</p>
+<div class="equation">EDR@K=<br/>K<br/>∣Irrelevant documents in the top K∣<br/>	​</div>
+<p>Under binary relevance:</p>
+<p>EDR@K=1−Precision@K</p>
+<p>EDR is not a universally standardized RAG metric, so every evaluation report should state its precise definition.</p>
+<h4 id="3-6-mean-reciprocal-rank">3.6 Mean Reciprocal Rank</h4>
+<p>Mean Reciprocal Rank, or MRR, evaluates how early the first relevant result appears:</p>
+<div class="equation">MRR=<br/>N<br/>1<br/>	​</div>
+<div class="equation">i=1<br/>∑<br/>N<br/>	​</div>
+<p>rank<br/>i<br/>	​</p>
+<p>1<br/>	​</p>
+<p>where rank<br/>i<br/>	​</p>
+<p>is the rank of the first relevant document for query i.</p>
+<p>Examples:</p>
+<p>relevant document at rank 1: 1.0;<br/>rank 2: 0.5;<br/>rank 5: 0.2.</p>
+<p>MRR is useful when the system primarily needs one decisive document, such as:</p>
+<p>FAQ retrieval;<br/>policy lookup;<br/>customer-support knowledge search;<br/>direct fact retrieval.</p>
+<p>Its limitation is that it ignores all relevant documents after the first one.</p>
+<h4 id="3-7-normalized-discounted-cumulative-gain">3.7 Normalized Discounted Cumulative Gain</h4>
+<p>Normalized Discounted Cumulative Gain, or nDCG, incorporates graded relevance and document position.</p>
+<div class="equation">DCG@K=<br/>i=1<br/>∑<br/>K<br/>	​</div>
+<p>log<br/>2<br/>	​</p>
+<p>(i+1)<br/>2<br/>rel<br/>i<br/>	​</p>
+<p>−1<br/>	​</p>
+<p>The result is normalized against the ideal ranking:</p>
+<div class="equation">nDCG@K=<br/>IDCG@K<br/>DCG@K<br/>	​</div>
+<p>nDCG rewards systems that place highly relevant documents near the top while assigning less credit to useful documents ranked lower.</p>
+<p>It is preferable to MRR when:</p>
+<p>multiple documents are relevant;<br/>relevance has different degrees;<br/>document order affects downstream generation;<br/>the first result alone does not provide sufficient evidence.</p>
+<h3 id="4-evaluating-the-retrieved-context">4. Evaluating the Retrieved Context</h3>
+<p>Document-level retrieval metrics do not fully determine whether the context sent to the model is suitable for answer generation. A document may be broadly relevant while its selected chunk is not. Conversely, a passage labelled non-gold may still contain useful indirect clues.</p>
+<p>Context evaluation should therefore examine relevance, precision, recall, redundancy, conflict, and ordering.</p>
+<h4 id="4-1-context-relevance">4.1 Context Relevance</h4>
+<p>Context Relevance measures whether the retrieved context contains information needed to answer the question and avoids unnecessary material.</p>
+<p>The original RAGAS approach asks an LLM to extract sentences that are important for answering the query. The score is then calculated as:</p>
+<div class="equation">ContextRelevance=<br/>Total number of context sentences<br/>Number of extracted relevant sentences<br/>	​</div>
+<p>This metric penalizes redundant context and represents the degree to which retrieval remains focused.</p>
+<p>Low Context Relevance can be caused by:</p>
+<p>poor embeddings;<br/>incorrect metadata filters;<br/>unsuitable chunk sizes;<br/>poor query rewriting;<br/>excessively broad retrieval;<br/>weak reranking;<br/>retrieval of topically similar but factually irrelevant passages.</p>
+<h4 id="4-2-context-precision">4.2 Context Precision</h4>
+<p>Context Precision evaluates how much of the supplied context contributes to answering the question and, in ranking-aware versions, whether useful passages appear before irrelevant passages.</p>
+<p>A simplified version is:</p>
+<div class="equation">ContextPrecision=<br/>All retrieved passages<br/>Useful retrieved passages<br/>	​</div>
+<p>A more informative implementation should assign contribution labels at the passage or claim level and reward earlier placement of useful evidence.</p>
+<p>Low Context Precision indicates that the generator is being asked to distinguish signal from excessive noise.</p>
+<h4 id="4-3-context-recall">4.3 Context Recall</h4>
+<p>Context Recall measures whether the retrieved context covers the facts required by the reference answer:</p>
+<div class="equation">ContextRecall=<br/>All required reference facts<br/>Reference facts supported by the retrieved context<br/>	​</div>
+<p>This differs from document-level Recall@K:</p>
+<div class="equation">Recall@K uses a set of relevant documents as the denominator.<br/>Context Recall uses the facts or evidence necessary to answer the question.</div>
+<p>For example, a retrieved document may be labelled relevant but omit one critical condition from the reference answer. Document recall may appear satisfactory while Context Recall remains incomplete.</p>
+<h4 id="4-4-context-conflict-and-version-consistency">4.4 Context conflict and version consistency</h4>
+<p>A production evaluation should also measure whether the retrieved set contains:</p>
+<p>contradictory facts;<br/>superseded policies;<br/>duplicate passages;<br/>documents from incompatible time periods;<br/>evidence from different jurisdictions;<br/>sources with different authority levels.</p>
+<p>These conditions cannot be fully represented by similarity scores. They require metadata-aware rules, temporal validation, source ranking, or human review.</p>
+<h3 id="5-layer-two-generation-consistency-evaluation">5. Layer Two: Generation Consistency Evaluation</h3>
+<p>Once evidence has been retrieved, the next question is whether the model uses it correctly.</p>
+<p>The generation stage is particularly vulnerable to:</p>
+<p>Hallucination: the model introduces unsupported or fabricated content.<br/>Faithfulness failure: the response does not accurately reflect the supplied evidence.<br/>Answer mismatch: the response may discuss the correct topic without answering the actual question.<br/>Incomplete synthesis: the answer omits material facts or limitations.<br/>Citation mismatch: citations are present but do not support the associated claims.</p>
+<h4 id="5-1-faithfulness">5.1 Faithfulness</h4>
+<p>Faithfulness measures whether the factual claims in the answer can be derived from the retrieved context.</p>
+<p>Let the generated answer be decomposed into a set of independently verifiable claims:</p>
+<div class="equation">S={s<br/>1<br/>	​</div>
+<p>,s<br/>2<br/>	​</p>
+<p>,…,s<br/>n<br/>	​</p>
+<p>}</p>
+<p>Let V⊆S be the claims supported by the context. Then:</p>
+<div class="equation">Faithfulness=<br/>∣S∣<br/>∣V∣<br/>	​</div>
+<p>The original RAGAS method uses an LLM to:</p>
+<p>break the answer into individual statements;<br/>determine whether each statement is supported by the context;<br/>calculate the proportion of supported statements.</p>
+<p>This claim-level method is more appropriate than treating the complete answer as a single semantic vector.</p>
+<p>A low score may reveal:</p>
+<p>unsupported claims;<br/>hallucinated names, dates, or numbers;<br/>excessive inference;<br/>reliance on parametric memory rather than retrieved evidence;<br/>conflict between the answer and the cited material.</p>
+<p>Faithfulness should not be confused with objective correctness:</p>
+<div class="equation">Faithful to context<br/><br/>=Correct in the real world</div>
+<p>If the retrieved source is outdated or false, the model may be highly faithful but factually wrong.</p>
+<h4 id="5-2-groundedness">5.2 Groundedness</h4>
+<p>Groundedness is often used as a near-synonym for faithfulness. It asks whether every material conclusion in the answer has identifiable support in the evidence.</p>
+<p>A strong groundedness evaluator should operate at the claim level:</p>
+<div class="equation">Groundedness=<br/>All verifiable answer claims<br/>Entailed answer claims<br/>	​</div>
+<p>It should ideally return not only a score but also:</p>
+<p>unsupported claims;<br/>supporting passage IDs;<br/>entailment confidence;<br/>contradictory evidence;<br/>missing citations.</p>
+<h4 id="5-3-factual-consistency">5.3 Factual Consistency</h4>
+<p>Factual Consistency evaluates whether the answer preserves the meaning and facts of the source material.</p>
+<p>An LLM judge or natural-language inference model may classify each claim as:</p>
+<p>entailed;<br/>contradicted;<br/>not enough information.</p>
+<p>This extends faithfulness by explicitly detecting contradiction rather than merely checking semantic similarity.</p>
+<h4 id="5-4-embedding-based-screening">5.4 Embedding-based screening</h4>
+<p>Some engineering pipelines convert answer sentences and knowledge passages into embeddings, calculate cosine similarity, and flag sentences below a threshold such as 0.65 as potential hallucinations.</p>
+<p>This can be useful as a fast triage mechanism:</p>
+<p>embed each answer sentence;<br/>embed candidate evidence passages;<br/>calculate the highest answer-to-passage similarity;<br/>flag sentences below a selected threshold.</p>
+<p>However, embedding similarity is not a sufficient measure of faithfulness. Two sentences may be semantically similar while disagreeing on:</p>
+<p>a number;<br/>a date;<br/>a negation;<br/>a patient group;<br/>a jurisdiction;<br/>an outcome;<br/>a causal relationship.</p>
+<p>Embedding thresholds should therefore be used for screening, not as the final factuality decision.</p>
+<h4 id="5-5-answer-relevance">5.5 Answer Relevance</h4>
+<p>Answer Relevance evaluates whether the response directly addresses the user’s question.</p>
+<p>It considers:</p>
+<p>directness;<br/>completeness;<br/>avoidance of irrelevant details;<br/>alignment with the requested task;<br/>usefulness to the user.</p>
+<p>It does not necessarily measure factual correctness.</p>
+<p>The original RAGAS method asks an LLM to generate several possible questions from the answer, embeds those generated questions, and compares them with the original query:</p>
+<div class="equation">AnswerRelevance=<br/>n<br/>1<br/>	​</div>
+<div class="equation">i=1<br/>∑<br/>n<br/>	​</div>
+<p>sim(q,q<br/>i<br/>	​</p>
+<p>)</p>
+<p>where q is the original question and q<br/>i<br/>	​</p>
+<p>is a question inferred from the generated answer.</p>
+<p>A response can therefore have:</p>
+<p>high relevance but low faithfulness;<br/>high faithfulness but low relevance;<br/>high correctness but poor completeness;<br/>fluent language but little practical value.</p>
+<p>These dimensions should not be collapsed prematurely.</p>
+<h4 id="5-6-answer-correctness">5.6 Answer Correctness</h4>
+<p>Answer Correctness compares the generated response with an authoritative reference answer or verified facts.</p>
+<p>It may combine:</p>
+<p>factual agreement;<br/>semantic similarity;<br/>key-point coverage;<br/>contradiction penalties;<br/>numerical accuracy;<br/>entity consistency.</p>
+<p>Correctness and faithfulness must remain separate:</p>
+<p>Situation	Faithfulness	Correctness<br/>Answer follows an incorrect retrieved document	High	Low<br/>Answer uses model memory and happens to be correct	Low	High<br/>Answer is fully supported and objectively correct	High	High<br/>Answer is unsupported and wrong	Low	Low</p>
+<h4 id="5-7-completeness">5.7 Completeness</h4>
+<p>Completeness measures whether the answer covers all material information required by the query.</p>
+<p>An answer may be factually correct but incomplete if it omits:</p>
+<p>one part of a multi-part question;<br/>exceptions;<br/>eligibility criteria;<br/>dates;<br/>risks;<br/>limitations;<br/>uncertainty;<br/>required actions.</p>
+<p>A useful formulation is:</p>
+<div class="equation">Completeness=<br/>All required answer elements<br/>Required answer elements present<br/>	​</div>
+<h4 id="5-8-fluency-and-readability">5.8 Fluency and readability</h4>
+<p>Fluency evaluates:</p>
+<p>grammatical quality;<br/>natural language;<br/>logical flow;<br/>structural clarity;<br/>absence of repetition;<br/>appropriate level of detail.</p>
+<p>Fluency matters for user experience, but it must never be treated as a substitute for correctness or groundedness. Highly fluent hallucinations are often more dangerous because users are more likely to trust them.</p>
+<h4 id="5-9-attribution-and-citation-sufficiency">5.9 Attribution and citation sufficiency</h4>
+<p>Attribution evaluates whether factual claims identify their sources.</p>
+<p>A basic metric is:</p>
+<div class="equation">CitationCoverage=<br/>Claims requiring citations<br/>Claims with citations<br/>	​</div>
+<p>Citation correctness should be evaluated separately:</p>
+<div class="equation">CitationAccuracy=<br/>All citations<br/>Citations that support their associated claims<br/>	​</div>
+<p>For high-risk systems, answers should retain stable evidence identifiers such as:</p>
+<p>The policy became effective on 1 April 2025. [Doc12]</p>
+<p>An auditable system should store:</p>
+<p>claim text;<br/>citation ID;<br/>passage text;<br/>source document;<br/>version;<br/>publication date;<br/>retrieval timestamp;<br/>document authority;<br/>entailment result.</p>
+<h3 id="6-ragas-reference-free-evaluation-of-rag-pipelines">6. RAGAS: Reference-Free Evaluation of RAG Pipelines</h3>
+<p>RAGAS was introduced as a framework for automated, reference-free evaluation of RAG systems. Its original paper emphasizes three core dimensions:</p>
+<p>Faithfulness: whether the answer is grounded in the retrieved context.<br/>Answer Relevance: whether the answer addresses the question.<br/>Context Relevance: whether the retrieved context is focused and useful.</p>
+<p>The framework was designed to reduce dependence on manually annotated reference answers and support faster evaluation cycles.</p>
+<h4 id="6-1-faithfulness-in-ragas">6.1 Faithfulness in RAGAS</h4>
+<p>The answer is decomposed into claims. An LLM then determines which claims are supported by the context:</p>
+<div class="equation">F=<br/>All generated statements<br/>Supported statements<br/>	​</div>
+<h4 id="6-2-answer-relevance-in-ragas">6.2 Answer Relevance in RAGAS</h4>
+<p>Questions are generated from the answer and compared semantically with the original user query:</p>
+<div class="equation">AR=<br/>n<br/>1<br/>	​</div>
+<div class="equation">i=1<br/>∑<br/>n<br/>	​</div>
+<p>sim(q,q<br/>i<br/>	​</p>
+<p>)</p>
+<p>This penalizes incomplete, indirect, or redundant answers.</p>
+<h4 id="6-3-context-relevance-in-ragas">6.3 Context Relevance in RAGAS</h4>
+<p>The evaluator extracts only the sentences necessary to answer the question:</p>
+<div class="equation">CR=<br/>All context sentences<br/>Relevant extracted sentences<br/>	​</div>
+<p>This penalizes unnecessary context.</p>
+<h4 id="6-4-limitations-of-automated-ragas-evaluation">6.4 Limitations of automated RAGAS evaluation</h4>
+<p>RAGAS depends on another model for evaluation, so its scores may vary because of:</p>
+<p>judge-model bias;<br/>prompt sensitivity;<br/>API model updates;<br/>long-context limitations;<br/>domain knowledge gaps;<br/>nondeterministic outputs;<br/>preference for particular writing styles.</p>
+<p>The RAGAS study found that context relevance was harder to evaluate than faithfulness and answer relevance, especially for longer contexts.</p>
+<p>Automated evaluation should therefore be calibrated against human judgments.</p>
+<h3 id="7-ragged-evaluating-retrieval-depth-stability-and-scalability">7. RAGGED: Evaluating Retrieval-Depth Stability and Scalability</h3>
+<p>Traditional RAG evaluation often tests one fixed top-K configuration. However, system performance may vary substantially when the number of retrieved passages changes.</p>
+<p>Retrieval depth, denoted by k, is the number of retrieved passages supplied to the reader model.</p>
+<p>RAGGED evaluates how different retriever-reader combinations behave across retrieval depths, datasets, domains, and noise conditions. It introduces two complementary metrics:</p>
+<p>RAG Stability Score;<br/>RAG Scalability Coefficient.</p>
+<p>The framework’s central finding is that reader robustness to noise can be more important than retriever quality alone. The same retriever may help one reader architecture while harming another.</p>
+<h4 id="7-1-retrieval-is-not-always-beneficial">7.1 Retrieval is not always beneficial</h4>
+<p>RAG is frequently assumed to outperform closed-book generation, meaning generation without retrieved context. RAGGED demonstrates that this assumption is not universally valid.</p>
+<p>In the paper’s tested configurations:</p>
+<p>some reader models consistently benefited from additional context;<br/>others peaked at a small k and then declined;<br/>some models performed worse than their no-context baseline when exposed to noisy passages;<br/>multi-hop questions generally required more evidence than simple single-hop questions.</p>
+<p>These findings support the use of a closed-book baseline in every RAG experiment:</p>
+<p>Δ<br/>RAG<br/>	​</p>
+<div class="equation">(k)=Performance<br/>RAG<br/>	​</div>
+<p>(k)−Performance<br/>closed−book<br/>	​</p>
+<p>A negative value means retrieval has degraded performance.</p>
+<h4 id="7-2-two-retrieval-depth-behaviours">7.2 Two retrieval-depth behaviours</h4>
+<p>Improve-then-plateau</p>
+<p>The model improves as more context is added and eventually reaches a plateau:</p>
+<p>S(1)&lt;S(2)&lt;⋯&lt;S(k<br/>plateau<br/>	​</p>
+<p>)</p>
+<p>This pattern indicates that the reader can continue extracting signal while tolerating additional noise.</p>
+<p>Peak-then-decline</p>
+<p>The model improves initially, reaches an early optimum, and then degrades:</p>
+<p>S(1)&lt;⋯&lt;S(k<br/>∗<br/>)&gt;S(k<br/>∗<br/>+1)&gt;⋯</p>
+<p>This suggests sensitivity to irrelevant or distracting information.</p>
+<p>RAGGED found that retrieval-depth behaviour was strongly reader-dependent. In its experiments, models such as Flan and GPT-3.5 often followed improve-then-plateau patterns, while tested LLaMA and Claude configurations were more vulnerable to noise at larger k. These are empirical findings from the tested models and datasets, not universal laws for every future model version.</p>
+<h4 id="7-3-rag-stability-score">7.3 RAG Stability Score</h4>
+<p>The RAG Stability Score, or RSS, measures how stable performance remains near the optimal retrieval depth.</p>
+<p>Let:</p>
+<p>S(k) be performance at retrieval depth k;<br/>k<br/>∗<br/> be the retrieval depth with optimal performance;<br/>Δ define a local window around k<br/>∗<br/>.</p>
+<p>A conceptual representation is:</p>
+<div class="equation">RSS=<br/>S(k<br/>∗<br/>)<br/>k∈[k<br/>∗<br/>−Δ,k<br/>∗<br/>+Δ],k<br/><br/>=k<br/>∗<br/>min<br/>	​</div>
+<p>S(k)<br/>	​</p>
+<p>A value close to 1 indicates that small changes around the optimal k do not substantially affect performance.</p>
+<p>A low score indicates that the system is brittle: selecting a retrieval depth only slightly different from the optimum may produce a major performance decline.</p>
+<p>The RAGGED paper uses a symmetric window as a general diagnostic while recognizing that under-retrieval and over-retrieval may have asymmetric effects.</p>
+<h4 id="7-4-rag-scalability-coefficient">7.4 RAG Scalability Coefficient</h4>
+<p>The RAG Scalability Coefficient, or RSC, measures how much sustained benefit a system obtains as retrieval depth increases before performance plateaus or declines.</p>
+<p>Conceptually, it evaluates accumulated improvement over a useful range of k:</p>
+<div class="equation">RSC∝<br/>k=2<br/>∑<br/>k<br/>sat<br/>	​</div>
+<p>​</p>
+<p>[S(k)−S(k−1)]</p>
+<p>where k<br/>sat<br/>	​</p>
+<p>is the final retrieval depth before the marginal gain falls below a predefined threshold or performance begins to decline.</p>
+<p>A high RSC means that the model continues benefiting from more retrieved information across a broad range. A low RSC means that it:</p>
+<p>plateaus early;<br/>gains very little;<br/>or becomes worse when more context is supplied.</p>
+<p>RSS and RSC answer different questions:</p>
+<div class="equation">RSS asks whether performance is stable near the optimum.<br/>RSC asks whether performance continues to improve as retrieval grows.</div>
+<p>A model can be stable but not scalable. For example, performance may remain consistently mediocre across several retrieval depths. It is therefore necessary to evaluate peak performance, RSS, and RSC together.</p>
+<h4 id="7-5-retriever-quality-versus-reader-robustness">7.5 Retriever quality versus reader robustness</h4>
+<p>A stronger retriever does not automatically yield a better final answer.</p>
+<p>RAGGED compares sparse and dense retrieval methods and finds that:</p>
+<p>retriever performance varies by domain;<br/>improved recall may not translate directly into better answer quality;<br/>reader sensitivity to noise strongly affects downstream results;<br/>specialized domains may benefit significantly from relatively small retrieval improvements;<br/>reranking may help in open-domain tasks but may not consistently help specialized technical domains.</p>
+<p>The framework also reports that reranking generally provided more reliable noise reduction than simply prompting the model to “focus on relevant information,” although their benefits did not necessarily accumulate when combined.</p>
+<h3 id="8-additional-robustness-and-operational-metrics">8. Additional Robustness and Operational Metrics</h3>
+<p>A complete RAG evaluation should move beyond retrieval relevance and answer quality.</p>
+<h4 id="8-1-noise-robustness">8.1 Noise robustness</h4>
+<p>Noise Robustness evaluates whether the system remains accurate when irrelevant or misleading passages are added.</p>
+<p>Test cases may include:</p>
+<p>unrelated documents;<br/>topically related distractors;<br/>outdated policies;<br/>contradictory evidence;<br/>duplicate chunks;<br/>truncated passages;<br/>low-authority sources.</p>
+<p>A possible score is:</p>
+<div class="equation">NoiseRobustness=<br/>Performance<br/>clean<br/>	​</div>
+<p>Performance<br/>noisy<br/>	​</p>
+<p>​</p>
+<p>A score near 1 indicates limited degradation.</p>
+<h4 id="8-2-negative-rejection">8.2 Negative rejection</h4>
+<p>Negative Rejection measures whether the system refuses to answer when the corpus lacks sufficient evidence.</p>
+<div class="equation">RejectionAccuracy=<br/>All unanswerable questions<br/>Correctly rejected unanswerable questions<br/>	​</div>
+<p>A reliable RAG system should distinguish:</p>
+<p>answerable questions;<br/>partially answerable questions;<br/>conflicting-evidence questions;<br/>unanswerable questions.</p>
+<p>Forcing an answer in every case may improve superficial answer rates while increasing hallucination risk.</p>
+<h4 id="8-3-counterfactual-robustness">8.3 Counterfactual robustness</h4>
+<p>Counterfactual Robustness evaluates whether the system is misled by deliberately altered evidence.</p>
+<p>Examples include:</p>
+<p>changing a date;<br/>reversing a conclusion;<br/>replacing a drug indication;<br/>modifying a financial figure;<br/>changing a policy jurisdiction;<br/>inserting a false causal relationship.</p>
+<p>A system that merely copies retrieved content may fail this test. High-risk RAG therefore requires source authority, version control, and cross-source verification in addition to answer faithfulness.</p>
+<h4 id="8-4-diversity">8.4 Diversity</h4>
+<p>Diversity may be relevant when the task requires multiple perspectives, sources, or solution paths.</p>
+<p>Possible dimensions include:</p>
+<p>source diversity;<br/>topic diversity;<br/>institution diversity;<br/>temporal diversity;<br/>document-type diversity.</p>
+<p>Diversity must be balanced with authority. Ten weak sources should not outweigh one definitive regulatory document.</p>
+<h4 id="8-5-latency">8.5 Latency</h4>
+<p>Latency should be measured at multiple levels:</p>
+<p>retrieval latency;<br/>reranking latency;<br/>model generation latency;<br/>end-to-end latency;<br/>P50, P95, and P99 latency.</p>
+<p>RAG quality improvements that make the application unusably slow may not create real business value.</p>
+<h4 id="8-6-cost-and-efficiency">8.6 Cost and efficiency</h4>
+<p>Cost evaluation should include:</p>
+<p>embedding cost;<br/>retrieval infrastructure cost;<br/>reranker cost;<br/>prompt-token cost;<br/>output-token cost;<br/>judge-model evaluation cost;<br/>human-review cost.</p>
+<p>Useful operational metrics include:</p>
+<div class="equation">CostPerSuccessfulTask=<br/>Successfully completed tasks<br/>Total system cost<br/>	​</div>
+<p>and:</p>
+<div class="equation">TokensPerSupportedClaim=<br/>Supported factual claims<br/>Total processed tokens<br/>	​</div>
+<h3 id="9-traditional-nlp-metrics">9. Traditional NLP Metrics</h3>
+<p>Traditional NLP metrics remain useful but should be treated as supporting indicators.</p>
+<h4 id="9-1-exact-match">9.1 Exact Match</h4>
+<p>Exact Match checks whether the generated answer exactly equals a reference answer.</p>
+<p>It is suitable for:</p>
+<p>short factual answers;<br/>extractive question answering;<br/>highly standardized outputs.</p>
+<p>It is overly strict when several phrasings are valid.</p>
+<h4 id="9-2-token-level-f1">9.2 Token-level F1</h4>
+<p>Token-level F1 calculates the harmonic mean of token precision and recall between prediction and reference.</p>
+<p>It provides partial credit when wording differs slightly.</p>
+<h4 id="9-3-bleu">9.3 BLEU</h4>
+<p>BLEU evaluates n-gram overlap and is traditionally associated with machine translation. It is less reliable for open-ended RAG answers because correct answers can use different wording.</p>
+<h4 id="9-4-rouge">9.4 ROUGE</h4>
+<p>ROUGE measures overlap with a reference and is commonly used for summarization. It can help assess content coverage but cannot reliably determine groundedness or factual accuracy.</p>
+<h4 id="9-5-semantic-similarity-and-bertscore">9.5 Semantic similarity and BERTScore</h4>
+<p>Embedding-based or contextual similarity metrics can recognize paraphrases. However, they may overlook small but critical factual differences.</p>
+<p>Traditional metrics cannot independently answer:</p>
+<p>whether the answer is supported by retrieval;<br/>whether a citation entails a claim;<br/>whether a source is current;<br/>whether the system should have refused to answer.</p>
+<h3 id="10-llm-as-a-judge-and-human-evaluation">10. LLM-as-a-Judge and Human Evaluation</h3>
+<h4 id="10-1-llm-as-a-judge">10.1 LLM-as-a-Judge</h4>
+<p>An LLM evaluator can assess:</p>
+<p>faithfulness;<br/>relevance;<br/>correctness;<br/>completeness;<br/>citation support;<br/>clarity;<br/>refusal quality;<br/>safety.</p>
+<p>Common judging formats include:</p>
+<p>numerical scoring;<br/>pass/fail decisions;<br/>pairwise comparison;<br/>rubric-based multi-dimensional scoring;<br/>claim-level entailment assessment.</p>
+<p>Pairwise comparison often produces more stable judgments than asking the model to assign an absolute score without calibration.</p>
+<p>LLM judges may nevertheless exhibit:</p>
+<p>position bias;<br/>verbosity preference;<br/>self-preference;<br/>sensitivity to prompt wording;<br/>domain limitations;<br/>inconsistent reasoning;<br/>model-version drift.</p>
+<p>The evaluation model, prompt, temperature, and rubric should therefore be version-controlled.</p>
+<h4 id="10-2-human-evaluation">10.2 Human evaluation</h4>
+<p>Some dimensions still require human judgment, particularly in finance, healthcare, legal services, and public policy.</p>
+<p>Human reviewers should evaluate:</p>
+<p>factual correctness;<br/>completeness;<br/>fluency;<br/>usefulness;<br/>attribution;<br/>source authority;<br/>timeliness;<br/>compliance;<br/>appropriateness of refusal.</p>
+<p>A strong human-review protocol uses stratified sampling rather than purely random sampling. Samples should include:</p>
+<p>high-risk questions;<br/>low-scoring answers;<br/>high-scoring answers for false-positive checks;<br/>newly added documents;<br/>model-update cases;<br/>user complaints;<br/>citation mismatches;<br/>unanswerable questions;<br/>conflicting-evidence cases.</p>
+<p>Inter-rater agreement should also be measured.</p>
+<h3 id="11-three-stage-evaluation-lifecycle">11. Three-Stage Evaluation Lifecycle</h3>
+<p>A RAG system should pass through three evaluation stages.</p>
+<h4 id="11-1-stage-one-offline-evaluation">11.1 Stage One: Offline evaluation</h4>
+<p>Offline evaluation occurs before deployment using a labelled benchmark.</p>
+<p>A standard workflow includes:</p>
+<p>preparing query-answer pairs;<br/>identifying relevant documents and supporting passages;<br/>executing retrieval;<br/>generating answers;<br/>calculating retrieval, context, generation, and system metrics;<br/>comparing candidate configurations;<br/>analyzing failure categories.</p>
+<p>Metrics may include:</p>
+<div class="equation">Recall@K;<br/>Precision@K;<br/>MRR;<br/>nDCG;<br/>Context Recall;<br/>Faithfulness;<br/>Answer Correctness;<br/>Exact Match;<br/>F1;<br/>BLEU;<br/>ROUGE;<br/>latency;<br/>cost.</div>
+<p>The goal is to detect visible problems such as:</p>
+<p>retrieval bias;<br/>chunking errors;<br/>poor metadata filters;<br/>weak reranking;<br/>excessive hallucination;<br/>incomplete answers;<br/>unstable retrieval depth.</p>
+<h4 id="11-2-stage-two-grey-or-a-b-evaluation">11.2 Stage Two: Grey or A/B evaluation</h4>
+<p>A/B testing exposes a new configuration to a portion of real traffic.</p>
+<p>It should compare:</p>
+<p>user satisfaction;<br/>human ratings;<br/>task-completion rate;<br/>citation usage;<br/>answer abandonment;<br/>follow-up question rate;<br/>escalation to a human;<br/>response latency;<br/>cost per interaction.</p>
+<p>A/B testing answers a critical question:</p>
+<p>Does an offline metric improvement produce real user or business value?</p>
+<p>A configuration may improve Context Recall but generate excessively long answers. Another may improve faithfulness while reducing helpful synthesis. Online experimentation reveals these trade-offs.</p>
+<h4 id="11-3-stage-three-online-monitoring">11.3 Stage Three: Online monitoring</h4>
+<p>Deployment does not end evaluation.</p>
+<p>Continuous monitoring should track:</p>
+<p>retrieval-empty rate;<br/>no-answer rate;<br/>citation coverage;<br/>citation accuracy;<br/>unsupported-claim rate;<br/>answer refusal rate;<br/>user negative feedback;<br/>P50/P95/P99 latency;<br/>model errors;<br/>token usage;<br/>cost;<br/>document-version distribution;<br/>knowledge-base freshness;<br/>model and prompt drift.</p>
+<p>Production monitoring transforms RAG from a laboratory prototype into an operational system.</p>
+<h3 id="12-evaluation-for-high-risk-industries">12. Evaluation for High-Risk Industries</h3>
+<p>Healthcare, finance, law, insurance, and government require stricter standards.</p>
+<p>The central questions are not whether the answer sounds intelligent, but whether:</p>
+<p>information has been fabricated;<br/>claims are traceable;<br/>sources are authoritative;<br/>sources are current;<br/>applicable rules and jurisdictions are correct;<br/>uncertainty is disclosed;<br/>insufficient evidence triggers refusal;<br/>the output can be audited.</p>
+<h4 id="12-1-retrieval-level-validation">12.1 Retrieval-level validation</h4>
+<p>The corpus should consist of controlled, approved sources rather than unrestricted web content.</p>
+<p>Each document should retain:</p>
+<p>source organization;<br/>document ID;<br/>publication date;<br/>effective date;<br/>expiry date;<br/>version;<br/>jurisdiction;<br/>authority level;<br/>access permissions;<br/>approval status.</p>
+<h4 id="12-2-generation-level-validation">12.2 Generation-level validation</h4>
+<p>Material claims should preserve citation IDs, for example:</p>
+<p>The company reported operating income of X for the fiscal year. [Doc12]</p>
+<p>A stronger system maps every factual sentence to one or more evidence spans.</p>
+<h4 id="12-3-audit-level-validation">12.3 Audit-level validation</h4>
+<p>Human reviewers should inspect whether:</p>
+<p>the citation supports the claim;<br/>the correct document version was used;<br/>dates from different reporting periods were mixed;<br/>a management statement was presented as fact;<br/>a guideline was applied outside its intended population;<br/>a conclusion omitted a critical limitation;<br/>the system should have refused to answer.</p>
+<p>One inaccurate sentence in a medical or financial report may materially alter a decision. In such environments, the objective is not “generate more fluently,” but “produce an answer that is demonstrably correct and traceable.”</p>
+<h3 id="13-metric-trade-offs">13. Metric Trade-offs</h3>
+<p>No RAG metric should be optimized in isolation.</p>
+<h4 id="13-1-recall-versus-precision">13.1 Recall versus precision</h4>
+<p>Very high recall may introduce noise. Very aggressive precision optimization may remove critical evidence.</p>
+<p>The preferred operating point depends on the task:</p>
+<div class="equation">compliance discovery may prioritize recall;<br/>FAQ retrieval may prioritize precision and MRR;<br/>multi-hop research requires recall and nDCG;<br/>high-risk decision support requires recall plus strict evidence validation.</div>
+<h4 id="13-2-constraint-versus-expressiveness">13.2 Constraint versus expressiveness</h4>
+<p>Over-constrained generation may:</p>
+<p>sound mechanical;<br/>omit helpful synthesis;<br/>reduce readability;<br/>fail to connect evidence.</p>
+<p>Overly free generation may:</p>
+<p>hallucinate;<br/>overgeneralize;<br/>introduce unsupported conclusions;<br/>weaken auditability.</p>
+<p>A practical rule is:</p>
+<p>factual claims require evidence;<br/>analysis must be labelled as analysis;<br/>inference must be distinguished from fact;<br/>insufficient evidence should lead to uncertainty or refusal.</p>
+<h4 id="13-3-peak-performance-versus-stability">13.3 Peak performance versus stability</h4>
+<p>A configuration with the highest score at one exact value of k may be less deployable than a slightly weaker but more stable configuration.</p>
+<p>Therefore, model selection should consider:</p>
+<div class="equation">Utility=w<br/>1<br/>	​</div>
+<p>Performance+w<br/>2<br/>	​</p>
+<div class="equation">RSS+w<br/>3<br/>	​</div>
+<div class="equation">RSC−w<br/>4<br/>	​</div>
+<p>Latency−w<br/>5<br/>	​</p>
+<p>Cost−w<br/>6<br/>	​</p>
+<p>Risk</p>
+<p>The weights should reflect business risk rather than convenience.</p>
+<h4 id="13-4-automation-versus-human-review">13.4 Automation versus human review</h4>
+<p>Automated metrics provide scale and speed. Human review provides domain judgment and accountability.</p>
+<p>The correct design is not to choose one, but to create a hierarchy:</p>
+<p>Automated screening→LLM evaluation→Risk-based human review</p>
+<h3 id="14-a-recommended-production-evaluation-matrix">14. A Recommended Production Evaluation Matrix</h3>
+<p>Layer	Metric	Question answered<br/>Retrieval	Recall@K	Were all required documents retrieved?<br/>Retrieval	Hit Rate@K	Was at least one relevant document found?<br/>Retrieval	Precision@K	How much retrieved content is relevant?<br/>Retrieval	MRR	How early does the first relevant result appear?<br/>Retrieval	nDCG	Are highly relevant documents ranked near the top?<br/>Context	Context Relevance	Is the context focused on the question?<br/>Context	Context Precision	How much context contributes to the answer?<br/>Context	Context Recall	Does the context cover every required fact?<br/>Generation	Faithfulness	Are answer claims supported by the context?<br/>Generation	Answer Relevance	Does the response answer the user’s question?<br/>Generation	Correctness	Is the response objectively accurate?<br/>Generation	Completeness	Are all required elements covered?<br/>Generation	Attribution	Are factual claims properly cited?<br/>Generation	Citation Accuracy	Do citations support their associated claims?<br/>Robustness	Noise Robustness	Does irrelevant context degrade performance?<br/>Robustness	Negative Rejection	Does the system refuse unanswerable questions?<br/>Robustness	Counterfactual Robustness	Can false evidence mislead the system?<br/>Retrieval depth	RSS	Is performance stable near optimal k?<br/>Retrieval depth	RSC	Does performance continue improving as k grows?<br/>Operations	Latency	Is the response fast enough?<br/>Operations	Cost	Is the system economically sustainable?<br/>Business	Task Success	Does the user complete the intended task?<br/>Business	User Satisfaction	Is the result useful in practice?<br/>Governance	Traceability	Can every important claim be audited?</p>
+<h3 id="15-recommended-end-to-end-evaluation-procedure">15. Recommended End-to-End Evaluation Procedure</h3>
+<p>A production RAG evaluation can follow the sequence below.</p>
+<p>Step 1: Build a representative benchmark</p>
+<p>Include:</p>
+<p>common questions;<br/>long-tail questions;<br/>multi-hop questions;<br/>ambiguous questions;<br/>unanswerable questions;<br/>temporal questions;<br/>adversarial questions;<br/>high-risk questions.<br/>Step 2: Establish ground truth</p>
+<p>For each query, record:</p>
+<p>relevant documents;<br/>evidence spans;<br/>relevance levels;<br/>required facts;<br/>reference answers;<br/>acceptable alternative answers;<br/>required refusal conditions.<br/>Step 3: Evaluate retrieval</p>
+<p>Calculate:</p>
+<p>Recall@K, Precision@K, HitRate@K, MRR, nDCG</p>
+<p>Test several K values rather than one fixed setting.</p>
+<p>Step 4: Evaluate context construction</p>
+<p>Measure:</p>
+<p>Context Relevance;<br/>Context Precision;<br/>Context Recall;<br/>duplication;<br/>contradiction;<br/>temporal consistency;<br/>source authority.<br/>Step 5: Evaluate generation</p>
+<p>Measure:</p>
+<p>Faithfulness;<br/>Answer Relevance;<br/>Correctness;<br/>Completeness;<br/>Citation Coverage;<br/>Citation Accuracy;<br/>refusal appropriateness.<br/>Step 6: Evaluate stability and scalability</p>
+<p>Run the system across a range of retrieval depths:</p>
+<p>k∈{1,2,3,5,10,20,…}</p>
+<p>Calculate or inspect:</p>
+<div class="equation">peak performance;<br/>optimal k;<br/>RSS;<br/>RSC;<br/>closed-book improvement;<br/>noise sensitivity.<br/>Step 7: Conduct robustness tests</div>
+<p>Inject:</p>
+<p>irrelevant passages;<br/>outdated documents;<br/>contradictory claims;<br/>counterfactual facts;<br/>incomplete questions;<br/>prompt-injection content.<br/>Step 8: Calibrate automated judges</p>
+<p>Compare LLM scores with expert human labels. Revise:</p>
+<p>rubrics;<br/>prompts;<br/>thresholds;<br/>sampling strategies.<br/>Step 9: Run A/B tests</p>
+<p>Confirm that offline gains improve real task success without unacceptable cost or latency.</p>
+<p>Step 10: Monitor continuously</p>
+<p>Version and record:</p>
+<p>retriever;<br/>embedding model;<br/>reranker;<br/>reader model;<br/>prompt;<br/>knowledge base;<br/>evaluation dataset;<br/>metric implementation.</p>
+<h3 id="16-discussion">16. Discussion</h3>
+<p>A qualified RAG evaluation report should not merely state:</p>
+<p>Recall@10 is 0.86 and Faithfulness is 0.91.</p>
+<p>It should explain:</p>
+<div class="equation">why K=10 was chosen;<br/>how relevance was labelled;<br/>whether the answer required one or several documents;<br/>whether the judge was calibrated;<br/>which error categories remain;<br/>whether retrieval introduces noise;<br/>whether high faithfulness reduces completeness;<br/>whether the system is stable around its chosen retrieval depth;<br/>whether the result meets the organization’s risk tolerance.</div>
+<p>RAG evaluation is therefore better understood as a test of system understanding.</p>
+<p>It reveals whether the development team understands:</p>
+<p>where knowledge enters the system;<br/>how retrieval errors propagate;<br/>how the model distinguishes signal from noise;<br/>how claims are connected to evidence;<br/>when the system should refuse;<br/>how errors can be reproduced and corrected.</p>
+<p>The goal is not to maximize every number. It is to build a controlled and explainable system whose limitations are visible.</p>
+<h3 id="17-conclusion">17. Conclusion</h3>
+<p>A reliable RAG system must do more than retrieve documents and produce fluent text. It must:</p>
+<p>find the necessary evidence;<br/>rank useful evidence appropriately;<br/>avoid excessive noise;<br/>cover the facts required to answer the question;<br/>remain faithful to the evidence;<br/>distinguish fact from inference;<br/>cite claims accurately;<br/>reject unsupported questions;<br/>remain stable as retrieval conditions change;<br/>continue delivering value after deployment.</p>
+<p>Traditional retrieval metrics such as Recall@K, Precision@K, MRR, and nDCG remain essential. RAGAS contributes automated evaluation of faithfulness, answer relevance, and context relevance. RAGGED adds retrieval-depth stability and scalability through RSS and RSC. Human evaluation, robustness testing, A/B experiments, and online monitoring complete the production lifecycle.</p>
+<p>The central philosophy can be summarized as follows:</p>
+<p>RAG evaluation is not only about whether a system can produce an answer. It is about whether the system can find the facts, remain faithful to those facts, explain where they came from, and take responsibility for what it says.</p>
+<h3 id="references">References</h3>
+<p>Es, S., James, J., Espinosa Anke, L., and Schockaert, S. RAGAs: Automated Evaluation of Retrieval Augmented Generation. Proceedings of EACL 2024, System Demonstrations, pp. 150–158.<br/>Hsia, J., Shaikh, A., Wang, Z. Z., and Neubig, G. RAGGED: Towards Informed Design of Scalable and Stable RAG Systems. Proceedings of ICML 2025, PMLR 267, pp. 24139–24155.<br/>Yu, H., Gan, A., Zhang, K., Tong, S., Liu, Q., and Liu, Z. Evaluation of Retrieval-Augmented Generation: A Survey. The survey organizes RAG evaluation around retrieval and generation outputs, relevance, accuracy, faithfulness, datasets, benchmarks, and limitations.</p>
+</article></section>
+
 <section id="agent-evaluation-framework" class="topic-hub-section">
 <div class="topic-hub-header">
 <span class="topic-eyebrow">Agent evaluation</span>
