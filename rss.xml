@@ -5,8 +5,16 @@
   <link>https://yangmingli.com/</link>
   <description>AI/ML, Product, Engineering, and Investing insights by Yangming Li</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 09 Jul 2026 12:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 10 Jul 2026 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://yangmingli.com/rss.xml" rel="self" type="application/rss+xml" />
+
+  <item>
+    <title>从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘</title>
+    <link>https://yangmingli.com/text2sql-rights-redemption-agent.html</link>
+    <description>从三层 RAG、PGVector、多轮上下文与 SQL 校验，到 RocketMQ、幂等和最终一致性，完整复盘企业级数据查询 Agent 的工程闭环。</description>
+    <pubDate>Fri, 10 Jul 2026 12:00:00 GMT</pubDate>
+    <guid>https://yangmingli.com/text2sql-rights-redemption-agent.html</guid>
+  </item>
 
   <item>
     <title>Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry</title>

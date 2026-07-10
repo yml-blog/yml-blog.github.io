@@ -1,5 +1,20 @@
 const postMetadata = [
   {
+    title: "从 Text2SQL 到权益核销：一次业务数据智能查询 Agent 的工程落地复盘",
+    href: "/text2sql-rights-redemption-agent.html",
+    date: "2026-07-10",
+    summary:
+      "从三层 RAG、PGVector、多轮上下文与 SQL 校验，到 RocketMQ、幂等和最终一致性，完整复盘企业级数据查询 Agent 的工程闭环。",
+    tags: ["Text2SQL", "AI Agent", "RAG", "distributed systems"],
+    area: "ai-engineering",
+    featured: true,
+    readingTime: "20 min read",
+    relatedProjects: ["ai-engineering", "data-products"],
+    series: "Enterprise Data Agents",
+    images: ["https://yangmingli.com/img/Logo.png"],
+    canonicalUrl: "https://yangmingli.com/text2sql-rights-redemption-agent.html"
+  },
+  {
     title: "Building a Practical Enterprise Data Agent with Microsoft Fabric Data Agent and Azure AI Foundry",
     href: "/fabric-data-agent-azure-ai-foundry.html",
     date: "2026-07-09",
